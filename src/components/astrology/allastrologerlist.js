@@ -148,22 +148,7 @@ class AllAstrologerList extends React.Component {
                                     {/* <Link className="btn btn-primary btn-sm st-d">
                                       {astrologer?.status}
                                     </Link> */}
-                                    <Link
-                                      className="btn btn-primary btn-sm"
-                                      to={
-                                        "/allastrologerlist/" + astrologer._id
-                                      }
-                                    >
-                                      {/* <span
-                                        className="sr-btn"
-                                        onClick={this.onCallSubmit}
-                                      >
-                                        <i class="fa fa-phone">
-                                          {astrologer?.userRequestForm}
-                                        </i>{' '}
-                                        Call
-                                      </span> */}
-                                      {/* {localStorage.getItem('auth-token') ? ( */}
+                                    {/* <Link className="btn btn-primary btn-sm statusbt">
                                       <span
                                         className="sr-btn"
                                         onClick={(e) =>
@@ -176,25 +161,25 @@ class AllAstrologerList extends React.Component {
                                       >
                                         <i class="fa fa-phone"> Call</i>
                                       </span>
-
-                                      {/* ) : (
-                                        <span
-                                          className="sr-btn"
-                                          onClick={(e) =>
-                                            (window.location.href =
-                                              '/#/login-register')
-                                          }
-                                        >
-                                          <i class="fa fa-phone"></i> Call
-                                        </span>
-                                      )} */}
-                                      {/* <small>
-                                            / 20{' '}
-                                            <i class="fa fa-inr" aria-hidden="true">
-                                              {astrologer?.conrubute_hrs}
-                                            </i>{' '}
-                                            per Hour
-                                          </small> */}
+                                    </Link> */}
+                                    <Link
+                                      className="btn btn-primary btn-sm statusbtn"
+                                      to={
+                                        "/allastrologerlist/" + astrologer._id
+                                      }
+                                    >
+                                      <span
+                                        className="sr-btn"
+                                        onClick={(e) =>
+                                          this.submitHandler(
+                                            e,
+                                            astrologer?._id,
+                                            astrologer?.mobile
+                                          )
+                                        }
+                                      >
+                                        <i class="fa fa-phone"> Call</i>
+                                      </span>
                                     </Link>
                                     <br /> <span> Wait ~ 5m</span>
                                   </div>

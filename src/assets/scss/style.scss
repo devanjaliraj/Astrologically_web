@@ -1350,5 +1350,19 @@ small.sm-txt {
 //   swiper slide
 
 
-
+// btncsss 
+a.btn.btn-primary.btn-sm.statusbtn:hover {
+    color: #000;
+    background: #fff;
+}
+a.btn.btn-primary.btn-sm.statusbt {
+    background: #0cbb0a;
+    color: #fff;
+    border-color: #0cbb0a;
+}
+a.btn.btn-primary.btn-sm.statusbt:hover{
+    background: #fff;
+    color: #0cbb0a !important;
+    border-color: #0cbb0a !important;
+}
 
