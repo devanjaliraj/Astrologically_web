@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "image": "/assets/img/icon-img/secure-3.png",
+    "title": "100% Data Security",
+    "subtitle": "Lorem ipsum dolor sit amet consectetu adipisicing elit sed"
+  },
+  {
+    "id": 2,
+    "image": "/assets/img/icon-img/secure-2.png",
+    "title": "100% Certified Astrologers ",
+    "subtitle": "Lorem ipsum dolor sit amet consectetu adipisicing elit sed"
+  },
+  {
+    "id": 3,
+    "image": "/assets/img/icon-img/secure-1.png",
+    "title": "100% Secure Payment ",
+    "subtitle": "Lorem ipsum dolor sit amet consectetu adipisicing elit sed"
+  },
+  {
+    "id": 4,
+    "image": "/assets/img/icon-img/secure-4.png",
+    "title": "100% Money Back Guarantee",
+    "subtitle": "Lorem ipsum dolor sit amet consectetu adipisicing elit sed"
+  }
+]

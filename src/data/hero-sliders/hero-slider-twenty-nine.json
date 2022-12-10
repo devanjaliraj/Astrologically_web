@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "title": "Start control of your professional destiny",
+    "subtitle": " It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum.",
+    "image": "/assets/img/slider/slider-31.jpg",
+    "url": "/shop-grid-standard"
+  },
+  {
+    "id": 2,
+    "title": "Start control of your professional destiny",
+    "subtitle": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum.",
+    "image": "/assets/img/slider/slider-32.jpg",
+    "url": "/shop-grid-standard"
+  },
+  {
+    "id": 3,
+    "title": "Start control of your professional destiny",
+    "subtitle": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum.",
+    "image": "/assets/img/slider/slider-33.jpg",
+    "url": "/shop-grid-standard"
+  }
+]
