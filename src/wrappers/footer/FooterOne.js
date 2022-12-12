@@ -20,7 +20,7 @@ const FooterOne = ({
   const [top, setTop] = useState(0);
   const [categoryList, setCategoryList] = useState([]);
   const getCategory = () => {
-    Axios.get(`http://13.235.180.192:8000/admin/getallCategory`)
+    Axios.get(`http://13.233.228.168:8000/admin/getallCategory`)
       .then((response) => {
         console.log("5555555", response.data.data);
         setCategoryList(response.data.data);

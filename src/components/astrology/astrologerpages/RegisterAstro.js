@@ -36,7 +36,7 @@ class RegisterAstro extends React.Component {
          e.preventDefault();
          // this.setState({ otp: false });
          axios
-           .post("http://13.235.180.192:8000/user/signup", this.state)
+           .post("http://13.233.228.168:8000/user/signup", this.state)
            .then((response) => {
              console.log(response);
              localStorage.setItem("auth-token", response.data.token);
