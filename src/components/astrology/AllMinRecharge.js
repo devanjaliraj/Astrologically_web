@@ -88,10 +88,10 @@ class AllMinRecharge extends React.Component {
                   </div>
                 </Link>
               </Col>
-              {planList.length
-                ? planList.map((plan, index) => {
+              {/* {planList.length
+                ? planList.map((plan, index) => { */}
                     return (
-                      <Col xl="3" lg="3" md="3" sm="6" xs="6" key={index}>
+                      {/* <Col xl="3" lg="3" md="3" sm="6" xs="6" key={index}>
                         <Link to="/paymentdetail">
                           <div className="promoBox success-box info-ribbon">
                             <aside>
@@ -100,10 +100,10 @@ class AllMinRecharge extends React.Component {
                             <h4>INR {plan.amount}</h4>
                           </div>
                         </Link>
-                      </Col>
+                      </Col> */}
                     );
-                  })
-                : null}
+                  {/* })
+                : null} */}
 
               {/*    <Col xl="3" lg="3" md="3" sm="6" xs="6">
                                <Link to="paymentdetail">

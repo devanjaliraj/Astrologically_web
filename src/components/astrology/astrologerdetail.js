@@ -1,5 +1,7 @@
 import React from "react";
+// import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+
 import {
   Container,
   Row,
@@ -221,6 +223,7 @@ class AstrologerDetail extends React.Component {
                           </Button>
                         </Col>
                         <Col md="3" className="mt-30">
+                          <Link to="/VideoCall" >
                           <Button className="btn-as st" onClick={this.toggle}>
                             <i
                               class="fa fa-video-camera"
@@ -232,6 +235,7 @@ class AstrologerDetail extends React.Component {
                               {/* {this.state.callCharge} */}
                             </small>
                           </Button>
+                          </Link>
                         </Col>
                         <Col md="3" className="mt-30">
                           <Button className="btn-as st" onClick={this.toggle}>
@@ -533,3 +537,15 @@ class AstrologerDetail extends React.Component {
 }
 
 export default AstrologerDetail;
+export function getUserID() {
+  const name = JSON.parse(localStorage.getItem("userData"))
+  const names = name.fullname
+  return names
+  
+}
+
+// export function getUserID(userid, roomid, userName) {
+//   return fetch(
+//     `http://13.233.228.168:8000/user/allchatwithuser/638dcc72ef0c127a0c5a0426`
+//   ).then((res) => res.json());
+// }

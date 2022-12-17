@@ -1,139 +1,142 @@
-import React, { Fragment, Component } from 'react'
-import MetaTags from 'react-meta-tags'
-import Tab from 'react-bootstrap/Tab'
-import Nav from 'react-bootstrap/Nav'
-import axios from 'axios'
-import LayoutOne from '../../layouts/LayoutOne'
-import { Label, Input, Form, Button } from 'reactstrap'
-import swal from 'sweetalert'
+import React, { Fragment, Component } from "react";
+import MetaTags from "react-meta-tags";
+import Tab from "react-bootstrap/Tab";
+import Nav from "react-bootstrap/Nav";
+import axios from "axios";
+import LayoutOne from "../../layouts/LayoutOne";
+import { Label, Input, Form, Button } from "reactstrap";
+import swal from "sweetalert";
 export default class LoginRegister extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
-      fullname: '',
-      email: '',
-      mobile: '',
-      dob: '',
-      userimg: '',
-      selectedName: '',
+      fullname: "",
+      email: "",
+      mobile: "",
+      dob: "",
+      userimg: "",
+      selectedName: "",
       selectedFile: null,
-      otp: '',
-      otpMsg: '',
-    }
+      otp: "",
+      otpMsg: "",
+    };
   }
   //Image Submit Handler
   onChangeHandler = (event) => {
-    this.setState({ selectedFile: event.target.files[0] })
-    this.setState({ selectedName: event.target.files[0].name })
-    console.log(event.target.files[0])
-  }
+    this.setState({ selectedFile: event.target.files[0] });
+    this.setState({ selectedName: event.target.files[0].name });
+    console.log(event.target.files[0]);
+  };
   otpHandler = (e) => {
-    e.preventDefault()
-    console.log(this.state)
+    e.preventDefault();
+    console.log(this.state);
     axios
       .post(`http://13.233.228.168:8000/user/userVryfyotp`, {
         mobile: parseInt(this.state.mobile),
         otp: parseInt(this.state.otp),
       })
       .then((response) => {
-        console.log('@@@####', response.data)
-        let id = response.data.user
+        console.log("@@@####", response.data);
+        let id = response.data.user;
 
         if (response.data.status === true) {
-          this.setState({ otpMsg: response.data.msg })
-          localStorage.setItem('userData', JSON.stringify(response?.data?.data))
-          localStorage.setItem('token', JSON.stringify(response?.data?.token))
+          this.setState({ otpMsg: response.data.msg });
           localStorage.setItem(
-            'user_id',
-            JSON.stringify(response?.data?.data?._id),
-          )
+            "userData",
+            JSON.stringify(response?.data?.data)
+          );
+          localStorage.setItem("token", JSON.stringify(response?.data?.token));
           localStorage.setItem(
-            'user_mobile_no',
-            JSON.stringify(response?.data?.data?.mobile),
-          )
-          if (response.data.msg === 'otp verified') {
-            swal('otp verified')
+            "user_id",
+            JSON.stringify(response?.data?.data?._id)
+          );
+          localStorage.setItem(
+            "user_mobile_no",
+            JSON.stringify(response?.data?.data?.mobile)
+          );
+          if (response.data.msg === "otp verified") {
+            swal("otp verified");
             // window.location.replace('/')
-            this.props.history.push('/')
+            this.props.history.push("/");
           }
         }
       })
       .catch((error) => {
-        console.log(error)
+        console.log(error);
         //this.setState({ errormsg: error });
-      })
-  }
+      });
+  };
 
   handlechange = (e) => {
-    e.preventDefault()
-    this.setState({ [e.target.name]: e.target.value })
-  }
+    e.preventDefault();
+    this.setState({ [e.target.name]: e.target.value });
+  };
 
   loginHandler = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     let obj = {
       mobile: parseInt(this.state.mobile),
-    }
+    };
 
     axios
       .post(`http://13.233.228.168:8000/user/userlogin`, obj)
       .then((response) => {
-        console.log('@@@####', response.data)
-        this.setState({ otpMsg: response.data.msg })
-        if (response.data.msg === 'otp Send Successfully') {
-          swal('otp Send Successfully')
+        console.log("@@@####", response.data);
+        this.setState({ otpMsg: response.data.msg });
+        if (response.data.msg === "otp Send Successfully") {
+          swal("otp Send Successfully");
           // this.props.history.push('/')
         }
       })
       .catch((error) => {
-        console.log(error)
-        console.log(error.response)
-        swal('Error!', "User doesn't Exist", 'error')
-      })
-  }
+        console.log(error);
+        console.log(error.response);
+        swal("Error!", "User doesn't Exist", "error");
+      });
+  };
   // otp = true;
   changeHandler = (e) => {
-    e.preventDefault()
-    this.setState({ [e.target.name]: e.target.value })
-  }
+    e.preventDefault();
+    this.setState({ [e.target.name]: e.target.value });
+  };
   submitHandler = (e) => {
-    e.preventDefault()
-    console.log(this.state.data)
-    const data = new FormData()
-    data.append('fullname', this.state.fullname)
-    data.append('email', this.state.email)
-    data.append('mobile', this.state.mobile)
+    e.preventDefault();
+    console.log(this.state.data);
+    const data = new FormData();
+    data.append("fullname", this.state.fullname);
+    data.append("email", this.state.email);
+    data.append("mobile", this.state.mobile);
 
-    data.append('dob', this.state.dob)
+    data.append("dob", this.state.dob);
     if (this.state.selectedFile !== null) {
-      data.append('userimg', this.state.selectedFile, this.state.selectedName)
+      data.append("userimg", this.state.selectedFile, this.state.selectedName);
     }
 
     for (var value of data.values()) {
-      console.log(value)
+      console.log(value);
     }
 
     for (var key of data.keys()) {
-      console.log(key)
+      console.log(key);
     }
     // this.setState({ otp: false });
     axios
       .post(`http://13.233.228.168:8000/user/usersignup`, data)
       .then((response) => {
-        console.log(response.data.msg)
-        localStorage.setItem('auth-token', response.data.token)
+        console.log(response.data.msg);
+        localStorage.setItem("auth-token", response.data.token);
         this.setState({
           // token: response.data.token,
           otpMsg: response.data.otp,
-        })
-        swal('Success!', ' Register Successful Done!', 'success')
-        this.props.history.push('/')
+        });
+        swal("Success!", " Register Successful Done!", "success");
+        this.props.history.push("/");
       })
       .catch((error) => {
-        console.log(error.response)
-        swal('Error!', 'Something went wrong', 'error')
-      })
-  }
+        console.log(error.response);
+        swal("Error!", "Something went wrong", "error");
+      });
+  };
   render() {
     // console.log(this.state.otp);
     return (
@@ -167,7 +170,7 @@ export default class LoginRegister extends Component {
                       <Tab.Content>
                         <Tab.Pane eventKey="login">
                           <div className="login-form-container">
-                            {this.state.otpMsg === 'otp Send Successfully' ? (
+                            {this.state.otpMsg === "otp Send Successfully" ? (
                               <div className="login-register-form">
                                 <Form onSubmit={this.otpHandler}>
                                   <Input
@@ -291,6 +294,6 @@ export default class LoginRegister extends Component {
           </div>
         </LayoutOne>
       </Fragment>
-    )
+    );
   }
 }

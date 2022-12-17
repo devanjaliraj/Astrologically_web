@@ -5,6 +5,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
+  Navigate,
   Redirect,
   HashRouter,
 } from "react-router-dom";
@@ -141,14 +142,16 @@ const DemoVideoCall = lazy(() =>
 const DemoCall = lazy(() => import("./components/astrology/DemoCall"));
 
 // zegocloud //
-const Call = lazy(() => import("./components/astrology/zegocloud/Call"));
+const Room = lazy(() => import("./components/astrology/zegocloud/Room"));
 const LiveVideo = lazy(() =>
   import("./components/astrology/zegocloud/LiveVideo")
 );
 const VideoCall = lazy(() =>
   import("./components/astrology/zegocloud/VideoCall")
 );
-
+const VideoCall2 = lazy(() =>
+  import("./components/astrology/zegocloud/VideoCall2")
+);
 // astology pages start
 
 const AlertPage = lazy(() => import("./components/astrology/AlertPage"));
@@ -266,7 +269,7 @@ const AddressForm = lazy(() => import("./components/astrology/AddressForm"));
 const AddressFormEdit = lazy(() =>
   import("./components/astrology/AddressFormEdit")
 );
-
+const Home = lazy(() => import("./components/astrology/zegocloud/Home"));
 const Cart = lazy(() => import("./pages/other/Cart"));
 const MyOrder = lazy(() => import("./pages/other/MyOrder"));
 const Wishlist = lazy(() => import("./pages/other/Wishlist"));
@@ -558,6 +561,16 @@ const App = (props) => {
                     path={process.env.PUBLIC_URL + "/product-slider/:id"}
                     component={ProductSlider}
                   />
+                  <Route
+                    path={process.env.PUBLIC_URL + "/room"}
+                    component={Room}
+                  />
+
+                  <Route
+                    path={process.env.PUBLIC_URL + "/home"}
+                    component={Home}
+                  />
+
                   <Route
                     path={process.env.PUBLIC_URL + "/product-fixed-image/:id"}
                     component={ProductFixedImage}
@@ -879,10 +892,7 @@ const App = (props) => {
                     component={Phone}
                   />
                   {/* // zegocloud // */}
-                  <Route
-                    path={process.env.PUBLIC_URL + "/call"}
-                    component={Call}
-                  />
+
                   <Route
                     path={process.env.PUBLIC_URL + "/livevideo"}
                     component={LiveVideo}
@@ -890,6 +900,10 @@ const App = (props) => {
                   <Route
                     path={process.env.PUBLIC_URL + "/videocall"}
                     component={VideoCall}
+                  />
+                   <Route
+                    path={process.env.PUBLIC_URL + "/videocall2"}
+                    component={VideoCall2}
                   />
 
                   {/* <Route

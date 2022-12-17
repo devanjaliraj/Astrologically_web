@@ -1,15 +1,35 @@
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-
+// import { getAnalytics } from "firebase/analytics";
+import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 const firebaseConfig = {
-  apiKey: "AIzaSyCZdU55I4pTZADon8q4QDMhRm_WIGy1PvA",
-  authDomain: "astroweb-510eb.firebaseapp.com",
-  projectId: "astroweb-510eb",
-  storageBucket: "astroweb-510eb.appspot.com",
-  messagingSenderId: "650267658689",
-  appId: "1:650267658689:web:190478da14670c43204740",
-  measurementId: "G-40LHH5Y62T",
+  apiKey: "AIzaSyBlC_NapLYAJyLiVmLvP1zteaFIPPZi1v4",
+  authDomain: "astrologicallyweb.firebaseapp.com",
+  projectId: "astrologicallyweb",
+  storageBucket: "astrologicallyweb.appspot.com",
+  messagingSenderId: "757533898336",
+  appId: "1:757533898336:web:065f2875fb76338fe8f505",
+  measurementId: "G-Y4SWB2F03K",
 };
 
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-export const analytics = getAnalytics(app);
+export const auth = getAuth(app);
+
+const provider = new GoogleAuthProvider();
+
+export const signInWithGoogle = () => {
+  signInWithPopup(auth, provider)
+    .then((result) => {
+      // console.log(result);
+      const name = result.user.displayName;
+      const email = result.user.email;
+      // const mobile = result.user.mobile;
+
+      localStorage.setItem("name", name);
+      localStorage.setItem("email", email);
+      // localStorage.setItem("mobile", mobile);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};

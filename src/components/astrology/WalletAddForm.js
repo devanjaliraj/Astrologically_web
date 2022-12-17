@@ -1,5 +1,5 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from "react";
+import { Link } from "react-router-dom";
 import {
   Container,
   Row,
@@ -8,58 +8,58 @@ import {
   InputGroup,
   Form,
   Button,
-} from 'reactstrap'
-import LayoutOne from '../../layouts/LayoutOne'
-import '../../assets/scss/astroteam.scss'
-import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
-import axiosConfig from '../../axiosConfig'
-import swal from 'sweetalert'
+} from "reactstrap";
+import LayoutOne from "../../layouts/LayoutOne";
+import "../../assets/scss/astroteam.scss";
+import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import axiosConfig from "../../axiosConfig";
+import swal from "sweetalert";
 
 class WalletAddForm extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       modal: false,
-      userid: '',
-      amount: '',
-    }
+      userid: "",
+      amount: "",
+    };
 
-    this.toggle = this.toggle.bind(this)
+    this.toggle = this.toggle.bind(this);
   }
 
   toggle() {
     this.setState({
       modal: !this.state.modal,
-    })
+    });
   }
   changeHandler = (e) => {
-    this.setState({ [e.target.name]: e.target.value })
-  }
+    this.setState({ [e.target.name]: e.target.value });
+  };
   submitHandler = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     // let { id } = this.props.match.params
     // console.log(id)
-    let userId = JSON.parse(localStorage.getItem('user_id'))
+    let userId = JSON.parse(localStorage.getItem("user_id"));
     let obj = {
       userid: userId,
 
       amount: parseInt(this.state.amount),
-    }
+    };
 
     axiosConfig
       .post(`/user/add_custome_amt`, obj)
       .then((response) => {
-        console.log('@@@@@', response.data.data)
+        console.log("@@@@@", response.data.data);
         //localStorage.setItem('shipping_id', response?.data?.data[0]?._id)
-        swal('Success!', 'Submitted SuccessFull!', 'success')
-        this.props.history.push('/demoChat')
+        swal("Success!", "Submitted SuccessFull!", "success");
+        this.props.history.push("/demoChat");
       })
 
       .catch((error) => {
-        swal('Error!', 'You clicked the button!', 'error')
-        console.log(error)
-      })
-  }
+        swal("Error!", "You clicked the button!", "error");
+        console.log(error);
+      });
+  };
   render() {
     return (
       <LayoutOne headerTop="visible">
@@ -94,8 +94,8 @@ class WalletAddForm extends React.Component {
           </Container>
         </section>
       </LayoutOne>
-    )
+    );
   }
 }
 
-export default WalletAddForm
+export default WalletAddForm;

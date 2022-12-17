@@ -1,7 +1,7 @@
 import * as React from "react";
 // import './style.css';
 import { ZegoUIKitPrebuilt } from "@zegocloud/zego-uikit-prebuilt";
-
+// import { generateToken, getRandomName, randomID } from "./util";
 function randomID(len) {
   let result = "";
   if (result) return result;
