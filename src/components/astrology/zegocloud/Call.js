@@ -1,5 +1,7 @@
 import * as React from "react";
 // import "./style.css";
+import { getUserID } from "../astrologerdetail";
+
 import { ZegoUIKitPrebuilt } from "@zegocloud/zego-uikit-prebuilt";
 
 function randomID(len) {
@@ -22,18 +24,19 @@ export function getUrlParams(
   return new URLSearchParams(urlStr);
 }
 
-export default function Call() {
+export default function App() {
   const roomID = getUrlParams().get("roomID") || randomID(5);
   let myMeeting = async (element: HTMLDivElement) => {
     // generate Kit Token
     const appID = 117315587;
+    const response = getUserID();
     const serverSecret = "7d73c3ebbc300b3863c13e2711a69195";
     const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
       appID,
       serverSecret,
       roomID,
       randomID(5),
-      randomID(5)
+      response
     );
 
     // Create instance object from Kit Token.
@@ -45,7 +48,10 @@ export default function Call() {
         {
           name: "Personal link",
           url:
-            window.location.origin +
+            window.location.protocol +
+            "//" +
+            window.location.host +
+            "/#/Call" +
             window.location.pathname +
             "?roomID=" +
             roomID,

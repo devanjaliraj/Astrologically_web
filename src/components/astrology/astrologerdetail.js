@@ -203,52 +203,55 @@ class AstrologerDetail extends React.Component {
                         </Col>
                         <Col md="3" className="mt-30">
                           {/* <Button className="btn-as st" onClick={this.toggle}> */}
-
-                          <Button
-                            className="btn-as st"
-                            onClick={(e) =>
-                              this.submitHandler(
-                                e,
-                                this.state.astroId,
-                                this.state.astroMobile
-                              )
-                            }
-                          >
-                            <i class="fa fa-phone" aria-hidden="true"></i>
-                            Start Call
-                            <small className="sm-text">
-                              {/* <i class="fa fa-inr" aria-hidden="true"></i>{" "} */}
-                              {/* {this.state.callCharge} */}
-                            </small>
-                          </Button>
-                        </Col>
-                        <Col md="3" className="mt-30">
-                          <Link to="/VideoCall" >
-                          <Button className="btn-as st" onClick={this.toggle}>
-                            <i
-                              class="fa fa-video-camera"
-                              aria-hidden="true"
-                            ></i>{" "}
-                            Start Video
-                            <small className="sm-text">
-                              {/* <i class="fa fa-inr" aria-hidden="true"></i>{" "} */}
-                              {/* {this.state.callCharge} */}
-                            </small>
-                          </Button>
+                          <Link to="/Call">
+                            <Button
+                              className="btn-as st"
+                              // onClick={(e) =>
+                              //   this.submitHandler(
+                              //     e,
+                              //     this.state.astroId,
+                              //     this.state.astroMobile
+                              //   )
+                              // }
+                            >
+                              <i class="fa fa-phone" aria-hidden="true"></i>
+                              Start Call
+                              <small className="sm-text">
+                                {/* <i class="fa fa-inr" aria-hidden="true"></i>{" "} */}
+                                {/* {this.state.callCharge} */}
+                              </small>
+                            </Button>
                           </Link>
                         </Col>
                         <Col md="3" className="mt-30">
-                          <Button className="btn-as st" onClick={this.toggle}>
-                            <i
-                              class="fa fa-youtube-play"
-                              aria-hidden="true"
-                            ></i>{" "}
-                            Start Live
-                            <small className="sm-text">
-                              {/* <i class="fa fa-inr" aria-hidden="true"></i>{" "} */}
-                              {/* {this.state.callCharge} */}
-                            </small>
-                          </Button>
+                          <Link to="/VideoCall">
+                            <Button className="btn-as st" onClick={this.toggle}>
+                              <i
+                                class="fa fa-video-camera"
+                                aria-hidden="true"
+                              ></i>{" "}
+                              Start Video
+                              <small className="sm-text">
+                                {/* <i class="fa fa-inr" aria-hidden="true"></i>{" "} */}
+                                {/* {this.state.callCharge} */}
+                              </small>
+                            </Button>
+                          </Link>
+                        </Col>
+                        <Col md="3" className="mt-30">
+                          <Link to="/LiveVideo">
+                            <Button className="btn-as st" onClick={this.toggle}>
+                              <i
+                                class="fa fa-youtube-play"
+                                aria-hidden="true"
+                              ></i>{" "}
+                              Start Live
+                              <small className="sm-text">
+                                {/* <i class="fa fa-inr" aria-hidden="true"></i>{" "} */}
+                                {/* {this.state.callCharge} */}
+                              </small>
+                            </Button>
+                          </Link>
                         </Col>
                       </Row>
                     </Col>
@@ -538,10 +541,9 @@ class AstrologerDetail extends React.Component {
 
 export default AstrologerDetail;
 export function getUserID() {
-  const name = JSON.parse(localStorage.getItem("userData"))
-  const names = name.fullname
-  return names
-  
+  const name = JSON.parse(localStorage.getItem("userData"));
+  const names = name.fullname;
+  return names;
 }
 
 // export function getUserID(userid, roomid, userName) {

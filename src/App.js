@@ -152,6 +152,7 @@ const VideoCall = lazy(() =>
 const VideoCall2 = lazy(() =>
   import("./components/astrology/zegocloud/VideoCall2")
 );
+const Call = lazy(() => import("./components/astrology/zegocloud/Call"));
 // astology pages start
 
 const AlertPage = lazy(() => import("./components/astrology/AlertPage"));
@@ -242,6 +243,10 @@ const MatchSearch = lazy(() => import("./components/astrology/MatchSearch"));
 
 const SliderDemo = lazy(() => import("./components/astrology/sliderdemo"));
 const SliderList = lazy(() => import("./components/astrology/sliderlist"));
+const AllMinRecharge = lazy(() =>
+  import("./components/astrology/AllMinRecharge")
+);
+
 const ChatList = lazy(() => import("./components/chat/chatlist"));
 
 const DemoChat = lazy(() => import("./components/astrology/DemoChat"));
@@ -812,7 +817,10 @@ const App = (props) => {
                     path={process.env.PUBLIC_URL + "/sliderlist"}
                     component={SliderList}
                   />
-
+                  <Route
+                    path={process.env.PUBLIC_URL + "/allMinRecharge"}
+                    component={AllMinRecharge}
+                  />
                   <Route
                     path={process.env.PUBLIC_URL + "/chatlist"}
                     component={ChatList}
@@ -901,11 +909,14 @@ const App = (props) => {
                     path={process.env.PUBLIC_URL + "/videocall"}
                     component={VideoCall}
                   />
-                   <Route
+                  <Route
                     path={process.env.PUBLIC_URL + "/videocall2"}
                     component={VideoCall2}
                   />
-
+                  <Route
+                    path={process.env.PUBLIC_URL + "/call"}
+                    component={Call}
+                  />
                   {/* <Route
                   path={process.env.PUBLIC_URL + "/cart"}
                   component={Cart}

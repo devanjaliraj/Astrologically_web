@@ -63,9 +63,9 @@ class AllMinRecharge extends React.Component {
               <Row>
                 <Col md="12">
                   <div className="leftcont text-left">
-                    <h1>Recharge Now</h1>
+                    <h1>Select Minute Now</h1>
                     <h3>
-                      Available balance : <span>{this.state.amount}</span>
+                      Available Minute : <span>{this.state.minute}</span>
                     </h3>
                   </div>
                 </Col>
@@ -77,7 +77,7 @@ class AllMinRecharge extends React.Component {
         <section>
           <Container>
             <Row>
-              <Col xl="3" lg="3" md="3" sm="6" xs="6">
+              {/* <Col xl="3" lg="3" md="3" sm="6" xs="6">
                 <Link to="/walletaddform">
                   <div className="promoBox success-box info-ribbon">
                     <aside>
@@ -87,23 +87,23 @@ class AllMinRecharge extends React.Component {
                     <p></p>
                   </div>
                 </Link>
-              </Col>
-              {/* {planList.length
-                ? planList.map((plan, index) => { */}
+              </Col> */}
+              {allminrechargeList.length
+                ? allminrechargeList.map((allmin, index) => {
                     return (
-                      {/* <Col xl="3" lg="3" md="3" sm="6" xs="6" key={index}>
+                      <Col xl="3" lg="3" md="3" sm="6" xs="6" key={index}>
                         <Link to="/paymentdetail">
                           <div className="promoBox success-box info-ribbon">
                             <aside>
-                              <p>{plan.title}</p>
+                              <p>{allmin.title}</p>
                             </aside>
-                            <h4>INR {plan.amount}</h4>
+                            <h4>Minute {allmin.minute}</h4>
                           </div>
                         </Link>
-                      </Col> */}
+                      </Col>
                     );
-                  {/* })
-                : null} */}
+                  })
+                : null}
 
               {/*    <Col xl="3" lg="3" md="3" sm="6" xs="6">
                                <Link to="paymentdetail">
