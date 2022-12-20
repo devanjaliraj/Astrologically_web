@@ -249,6 +249,8 @@ const AllMinRecharge = lazy(() =>
 
 const ChatList = lazy(() => import("./components/chat/chatlist"));
 
+const ChatApp = lazy(() => import("./components/chat/ChatApp"));
+
 const DemoChat = lazy(() => import("./components/astrology/DemoChat"));
 
 const KundaliForm = lazy(() =>
@@ -825,7 +827,14 @@ const App = (props) => {
                     path={process.env.PUBLIC_URL + "/chatlist"}
                     component={ChatList}
                   />
-
+                  {/* <Route
+                    path={process.env.PUBLIC_URL + "/messageHistrory"}
+                    component={MessageHistrory}
+                  /> */}
+                  <Route
+                    path={process.env.PUBLIC_URL + "/chatApp"}
+                    component={ChatApp}
+                  />
                   <Route
                     path={process.env.PUBLIC_URL + "/demochat"}
                     component={DemoChat}

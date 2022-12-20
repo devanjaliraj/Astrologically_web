@@ -192,14 +192,19 @@ class AstrologerDetail extends React.Component {
 
                       <Row>
                         <Col md="3" className="mt-30">
-                          <Button className="btn-as st" onClick={this.toggle}>
-                            <i class="fa fa-commenting" aria-hidden="true"></i>{" "}
-                            Start Chat
-                            <small className="sm-text">
-                              {/* <i class="fa fa-inr" aria-hidden="true"></i>{" "} */}
-                              {/* {this.state.callCharge} */}
-                            </small>
-                          </Button>
+                          <Link to="/chatApp">
+                            <Button className="btn-as st" onClick={this.toggle}>
+                              <i
+                                class="fa fa-commenting"
+                                aria-hidden="true"
+                              ></i>{" "}
+                              Start Chat
+                              <small className="sm-text">
+                                {/* <i class="fa fa-inr" aria-hidden="true"></i>{" "} */}
+                                {/* {this.state.callCharge} */}
+                              </small>
+                            </Button>
+                          </Link>
                         </Col>
                         <Col md="3" className="mt-30">
                           {/* <Button className="btn-as st" onClick={this.toggle}> */}
