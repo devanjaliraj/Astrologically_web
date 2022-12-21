@@ -39,7 +39,8 @@ export default function LiveVideo() {
     sharedLinks.push({
       name: "Join as co-host",
       url:
-        window.location.origin +'/#/LiveVideo' +
+        window.location.origin +
+        "/#/LiveVideo" +
         window.location.pathname +
         "?roomID=" +
         roomID +
@@ -49,7 +50,8 @@ export default function LiveVideo() {
   sharedLinks.push({
     name: "Join as audience",
     url:
-      window.location.origin +'/#/LiveVideo' +
+      window.location.origin +
+      "/#/LiveVideo" +
       window.location.pathname +
       "?roomID=" +
       roomID +
@@ -57,7 +59,7 @@ export default function LiveVideo() {
   });
   // generate Kit Token
   const appID = 117315587;
- const response =  getUserID();
+  const response = getUserID();
 
   const serverSecret = "7d73c3ebbc300b3863c13e2711a69195";
   const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(

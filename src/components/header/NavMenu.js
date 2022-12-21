@@ -49,7 +49,7 @@ const NavMenu = ({ strings, menuWhiteClass, sidebarMenu }) => {
           </li>
 
           <li>
-            <Link to="/allastrochatlist">Chat Astrologer</Link>
+            <Link to="/liveAstrologer">Live Astrologer</Link>
           </li>
 
           <li>

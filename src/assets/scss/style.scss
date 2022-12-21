@@ -44,6 +44,69 @@
 
 // rohit css 
 
+// iframe css
+iframe {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: unset !important;
+    height: unset !important;
+    border: none;
+    z-index: 2147483647;
+}
+
+// liveastropage css
+.liveimg img {
+    width: 100%;
+    border-radius: 13px;
+}
+.ast-list {
+    position: relative;
+    margin-bottom: 20px;
+
+}
+.livecont {
+    position: absolute;
+    bottom: 0;
+    background: #ffffffad;
+    padding: 10px;
+    width: 100%;
+}
+.livecont span h3{
+    font-size: 18px;
+    font-weight: 600;
+    margin-top: 12px;
+}
+.zoom-in-zoom-out {
+    margin: 0px;
+    width: 15px;
+    height: 15px;
+    border-radius: 100%;
+    background: #32cd32;
+    animation: zoom-in-zoom-out 2s ease-out infinite;
+  }
+.zoom-in-zoom-out span{
+    font-size: 8px;
+    color: #fc6e00;
+    font-weight: 700;
+}
+  
+  @keyframes zoom-in-zoom-out {
+    0% {
+      transform: scale(1, 1);
+    }
+    50% {
+      transform: scale(1.5, 1.5);
+    }
+    100% {
+      transform: scale(1, 1);
+    }
+  }
+
+//liveastropage css close
+
+
+
 h1, .h1 {
     font-size: 25px;
     line-height: 42px;

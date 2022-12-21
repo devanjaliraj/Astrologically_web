@@ -164,6 +164,10 @@ const AskQuestion = lazy(() => import("./components/astrology/AskQuestion"));
 const AskQuestionList = lazy(() =>
   import("./components/astrology/AskQuestionList")
 );
+const LiveAstrologer = lazy(() =>
+  import("./components/astrology/LiveAstrologer")
+);
+
 const UserChatHistoryList = lazy(() =>
   import("./components/astrology/UserChatHistoryList")
 );
@@ -656,7 +660,10 @@ const App = (props) => {
                     path={process.env.PUBLIC_URL + "/walletmoney"}
                     component={WalletMoney}
                   />
-
+                  <Route
+                    path={process.env.PUBLIC_URL + "/liveAstrologer"}
+                    component={LiveAstrologer}
+                  />
                   <Route
                     path={process.env.PUBLIC_URL + "/profiledetail"}
                     component={ProfileDetail}
