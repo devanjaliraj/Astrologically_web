@@ -4,8 +4,55 @@ import LayoutOne from "../../layouts/LayoutOne";
 import { Container, Row, Col } from "reactstrap";
 import LiveAstro from "../../assets/img/team/live-astro.jpg";
 import MatchSearch from "./MatchSearch";
+import axiosConfig from "../../axiosConfig";
 
 class LiveAstrologer extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      // allminrechargeList: [],
+      data: {},
+      To: "",
+      Form: "",
+      astrid: "",
+      userid: "",
+      astroMobile: "",
+      astroId: "",
+    };
+    this.state = {
+      modal: false,
+    };
+
+    this.toggle = this.toggle.bind(this);
+  }
+  componentDidMount = () => {
+    let { id } = this.props.match.params;
+
+    axiosConfig
+      .get(`/admin/getoneAstro/${id}`)
+      .then((response) => {
+        console.log(response.data);
+        this.setState({
+          fullname: response.data.data.fullname,
+          all_skills: response.data.data.all_skills,
+          language: response.data.data.language,
+          img: response.data.data.img[0],
+          status: response.data.status,
+          Exp: response.data.data.Exp,
+          exp_in_years: response.data.data.exp_in_years,
+          callCharge: response.data.data.callCharge,
+          long_bio: response.data.data.long_bio,
+          msg: response.data.data.msg,
+          astroMobile: response?.data?.data?.mobile,
+          status: response?.data?.data?.status,
+          astroId: response?.data?.data?._id,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   render() {
     return (
       <LayoutOne headerTop="visible">
@@ -159,7 +206,7 @@ class LiveAstrologer extends React.Component {
               </Col>
               <Col lg="3" md="3">
                 <div className="ast-list">
-                  <Link to={"/"}>
+                  <Link to="/LiveVideo">
                     <div className="liveimg">
                       <img src={LiveAstro} alt="" width={100} />
                     </div>
@@ -246,3 +293,8 @@ class LiveAstrologer extends React.Component {
   }
 }
 export default LiveAstrologer;
+export function getUser1ID() {
+  const name = JSON.parse(localStorage.getItem("userData"));
+  const names = name.fullname;
+  return names;
+}

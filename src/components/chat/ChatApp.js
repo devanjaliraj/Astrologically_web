@@ -5,36 +5,106 @@ import "../../assets/scss/chat.scss";
 import LayoutOne from "../../layouts/LayoutOne";
 import Buyimg from "../../../src/assets/img/boy-img.png";
 import Countdown from "react-countdown";
+import axiosConfig from "../../axiosConfig";
+import swal from "sweetalert";
 
 class ChatApp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      astroId: "",
+      question: "",
+      createdAt: "",
+      roomid: "",
+      allchatwithuserList: [],
+      userChatList: [],
+      userId: "",
+
       contacts: [
         { text: "John Smith", active: false },
         { text: "Molly Watt", active: true },
         { text: "Ivan Mackay", active: false },
       ],
-      messages: [
-        { id: "1", text: "Hi Molly!", me: true },
-        { id: "2", text: "Hey, how are you doing?", me: false },
-        { id: "3", text: "It's been a while", me: false },
-        { id: "4", text: "Yes it is!", me: true },
-        { id: "5", text: "Have you ever heard of lorem ipsum?", me: true },
-        { id: "6", text: "No, what is it?", me: false },
-        {
-          id: "7",
-          text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-          me: true,
-        },
-      ],
-      message: "",
+      // messages: [
+      //   { id: "1", text: "Hi Molly!", me: true },
+      //   { id: "2", text: "Hey, how are you doing?", me: false },
+      //   { id: "3", text: "It's been a while", me: false },
+      //   { id: "4", text: "Yes it is!", me: true },
+      //   { id: "5", text: "Have you ever heard of lorem ipsum?", me: true },
+      //   { id: "6", text: "No, what is it?", me: false },
+      //   {
+      //     id: "7",
+      //     text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+      //     me: true,
+      //   },
+      // ],
+      // message: "",
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+  componentDidMount() {
+    let user_id = JSON.parse(localStorage.getItem("user_id"));
+
+    axiosConfig
+      .get(`/user/userChatList/${user_id}`)
+      .then((response) => {
+        console.log("fgshdfhsdfhs", response.data.data);
+        this.setState({
+          userChatList: response?.data?.data,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    let { id } = this.props.match.params;
+    axiosConfig
+      .get(`/user/allchatwithuser/${id}`)
+      .then((response) => {
+        console.log("fgshdfhsdfhs", response.data.data);
+        this.setState({
+          allchatwithuserList: response?.data?.data,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+  submitHandler = (e, astroid, userId) => {
+    e.preventDefault();
+    let { id } = this.props.match.params;
+    // console.log(id)
+    // let astroid = JSON.parse(localStorage.getItem('astroId'))
+
+    // let userid = JSON.parse(localStorage.getItem('userId'))
+    let user_id = JSON.parse(localStorage.getItem("user_id"));
+    let obj = {
+      // astroId: id,
+      // astroid: astroid,
+      userid: user_id,
+      msg: this.state.msg,
+    };
+
+    axiosConfig
+      .post(`/user/addchat/${user_id}`, obj)
+
+      .then((response) => {
+        console.log("@@@@@", response.data.data);
+        this.setState({ msg: "" });
+        // this.getQuestionList(id)
+        swal("Success!", "Submitted SuccessFull!", "success");
+        window.location.reload("/chatApp");
+      })
+
+      .catch((error) => {
+        swal("Error!", "You clicked the button!", "error");
+        console.log(error);
+      });
+  };
 
   render() {
+    const { allchatwithuserList } = this.state;
+
     return (
       <LayoutOne headerTop="visible">
         <section className="app-chatbg">
@@ -48,7 +118,7 @@ class ChatApp extends React.Component {
                 <div className="chat-header">
                   <p>
                     <span>
-                      <img src={{ Buyimg }} className="app-img" />
+                      <img src={{}} className="app-img" />
                     </span>
                     Astrologer name
                   </p>
@@ -57,16 +127,29 @@ class ChatApp extends React.Component {
                   </span>
                 </div>
                 <div class="messages-history">
-                  <MessagesHistory items={this.state.messages} />
+                  {allchatwithuserList.length > 0
+                    ? allchatwithuserList.map((allchat, index) => {
+                        return <MessagesHistory>{allchat.msg}</MessagesHistory>;
+                      })
+                    : " "}
                 </div>
                 <form class="messages-inputs" onSubmit={this.handleSubmit}>
                   <input
                     type="text"
                     placeholder="Send a message"
                     onChange={this.handleChange}
-                    value={this.state.message}
+                    value={this.state.msg}
                   />
-                  <button>
+                  <button
+                    className="btn btn-primary"
+                    onClick={(e) =>
+                      this.submitHandler(
+                        e,
+                        this.state.astroId,
+                        this.state.userId
+                      )
+                    }
+                  >
                     <i class="material-icons">send</i>
                   </button>
                 </form>

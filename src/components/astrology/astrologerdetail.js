@@ -89,36 +89,36 @@ class AstrologerDetail extends React.Component {
         console.log(error);
       });
   };
-  submitHandler = (e, astroid, mobile) => {
-    e.preventDefault();
-    // let astrologerList = localStorage.getItem('astrologerList')
-    // let astroid = localStorage.getItem('astro_id')
-    let mobileNo = localStorage.getItem("user_mobile_no");
-    let userId = JSON.parse(localStorage.getItem("user_id"));
-    // let astroId = JSON.parse(localStorage.getItem('astroid'))
-    let obj = {
-      userid: userId,
-      astroid: astroid,
-      // astrologerList: astrologerList,
-      From: mobile, //parseInt(this.state.number)
-      To: mobileNo, //parseInt(this.state.number)
-    };
-    axiosConfig
-      .post(`/user/make_call`, obj)
+  // submitHandler = (e, astroid, mobile) => {
+  //   e.preventDefault();
+  //   // let astrologerList = localStorage.getItem('astrologerList')
+  //   // let astroid = localStorage.getItem('astro_id')
+  //   let mobileNo = localStorage.getItem("user_mobile_no");
+  //   let userId = JSON.parse(localStorage.getItem("user_id"));
+  //   // let astroId = JSON.parse(localStorage.getItem('astroid'))
+  //   let obj = {
+  //     userid: userId,
+  //     astroid: astroid,
+  //     // astrologerList: astrologerList,
+  //     From: mobile, //parseInt(this.state.number)
+  //     To: mobileNo, //parseInt(this.state.number)
+  //   };
+  //   // axiosConfig
+  //   //   .post(`/user/make_call`, obj)
 
-      .then((response) => {
-        console.log("rhsagdhgshgdjhgj", response.data.data);
-        // console.log(response.data.STATUSMSG)
-        // this.setState({ responseData: response.data })
-        // swal('Successful!', 'Recharge Successful!', 'success')
-        // this.props.history.push('/orderrecharge')
-      })
+  //   //   .then((response) => {
+  //   //     console.log("rhsagdhgshgdjhgj", response.data.data);
+  //   //     // console.log(response.data.STATUSMSG)
+  //   //     // this.setState({ responseData: response.data })
+  //   //     // swal('Successful!', 'Recharge Successful!', 'success')
+  //   //     // this.props.history.push('/orderrecharge')
+  //   //   })
 
-      .catch((error) => {
-        console.log(error);
-        // swal('Error!', 'Invalid!', 'error')
-      });
-  };
+  //   //   .catch((error) => {
+  //   //     console.log(error);
+  //   //     // swal('Error!', 'Invalid!', 'error')
+  //   //   });
+  // };
 
   render() {
     // const { allminrechargeList } = this.state;

@@ -1,7 +1,7 @@
 import * as React from "react";
 // import './style.css';
 import { getUserID } from "../astrologerdetail";
-
+import { getUser1ID } from "../LiveAstrologer";
 import { ZegoUIKitPrebuilt } from "@zegocloud/zego-uikit-prebuilt";
 // import { generateToken, getRandomName, randomID } from "./util";
 function randomID(len) {
@@ -60,6 +60,7 @@ export default function LiveVideo() {
   // generate Kit Token
   const appID = 117315587;
   const response = getUserID();
+  const response1 = getUser1ID();
 
   const serverSecret = "7d73c3ebbc300b3863c13e2711a69195";
   const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
@@ -67,7 +68,8 @@ export default function LiveVideo() {
     serverSecret,
     roomID,
     randomID(5),
-    response
+    response,
+    response1
   );
 
   // start the call

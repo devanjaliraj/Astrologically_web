@@ -1,32 +1,32 @@
 /* eslint-disable no-unused-expressions */
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { Container, Row, Col, Button } from 'reactstrap'
-import LayoutOne from '../../layouts/LayoutOne'
-import axiosConfig from '../../axiosConfig'
-import swal from 'sweetalert'
-import Ansicon from '../../assets/img/ansicon.png'
+import React from "react";
+import { Link } from "react-router-dom";
+import { Container, Row, Col, Button } from "reactstrap";
+import LayoutOne from "../../layouts/LayoutOne";
+import axiosConfig from "../../axiosConfig";
+import swal from "sweetalert";
+import Ansicon from "../../assets/img/ansicon.png";
 
 class AskQuestion extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
-      astroId: '',
-      question: '',
-      createdAt: '',
+      astroId: "",
+      question: "",
+      createdAt: "",
       astroQuesList: [],
-      userId: '',
-    }
+      userId: "",
+    };
   }
 
   componentDidMount() {
-    let { id } = this.props.match.params
+    let { id } = this.props.match.params;
 
     // console.log('jdhgkfjgkjd', astroId)
     axiosConfig
       .get(`/admin/getoneAstro/${id}`)
       .then((response) => {
-        console.log(response.data)
+        console.log(response.data);
         this.setState({
           fullname: response.data.data.fullname,
           all_skills: response.data.data.all_skills,
@@ -42,25 +42,25 @@ class AskQuestion extends React.Component {
           astroId: response?.data?.data?._id,
           userId: response?.data?.data?._id,
           createdAt: response?.data?.data?.createdAt,
-        })
+        });
       })
       .catch((error) => {
-        console.log(error)
-      })
+        console.log(error);
+      });
 
     // this.getQuestionList(id)
-    let user_id = localStorage.getItem('user_id')
+    let user_id = localStorage.getItem("user_id");
     axiosConfig
       .get(`/user/list_ask_qus/${id}/${JSON.parse(user_id)}`)
       .then((response) => {
-        console.log('fgshdfhsdfhs', response.data.data)
+        console.log("fgshdfhsdfhs", response.data.data);
         this.setState({
           astroQuesList: response?.data?.data,
-        })
+        });
       })
       .catch((error) => {
-        console.log(error)
-      })
+        console.log(error);
+      });
   }
 
   // getQuestionList = (id) => {
@@ -78,55 +78,55 @@ class AskQuestion extends React.Component {
   // }
 
   submitHandler = (e, astroid, userId) => {
-    e.preventDefault()
-    let { id } = this.props.match.params
+    e.preventDefault();
+    let { id } = this.props.match.params;
     // console.log(id)
     // let astroid = JSON.parse(localStorage.getItem('astroId'))
 
     // let userid = JSON.parse(localStorage.getItem('userId'))
-    let user_id = JSON.parse(localStorage.getItem('user_id'))
+    let user_id = JSON.parse(localStorage.getItem("user_id"));
     let obj = {
       astroId: id,
       astroid: astroid,
       userid: user_id,
       question: this.state.question,
-    }
+    };
 
     axiosConfig
       .post(`/user/user_ask_qus`, obj)
 
       .then((response) => {
-        console.log('@@@@@', response.data.data)
-        this.setState({ question: '' })
+        console.log("@@@@@", response.data.data);
+        this.setState({ question: "" });
         // this.getQuestionList(id)
-        swal('Success!', 'Submitted SuccessFull!', 'success')
+        swal("Success!", "Submitted SuccessFull!", "success");
         //window.location.reload('/askQuestion')
       })
 
       .catch((error) => {
-        swal('Error!', 'You clicked the button!', 'error')
-        console.log(error)
-      })
-  }
+        swal("Error!", "You clicked the button!", "error");
+        console.log(error);
+      });
+  };
 
   handleChange = (e) => {
     this.setState({
       question: e.target.value,
-    })
-  }
+    });
+  };
 
   render() {
-    const { astroQuesList } = this.state
+    const { astroQuesList } = this.state;
     return (
       <LayoutOne headerTop="visible">
         <section className="pt-0 pb-0">
           <div
             className=""
             style={{
-              backgroundColor: '#FFD59E',
-              width: '100%',
-              padding: '70px 0px',
-              backgroundSize: 'cover',
+              backgroundColor: "#FFD59E",
+              width: "100%",
+              padding: "70px 0px",
+              backgroundSize: "cover",
             }}
           >
             <Container>
@@ -174,7 +174,7 @@ class AskQuestion extends React.Component {
                                           aria-hidden="true"
                                           style={{ marginRight: 6 }}
                                         >
-                                          {index + 1 + '.'}
+                                          {index + 1 + "."}
                                         </i>
 
                                         {astro.question}
@@ -186,9 +186,9 @@ class AskQuestion extends React.Component {
                                           </p>
                                         ) : null}
                                       </li>
-                                    )
+                                    );
                                   })
-                                : 'No question available'}
+                                : "No question available"}
                             </ul>
                           </li>
                         </ul>
@@ -203,13 +203,13 @@ class AskQuestion extends React.Component {
                                   placeholder="Ask ypur question here..."
                                   maxLength={150}
                                   onChange={(e) => {
-                                    this.handleChange(e)
+                                    this.handleChange(e);
                                   }}
                                 ></textarea>
                                 <small className="sm-txt">
-                                  Note: Maximum 150 Words Accepted.{' '}
+                                  Note: Maximum 150 Words Accepted.{" "}
                                 </small>
-                              </div>{' '}
+                              </div>{" "}
                             </Col>
                             <Button
                               className="btn btn-primary"
@@ -217,7 +217,7 @@ class AskQuestion extends React.Component {
                                 this.submitHandler(
                                   e,
                                   this.state.astroId,
-                                  this.state.userId,
+                                  this.state.userId
                                 )
                               }
                             >
@@ -234,7 +234,7 @@ class AskQuestion extends React.Component {
           </Container>
         </section>
       </LayoutOne>
-    )
+    );
   }
 }
-export default AskQuestion
+export default AskQuestion;
