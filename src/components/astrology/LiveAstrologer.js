@@ -26,33 +26,33 @@ class LiveAstrologer extends React.Component {
 
     this.toggle = this.toggle.bind(this);
   }
-  componentDidMount = () => {
-    let { id } = this.props.match.params;
+  // componentDidMount = () => {
+  //   let { id } = this.props.match.params;
 
-    axiosConfig
-      .get(`/admin/getoneAstro/${id}`)
-      .then((response) => {
-        console.log(response.data);
-        this.setState({
-          fullname: response.data.data.fullname,
-          all_skills: response.data.data.all_skills,
-          language: response.data.data.language,
-          img: response.data.data.img[0],
-          status: response.data.status,
-          Exp: response.data.data.Exp,
-          exp_in_years: response.data.data.exp_in_years,
-          callCharge: response.data.data.callCharge,
-          long_bio: response.data.data.long_bio,
-          msg: response.data.data.msg,
-          astroMobile: response?.data?.data?.mobile,
-          status: response?.data?.data?.status,
-          astroId: response?.data?.data?._id,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  //   axiosConfig
+  //     .get(`/admin/getoneAstro/${id}`)
+  //     .then((response) => {
+  //       console.log(response.data);
+  //       this.setState({
+  //         fullname: response.data.data.fullname,
+  //         all_skills: response.data.data.all_skills,
+  //         language: response.data.data.language,
+  //         img: response.data.data.img[0],
+  //         status: response.data.status,
+  //         Exp: response.data.data.Exp,
+  //         exp_in_years: response.data.data.exp_in_years,
+  //         callCharge: response.data.data.callCharge,
+  //         long_bio: response.data.data.long_bio,
+  //         msg: response.data.data.msg,
+  //         astroMobile: response?.data?.data?.mobile,
+  //         status: response?.data?.data?.status,
+  //         astroId: response?.data?.data?._id,
+  //       });
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
   render() {
     return (
       <LayoutOne headerTop="visible">
