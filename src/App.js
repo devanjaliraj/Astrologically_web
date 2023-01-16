@@ -267,6 +267,9 @@ const WalletMoney = lazy(() => import("./components/astrology/WalletMoney"));
 const WalletTransacList = lazy(() =>
   import("./components/astrology/WalletTransacList")
 );
+const ConversationList = lazy(() =>
+  import("./components/astrology/ConsultantList")
+);
 const PaymentDetail = lazy(() =>
   import("./components/astrology/PaymentDetail")
 );
@@ -621,6 +624,11 @@ const App = (props) => {
                     path={process.env.PUBLIC_URL + "/wallettransaclist"}
                     component={WalletTransacList}
                   />
+                  <Route
+                    path={process.env.PUBLIC_URL + "/conversationList"}
+                    component={ConversationList}
+                  />
+
 
                   <Route
                     path={process.env.PUBLIC_URL + "/paymentdetail"}

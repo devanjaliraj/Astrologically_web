@@ -5,20 +5,20 @@ import axiosConfig from "../../axiosConfig"
 import { Container, Row, Col } from "reactstrap";
 import LayoutOne from "../../layouts/LayoutOne";
 
-class WalletTransacList extends React.Component {
+class ConversationList extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            WalletTransacList: [],
+            ConversationList: [],
         }
     }
     componentDidMount = () => {
         let userId = JSON.parse(localStorage.getItem('user_id'))
-        axiosConfig.get(`/user/walletHistory/${userId}`)
+        axiosConfig.get(`/user/getOne_Conversation_Wallet/${userId}`)
             .then((response) => {
                 console.log(response.data);
                 if (response.data.status === true) {
-                    this.setState({ WalletTransacList: response.data.data });
+                    this.setState({ ConversationList: response.data.data });
                 }
             })
             .catch((error) => {
@@ -27,7 +27,7 @@ class WalletTransacList extends React.Component {
             });
     };
     render() {
-        const { WalletTransacList } = this.state
+        const { ConversationList } = this.state
         return (
             <LayoutOne headerTop="visible">
                 <section className="pt-0 pb-0" >
@@ -60,15 +60,15 @@ class WalletTransacList extends React.Component {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {WalletTransacList.length ? WalletTransacList.map((WalletTransac, index) => {
+                                            {ConversationList.length ? ConversationList.map((Conversation, index) => {
                                                 return (
                                                     <tr>
                                                         {/* <th scope="row">{WalletTransac.transaction_id}</th> */}
-                                                        <th>{WalletTransac.transaction_id}{WalletTransac.conversationId}</th>
-                                                        <td>{WalletTransac.beforeAmt}</td>
-                                                        <td>{WalletTransac.deductedAmt} {WalletTransac.creditedAmt}</td>
-                                                        <td>{WalletTransac.finalAmt}</td>
-                                                        <td>{WalletTransac.createdAt}</td><td>{WalletTransac.tran_Type}</td></tr>
+                                                        <th>{Conversation.transaction_id}{Conversation.conversationId}</th>
+                                                        <td>{Conversation.beforeAmt}</td>
+                                                        <td>{Conversation.deductedAmt} {Conversation.creditedAmt}</td>
+                                                        <td>{Conversation.finalAmt}</td>
+                                                        <td>{Conversation.createdAt}</td><td>{Conversation.tran_Type}</td></tr>
                                                 )
                                             })
                                                 : null}
@@ -131,4 +131,4 @@ class WalletTransacList extends React.Component {
         );
     }
 }
-export default WalletTransacList;
+export default ConversationList;

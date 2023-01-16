@@ -80,10 +80,7 @@ class AskQuestion extends React.Component {
   submitHandler = (e, astroid, userId) => {
     e.preventDefault();
     let { id } = this.props.match.params;
-    // console.log(id)
-    // let astroid = JSON.parse(localStorage.getItem('astroId'))
 
-    // let userid = JSON.parse(localStorage.getItem('userId'))
     let user_id = JSON.parse(localStorage.getItem("user_id"));
     let obj = {
       astroId: id,
@@ -167,27 +164,27 @@ class AskQuestion extends React.Component {
                             <ul className="ask-ques">
                               {astroQuesList.length > 0
                                 ? astroQuesList.map((astro, index) => {
-                                    return (
-                                      <li>
-                                        <i
-                                          class="fa fa-quora"
-                                          aria-hidden="true"
-                                          style={{ marginRight: 6 }}
-                                        >
-                                          {index + 1 + "."}
-                                        </i>
+                                  return (
+                                    <li>
+                                      <i
+                                        class="fa fa-quora"
+                                        aria-hidden="true"
+                                        style={{ marginRight: 6 }}
+                                      >
+                                        {index + 1 + "."}
+                                      </i>
 
-                                        {astro.question}
+                                      {astro.question}
 
-                                        {astro?.answer ? (
-                                          <p>
-                                            <img src={Ansicon} alt="" />
-                                            {astro?.answer}
-                                          </p>
-                                        ) : null}
-                                      </li>
-                                    );
-                                  })
+                                      {astro?.answer ? (
+                                        <p>
+                                          <img src={Ansicon} alt="" />
+                                          {astro?.answer}
+                                        </p>
+                                      ) : null}
+                                    </li>
+                                  );
+                                })
                                 : "No question available"}
                             </ul>
                           </li>

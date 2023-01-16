@@ -9,10 +9,13 @@ import {
   Form,
   Button,
 } from "reactstrap";
+import swal from "sweetalert";
+
 import LayoutOne from "../../layouts/LayoutOne";
 import "../../assets/scss/astroteam.scss";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import axiosConfig from "../../axiosConfig";
+
 class AllMinRecharge extends React.Component {
   constructor(props) {
     super(props);
@@ -20,6 +23,9 @@ class AllMinRecharge extends React.Component {
       modal: false,
       allminrechargeList: [],
       data: {},
+      userid: "",
+      astroid: "",
+      recharge_planId: ""
     };
 
     this.toggle = this.toggle.bind(this);
@@ -37,11 +43,56 @@ class AllMinRecharge extends React.Component {
         console.log(response.data);
         if (response.data.status === true) {
           this.setState({ allminrechargeList: response.data.data });
+          swal("Success!", "Submitted SuccessFull!", "success");
         }
       })
       .catch((error) => {
         console.log(error);
         console.log(error.response);
+      });
+  };
+  submitHandler = async (e, astroid, userId, recharge_planid) => {
+    e.preventDefault();
+    let { id } = this.props.match.params;
+    //  let userid = JSON.parse(localStorage.getItem("user_id"));
+    let obj = {
+      astroId: id,
+      astroid: astroid,
+      userd: id,
+      userid: astroid,
+      recharge_planId: id,
+      recharge_planid: recharge_planid,
+      // userid: user_id,
+      // astroid: this.state.astroid,
+      userId: this.state.userid,
+      // recharge_planId: this.state._planid,
+
+    };
+
+    await axiosConfig
+      .post(`/user/addChatWallet`, obj)
+      .then((response) => {
+        console.log("hdfkjh", response.data.status)
+        if (response.data.status === true) {
+          this.setState({
+
+          });
+          // axiosConfig.get(`/user/allchatwithuser/${this.state.roomId}`)
+          // .then((response1) => {
+          //   console.log(response1?.data?.data);
+          //   if (response1.data.status === true) {
+          //     this.setState({ roomChatData: response1?.data.data });
+          //   }
+          // })
+          // .catch((error) => {
+          //   console.log(error);
+          // });
+        }
+      })
+
+      .catch((error) => {
+        swal("Error!", "You clicked the button!", "error");
+        console.log(error);
       });
   };
 
@@ -62,10 +113,10 @@ class AllMinRecharge extends React.Component {
             <Container>
               <Row>
                 <Col md="12">
-                  <div className="leftcont text-left">
+                  <div className="leftcont text-left" >
                     <h1>Select Minute Now</h1>
-                    <h3>
-                      Available Minute : <span>{this.state.minute}</span>
+                    <h3 >
+                      Available Minute : <span >{this.state.minute}</span>
                     </h3>
                   </div>
                 </Col>
@@ -77,135 +128,41 @@ class AllMinRecharge extends React.Component {
         <section>
           <Container>
             <Row>
-              {/* <Col xl="3" lg="3" md="3" sm="6" xs="6">
-                <Link to="/walletaddform">
-                  <div className="promoBox success-box info-ribbon">
-                    <aside>
-                      <p>100% extra</p>
-                    </aside>
-                    <h4>Amount</h4>
-                    <p></p>
-                  </div>
-                </Link>
-              </Col> */}
+
               {allminrechargeList.length
                 ? allminrechargeList.map((allmin, index) => {
-                    return (
-                      <Col xl="3" lg="3" md="3" sm="6" xs="6" key={index}>
-                        <Link to="/paymentdetail">
-                          <div className="promoBox success-box info-ribbon">
-                            <aside>
-                              <p>{allmin.title}</p>
-                            </aside>
-                            <h4>Minute {allmin.minute}</h4>
-                          </div>
-                        </Link>
-                      </Col>
-                    );
-                  })
+                  return (
+                    <Col xl="3" lg="3" md="3" sm="6" xs="6" key={index}>
+                      {/* <Link to="/chatApp"> */}
+                      <button onClick={() => {
+                        localStorage.setItem("minute", allmin.minute)
+                        this.props.history.push('/chatApp')
+                      }}>
+
+
+                        <div className="promoBox success-box info-ribbon"
+                        // onClick={(e) =>
+                        //   this.submitHandler(
+                        //     e,
+                        //     this.state.astroId,
+                        //     this.state.userid,
+                        //     this.state.recharge_planId
+                        //   )
+                        // }
+                        >
+                          <aside>
+                            <p>{allmin.title}</p>
+                          </aside>
+                          <h4>Minute {allmin.minute}</h4>
+                        </div>
+                      </button>
+                      {/* </Link> */}
+                    </Col>
+                  );
+                })
                 : null}
 
-              {/*    <Col xl="3" lg="3" md="3" sm="6" xs="6">
-                               <Link to="paymentdetail">
-                                      <div className="promoBox success-box info-ribbon">
-                                        <aside>
-                                            <p>100% extra</p>
-                                        </aside>
-                                                <h4>INR 200</h4>
-                                                <p></p>     
-                                        </div>
-                               </Link>
-                         </Col> */}
-              {/* <Col xl="3" lg="3" md="3" sm="6" xs="6">
-                               <Link  to="paymentdetail">
-                                      <div className="promoBox success-box info-ribbon">
-                                        <aside>
-                                            <p>100% extra</p>
-                                        </aside>
-                                                <h4>INR 300</h4>
-                                                <p></p>     
-                                        </div>
-                               </Link>
-                         </Col>
-                         <Col xl="3" lg="3" md="3" sm="6" xs="6">
-                               <Link  to="paymentdetail">
-                                      <div className="promoBox success-box info-ribbon">
-                                        <aside>
-                                            <p>100% extra</p>
-                                        </aside>
-                                                <h4>INR 500</h4>
-                                                <p></p>     
-                                        </div>
-                               </Link>
-                         </Col>
-                         <Col xl="3" lg="3" md="3" sm="6" xs="6">
-                               <Link  to="paymentdetail">
-                                      <div className="promoBox success-box info-ribbon">
-                                        <aside>
-                                            <p>100% extra</p>
-                                        </aside>
-                                                <h4>INR 1000</h4>
-                                                <p></p>     
-                                        </div>
-                               </Link>
-                         </Col>
-                         <Col xl="3" lg="3" md="3" sm="6" xs="6">
-                               <Link  to="paymentdetail">
-                                      <div className="promoBox success-box info-ribbon">
-                                        <aside>
-                                            <p>100% extra</p>
-                                        </aside>
-                                                <h4>INR 2000</h4>
-                                                <p></p>     
-                                        </div>
-                               </Link>
-                         </Col>
-                         <Col xl="3" lg="3" md="3" sm="6" xs="6">
-                               <Link  to="paymentdetail">
-                                      <div className="promoBox success-box info-ribbon">
-                                        <aside>
-                                            <p>100% extra</p>
-                                        </aside>
-                                                <h4>INR 100</h4>
-                                                <p></p>     
-                                        </div>
-                               </Link>
-                         </Col>
-                         <Col xl="3" lg="3" md="3" sm="6" xs="6">
-                               <Link  to="paymentdetail">
-                                      <div className="promoBox success-box info-ribbon">
-                                        <aside>
-                                            <p>100% extra</p>
-                                        </aside>
-                                                <h4>INR 3000</h4>
-                                                <p></p>     
-                                        </div>
-                               </Link>
-                         </Col>
-                         <Col xl="3" lg="3" md="3" sm="6" xs="6">
-                               <Link  to="paymentdetail">
-                                      <div className="promoBox success-box info-ribbon">
-                                        <aside>
-                                            <p>100% extra</p>
-                                        </aside>
-                                                <h4>INR 4000</h4>
-                                                <p></p>     
-                                        </div>
-                               </Link>
-                         </Col> */}
 
-              {/* <Col lg="12">
-                             <div className="w-offer">
-                                 <Button onClick={this.toggle} >
-                                     <i class="fa fa-percent" aria-hidden="true"></i>
-
-                                     apply voucher code
-
-                                     <i class="fa fa-angle-right" aria-hidden="true"></i>
-
-                                 </Button>
-                             </div>
-                         </Col> */}
             </Row>
           </Container>
         </section>

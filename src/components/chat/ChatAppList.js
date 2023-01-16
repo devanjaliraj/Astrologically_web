@@ -6,10 +6,10 @@ import LayoutOne from "../../layouts/LayoutOne";
 import Buyimg from "../../../src/assets/img/boy-img.png";
 import Countdown from "react-countdown";
 import axiosConfig from "../../axiosConfig";
+import ChatApp from "./ChatApp";
 class ChatAppList extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       // data: {},
       userChatList: [],
@@ -20,12 +20,13 @@ class ChatAppList extends React.Component {
 
     console.log(userId);
     axiosConfig
-      .get(`/user/userChatList/${userId}`)
+      .get(`/user/getroomid/${userId}`)
       .then((response) => {
         console.log("userChatList", response.data.data);
         if (response.data.status === true) {
           this.setState({
             userChatList: response.data?.data,
+            roomid: response.data.data?.roomid
           });
         }
       })
@@ -35,25 +36,29 @@ class ChatAppList extends React.Component {
   }
   render() {
     const { userChatList } = this.state;
-    console.log("jhsgdfh", userChatList);
+    console.log("userchatlist", userChatList);
     return (
       <ul>
         {userChatList.length
           ? userChatList.map((user, index) => {
-              return (
-                <li>
-                  <div className="list-main">
-                    <div className="imglf">
-                      <img src={user?.img} className="app-img" />
-                    </div>
-                    <div className="lst-con">
-                      <h5>{user.fullname} </h5>
-                      <p>{user.msg}</p>
-                    </div>
+            return (
+              <li>
+                {/* <Link to="this.state.data.roomid"> */}
+
+                <div className="list-main" onClick={() => this.props.getChatRoomId(user)}>
+                  <div className="imglf">
+                    <img src={user.astroid?.img} className="app-img" />
                   </div>
-                </li>
-              );
-            })
+                  <div className="lst-con">
+                    <h5>{user.astroid?.fullname} </h5>
+                    <p>{user.msg}</p>
+
+                  </div>
+                </div>
+                {/* </Link> */}
+              </li>
+            );
+          })
           : null}
       </ul>
 

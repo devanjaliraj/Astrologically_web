@@ -30,7 +30,7 @@ class UserChatHistoryList extends React.Component {
 
     console.log(userId);
     axiosConfig
-      .get(`/user/userChatList/${userId}`)
+      .get(`/user/getOne_Conversation_Wallet/${userId}`)
       .then((response) => {
         console.log("userChatList", response.data.data);
         if (response.data.status === true) {
@@ -82,38 +82,43 @@ class UserChatHistoryList extends React.Component {
                   <Table striped className="">
                     <thead>
                       <tr>
-                        {/* <th># S. No.</th> */}
+                        <th>#Conversation ID</th>
                         <th>Astrologer Name</th>
-                        <th>User Name</th>
-                        <th>message</th>
+
+                        <th>Conversation Type</th>
+                        <th>Rate</th>
+                        <th>Duration</th>
                         <th>Amount</th>
+                        <th>Deducation</th>
                         <th>Date/Time</th>
                         <th>Action</th>
                       </tr>
                     </thead>
                     {userChatList.length
                       ? userChatList.map((user, index) => {
-                          return (
-                            <tbody>
-                              <tr>
-                                {/* <th scope="row">1</th> */}
-                                <td>{user?.astroid?.fullname}</td>
-                                <td>{user?.userid?.fullname}</td>
+                        return (
+                          <tbody>
+                            <tr>
+                              <th >{user?.conversationId}</th>
+                              <td>{user?.astroid?.fullname}</td>
 
-                                <td>{user?.msg}</td>
-                                <td>{user?.userid?.amount}</td>
-                                <td>{user?.createdAt}</td>
-                                <td>
-                                  <Link className="Tansdel">
-                                    <i
-                                      class="fa fa-trash-o"
-                                      aria-hidden="true"
-                                    ></i>
-                                  </Link>
-                                </td>
-                              </tr>
+                              <td>{user?.type}</td>
+                              <td>{user?.astroid?.callCharge}/Min.</td>
+                              <td>{user?.recharge_planId.minute}Min.</td>
+                              <td>{user?.userid?.amount}Rs.</td>
+                              <td>{user?.deductedAmt}Rs.</td>
+                              <td>{user?.createdAt}</td>
+                              <td>
+                                <Link className="Tansdel">
+                                  <i
+                                    class="fa fa-trash-o"
+                                    aria-hidden="true"
+                                  ></i>
+                                </Link>
+                              </td>
+                            </tr>
 
-                              {/* <tr>
+                            {/* <tr>
                                 <th scope="row">2</th>
                                 <td>Chat With Monish For 2 Minutes</td>
                                 <td>doc</td>
@@ -173,9 +178,9 @@ class UserChatHistoryList extends React.Component {
                                   </Link>
                                 </td>
                               </tr> */}
-                            </tbody>
-                          );
-                        })
+                          </tbody>
+                        );
+                      })
                       : null}
                   </Table>
                 </div>

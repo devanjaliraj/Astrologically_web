@@ -1,7 +1,7 @@
 import * as React from "react";
 // import './style.css';
 import { getUserID } from "../astrologerdetail";
-import { getUser1ID } from "../LiveAstrologer";
+// import { getUser1ID } from "../LiveAstrologer";
 import { ZegoUIKitPrebuilt } from "@zegocloud/zego-uikit-prebuilt";
 // import { generateToken, getRandomName, randomID } from "./util";
 function randomID(len) {
@@ -31,8 +31,8 @@ export default function LiveVideo() {
     role_str === "Host"
       ? ZegoUIKitPrebuilt.Host
       : role_str === "Cohost"
-      ? ZegoUIKitPrebuilt.Cohost
-      : ZegoUIKitPrebuilt.Audience;
+        ? ZegoUIKitPrebuilt.Cohost
+        : ZegoUIKitPrebuilt.Audience;
 
   let sharedLinks = [];
   if (role === ZegoUIKitPrebuilt.Host || role === ZegoUIKitPrebuilt.Cohost) {
@@ -60,7 +60,7 @@ export default function LiveVideo() {
   // generate Kit Token
   const appID = 117315587;
   const response = getUserID();
-  const response1 = getUser1ID();
+  // const response1 = getUser1ID();
 
   const serverSecret = "7d73c3ebbc300b3863c13e2711a69195";
   const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
@@ -69,7 +69,7 @@ export default function LiveVideo() {
     roomID,
     randomID(5),
     response,
-    response1
+    // response1
   );
 
   // start the call

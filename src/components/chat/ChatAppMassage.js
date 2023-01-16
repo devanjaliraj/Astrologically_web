@@ -7,16 +7,32 @@ import Buyimg from "../../../src/assets/img/boy-img.png";
 import Countdown from "react-countdown";
 
 class ChatAppMassage extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+
+    };
+  }
+
+
   render() {
+    console.log('props value', this.props.roomChatData)
     return (
       <>
-        <div class="message me">
-          <div class="message-body">User reply.......</div>
-        </div>
-
-        <div className="message">
-          <div class="message-body">Astrologer reply......</div>
-        </div>
+        {this.props.roomChatData.length
+          ? this.props.roomChatData.map((chat, index) => {
+            return (
+              <>
+                {chat.type === "user" ? <div class="message me">
+                  <div class="message-body">{chat.msg}</div>
+                </div> : <div className="message">
+                  <div class="message-body">{chat.msg}</div>
+                </div>}
+              </>
+            )
+          }).reverse()
+          : null}
       </>
     );
   }

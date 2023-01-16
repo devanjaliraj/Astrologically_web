@@ -27,6 +27,7 @@
     "react-breadcrumbs-dynamic": "^1.2.1",
     "react-chat-app": "^0.1.9",
     "react-chat-engine": "^1.11.23",
+    "react-compound-timer": "^1.2.0",
     "react-countdown": "^2.3.5",
     "react-countdown-now": "^2.1.2",
     "react-countup": "^4.2.3",

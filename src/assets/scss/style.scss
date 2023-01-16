@@ -1261,6 +1261,18 @@ i.pe-7s-note.ad-edit {
 
 // css for customersupport
 
+.supp-1 {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 135px;
+    background-color: #ffffff;
+    padding: 30px;
+    font-size: 20px;
+    border-radius: 10px;
+}
+
+
+
 .supp-1{
     text-align: center;
     padding: 28px 14px;
@@ -1413,5 +1425,34 @@ small.sm-txt {
 //   swiper slide
 
 
+.modal-dialog {
+    max-width: 400px;
+  }
+  .bx-list ul li span {
+    width: 30px;
+    display: inline-flex;
+  }
+  .bx-list ul li {
+    line-height: 27px;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .modal-dialog .modal-header .close {
+      cursor: pointer;
+      opacity: 1;
+      color: #fc6e00;
+      border-color: #fc6e00 !important;
+  }
 
-
+  .sort-bx {
+    text-align: right;
+    padding-bottom: 20px;
+  }
+  .sort-bx button {
+    background: #fc6e00;
+    border-color: #fc6e00;
+  }
+  .sort-bx button i {
+    margin-right: 4px;
+  }
+  

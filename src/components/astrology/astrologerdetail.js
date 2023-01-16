@@ -21,7 +21,7 @@ import Nav from "react-bootstrap/Nav";
 // import pagetitle from "../../assets/img/pagetitle.jpg";
 import axiosConfig from "../../axiosConfig";
 // import axios from "axios";
-import { Modal, ModalHeader, ModalBody } from "reactstrap";
+// import { Modal, ModalHeader, ModalBody } from "reactstrap";
 
 class AstrologerDetail extends React.Component {
   constructor(props) {
@@ -185,14 +185,14 @@ class AstrologerDetail extends React.Component {
                           </li>
                           <li>
                             <span className="">{this.state.status}</span>{" "}
-                            {/* {<span className="">{this.state.status}</span>} */}
+                            <span className="">{this.state.status}</span>
                           </li>
                         </ul>
                       </div>
 
                       <Row>
                         <Col md="3" className="mt-30">
-                          <Link to="/chatApp">
+                          <Link to="/AllMinRecharge">
                             <Button className="btn-as st" onClick={this.toggle}>
                               <i
                                 class="fa fa-commenting"
@@ -211,13 +211,13 @@ class AstrologerDetail extends React.Component {
                           <Link to="/Call">
                             <Button
                               className="btn-as st"
-                              // onClick={(e) =>
-                              //   this.submitHandler(
-                              //     e,
-                              //     this.state.astroId,
-                              //     this.state.astroMobile
-                              //   )
-                              // }
+                            // onClick={(e) =>
+                            //   this.submitHandler(
+                            //     e,
+                            //     this.state.astroId,
+                            //     this.state.astroMobile
+                            //   )
+                            // }
                             >
                               <i class="fa fa-phone" aria-hidden="true"></i>
                               Start Call
@@ -434,7 +434,7 @@ class AstrologerDetail extends React.Component {
                                       <div className="rating-form-style mb-10">
                                         <Rating
                                           name="simple-controlled"
-                                          onChange={(event, newValue) => {}}
+                                          onChange={(event, newValue) => { }}
                                         />
                                       </div>
                                       <div class="col-md-6">

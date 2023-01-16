@@ -6,7 +6,8 @@ import { Container, Row, Col, Button } from "reactstrap";
 import "../../assets/scss/astroteam.scss";
 import LayoutOne from "../../layouts/LayoutOne";
 import axiosConfig from "../../axiosConfig";
-
+import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import Form from "react-bootstrap/Form";
 class AllAstrologerList extends React.Component {
   constructor(props) {
     super(props);
@@ -18,7 +19,15 @@ class AllAstrologerList extends React.Component {
       To: "",
       astroid: "",
       userid: "",
+      modal: false,
     };
+    this.toggle = this.toggle.bind(this);
+
+  }
+  toggle() {
+    this.setState({
+      modal: !this.state.modal,
+    });
   }
   componentDidMount = () => {
     axiosConfig
@@ -94,6 +103,17 @@ class AllAstrologerList extends React.Component {
         </section>
         <section id="team" class="pb-5">
           <Container>
+            <Row>
+              <Col lg="12">
+                <div className="sort-bx">
+                  <Button color="danger" onClick={this.toggle}>
+                    {/* {this.props.buttonLabel} */}
+                    <i class="fa fa-sort-amount-asc" aria-hidden="true"></i>
+                    Sort By
+                  </Button>
+                </div>
+              </Col>
+            </Row>
             {/* <div className="heading mb-30">
                 <h2>Best Astrologers </h2>
                 <img src={textbottom} alt=""/>
@@ -101,60 +121,60 @@ class AllAstrologerList extends React.Component {
             <Row>
               {astrologerList.length
                 ? astrologerList.map((astrologer, index) => {
-                    return (
-                      <Col md="3" key={index}>
-                        <div className="image-flip">
-                          <div className="mainflip flip-0">
-                            <div className="frontside">
-                              <Link
-                                to={"/astrologerdetail/" + astrologer._id}
-                                className=""
-                              >
-                                <div className="card">
-                                  <div className="card-body text-center">
-                                    <p>
-                                      <img src={astrologer?.img} alt="" />
-                                    </p>
-                                    <h4 className="card-title">
-                                      {astrologer?.fullname}
-                                    </h4>
-                                    <ul className="mb-3">
-                                      <li>
-                                        Specility:{" "}
-                                        <span>{astrologer?.all_skills}</span>
-                                      </li>
-                                      <li>
-                                        Language:{" "}
-                                        <span>{astrologer?.language}</span>
-                                      </li>
-                                      <li>
-                                        Experience:{" "}
-                                        <span>{astrologer?.exp_in_years}</span>
-                                      </li>
-                                      <li>
-                                        Call Rate:{" "}
-                                        <span>
-                                          {astrologer?.callCharge}/
-                                          {astrologer?.conrubute_hrs}
-                                        </span>
-                                      </li>
-                                    </ul>
-                                    {/* <Link
+                  return (
+                    <Col md="3" key={index}>
+                      <div className="image-flip">
+                        <div className="mainflip flip-0">
+                          <div className="frontside">
+                            <Link
+                              to={"/astrologerdetail/" + astrologer._id}
+                              className=""
+                            >
+                              <div className="card">
+                                <div className="card-body text-center">
+                                  <p>
+                                    <img src={astrologer?.img} alt="" />
+                                  </p>
+                                  <h4 className="card-title">
+                                    {astrologer?.fullname}
+                                  </h4>
+                                  <ul className="mb-3">
+                                    <li>
+                                      Specility:{" "}
+                                      <span>{astrologer?.all_skills}</span>
+                                    </li>
+                                    <li>
+                                      Language:{" "}
+                                      <span>{astrologer?.language}</span>
+                                    </li>
+                                    <li>
+                                      Experience:{" "}
+                                      <span>{astrologer?.exp_in_years}</span>
+                                    </li>
+                                    <li>
+                                      Call Rate:{" "}
+                                      <span>
+                                        {astrologer?.callCharge}/
+                                        {astrologer?.conrubute_hrs}
+                                      </span>
+                                    </li>
+                                  </ul>
+                                  {/* <Link
                                       className="btn btn-primary btn-sm st-d"
                                       to={'/askquestion/' + astrologer?._id}
                                     >
                                       Ask Question
                                     </Link> */}
-                                    {/* <Link className="btn btn-primary btn-sm st-d">
+                                  {/* <Link className="btn btn-primary btn-sm st-d">
                                       {astrologer?.status}
                                     </Link> */}
-                                    <Link
-                                      className="btn btn-primary btn-sm"
-                                      to={
-                                        "/allastrologerlist/" + astrologer._id
-                                      }
-                                    >
-                                      {/* <span
+                                  <Link
+                                    className="btn btn-primary btn-sm"
+                                    to={
+                                      "/allastrologerlist/" + astrologer._id
+                                    }
+                                  >
+                                    {/* <span
                                         className="sr-btn"
                                         onClick={this.onCallSubmit}
                                       >
@@ -163,21 +183,21 @@ class AllAstrologerList extends React.Component {
                                         </i>{' '}
                                         Call
                                       </span> */}
-                                      {/* {localStorage.getItem('auth-token') ? ( */}
-                                      <span
-                                        className="sr-btn"
-                                        onClick={(e) =>
-                                          this.submitHandler(
-                                            e,
-                                            astrologer?._id,
-                                            astrologer?.mobile
-                                          )
-                                        }
-                                      >
-                                        <i class="fa fa-phone"> Call</i>
-                                      </span>
+                                    {/* {localStorage.getItem('auth-token') ? ( */}
+                                    <span
+                                      className="sr-btn"
+                                      onClick={(e) =>
+                                        this.submitHandler(
+                                          e,
+                                          astrologer?._id,
+                                          astrologer?.mobile
+                                        )
+                                      }
+                                    >
+                                      <i class="fa fa-phone"> Call</i>
+                                    </span>
 
-                                      {/* ) : (
+                                    {/* ) : (
                                         <span
                                           className="sr-btn"
                                           onClick={(e) =>
@@ -188,27 +208,79 @@ class AllAstrologerList extends React.Component {
                                           <i class="fa fa-phone"></i> Call
                                         </span>
                                       )} */}
-                                      {/* <small>
+                                    {/* <small>
                                             / 20{' '}
                                             <i class="fa fa-inr" aria-hidden="true">
                                               {astrologer?.conrubute_hrs}
                                             </i>{' '}
                                             per Hour
                                           </small> */}
-                                    </Link>
-                                    <br /> <span> Wait ~ 5m</span>
-                                  </div>
+                                  </Link>
+                                  <br /> <span> Wait ~ 5m</span>
                                 </div>
-                              </Link>
-                            </div>
+                              </div>
+                            </Link>
                           </div>
                         </div>
-                      </Col>
-                    );
-                  })
+                      </div>
+                    </Col>
+                  );
+                })
                 : null}
             </Row>
           </Container>
+          {/* modal  */}
+          <div>
+            <Modal
+              isOpen={this.state.modal}
+              modalTransition={{ timeout: 500 }}
+              backdropTransition={{ timeout: 1300 }}
+              toggle={this.toggle}
+              className={this.props.className}
+            >
+              <ModalHeader toggle={this.toggle}>SORT BY:</ModalHeader>
+              <ModalBody>
+                <div className="bx-list">
+                  <form>
+                    <ul>
+                      <li>
+                        <span>
+                          <Form.Check type="radio" aria-label="radio 1" />
+                        </span>
+                        Popularity
+                      </li>
+                      <li>
+                        <span>
+                          <Form.Check type="radio" aria-label="radio 2" />
+                        </span>
+                        Experience : High to Low
+                      </li>
+                      <li>
+                        <span>
+                          <Form.Check type="radio" aria-label="radio 3" />
+                        </span>
+                        Experience : Low to High
+                      </li>
+                      <li>
+                        <span>
+                          <Form.Check type="radio" aria-label="radio 4" />
+                        </span>
+                        Total orders : High to Low
+                      </li>
+                    </ul>
+                  </form>
+                </div>
+              </ModalBody>
+              {/* <ModalFooter>
+                <Button color="primary" onClick={this.toggle}>
+                  Do Something
+                </Button>{" "}
+                <Button color="secondary" onClick={this.toggle}>
+                  Cancel
+                </Button>
+              </ModalFooter> */}
+            </Modal>
+          </div>
         </section>
       </LayoutOne>
     );
