@@ -1,10 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { Container } from "reactstrap";
+// import { Link } from "react-router-dom";
+// import { Container } from "reactstrap";
 import "../../assets/scss/chat.scss";
-import LayoutOne from "../../layouts/LayoutOne";
-import Buyimg from "../../../src/assets/img/boy-img.png";
-import Countdown from "react-countdown";
+// import LayoutOne from "../../layouts/LayoutOne";
+// import Buyimg from "../../../src/assets/img/boy-img.png";
+// import Countdown from "react-countdown";
 
 class ChatAppMassage extends React.Component {
 

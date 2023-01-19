@@ -191,13 +191,13 @@ class ChatApp extends React.Component {
                 <div class="messages-history">
                   <ChatAppMassage roomChatData={this.state.roomChatData.length > 0 ? this.state.roomChatData : []} />
                 </div>
-                <form class="messages-inputs" >
+                <form class="messages-inputs"  >
                   {/* {this.props.roomChatData.length
                     ? this.props.roomChatData.map((chat, index) => {
                       return ( */}
 
                   <input
-                    roomChatData={this.state.roomChatData.length > 0 ? this.state.roomChatData : []}
+                    // roomChatData={this.state.roomChatData.length > 0 ? this.state.roomChatData : []}
                     type="text"
                     placeholder="Send a message"
                     // value={this.state.msg}
@@ -217,7 +217,8 @@ class ChatApp extends React.Component {
                       this.state.userId,
 
                     )
-                  }>
+                  }
+                  >
                     <i class="material-icons" onClick={this.startTimer}>send</i>
                   </button>
                 </form>
