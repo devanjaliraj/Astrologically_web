@@ -58,6 +58,7 @@
     "react-search-autocomplete": "^7.2.2",
     "react-select": "^5.4.0",
     "react-slick": "^0.28.1",
+    "react-star-rating-component": "^1.4.1",
     "react-sticky-el": "^1.1.0",
     "react-toast-notifications": "^2.2.5",
     "react-visibility-sensor": "^5.1.1",

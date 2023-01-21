@@ -1,14 +1,15 @@
 import React from "react";
-import { Link, Redirect } from "react-router-dom";
+
 import { Container } from "reactstrap";
 import "../../assets/scss/chat.scss";
 import LayoutOne from "../../layouts/LayoutOne";
 import Buyimg from "../../../src/assets/img/boy-img.png";
-import Countdown from "react-countdown";
+import { Link } from 'react-router-dom'
+
 import ChatAppList from "./ChatAppList";
 import ChatAppMassage from "./ChatAppMassage";
 import axiosConfig from "../../axiosConfig"
-import Timer from 'react-compound-timer'
+
 class ChatApp extends React.Component {
   constructor(props) {
     super(props);
@@ -22,7 +23,7 @@ class ChatApp extends React.Component {
       roomId: '',
       time: {},
       seconds: 60 * 15,
-      // seconds: 5,
+
       minutes: 15,
     };
     this.timer = 0;
@@ -106,6 +107,7 @@ class ChatApp extends React.Component {
     }
   }
   getChatRoomId = async (user) => {
+    console.log("sdjghjks", user)
     this.setState({ astroId: user?.astroid?._id, roomId: user?.roomid });
     await axiosConfig.get(`/user/allchatwithuser/${user?.roomid}`)
       .then((response) => {
@@ -172,35 +174,27 @@ class ChatApp extends React.Component {
                 <div className="chat-header">
                   <p>
                     <span>
-                      <img src={this.state.roomChatData.length > 0 ? this.state.roomChatData[0]?.astroid?.img[0] : Buyimg} className="app-img" />
-                      {/* <img src={this.state?.userid?.img} className="app-img" /> */}
+                      <img src={this.state.roomChatData.length > 0 ? this.state.roomChatData[0]?.astroid?.img[0] : Buyimg} className="app-img" alt="" />
+
                     </span>
                     {this.state.roomChatData.length > 0 ? this.state.roomChatData[0]?.astroid?.fullname : null}
                   </p>
                   <span className="appchattimer">
-                    {/* <Countdown date={Date.now() + 15000} />
-                     */}
+
                     {this.state.time.m} :{this.state.time.s}
-                    {/* <Timer >
-                    <Timer.Hours />:
-                    <Timer.Minutes />:
-                    <Timer.Seconds />
-                  </Timer> */}
+
                   </span>
                 </div>
                 <div class="messages-history">
                   <ChatAppMassage roomChatData={this.state.roomChatData.length > 0 ? this.state.roomChatData : []} />
                 </div>
                 <form class="messages-inputs"  >
-                  {/* {this.props.roomChatData.length
-                    ? this.props.roomChatData.map((chat, index) => {
-                      return ( */}
+
 
                   <input
-                    // roomChatData={this.state.roomChatData.length > 0 ? this.state.roomChatData : []}
+
                     type="text"
                     placeholder="Send a message"
-                    // value={this.state.msg}
                     onChange={(e) => {
                       this.handleChange(e);
                     }}
@@ -225,7 +219,9 @@ class ChatApp extends React.Component {
               </div>
             </div>
             <div className="chat-bottom">
-              <button>Close Chat</button>
+              {/* <button>Close Chat</button> */}
+              <Link to="/astrorating">
+                <button>Close Chat</button></Link>
             </div>
           </Container>
         </section>

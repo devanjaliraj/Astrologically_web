@@ -1,12 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { Container } from "reactstrap";
+// import { Link } from "react-router-dom";
+// import { Container } from "reactstrap";
 import "../../assets/scss/chat.scss";
-import LayoutOne from "../../layouts/LayoutOne";
-import Buyimg from "../../../src/assets/img/boy-img.png";
-import Countdown from "react-countdown";
+// import LayoutOne from "../../layouts/LayoutOne";
+// import Buyimg from "../../../src/assets/img/boy-img.png";
+// import Countdown from "react-countdown";
 import axiosConfig from "../../axiosConfig";
-import ChatApp from "./ChatApp";
+// import ChatApp from "./ChatApp";
 class ChatAppList extends React.Component {
   constructor(props) {
     super(props);
@@ -22,7 +22,7 @@ class ChatAppList extends React.Component {
     axiosConfig
       .get(`/user/getroomid/${userId}`)
       .then((response) => {
-        console.log("userChatList", response.data.data);
+
         if (response.data.status === true) {
           this.setState({
             userChatList: response.data?.data,
@@ -37,7 +37,7 @@ class ChatAppList extends React.Component {
   render() {
 
     const { userChatList } = this.state;
-    console.log("userchatlist", userChatList);
+
     return (
       <ul>
         {userChatList.length
@@ -48,7 +48,7 @@ class ChatAppList extends React.Component {
 
                 <div className="list-main" onClick={() => this.props.getChatRoomId(user)}>
                   <div className="imglf">
-                    <img src={user.astroid?.img} className="app-img" />
+                    <img src={user.astroid?.img} className="app-img" alt="" />
                   </div>
                   <div className="lst-con">
                     <h5>{user.astroid?.fullname} </h5>
