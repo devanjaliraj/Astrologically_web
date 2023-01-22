@@ -104,6 +104,7 @@ class ChatApp extends React.Component {
     // Check if we're at zero.
     if (seconds === 0) {
       clearInterval(this.timer);
+      window.location.replace('/#/astrorating')
     }
   }
   getChatRoomId = async (user) => {

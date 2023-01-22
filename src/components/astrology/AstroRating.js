@@ -17,7 +17,7 @@ class AstroRating extends React.Component {
       type: "Chat",
       astroid: "",
       userid: "",
-      question: "",
+      // question: "",
       rating: "",
       comment: "",
 
@@ -30,7 +30,11 @@ class AstroRating extends React.Component {
       name,
       nextValue,
       prevValue
+
     );
+
+    // this.setState({rating: target.value});
+
     this.setState({ rating: nextValue });
   }
 
@@ -81,7 +85,7 @@ class AstroRating extends React.Component {
       astroId: id,
       astroid: astroid,
       userid: user_id,
-      question: this.state.question,
+      // question: this.state.question,
       rating: this.state.rating,
       comment: this.state.comment,
       type: this.state.type,
@@ -93,7 +97,10 @@ class AstroRating extends React.Component {
       // 13.233.228.168:8000/user/addChatReview
       .then((response) => {
         console.log("@@@@@", response.data.data);
-        this.setState({ question: "" });
+        this.setState({
+          comment: "",
+          rating: ""
+        });
         // this.getQuestionList(id)
         // swal("Success!", "Submitted SuccessFull!", "success");
         //window.location.reload('/askQuestion')
@@ -107,7 +114,8 @@ class AstroRating extends React.Component {
 
   handleChange = (e) => {
     this.setState({
-      question: e.target.value,
+      // rating: e.target.value,
+      comment: e.target.value,
     });
   };
 
