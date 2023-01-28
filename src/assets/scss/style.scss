@@ -1477,4 +1477,31 @@ small.sm-txt {
     font-size: 16px;
     margin-top: 20px;
   }
-  
+     
+
+  // sort by filter
+
+.bx-list.fbg {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    height: 400px;
+    position: -webkit-sticky !important;
+    position: sticky;
+    top: 100px;
+  }
+
+// green
+  a.btn.btn-primary.btn-sm.sc, .btn-group-sm > a.btn.btn-primary.sc {
+    background: #4caf50;
+    color: #fff;
+    border-color: #4caf50 !important;
+    padding: 7px 14px;
+    font-size: 16px;
+    border-radius: 6px;
+}
+// orange
+button.btn.btn-denger.wr {
+    background: #fc6e00;
+    color: #fff;
+}
