@@ -85,7 +85,10 @@ class UserRequestForm extends React.Component {
         console.log("aaaaaaaaaaaa", response.data.data);
         swal("Success!", "Submitted SuccessFull!", "success");
         // window.location.reload("/allastrologerlist");
-        this.props.history.push("/allastrologerlist");
+        // this.props.history.push("/allastrologerlist");
+        this.props.history.push("/allMinRecharge");
+
+
       })
 
       .catch((error) => {
@@ -323,10 +326,10 @@ class UserRequestForm extends React.Component {
                           <label>Enter topic of concern:</label>
                           <input
                             type="text"
-                            name="fullname"
+                            name="topic_of_cnsrn"
                             required
                             placeholder="Enter Your Fullname"
-                            value={this.state.fullname}
+                            value={this.state.topic_of_cnsrn}
                             onChange={this.changeHandler}
                           />
                         </div>

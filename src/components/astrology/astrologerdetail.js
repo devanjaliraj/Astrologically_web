@@ -192,7 +192,8 @@ class AstrologerDetail extends React.Component {
 
                       <Row>
                         <Col md="3" className="mt-30">
-                          <Link to="/AllMinRecharge">
+                          {/* <Link to="/AllMinRecharge"> */}
+                          <Link to="/UserRequestForm">
                             <Button className="btn-as st" onClick={this.toggle}>
                               <i
                                 class="fa fa-commenting"
