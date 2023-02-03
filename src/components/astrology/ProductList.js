@@ -24,7 +24,8 @@ class ProductList extends React.Component {
     let { id } = this.props.match.params
     console.log(id)
     axiosConfig
-      .get(`/user/productbycategory/${id}`)
+      // .get(`/user/productbycategory/${id}`)
+      .get(`/user/added_product_byastro/${id}`)
       .then((response) => {
         console.log('productbycategory', response.data)
         if (response.data.status === true) {
@@ -74,39 +75,39 @@ class ProductList extends React.Component {
                   <Row>
                     {productList.length
                       ? productList.map((product, index) => {
-                          return (
-                            <Col md="4" key={index}>
-                              <div className="po-box">
-                                <Row>
-                                  <Col md="4">
-                                    <div className="po-1">
-                                      <img
-                                        src={product?.image[0]}
-                                        alt="pooja"
-                                        width="100%"
-                                      />
-                                    </div>
-                                  </Col>
-                                  <Col md="8">
-                                    <div className="po-1">
-                                      <h3>{product.title}</h3>
-                                      <p>
-                                        Puja Starting from @₹
-                                        {product?.price ? product?.price : 0}
-                                      </p>
-                                      <Link
-                                        to={'/poojadetail/' + product._id}
-                                        className="pto-l"
-                                      >
-                                        Book Now
-                                      </Link>
-                                    </div>
-                                  </Col>
-                                </Row>
-                              </div>
-                            </Col>
-                          )
-                        })
+                        return (
+                          <Col md="4" key={index}>
+                            <div className="po-box">
+                              <Row>
+                                <Col md="4">
+                                  <div className="po-1">
+                                    <img
+                                      src={product?.product?.image[0]}
+                                      alt="pooja"
+                                      width="100%"
+                                    />
+                                  </div>
+                                </Col>
+                                <Col md="8">
+                                  <div className="po-1">
+                                    <h3>{product.product?.title}</h3>
+                                    <p>
+                                      Puja Starting from @₹
+                                      {product?.price ? product?.price : 0}
+                                    </p>
+                                    <Link
+                                      to={'/poojadetail/' + product._id}
+                                      className="pto-l"
+                                    >
+                                      Book Now
+                                    </Link>
+                                  </div>
+                                </Col>
+                              </Row>
+                            </div>
+                          </Col>
+                        )
+                      })
                       : null}
                   </Row>
                 </div>

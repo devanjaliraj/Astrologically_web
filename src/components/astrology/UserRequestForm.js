@@ -11,76 +11,72 @@ class UserRequestForm extends React.Component {
     super(props);
     this.state = {
       userid: "",
-      fullname: "",
       astroid: "",
+      mobile: "",
+      firstname: "",
+      p_firstname: "",
+      lastname: "",
+      p_lastname: "",
+      dob: "",
+      p_dob: "",
+      date_of_time: "",
+      p_date_of_time: "",
+      birthPlace: "",
+      p_birthPlace: "",
       gender: "",
-      tym_of_birth: "",
-      birth_city: "",
-      birth_state: "",
-      birth_country: "",
       marital_status: "",
       occupation: "",
       topic_of_cnsrn: "",
-
+      entertopic_of_cnsrn: "",
       data: [],
     };
   }
 
   componentDidMount() {
-    //  let { id } = this.props.match.params;
-    //   console.log(id);
+
     let userId = JSON.parse(localStorage.getItem("user_id"));
     axiosConfig
       .get(`/user/viewoneuser/${userId}`)
       .then((response) => {
-        // console.log("viewone_user", response.data.data);
-        this.setState({
-          // fullname: response.data.data.fullname,
-          mobile: response.data.data.mobile,
-          // gender: response.data.data.gender,
-          // dob: response.data.data.dob,
-        });
+        this.setState({ mobile: response.data.data.mobile });
       })
       .catch((error) => {
         console.log(error);
       });
   }
-  changeHandler1 = (e) => {
-    this.setState({ status: e.target.value });
-  };
+
 
   changeHandler = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
   submitHandler = (e) => {
     e.preventDefault();
-    // let { id } = this.props.match.params;
-    // console.log(id);
     let userId = JSON.parse(localStorage.getItem("user_id"));
-    // let astroid = JSON.parse(localStorage.getItem("astroId"));
+    let astroId = localStorage.getItem("astro_id");
     let obj = {
       userid: userId,
-      // astroId: astroid,
-      //astroid: this.state.astroid,
-      fullname: this.state.fullname,
+      astroid: astroId,
+      mobile: parseInt(this.state.mobile),
+      firstname: this.state.firstname,
+      p_firstname: this.state.p_firstname,
+      lastname: this.state.lastname,
+      p_lastname: this.state.p_lastname,
+      dob: this.state.dob,
+      p_dob: this.state.p_dob,
+      birthPlace: this.state.birthPlace,
+      p_birthPlace: this.state.p_birthPlace,
+      date_of_time: this.state.date_of_time,
+      p_date_of_time: this.state.p_date_of_time,
       gender: this.state.gender,
-      tym_of_birth: this.state.tym_of_birth,
-      birth_city: this.state.birth_city,
-      birth_state: this.state.birth_state,
-      birth_country: this.state.birth_country,
       marital_status: this.state.marital_status,
       occupation: this.state.occupation,
       topic_of_cnsrn: this.state.topic_of_cnsrn,
-      mobile: parseInt(this.state.mobile),
 
-      // alt_mobile: parseInt(this.state.alt_mobile),
-      // mobile: parseInt(this.state.mobile),
-      // email: this.state.email,
+      entertopic_of_cnsrn: this.state.entertopic_of_cnsrn,
+
     };
     axiosConfig
-      .post(`/user/add_chat_intake`, {
-        astroid: localStorage.getItem("astroId"),
-      })
+      .post(`/user/add_chat_intake`, obj)
       .then((response) => {
         console.log("aaaaaaaaaaaa", response.data.data);
         swal("Success!", "Submitted SuccessFull!", "success");
@@ -97,7 +93,7 @@ class UserRequestForm extends React.Component {
       });
   };
   render() {
-    // const { viewoneUserData } = this.state;
+
 
     return (
       <LayoutOne headerTop="visible">
@@ -134,42 +130,64 @@ class UserRequestForm extends React.Component {
                     <Row>
                       <Col md="4">
                         <div class="form-group mtb-10">
-                          <label>First Name*</label>
-                          <input
-                            type="text"
-                            name="fullname"
-                            required
-                            placeholder="Enter Your Fullname"
-                            value={this.state.fullname}
-                            onChange={this.changeHandler}
-                          />
-                        </div>
-                      </Col>
-
-                      <Col md="4">
-                        <div class="form-group mtb-10">
-                          <label>Gender*</label>
-                          <Input
-                            type="select"
-                            value={this.state.data.gender}
-                            onChange={this.changeHandler}
-                          >
-                            <option>Select Gender</option>
-                            <option>Male</option>
-                            <option>Female</option>
-                          </Input>
-                        </div>
-                      </Col>
-                      <Col md="4">
-                        <div class="form-group mtb-10">
                           <label>Mobile Number*</label>
                           <input
                             type="number"
                             name="mobile"
                             value={this.state.mobile}
                             onChange={this.changeHandler}
-                            // required
+                            required
                             placeholder="Enter Your Number"
+                          />
+                        </div>
+                      </Col>
+                      <Col md="4">
+                        <div class="form-group mtb-10">
+                          <label>First Name*</label>
+                          <input
+                            type="text"
+                            name="firstname"
+                            required
+                            placeholder="Enter Your FirstName"
+                            value={this.state.fullname}
+                            onChange={this.changeHandler}
+                          />
+                        </div>
+                      </Col>
+                      <Col md="4">
+                        <div class="form-group mtb-10">
+                          <label>Patner First Name*</label>
+                          <input
+                            type="text"
+                            name="p_firstname"
+                            placeholder="Enter Your Patner firstname"
+                            value={this.state.p_firstname}
+                            onChange={this.changeHandler}
+                          />
+                        </div>
+                      </Col>
+                      <Col md="4">
+                        <div class="form-group mtb-10">
+                          <label> Last Name*</label>
+                          <input
+                            required
+                            type="text"
+                            name="lastname"
+                            placeholder="Enter Your  Lastname"
+                            value={this.state.lastname}
+                            onChange={this.changeHandler}
+                          />
+                        </div>
+                      </Col>
+                      <Col md="4">
+                        <div class="form-group mtb-10">
+                          <label>Patner Last Name*</label>
+                          <input
+                            type="text"
+                            name="p_lastname"
+                            placeholder="Enter Your Patner Lastname"
+                            value={this.state.p_lastname}
+                            onChange={this.changeHandler}
                           />
                         </div>
                       </Col>
@@ -181,87 +199,126 @@ class UserRequestForm extends React.Component {
                             name="dob"
                             value={this.state.dob}
                             onChange={this.changeHandler}
-                            // required
+                            required
                             placeholder="Enter Your Number"
                           />
                         </div>
                       </Col>
                       <Col md="4">
                         <div class="form-group mtb-10">
-                          <label>Time of Birth*</label>
+                          <label> patner Date of Birth*</label>
                           <input
-                            type="time"
-                            name="tym_of_birth"
-                            value={this.state.tym_of_birth}
+                            type="date"
+                            name="p_dob"
+                            value={this.state.p_dob}
                             onChange={this.changeHandler}
                             // required
                             placeholder="Enter Your Number"
-                          />
-                        </div>
-                      </Col>
-                      <Col md="4">
-                        <div class="form-group mtb-10">
-                          <label>Place of Birth City*</label>
-                          <input
-                            type="text"
-                            name="birth_city"
-                            value={this.state.birth_city}
-                            onChange={this.changeHandler}
-                            // required
-                            placeholder="Enter Your email"
                           />
                         </div>
                       </Col>
 
                       <Col md="4">
                         <div class="form-group mtb-10">
-                          <label>Place of Birth State*</label>
+                          <label>Date of Time*</label>
                           <input
-                            type="text"
-                            name="birth_state"
-                            value={this.state.data.birth_state}
+                            type="time"
+                            name="date_of_time"
+                            value={this.state.date_of_time}
                             onChange={this.changeHandler}
-                            // required
+                            required
                             placeholder="Enter Your Number"
                           />
                         </div>
                       </Col>
                       <Col md="4">
                         <div class="form-group mtb-10">
-                          <label>Place of Birth Country*</label>
+                          <label> patner Date of Time*</label>
                           <input
-                            type="text"
-                            name="birth_country"
-                            value={this.state.birth_country}
+                            type="time"
+                            name="p_date_of_time"
+                            value={this.state.p_date_of_time}
                             onChange={this.changeHandler}
                             // required
                             placeholder="Enter Your Number"
                           />
                         </div>
                       </Col>
-                      {/* <Col md="4">
+
+                      <Col md="4">
                         <div class="form-group mtb-10">
-                          <label>Marital Status*</label>
-                          <Input
-                            type="select"
-                            value={this.state.marital_status}
+                          <label>Birth Place*</label>
+                          <input
+                            type="text"
+                            name="birthPlace"
+                            value={this.state.birthPlace}
                             onChange={this.changeHandler}
+                            required
+                            placeholder="Enter Your  Birth Place"
+                          />
+                        </div>
+                      </Col>
+                      <Col md="4">
+                        <div class="form-group mtb-10">
+                          <label> patner Birth Place</label>
+                          <input
+                            type="text"
+                            name="p_birthPlace"
+                            value={this.state.p_birthPlace}
+                            onChange={this.changeHandler}
+                            // required
+                            placeholder="Enter Your  Birth Place"
+                          />
+                        </div>
+                      </Col>
+
+
+
+
+                      <Col lg="6" md="6" className="mb-2">
+                        <label>Gender*</label>
+                        <Input
+                          id="exampleSelect"
+                          name="gender"
+                          type="select"
+                          value={this.state.data.gender}
+                          onChange={this.changeHandler}
+                        >
+                          <option>Select Gender</option>
+                          <option>Male</option>
+                          <option>Female</option>
+                        </Input>
+                      </Col>
+
+
+
+                      {/* 
+                      <Col md="4">
+                        <div class="form-group mtb-10">
+                          <label>Gender*</label>
+                          <Input
+                           
+                            type="select"
+                            value={this.state.data.gender}
+                            onChange={this.changeHandler1}
                           >
-                            <option>Select Marital Status</option>
-                            <option>Single</option>
-                            <option>Married</option>
-                            <option>Divorced</option>
-                            <option>Separated</option>
-                            <option>Widowed</option>
+                         
                           </Input>
                         </div>
                       </Col> */}
+
+
+
+
+
+
                       <Col md="4">
                         <div class="form-group mtb-10">
                           <label>Marital Status*</label>
                           <Input
                             type="select"
-                            value={this.state.data.marital_status}
+                            name="marital_status"
+                            value={this.state.marital_status}
                             onChange={this.changeHandler}
                           >
                             <option>Select Marital Status</option>
@@ -278,6 +335,7 @@ class UserRequestForm extends React.Component {
                           <label>Occupation*</label>
                           <Input
                             type="select"
+                            name="occupation"
                             value={this.state.data.occupation}
                             onChange={this.changeHandler}
                           >
@@ -297,6 +355,7 @@ class UserRequestForm extends React.Component {
                           <label>Topic of concern*</label>
                           <Input
                             type="select"
+                            name="topic_of_cnsrn"
                             value={this.state.data.topic_of_cnsrn}
                             onChange={this.changeHandler}
                           >
@@ -326,10 +385,10 @@ class UserRequestForm extends React.Component {
                           <label>Enter topic of concern:</label>
                           <input
                             type="text"
-                            name="topic_of_cnsrn"
+                            name="entertopic_of_cnsrn"
                             required
                             placeholder="Enter Your Fullname"
-                            value={this.state.topic_of_cnsrn}
+                            value={this.state.entertopic_of_cnsrn}
                             onChange={this.changeHandler}
                           />
                         </div>

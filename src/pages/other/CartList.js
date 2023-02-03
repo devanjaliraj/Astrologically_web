@@ -19,6 +19,7 @@ class CartList extends React.Component {
     super(props)
     this.state = {
       astroId: '',
+      userId: '',
       productid: '',
       shipping_address: '',
       gstotal: '',
@@ -35,6 +36,7 @@ class CartList extends React.Component {
     let { id } = this.props.match.params
     let productId = localStorage.getItem('product_id')
     let astroId = localStorage.getItem('astro_id')
+    let userId = localStorage.getItem('userId')
     let shippingId = localStorage.getItem('shipping_id')
     axiosConfig
       .get(`/user/product_consltnt_list/` + productId)
@@ -106,6 +108,7 @@ class CartList extends React.Component {
 
     let obj = {
       astroId: astroId,
+      userId: userId,
       productid: productId,
       shipping_address: shippingId,
       orderId: this.state.orderId,
@@ -129,10 +132,12 @@ class CartList extends React.Component {
     // let { id } = this.props.match.params
     // console.log(id)
     let astroid = JSON.parse(localStorage.getItem('astroId'))
+    let userid = JSON.parse(localStorage.getItem('userId'))
     let shippingaddress = JSON.parse(localStorage.getItem('shipping_address'))
     let productid = JSON.parse(localStorage.getItem('productid'))
     let obj = {
       astroId: astroid,
+      userId: userid,
       productId: productid,
       shipping_address: shippingaddress,
       //   mobile: parseInt(this.state.mobile),

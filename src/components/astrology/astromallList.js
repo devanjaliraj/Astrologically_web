@@ -69,32 +69,32 @@ class AstromallList extends React.Component {
                   <Row>
                     {procategory.length
                       ? procategory.map((procat, index) => {
-                          return (
-                            <Col key={index} md="4">
-                              <div className="po-box">
-                                <Link to={"/productlist/" + procat._id}>
-                                  <Row>
-                                    <Col md="4">
-                                      <div className="po-1">
-                                        <img
-                                          src={procat.img}
-                                          alt="image"
-                                          width="100%"
-                                        />
-                                      </div>
-                                    </Col>
-                                    <Col md="8">
-                                      <div className="po-1">
-                                        <h3>{procat.name}</h3>
-                                        <p>{ReactHtmlParser(procat.desc)}</p>
-                                      </div>
-                                    </Col>
-                                  </Row>
-                                </Link>
-                              </div>
-                            </Col>
-                          );
-                        })
+                        return (
+                          <Col key={index} md="4">
+                            <div className="po-box">
+                              <Link to={"/productlist/" + procat._id}>
+                                <Row>
+                                  <Col md="4">
+                                    <div className="po-1">
+                                      <img
+                                        src={procat.img}
+                                        alt="image"
+                                        width="100%"
+                                      />
+                                    </div>
+                                  </Col>
+                                  <Col md="8">
+                                    <div className="po-1">
+                                      <h3>{procat.name}</h3>
+                                      <p>{ReactHtmlParser(procat.desc)}</p>
+                                    </div>
+                                  </Col>
+                                </Row>
+                              </Link>
+                            </div>
+                          </Col>
+                        );
+                      })
                       : null}
                   </Row>
                 </div>
