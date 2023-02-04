@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Container, Row, Col } from "reactstrap";
+import { Container, Row, Col, ModalHeader, ModalBody, Modal } from "reactstrap";
 // import textbottom from '../../assets/img/textbottom.png'
 // import astro3 from '../../assets/img/team/astro3.jpg'
 import "../../assets/scss/astroteam.scss";
@@ -46,6 +46,7 @@ class AllAstrologerList extends React.Component {
         console.log(error);
         console.log(error.response);
       });
+
     axiosConfig
       .get("/user/price_high_to_low")
       .then((response) => {
@@ -95,6 +96,24 @@ class AllAstrologerList extends React.Component {
   //     });
   // };
 
+
+  filterMethod = (name) => {
+    axiosConfig
+      .get(`/user/` + name)
+      .then((response) => {
+        console.log(response.data);
+        if (response.data.status === true) {
+          this.setState({
+            astrologerList: response.data.data
+          });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        console.log(error.response);
+      });
+  }
+
   render() {
     const { astrologerList } = this.state;
 
@@ -132,54 +151,55 @@ class AllAstrologerList extends React.Component {
                   </h3>
                   <form>
                     <ul>
-                      <li>
+                      {/* <li>
                         <span>
                           <Form.Check type="radio" aria-label="radio 1" />
                         </span>
                         Popularity
-                      </li>
+                      </li> */}
                       <li>
                         <span>
-                          <Form.Check type="radio" aria-label="radio 2" />
+                          <Form.Check type="radio" aria-label="radio 1" name="exp_high_to_low" onChange={() => this.filterMethod("exp_high_to_low")} />
                         </span>
-                        Experience : {this.state.exp_in_years}
+                        Experience : High to Low
+
                       </li>
                       <li>
                         <span>
-                          <Form.Check type="radio" aria-label="radio 3" />
+                          <Form.Check type="radio" aria-label="radio 2" name="exp_low_to_high" onChange={() => this.filterMethod("exp_low_to_high")} />
                         </span>
                         Experience : Low to High
                       </li>
                       <li>
                         <span>
-                          <Form.Check type="radio" aria-label="radio 4" />
-                        </span>
-                        Total orders : High to Low
-                      </li>
-                      <li>
-                        <span>
-                          <Form.Check type="radio" aria-label="radio 5" />
-                        </span>
-                        Total orders : Low to High
-                      </li>
-                      <li>
-                        <span>
-                          <Form.Check type="radio" aria-label="radio 6" />
+                          <Form.Check type="radio" aria-label="radio 3" name="price_high_to_low" onChange={() => this.filterMethod("price_high_to_low")} />
                         </span>
                         Price : High to Low
                       </li>
                       <li>
                         <span>
-                          <Form.Check type="radio" aria-label="radio 1" />
+                          <Form.Check type="radio" aria-label="radio 4" name="price_low_to_high" onChange={() => this.filterMethod("price_low_to_high")} />
                         </span>
                         Price : Low to High
                       </li>
                       <li>
                         <span>
-                          <Form.Check type="radio" aria-label="radio 1" />
+                          <Form.Check type="radio" aria-label="radio 5" name="rating_high_to_low" onChange={() => this.filterMethod("rating_high_to_low")} />
                         </span>
                         Rating : High to Low
                       </li>
+                      <li>
+                        <span>
+                          <Form.Check type="radio" aria-label="radio 6" name="rating_low_to_high" onChange={() => this.filterMethod("rating_low_to_high")} />
+                        </span>
+                        Rating : Low to High
+                      </li>
+                      {/* <li>
+                        <span>
+                          <Form.Check type="radio" aria-label="radio 7" name="exp_low_to_high" onChange={() => this.filterMethod("exp_low_to_high")}/>
+                        </span>
+                        Rating : High to Low
+                      </li> */}
                     </ul>
                   </form>
                 </div>
@@ -341,75 +361,26 @@ class AllAstrologerList extends React.Component {
             </div>         */}
           </Container>
 
-          {/* modal  */}
-          {/* <div>
+          <div>
+            {/* modal  */}
             <Modal
               isOpen={this.state.modal}
-              modalTransition={{ timeout: 500 }}
-              backdropTransition={{ timeout: 1300 }}
               toggle={this.toggle}
               className={this.props.className}
             >
-              <ModalHeader toggle={this.toggle}>SORT BY:</ModalHeader>
+              <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
               <ModalBody>
-                <div className="bx-list">
-                  <form>
-                    <ul>
-                      <li>
-                        <span>
-                          <Form.Check type="radio" aria-label="radio 1" />
-                        </span>
-                        Popularity
-                      </li>
-                      <li>
-                        <span>
-                          <Form.Check type="radio" aria-label="radio 1" />
-                        </span>
-                        Experience : High to Low
-                      </li>
-                      <li>
-                        <span>
-                          <Form.Check type="radio" aria-label="radio 1" />
-                        </span>
-                        Experience : Low to High
-                      </li>
-                      <li>
-                        <span>
-                          <Form.Check type="radio" aria-label="radio 1" />
-                        </span>
-                        Total orders : High to Low
-                      </li>
-                      <li>
-                        <span>
-                          <Form.Check type="radio" aria-label="radio 1" />
-                        </span>
-                        Total orders : Low to High
-                      </li>
-                      <li>
-                        <span>
-                          <Form.Check type="radio" aria-label="radio 1" />
-                        </span>
-                        Price : High to Low
-                      </li>
-                      <li>
-                        <span>
-                          <Form.Check type="radio" aria-label="radio 1" />
-                        </span>
-                        Price : Low to High
-                      </li>
-                      <li>
-                        <span>
-                          <Form.Check type="radio" aria-label="radio 1" />
-                        </span>
-                        Rating : High to Low
-                      </li>
-                    </ul>
-                  </form>
-                </div>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                enim ad minim veniam, quis nostrud exercitation ullamco laboris
+                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+                sunt in culpa qui officia deserunt mollit anim id est laborum.
               </ModalBody>
-            
+
             </Modal>
-          </div> */}
+          </div>
         </section>
       </LayoutOne>
     );

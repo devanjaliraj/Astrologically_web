@@ -24,10 +24,10 @@ class ChatAppMassage extends React.Component {
           ? this.props.roomChatData.map((chat, index) => {
             return (
               <>
-                {chat.type === "user" ? <div class="message me">
-                  <div class="message-body">{chat.msg}</div>
+                {chat.type === "user" ? <div className="message me">
+                  <div className="message-body">{chat.msg}</div>
                 </div> : <div className="message">
-                  <div class="message-body">{chat.msg}</div>
+                  <div className="message-body">{chat.msg}</div>
                 </div>}
               </>
             )

@@ -51,7 +51,7 @@ class ChatAppList extends React.Component {
                     <img src={user.astroid?.img} className="app-img" alt="" />
                   </div>
                   <div className="lst-con">
-                    <h5>{user.astroid?.fullname} </h5>
+                    <h5>{user.astroid?.fullname}</h5>
                     <p>{user.msg}</p>
 
                   </div>
@@ -63,22 +63,11 @@ class ChatAppList extends React.Component {
           : null}
       </ul>
 
-      /* <li>
-          <div className="imglf">
-            <img src={{ Buyimg }} className="app-img" />
-          </div>
-          <div className="lst-con">
-            <h5> namehghghghg</h5>
-            <p>lorem</p>
-          </div>
-        </li> */
+
     );
   }
 }
 
-//   ReactDOM.render(
-//     <ChatApp />,
-//     document.getElementById('root')
-//   );
+
 
 export default ChatAppList;

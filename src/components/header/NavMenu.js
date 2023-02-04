@@ -24,25 +24,24 @@ const NavMenu = ({ strings, menuWhiteClass, sidebarMenu }) => {
 
   return (
     <div
-      className={` ${
-        sidebarMenu
+      className={` ${sidebarMenu
           ? "sidebar-menu"
           : `main-menu ${menuWhiteClass ? menuWhiteClass : ""}`
-      } `}
+        } `}
     >
       <nav>
         <ul>
           <li>
             <Link to={process.env.PUBLIC_URL + "/"}>{strings["home"]}</Link>
           </li>
-
+          {/* 
           <li>
             <Link to="/kundaliform">Kundli Matching</Link>
-          </li>
+          </li> */}
 
-          <li>
+          {/* <li>
             <Link to="/freekundli"> Free Kundli</Link>
-          </li>
+          </li> */}
 
           <li>
             <Link to="/allastrologerlist">Talk Astrologer</Link>

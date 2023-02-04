@@ -24,8 +24,7 @@ class ProductList extends React.Component {
     let { id } = this.props.match.params
     console.log(id)
     axiosConfig
-      // .get(`/user/productbycategory/${id}`)
-      .get(`/user/added_product_byastro/${id}`)
+      .get(`/user/productbycategory/${id}`)
       .then((response) => {
         console.log('productbycategory', response.data)
         if (response.data.status === true) {
@@ -82,7 +81,7 @@ class ProductList extends React.Component {
                                 <Col md="4">
                                   <div className="po-1">
                                     <img
-                                      src={product?.product?.image[0]}
+                                      src={product?.image[0]}
                                       alt="pooja"
                                       width="100%"
                                     />
@@ -90,7 +89,7 @@ class ProductList extends React.Component {
                                 </Col>
                                 <Col md="8">
                                   <div className="po-1">
-                                    <h3>{product.product?.title}</h3>
+                                    <h3>{product.title}</h3>
                                     <p>
                                       Puja Starting from @₹
                                       {product?.price ? product?.price : 0}

@@ -1,13 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Container, Row, Col } from "reactstrap";
-// import aboutimg from "../../assets/img/aboutimg.jpg";
-// import aboutone from "../../assets/img/aboutone.png";
-// import abouttwo from "../../assets/img/abouttwo.png";
 import LayoutOne from "../../layouts/LayoutOne";
-// import pagetitle from "../../assets/img/pagetitle.jpg";
-// import FunFactOne from "../../wrappers/fun-fact/FunFactOne";
-// import poojaone from "../../assets/img/pooja/pooja-1.jpg";
 import AutoSearch from "./autosearch";
 import axiosConfig from "../../axiosConfig";
 import ReactHtmlParser from "react-html-parser";
@@ -100,9 +94,7 @@ class AstromallList extends React.Component {
                 </div>
               </Col>
               <Col lg="6">
-                {/* <div className="abo-2">
-                                  <img src={aboutone} alt="" className="about-img"></img>
-                            </div> */}
+
               </Col>
             </Row>
           </Container>
