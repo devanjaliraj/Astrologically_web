@@ -71,8 +71,9 @@ class AstromallList extends React.Component {
                                   <Col md="4">
                                     <div className="po-1">
                                       <img
+
                                         src={procat.img}
-                                        alt="image"
+                                        alt=""
                                         width="100%"
                                       />
                                     </div>

@@ -1,11 +1,8 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { Container, Row, Col, Button, Input } from "reactstrap";
 import LayoutOne from "../../layouts/LayoutOne";
-// import AutoSearch from './autosearch'
 import axiosConfig from "../../axiosConfig";
 import swal from "sweetalert";
-
 class UserRequestForm extends React.Component {
   constructor(props) {
     super(props);
@@ -31,9 +28,7 @@ class UserRequestForm extends React.Component {
       data: [],
     };
   }
-
   componentDidMount() {
-
     let userId = JSON.parse(localStorage.getItem("user_id"));
     axiosConfig
       .get(`/user/viewoneuser/${userId}`)
@@ -44,8 +39,6 @@ class UserRequestForm extends React.Component {
         console.log(error);
       });
   }
-
-
   changeHandler = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
@@ -71,7 +64,6 @@ class UserRequestForm extends React.Component {
       marital_status: this.state.marital_status,
       occupation: this.state.occupation,
       topic_of_cnsrn: this.state.topic_of_cnsrn,
-
       entertopic_of_cnsrn: this.state.entertopic_of_cnsrn,
 
     };
@@ -83,18 +75,13 @@ class UserRequestForm extends React.Component {
         // window.location.reload("/allastrologerlist");
         // this.props.history.push("/allastrologerlist");
         this.props.history.push("/allMinRecharge");
-
-
       })
-
       .catch((error) => {
         swal("Error!", "You clicked the button!", "error");
         console.log(error);
       });
   };
   render() {
-
-
     return (
       <LayoutOne headerTop="visible">
         <section className="pt-0 pb-0">
@@ -118,7 +105,6 @@ class UserRequestForm extends React.Component {
             </Container>
           </div>
         </section>
-
         <section className="">
           <Container>
             <Row>
@@ -212,7 +198,6 @@ class UserRequestForm extends React.Component {
                             name="p_dob"
                             value={this.state.p_dob}
                             onChange={this.changeHandler}
-                            // required
                             placeholder="Enter Your Number"
                           />
                         </div>
@@ -271,10 +256,6 @@ class UserRequestForm extends React.Component {
                           />
                         </div>
                       </Col>
-
-
-
-
                       <Col lg="6" md="6" className="mb-2">
                         <label>Gender*</label>
                         <Input
@@ -289,29 +270,17 @@ class UserRequestForm extends React.Component {
                           <option>Female</option>
                         </Input>
                       </Col>
-
-
-
                       {/* 
                       <Col md="4">
                         <div class="form-group mtb-10">
                           <label>Gender*</label>
                           <Input
-                           
                             type="select"
                             value={this.state.data.gender}
-                            onChange={this.changeHandler1}
-                          >
-                         
+                            onChange={this.changeHandler1}>
                           </Input>
                         </div>
                       </Col> */}
-
-
-
-
-
-
                       <Col md="4">
                         <div class="form-group mtb-10">
                           <label>Marital Status*</label>

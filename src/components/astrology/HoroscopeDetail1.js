@@ -11,7 +11,7 @@ import LayoutOne from "../../layouts/LayoutOne";
 
 import axiosConfig from "../../axiosConfig";
 import swal from "sweetalert";
-class HoroscopeDetail extends React.Component {
+class HoroscopeDetail1 extends React.Component {
   constructor(props) {
     super(props);
 
@@ -65,7 +65,7 @@ class HoroscopeDetail extends React.Component {
       zodiacName: id
     };
     axiosConfig
-      .post(`/user/dailyhoroscope`, payload)
+      .post(`/user/weeklyHoroscope`, payload)
       .then((response) => {
         console.log("dailyHoroscope", response.data.data.prediction);
         this.setState({ dailyHoroscope: response.data.data });
@@ -87,9 +87,9 @@ class HoroscopeDetail extends React.Component {
       zodiacName: this.state.zodiacName
     };
     axiosConfig
-      .post(`/user/dailyhoroscope`, payload)
+      .post(`/user/weeklyHoroscope`, payload)
       .then((response) => {
-        console.log("dailyHoroscope", response.data.data.prediction);
+        console.log("dailyHoroscope", response.data);
         this.setState({ dailyHoroscope: response.data.data });
         console.log("dailyHoroscope1", response.data);
 
@@ -171,28 +171,29 @@ class HoroscopeDetail extends React.Component {
                       submit
 
                     </Button>
+                    {/* <div className="h-cate">
+                      <h3>HOROSCOPES:</h3>
 
+                      <ul>
+                        <li>
+                          <p>{ }</p>
+                        </li>
+                      </ul>
+
+                    </div> */}
                   </div>
                 </Col>
                 <Col lg="8">
+
                   <div className="scope-1">
-                    <h3>personal life</h3>
-                    <p>{dailyHoroscope?.prediction?.personal_life}</p>
-                    <h3>Profession</h3>
 
-                    <p>{dailyHoroscope?.prediction?.profession}</p>
-                    <h3>Health</h3>
+                    <h3>Start Date</h3>
+                    <p>{dailyHoroscope.prediction_start_date}</p>
+                    <h3>End Date</h3>
+                    <p>{dailyHoroscope.prediction_end_date}</p>
 
-                    <p>{dailyHoroscope?.prediction?.health}</p>
-                    <h3>Travel</h3>
-
-                    <p>{dailyHoroscope?.prediction?.travel}</p>
-                    <h3>Luck</h3>
-                    <p>{dailyHoroscope?.prediction?.luck}</p>
-                    <h3>Emotions</h3>
-                    <p>{dailyHoroscope?.prediction?.emotions}</p>
-
-
+                    <h3>prediction</h3>
+                    <p>{dailyHoroscope.prediction}</p>
                   </div>
                 </Col>
               </Row>
@@ -204,4 +205,4 @@ class HoroscopeDetail extends React.Component {
   }
 }
 
-export default HoroscopeDetail;
+export default HoroscopeDetail1;

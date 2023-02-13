@@ -94,7 +94,8 @@ class ConsultantList extends React.Component {
                         </ul>
                         <div className="my-2">
                           <Link
-                            to={'/addressform/' + list?.astroid?._id}
+                            // to={'/addressform/' + list?.astroid?._id}
+                            to={'/addressform/' + list?._id}
                             className="btn btn-primary btn-sm"
                           >
                             Select

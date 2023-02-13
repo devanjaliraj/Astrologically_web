@@ -4,7 +4,7 @@ import { Container, Row, Col } from 'reactstrap'
 import LayoutOne from '../../layouts/LayoutOne'
 import heroscope1 from '../../assets/img/heroscope/heroscope1.png'
 import axiosConfig from '../../axiosConfig'
-class HeroscopesTwo extends React.Component {
+class HeroscopesTwo2 extends React.Component {
   constructor() {
     super()
     this.state = {
@@ -44,7 +44,7 @@ class HeroscopesTwo extends React.Component {
               <Row>
                 <Col md="12">
                   <div className="leftcont text-left">
-                    <h1>Daily Horoscope</h1>
+                    <h1>Monthly Horoscope</h1>
                     <p></p>
                   </div>
                 </Col>
@@ -57,7 +57,7 @@ class HeroscopesTwo extends React.Component {
             <Row>
               <Col lg="12">
                 <div className="scope-1">
-                  <h3>DAILY HOROSCOPE</h3>
+                  <h3>MONTHLY HOROSCOPE</h3>
                   <p>
                     AstroVipra brings together astrologers and their boundless
                     knowledge about the occult science of Astrology on one
@@ -92,7 +92,7 @@ class HeroscopesTwo extends React.Component {
                       : null} */}
                     <Col md="2">
                       <h4 className="">Aries</h4>
-                      <Link to={'/horoscopedetail/aries'}>
+                      <Link to={'/horoscopedetail2/aries'}>
                         {/* <div className=""> */}
                         <div className="scope-img">
                           <img src={heroscope1} alt="" />
@@ -122,7 +122,7 @@ class HeroscopesTwo extends React.Component {
                           <h4 className="">Taurus</h4>
                           {/* <p>{hscope.desc}</p> */}
                           <span className="scope-sp">
-                            <Link to={'/horoscopedetail/taurus'}>
+                            <Link to={'/horoscopedetail2/taurus'}>
                               Read More
                             </Link>
                           </span>
@@ -139,7 +139,7 @@ class HeroscopesTwo extends React.Component {
                           <h4 className="">Gemini</h4>
                           {/* <p>{hscope.desc}</p> */}
                           <span className="scope-sp">
-                            <Link to={'/horoscopedetail/gemini'}>
+                            <Link to={'/horoscopedetail2/gemini'}>
                               Read More
                             </Link>
                           </span>
@@ -156,7 +156,7 @@ class HeroscopesTwo extends React.Component {
                           <h4 className="">Cancer</h4>
                           {/* <p>{hscope.desc}</p> */}
                           <span className="scope-sp">
-                            <Link to={'/horoscopedetail/cancer'}>
+                            <Link to={'/horoscopedetail2/cancer'}>
                               Read More
                             </Link>
                           </span>
@@ -173,7 +173,7 @@ class HeroscopesTwo extends React.Component {
                           <h4 className="">Leo</h4>
                           {/* <p>{hscope.desc}</p> */}
                           <span className="scope-sp">
-                            <Link to={'/horoscopedetail/leo'}>
+                            <Link to={'/horoscopedetail2/leo'}>
                               Read More
                             </Link>
                           </span>
@@ -190,7 +190,7 @@ class HeroscopesTwo extends React.Component {
                           <h4 className="">Virgo</h4>
                           {/* <p>{hscope.desc}</p> */}
                           <span className="scope-sp">
-                            <Link to={'/horoscopedetail/virgo'}>
+                            <Link to={'/horoscopedetail2/virgo'}>
                               Read More
                             </Link>
                           </span>
@@ -207,7 +207,7 @@ class HeroscopesTwo extends React.Component {
                           <h4 className="">Libra</h4>
                           {/* <p>{hscope.desc}</p> */}
                           <span className="scope-sp">
-                            <Link to={'/horoscopedetail/libra'}>
+                            <Link to={'/horoscopedetail2/libra'}>
                               Read More
                             </Link>
                           </span>
@@ -224,7 +224,7 @@ class HeroscopesTwo extends React.Component {
                           <h4 className="">Scorpio</h4>
                           {/* <p>{hscope.desc}</p> */}
                           <span className="scope-sp">
-                            <Link to={'/horoscopedetail/scorpio'}>
+                            <Link to={'/horoscopedetail2/scorpio'}>
                               Read More
                             </Link>
                           </span>
@@ -241,7 +241,7 @@ class HeroscopesTwo extends React.Component {
                           <h4 className="">Sagittarius</h4>
                           {/* <p>{hscope.desc}</p> */}
                           <span className="scope-sp">
-                            <Link to={'/horoscopedetail/sagittarius'}>
+                            <Link to={'/horoscopedetail2/sagittarius'}>
                               Read More
                             </Link>
                           </span>
@@ -258,7 +258,7 @@ class HeroscopesTwo extends React.Component {
                           <h4 className="">Capricorn</h4>
                           {/* <p>{hscope.desc}</p> */}
                           <span className="scope-sp">
-                            <Link to={'/horoscopedetail/capricorn'}>
+                            <Link to={'/horoscopedetail2/capricorn'}>
                               Read More
                             </Link>
                           </span>
@@ -275,7 +275,7 @@ class HeroscopesTwo extends React.Component {
                           <h4 className="">Aquarius</h4>
                           {/* <p>{hscope.desc}</p> */}
                           <span className="scope-sp">
-                            <Link to={'/horoscopedetail/aquarius'}>
+                            <Link to={'/horoscopedetail2/aquarius'}>
                               Read More
                             </Link>
                           </span>
@@ -292,7 +292,7 @@ class HeroscopesTwo extends React.Component {
                           <h4 className="">Pisces</h4>
                           {/* <p>{hscope.desc}</p> */}
                           <span className="scope-sp">
-                            <Link to={'/horoscopedetail/pisces'}>
+                            <Link to={'/horoscopedetail2/pisces'}>
                               Read More
                             </Link>
                           </span>
@@ -311,4 +311,4 @@ class HeroscopesTwo extends React.Component {
   }
 }
 
-export default HeroscopesTwo
+export default HeroscopesTwo2

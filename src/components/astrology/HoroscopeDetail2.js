@@ -11,74 +11,67 @@ import LayoutOne from "../../layouts/LayoutOne";
 
 import axiosConfig from "../../axiosConfig";
 import swal from "sweetalert";
-class HoroscopeDetail extends React.Component {
+class HoroscopeDetail2 extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
-
-      data: {},
+      // data: {},
       categoryList: [],
       zodiacName: "",
       sun_sign: "",
       prediction_date: "",
       dailyHoroscope: {},
-
-
     };
   }
   changeHandler = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
-  componentDidMount() {
-    axiosConfig
-      .get("/admin/getallCategory")
-      .then((response) => {
-        console.log(response.data);
-        if (response.data.status === true) {
-          this.setState({ categoryList: response.data.data });
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-        console.log(error.response);
-      });
+  // componentDidMount() {
+  //   axiosConfig
+  //     .get("/admin/getallCategory")
+  //     .then((response) => {
+  //       console.log(response.data);
+  //       if (response.data.status === true) {
+  //         this.setState({ categoryList: response.data.data });
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //       console.log(error.response);
+  //     });
 
-    let { id } = this.props.match.params;
-    this.setState({ zodiacName: id })
-    // console.log(id);
-    axiosConfig
-      .get(`/admin/getoneRashi/${id}`)
-      .then((response) => {
-        console.log(response.data.data);
-        this.setState({
-          rashi_title: response.data.data.rashi_title,
-          desc: response.data.data.desc,
-          date: response.data.data.date,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  //   let { id } = this.props.match.params;
+  //   this.setState({ zodiacName: id })
+  //   // console.log(id);
+  //   axiosConfig
+  //     .get(`/admin/getoneRashi/${id}`)
+  //     .then((response) => {
+  //       console.log(response.data.data);
+  //       this.setState({
+  //         rashi_title: response.data.data.rashi_title,
+  //         desc: response.data.data.desc,
+  //         date: response.data.data.date,
+  //       });
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
 
-    let payload = {
-      zodiacName: id
-    };
-    axiosConfig
-      .post(`/user/dailyhoroscope`, payload)
-      .then((response) => {
-        console.log("dailyHoroscope", response.data.data.prediction);
-        this.setState({ dailyHoroscope: response.data.data });
-      })
+  //   let payload = {
+  //     zodiacName: id
+  //   };
+  //   axiosConfig
+  //     .post(`/user/monthlyHoroscope`, payload)
+  //     .then((response) => {
+  //       console.log("dailyHoroscope", response.data.data.prediction);
+  //       this.setState({ dailyHoroscope: response.data.data });
+  //     })
 
-      .catch((error) => {
-        swal("Error!", "You clicked the button!", "error");
-        console.log(error);
-      });
-  }
-
-
-
+  //     .catch((error) => {
+  //       swal("Error!", "You clicked the button!", "error");
+  //       console.log(error);
+  //     });
+  // }
 
   submitHandler = (e) => {
     e.preventDefault();
@@ -87,21 +80,12 @@ class HoroscopeDetail extends React.Component {
       zodiacName: this.state.zodiacName
     };
     axiosConfig
-      .post(`/user/dailyhoroscope`, payload)
+      .post(`/user/monthlyHoroscope`, payload)
       .then((response) => {
         console.log("dailyHoroscope", response.data.data.prediction);
         this.setState({ dailyHoroscope: response.data.data });
         console.log("dailyHoroscope1", response.data);
-
-        // this.setState({ dailyHoroscope: response.prediction?.data.data });
-
-
         swal("Success!", "Submitted SuccessFull!", "success");
-        // window.location.reload("/allastrologerlist");
-        // this.props.history.push("/allastrologerlist");
-        // this.props.history.push("/allMinRecharge");
-
-
       })
 
       .catch((error) => {
@@ -130,6 +114,9 @@ class HoroscopeDetail extends React.Component {
                   <div className="leftcont text-left">
                     <h1>{dailyHoroscope?.sun_sign}</h1>
                     <h3>{dailyHoroscope?.prediction_date}</h3>
+
+
+                    {/* prediction */}
                   </div>
                 </Col>
               </Row>
@@ -171,29 +158,29 @@ class HoroscopeDetail extends React.Component {
                       submit
 
                     </Button>
+                    {/* <div className="h-cate">
+                      <h3>HOROSCOPES:</h3>
 
+                      <ul>
+                        <li>
+                          <p>{ }</p>
+                        </li>
+                      </ul>
+
+                    </div> */}
                   </div>
                 </Col>
                 <Col lg="8">
                   <div className="scope-1">
-                    <h3>personal life</h3>
-                    <p>{dailyHoroscope?.prediction?.personal_life}</p>
-                    <h3>Profession</h3>
-
-                    <p>{dailyHoroscope?.prediction?.profession}</p>
-                    <h3>Health</h3>
-
-                    <p>{dailyHoroscope?.prediction?.health}</p>
-                    <h3>Travel</h3>
-
-                    <p>{dailyHoroscope?.prediction?.travel}</p>
-                    <h3>Luck</h3>
-                    <p>{dailyHoroscope?.prediction?.luck}</p>
-                    <h3>Emotions</h3>
-                    <p>{dailyHoroscope?.prediction?.emotions}</p>
-
-
+                    <div className="scope-1">
+                      <h3>Prediction Month</h3>
+                      <p>{dailyHoroscope.prediction_month}</p>
+                    </div>
+                    <h3>Prediction life</h3>
+                    <p>{dailyHoroscope.prediction}</p>
                   </div>
+
+
                 </Col>
               </Row>
             </form>
@@ -204,4 +191,4 @@ class HoroscopeDetail extends React.Component {
   }
 }
 
-export default HoroscopeDetail;
+export default HoroscopeDetail2;

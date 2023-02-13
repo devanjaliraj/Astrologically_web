@@ -25,8 +25,8 @@ const NavMenu = ({ strings, menuWhiteClass, sidebarMenu }) => {
   return (
     <div
       className={` ${sidebarMenu
-          ? "sidebar-menu"
-          : `main-menu ${menuWhiteClass ? menuWhiteClass : ""}`
+        ? "sidebar-menu"
+        : `main-menu ${menuWhiteClass ? menuWhiteClass : ""}`
         } `}
     >
       <nav>
@@ -34,14 +34,14 @@ const NavMenu = ({ strings, menuWhiteClass, sidebarMenu }) => {
           <li>
             <Link to={process.env.PUBLIC_URL + "/"}>{strings["home"]}</Link>
           </li>
-          {/* 
+
           <li>
             <Link to="/kundaliform">Kundli Matching</Link>
-          </li> */}
+          </li>
 
-          {/* <li>
+          <li>
             <Link to="/freekundli"> Free Kundli</Link>
-          </li> */}
+          </li>
 
           <li>
             <Link to="/allastrologerlist">Talk Astrologer</Link>
@@ -54,13 +54,28 @@ const NavMenu = ({ strings, menuWhiteClass, sidebarMenu }) => {
           <li>
             <Link>Horoscopes</Link>
             <ul className="submenu">
-              {categoryList?.map((cat) => (
+              <li className="" >
+                <Link to={process.env.PUBLIC_URL + "/heroscopestwo"}>
+                  Daily
+                </Link>
+              </li>
+              <li className="" >
+                <Link to={process.env.PUBLIC_URL + "/heroscopestwo1"}>
+                  Weekly
+                </Link>
+              </li>
+              <li className="" >
+                <Link to={process.env.PUBLIC_URL + "/heroscopestwo2"}>
+                  Monthly
+                </Link>
+              </li>
+              {/* {categoryList?.map((cat) => (
                 <li className="" key={cat._id}>
                   <Link to={process.env.PUBLIC_URL + "/heroscopestwo"}>
                     {cat?.title}
                   </Link>
                 </li>
-              ))}
+              ))} */}
             </ul>
           </li>
 

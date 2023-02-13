@@ -36,13 +36,16 @@ class CartList extends React.Component {
     let { id } = this.props.match.params
     let productId = localStorage.getItem('product_id')
     let astroId = localStorage.getItem('astro_id')
-    let userId = localStorage.getItem('userId')
+    let userId = localStorage.getItem('user_id')
     let shippingId = localStorage.getItem('shipping_id')
+    // let { shippingId } = this.props.match.params
     axiosConfig
       .get(`/user/product_consltnt_list/` + productId)
       .then((response) => {
-        console.log('sdfhshgfsgh', response.data?.data)
+        console.log('sdfhshgfsghhghggjghggjgjgg', response.data?.data)
         this.setState({
+          data: response.data.data,
+
           price: response.data?.price,
         })
       })
@@ -65,16 +68,19 @@ class CartList extends React.Component {
         })
       })
       .catch((error) => {
-        console.log(error.response.data)
+        console.log(error.response.data.data)
       })
+    localStorage.setItem("shipping_id", id);
+
+
     axiosConfig
-      .get(`/user/getone_address/${id}`)
+      .get(`/user/getone_address/${shippingId}`)
       .then((response) => {
         //console.log('@@@@new', response?.data?.data[0]?.userid?._id)
-        localStorage.setItem(
-          'shipping_id',
-          response?.data?.data[0]?.userid?._id,
-        )
+        // localStorage.setItem(
+        //   'shipping_id',
+        //   response?.data?.data[0]?.userid?._id,
+        // )
         alert(response?.data?.data[0]?.userid?._id)
         this.setState({
           shippingId: response?.data?.data[0]?.userid?._id,
@@ -109,9 +115,9 @@ class CartList extends React.Component {
     let obj = {
       astroId: astroId,
       userId: userId,
-      productid: productId,
-      shipping_address: shippingId,
-      orderId: this.state.orderId,
+      productId: productId,
+      shippingId: shippingId,
+      // orderId: this.state.orderId,
       price: this.state.price,
     }
 
@@ -131,15 +137,15 @@ class CartList extends React.Component {
     e.preventDefault()
     // let { id } = this.props.match.params
     // console.log(id)
-    let astroid = JSON.parse(localStorage.getItem('astroId'))
-    let userid = JSON.parse(localStorage.getItem('userId'))
-    let shippingaddress = JSON.parse(localStorage.getItem('shipping_address'))
-    let productid = JSON.parse(localStorage.getItem('productid'))
+    let astroid = JSON.parse(localStorage.getItem('astro_id'))
+    let userid = JSON.parse(localStorage.getItem('user_id'))
+    let shippingid = JSON.parse(localStorage.getItem('shipping_id'))
+    let productId = localStorage.getItem('product_id')
     let obj = {
       astroId: astroid,
       userId: userid,
-      productId: productid,
-      shipping_address: shippingaddress,
+      productId: productId,
+      shippingId: shippingid,
       //   mobile: parseInt(this.state.mobile),
       //   email: this.state.email,
       // gstotal: this.state.gstotal,
@@ -162,6 +168,8 @@ class CartList extends React.Component {
       })
   }
   render() {
+    const { data } = this.state;
+
     return (
       <LayoutOne headerTop="visible">
         <section className="pt-0 pb-0">
@@ -216,7 +224,7 @@ class CartList extends React.Component {
                           <br />
                           <span>{ReactHtmlParser(this.state.desc)}</span>
                         </td>
-                        <td>{this.state.data?.data?.price}</td>
+                        <td>{data.price}</td>
                         {/* <td>Rajverdhan Shastriji</td>
                         <td>indore</td> */}
                         <td>

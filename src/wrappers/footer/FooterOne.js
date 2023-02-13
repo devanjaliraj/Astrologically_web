@@ -50,20 +50,16 @@ const FooterOne = ({
 
   return (
     <footer
-      className={`footer-area ${
-        backgroundColorClass ? backgroundColorClass : ""
-      } ${spaceTopClass ? spaceTopClass : ""} ${
-        spaceBottomClass ? spaceBottomClass : ""
-      } ${extraFooterClass ? extraFooterClass : ""} ${
-        spaceLeftClass ? spaceLeftClass : ""
-      } ${spaceRightClass ? spaceRightClass : ""}`}
+      className={`footer-area ${backgroundColorClass ? backgroundColorClass : ""
+        } ${spaceTopClass ? spaceTopClass : ""} ${spaceBottomClass ? spaceBottomClass : ""
+        } ${extraFooterClass ? extraFooterClass : ""} ${spaceLeftClass ? spaceLeftClass : ""
+        } ${spaceRightClass ? spaceRightClass : ""}`}
     >
       <div className={`${containerClass ? containerClass : "container"}`}>
         <div className="row">
           <div
-            className={`${
-              sideMenu ? "col-xl-3 col-sm-4" : "col-lg-3 col-sm-4"
-            }`}
+            className={`${sideMenu ? "col-xl-3 col-sm-4" : "col-lg-3 col-sm-4"
+              }`}
           >
             {/* footer copyright */}
             <h3 className="stltext">AstroVipra </h3>
@@ -91,16 +87,14 @@ const FooterOne = ({
           </div> */}
 
           <div
-            className={`${
-              sideMenu ? "col-xl-3 col-sm-4" : "col-lg-3 col-sm-6"
-            }`}
+            className={`${sideMenu ? "col-xl-3 col-sm-4" : "col-lg-3 col-sm-6"
+              }`}
           >
             <div
-              className={`${
-                sideMenu
-                  ? "footer-widget mb-30 ml-145"
-                  : "footer-widget mb-30 ml-75"
-              }`}
+              className={`${sideMenu
+                ? "footer-widget mb-30 ml-145"
+                : "footer-widget mb-30 ml-75"
+                }`}
             >
               <div className="footer-title">
                 <h3>Horoscope Category</h3>
@@ -110,13 +104,28 @@ const FooterOne = ({
                   <li>
                     <Link>Horoscopes</Link>
                     <ul className="submenu">
-                      {categoryList?.map((cat) => (
+                      <li className="" >
+                        <Link to={process.env.PUBLIC_URL + "/heroscopesall"}>
+                          Daily
+                        </Link>
+                      </li>
+                      <li className="" >
+                        <Link to={process.env.PUBLIC_URL + "/heroscopesall"}>
+                          Weekly
+                        </Link>
+                      </li>
+                      <li className="" >
+                        <Link to={process.env.PUBLIC_URL + "/heroscopesall"}>
+                          Monthly
+                        </Link>
+                      </li>
+                      {/* {categoryList?.map((cat) => (
                         <li className="" key={cat._id}>
                           <Link to={process.env.PUBLIC_URL + "/heroscopesall"}>
                             {cat?.title}
                           </Link>
                         </li>
-                      ))}
+                      ))} */}
                     </ul>
                   </li>
                   {/* <li>
@@ -158,16 +167,14 @@ const FooterOne = ({
           </div>
 
           <div
-            className={`${
-              sideMenu ? "col-xl-3 col-sm-4" : "col-lg-3 col-sm-4"
-            }`}
+            className={`${sideMenu ? "col-xl-3 col-sm-4" : "col-lg-3 col-sm-4"
+              }`}
           >
             <div
-              className={`${
-                sideMenu
-                  ? "footer-widget mb-30 ml-95"
-                  : "footer-widget mb-30 ml-50"
-              }`}
+              className={`${sideMenu
+                ? "footer-widget mb-30 ml-95"
+                : "footer-widget mb-30 ml-50"
+                }`}
             >
               <div className="footer-title">
                 <h3>USEFUL LINKS</h3>
@@ -220,9 +227,8 @@ const FooterOne = ({
           </div>
 
           <div
-            className={`${
-              sideMenu ? "col-xl-3 col-sm-8" : "col-lg-3 col-sm-6"
-            }`}
+            className={`${sideMenu ? "col-xl-3 col-sm-8" : "col-lg-3 col-sm-6"
+              }`}
           >
             {/* footer newsletter */}
             <FooterNewsletter

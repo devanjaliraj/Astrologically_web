@@ -169,10 +169,21 @@ const HeroscopesAll = lazy(() =>
 const HeroscopesTwo = lazy(() =>
   import("./components/astrology/heroscopestwo")
 );
+const HeroscopesTwo1 = lazy(() =>
+  import("./components/astrology/heroscopestwo1")
+);
+const HeroscopesTwo2 = lazy(() =>
+  import("./components/astrology/heroscopestwo2")
+);
 const HoroscopeDetail = lazy(() =>
   import("./components/astrology/HoroscopeDetail")
 );
-
+const HoroscopeDetail1 = lazy(() =>
+  import("./components/astrology/HoroscopeDetail1")
+);
+const HoroscopeDetail2 = lazy(() =>
+  import("./components/astrology/HoroscopeDetail2")
+);
 const AstromallList = lazy(() =>
   import("./components/astrology/astromallList")
 );
@@ -565,10 +576,25 @@ const App = (props) => {
                     component={HeroscopesTwo}
                   />
                   <Route
+                    path={process.env.PUBLIC_URL + "/heroscopestwo1"}
+                    component={HeroscopesTwo1}
+                  />
+                  <Route
+                    path={process.env.PUBLIC_URL + "/heroscopestwo2"}
+                    component={HeroscopesTwo2}
+                  />
+                  <Route
                     path={process.env.PUBLIC_URL + "/horoscopedetail/:id"}
                     component={HoroscopeDetail}
                   />
-
+                  <Route
+                    path={process.env.PUBLIC_URL + "/horoscopedetail1/:id"}
+                    component={HoroscopeDetail1}
+                  />
+                  <Route
+                    path={process.env.PUBLIC_URL + "/horoscopedetail2/:id"}
+                    component={HoroscopeDetail2}
+                  />
                   <Route
                     path={process.env.PUBLIC_URL + "/astromallList"}
                     component={AstromallList}

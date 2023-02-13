@@ -1,12 +1,12 @@
 import PropTypes from "prop-types";
 import React, { Fragment, useState, useEffect } from "react";
-import { Button } from "reactstrap";
+// import { Button } from "reactstrap";
 import { Link } from "react-router-dom";
 import { useToasts } from "react-toast-notifications";
 import MetaTags from "react-meta-tags";
 import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import { connect } from "react-redux";
-import { getDiscountPrice } from "../../helpers/product";
+// import { getDiscountPrice } from "../../helpers/product";
 import {
   addToWishlist,
   deleteFromWishlist,
@@ -15,28 +15,28 @@ import {
 import { addToCart } from "../../redux/actions/cartActions";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
-import Axios from "axios";
+import axiosConfig from "../../axiosConfig";
 
 const MyOrder = ({
   location,
-  cartItems,
-  currency,
-  addToCart,
-  wishlistItems,
-  deleteFromWishlist,
-  deleteAllFromWishlist,
+  // cartItems,
+  // currency,
+  // addToCart,
+  // wishlistItems,
+  // deleteFromWishlist,
+  // deleteAllFromWishlist,
 }) => {
-  const { addToast } = useToasts();
+  // const { addToast } = useToasts();
   const { pathname } = location;
   const [order, setOrder] = useState([]);
   const fetchOrder = async (token) => {
-    const { data } = await Axios.get(
-      "http://13.235.180.192/api/admin/getorderbycustomer",
-      {
-        headers: {
-          "auth-token": localStorage.getItem("auth-token"),
-        },
-      }
+    const { data } = await axiosConfig.get(
+      "/user/myOrders/6337e74d44f94658451dc973",
+      // {
+      //   headers: {
+      //     "auth-token": localStorage.getItem("auth-token"),
+      //   },
+      // }
     );
 
     const order = data.data;
@@ -45,9 +45,9 @@ const MyOrder = ({
   };
 
   useEffect(() => {
-    if (localStorage.getItem("auth-token")) {
-      fetchOrder();
-    }
+    // if (localStorage.getItem("auth-token")) {
+    //   fetchOrder();
+    // }
   }, []);
 
   return (
