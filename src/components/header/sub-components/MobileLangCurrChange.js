@@ -41,6 +41,7 @@ const MobileLangCurrChange = ({
           <option value="en">English</option>
           <option value="fn">French</option>
           <option value="de">Germany</option>
+          <option value="hn">Hindi</option>
         </select>
       </div>
       <div className="lang-curr-style">

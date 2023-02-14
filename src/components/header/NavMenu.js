@@ -36,12 +36,16 @@ const NavMenu = ({ strings, menuWhiteClass, sidebarMenu }) => {
           </li>
 
           <li>
-            <Link to="/kundaliform">Kundli Matching</Link>
+            <Link to="/kundaliform">Match Matching</Link>
           </li>
 
-          <li>
+          {/* <li>
             <Link to="/freekundli"> Free Kundli</Link>
+          </li> */}
+          <li>
+            <Link to="/manglikdosh"> ManglikDosh</Link>
           </li>
+
 
           <li>
             <Link to="/allastrologerlist">Talk Astrologer</Link>

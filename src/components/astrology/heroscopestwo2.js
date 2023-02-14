@@ -2,32 +2,20 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Container, Row, Col } from 'reactstrap'
 import LayoutOne from '../../layouts/LayoutOne'
-import heroscope1 from '../../assets/img/heroscope/heroscope1.png'
-import axiosConfig from '../../axiosConfig'
+import virgo from '../../assets/img/heroscope/virgo.png'
+import aquarius from '../../assets/img/heroscope/aquarius.png'
+import cancer from '../../assets/img/heroscope/cancer.png'
+import capricorn from '../../assets/img/heroscope/capricorn.png'
+import gemini from '../../assets/img/heroscope/gemini.png'
+import leo from '../../assets/img/heroscope/leo.png'
+import libra from '../../assets/img/heroscope/libra.png'
+import pisces from '../../assets/img/heroscope/pisces.png'
+import sagittarius from '../../assets/img/heroscope/sagittarius.png'
+import scorpio from '../../assets/img/heroscope/scorpio.png'
+import taurus from '../../assets/img/heroscope/taurus.png'
+import aries from '../../assets/img/heroscope/aries.png'
 class HeroscopesTwo2 extends React.Component {
-  constructor() {
-    super()
-    this.state = {
-      horoscope: [],
-    }
-  }
-
-  componentDidMount = () => {
-    axiosConfig
-      .get('/admin/Rashilist')
-      .then((response) => {
-        console.log(response.data)
-        if (response.data.status === true) {
-          this.setState({ horoscope: response.data.data })
-        }
-      })
-      .catch((error) => {
-        console.log(error)
-        console.log(error.response)
-      })
-  }
   render() {
-    const { horoscope } = this.state
     return (
       <LayoutOne headerTop="visible">
         <section className="pt-0 pb-0">
@@ -68,238 +56,150 @@ class HeroscopesTwo2 extends React.Component {
                     service, Spiritual store and much more.
                   </p>
                   <Row>
-                    {/* {horoscope.length
-                      ? horoscope.map((hscope, index) => {
-                        return (
-                          <Col md="6" key={index}>
-                            <div className="scope-detail scop-2 mtb-10">
-                              <div className="scope-img">
-                                <img src={heroscope1} alt="" />
-                              </div>
-                              <div className="scope-text">
-                                <h4 className="">{hscope.rashi_title}</h4>
-                                <p>{hscope.desc}</p>
-                                <span className="scope-sp">
-                                  <Link to={'/horoscopedetail/' + hscope._id}>
-                                    Read More
-                                  </Link>
-                                </span>
-                              </div>
-                            </div>
-                          </Col>
-                        )
-                      })
-                      : null} */}
                     <Col md="2">
-                      <h4 className="">Aries</h4>
                       <Link to={'/horoscopedetail2/aries'}>
-                        {/* <div className=""> */}
-                        <div className="scope-img">
-                          <img src={heroscope1} alt="" />
+                        <div className="scope-detail scop-2 mtb-10">
+                          <div className="scope-img">
+                            <img src={aries} alt="" className='zoom' />
+                          </div>
+                          <div className="scope-text">
+                            <h4 className="">Aries</h4>
+                          </div>
                         </div>
-                        <div className="scope-text">
-                          {/* <h4 className="">Aries</h4> */}
-                          {/* <p>{hscope.desc}
-                     
-                          </p> */}
-                          {/* <span className="scope-sp">
-                              <Link to={'/horoscopedetail/aries'}>
-                              Read More
-
-                            </span>
-                            </Link> */}
-                        </div>
-                        {/* </div> */}
                       </Link>
                     </Col>
-
                     <Col md="2">
-                      <div className="scope-detail scop-2 mtb-10">
-                        <div className="scope-img">
-                          <img src={heroscope1} alt="" />
+                      <Link to={'/horoscopedetail2/taurus'}>
+                        <div className="scope-detail scop-2 mtb-10">
+                          <div className="scope-img">
+                            <img src={taurus} alt="" className='zoom' />
+                          </div>
+                          <div className="scope-text">
+                            <h4 className="">Taurus</h4>
+                          </div>
                         </div>
-                        <div className="scope-text">
-                          <h4 className="">Taurus</h4>
-                          {/* <p>{hscope.desc}</p> */}
-                          <span className="scope-sp">
-                            <Link to={'/horoscopedetail2/taurus'}>
-                              Read More
-                            </Link>
-                          </span>
-                        </div>
-                      </div>
+                      </Link>
                     </Col>
-
                     <Col md="2">
-                      <div className="scope-detail scop-2 mtb-10">
-                        <div className="scope-img">
-                          <img src={heroscope1} alt="" />
+                      <Link to={'/horoscopedetail2/gemini'}>
+                        <div className="scope-detail scop-2 mtb-10">
+                          <div className="scope-img">
+                            <img src={gemini} alt="" className='zoom' />
+                          </div>
+                          <div className="scope-text">
+                            <h4 className="">Gemini</h4>
+                          </div>
                         </div>
-                        <div className="scope-text">
-                          <h4 className="">Gemini</h4>
-                          {/* <p>{hscope.desc}</p> */}
-                          <span className="scope-sp">
-                            <Link to={'/horoscopedetail2/gemini'}>
-                              Read More
-                            </Link>
-                          </span>
-                        </div>
-                      </div>
+                      </Link>
                     </Col>
-
                     <Col md="2">
-                      <div className="scope-detail scop-2 mtb-10">
-                        <div className="scope-img">
-                          <img src={heroscope1} alt="" />
+                      <Link to={'/horoscopedetail2/cancer'}>
+                        <div className="scope-detail scop-2 mtb-10">
+                          <div className="scope-img">
+                            <img src={cancer} alt="" className='zoom' />
+                          </div>
+                          <div className="scope-text">
+                            <h4 className="">Cancer</h4>
+                          </div>
                         </div>
-                        <div className="scope-text">
-                          <h4 className="">Cancer</h4>
-                          {/* <p>{hscope.desc}</p> */}
-                          <span className="scope-sp">
-                            <Link to={'/horoscopedetail2/cancer'}>
-                              Read More
-                            </Link>
-                          </span>
-                        </div>
-                      </div>
+                      </Link>
                     </Col>
-
                     <Col md="2">
-                      <div className="scope-detail scop-2 mtb-10">
-                        <div className="scope-img">
-                          <img src={heroscope1} alt="" />
+                      <Link to={'/horoscopedetail2/leo'}>
+                        <div className="scope-detail scop-2 mtb-10">
+                          <div className="scope-img">
+                            <img src={leo} alt="" className='zoom' />
+                          </div>
+                          <div className="scope-text">
+                            <h4 className="">Leo</h4>
+                          </div>
                         </div>
-                        <div className="scope-text">
-                          <h4 className="">Leo</h4>
-                          {/* <p>{hscope.desc}</p> */}
-                          <span className="scope-sp">
-                            <Link to={'/horoscopedetail2/leo'}>
-                              Read More
-                            </Link>
-                          </span>
-                        </div>
-                      </div>
+                      </Link>
                     </Col>
-
                     <Col md="2">
-                      <div className="scope-detail scop-2 mtb-10">
-                        <div className="scope-img">
-                          <img src={heroscope1} alt="" />
+                      <Link to={'/horoscopedetail2/virgo'}>
+                        <div className="scope-detail scop-2 mtb-10">
+                          <div className="scope-img">
+                            <img src={virgo} alt="" className='zoom' />
+                          </div>
+                          <div className="scope-text">
+                            <h4 className="">Virgo</h4>
+                          </div>
                         </div>
-                        <div className="scope-text">
-                          <h4 className="">Virgo</h4>
-                          {/* <p>{hscope.desc}</p> */}
-                          <span className="scope-sp">
-                            <Link to={'/horoscopedetail2/virgo'}>
-                              Read More
-                            </Link>
-                          </span>
-                        </div>
-                      </div>
+                      </Link>
                     </Col>
-
                     <Col md="2">
-                      <div className="scope-detail scop-2 mtb-10">
-                        <div className="scope-img">
-                          <img src={heroscope1} alt="" />
+                      <Link to={'/horoscopedetail2/libra'}>
+                        <div className="scope-detail scop-2 mtb-10">
+                          <div className="scope-img">
+                            <img src={libra} alt="" className='zoom' />
+                          </div>
+                          <div className="scope-text">
+                            <h4 className="">Libra</h4>
+                          </div>
                         </div>
-                        <div className="scope-text">
-                          <h4 className="">Libra</h4>
-                          {/* <p>{hscope.desc}</p> */}
-                          <span className="scope-sp">
-                            <Link to={'/horoscopedetail2/libra'}>
-                              Read More
-                            </Link>
-                          </span>
-                        </div>
-                      </div>
+                      </Link>
                     </Col>
-
                     <Col md="2">
-                      <div className="scope-detail scop-2 mtb-10">
-                        <div className="scope-img">
-                          <img src={heroscope1} alt="" />
+                      <Link to={'/horoscopedetail2/scorpio'}>
+                        <div className="scope-detail scop-2 mtb-10">
+                          <div className="scope-img">
+                            <img src={scorpio} alt="" className='zoom' />
+                          </div>
+                          <div className="scope-text">
+                            <h4 className="">Scorpio</h4>
+                          </div>
                         </div>
-                        <div className="scope-text">
-                          <h4 className="">Scorpio</h4>
-                          {/* <p>{hscope.desc}</p> */}
-                          <span className="scope-sp">
-                            <Link to={'/horoscopedetail2/scorpio'}>
-                              Read More
-                            </Link>
-                          </span>
-                        </div>
-                      </div>
+                      </Link>
                     </Col>
-
                     <Col md="2">
-                      <div className="scope-detail scop-2 mtb-10">
-                        <div className="scope-img">
-                          <img src={heroscope1} alt="" />
+                      <Link to={'/horoscopedetail2/sagittarius'}>
+                        <div className="scope-detail scop-2 mtb-10">
+                          <div className="scope-img">
+                            <img src={sagittarius} alt="" className='zoom' />
+                          </div>
+                          <div className="scope-text">
+                            <h4 className="">Sagittarius</h4>
+                          </div>
                         </div>
-                        <div className="scope-text">
-                          <h4 className="">Sagittarius</h4>
-                          {/* <p>{hscope.desc}</p> */}
-                          <span className="scope-sp">
-                            <Link to={'/horoscopedetail2/sagittarius'}>
-                              Read More
-                            </Link>
-                          </span>
-                        </div>
-                      </div>
+                      </Link>
                     </Col>
-
                     <Col md="2">
-                      <div className="scope-detail scop-2 mtb-10">
-                        <div className="scope-img">
-                          <img src={heroscope1} alt="" />
+                      <Link to={'/horoscopedetail2/capricorn'}>
+                        <div className="scope-detail scop-2 mtb-10">
+                          <div className="scope-img">
+                            <img src={capricorn} alt="" className='zoom' />
+                          </div>
+                          <div className="scope-text">
+                            <h4 className="">Capricorn</h4>
+                          </div>
                         </div>
-                        <div className="scope-text">
-                          <h4 className="">Capricorn</h4>
-                          {/* <p>{hscope.desc}</p> */}
-                          <span className="scope-sp">
-                            <Link to={'/horoscopedetail2/capricorn'}>
-                              Read More
-                            </Link>
-                          </span>
-                        </div>
-                      </div>
+                      </Link>
                     </Col>
-
                     <Col md="2">
-                      <div className="scope-detail scop-2 mtb-10">
-                        <div className="scope-img">
-                          <img src={heroscope1} alt="" />
+                      <Link to={'/horoscopedetail2/aquarius'}>
+                        <div className="scope-detail scop-2 mtb-10">
+                          <div className="scope-img">
+                            <img src={aquarius} alt="" className='zoom' />
+                          </div>
+                          <div className="scope-text">
+                            <h4 className="">Aquarius</h4>
+                          </div>
                         </div>
-                        <div className="scope-text">
-                          <h4 className="">Aquarius</h4>
-                          {/* <p>{hscope.desc}</p> */}
-                          <span className="scope-sp">
-                            <Link to={'/horoscopedetail2/aquarius'}>
-                              Read More
-                            </Link>
-                          </span>
-                        </div>
-                      </div>
+                      </Link>
                     </Col>
-
                     <Col md="2">
-                      <div className="scope-detail scop-2 mtb-10">
-                        <div className="scope-img">
-                          <img src={heroscope1} alt="" />
+                      <Link to={'/horoscopedetail2/pisces'}>
+                        <div className="scope-detail scop-2 mtb-10">
+                          <div className="scope-img">
+                            <img src={pisces} alt="" className='zoom' />
+                          </div>
+                          <div className="scope-text">
+                            <h4 className="">Pisces</h4>
+                          </div>
                         </div>
-                        <div className="scope-text">
-                          <h4 className="">Pisces</h4>
-                          {/* <p>{hscope.desc}</p> */}
-                          <span className="scope-sp">
-                            <Link to={'/horoscopedetail2/pisces'}>
-                              Read More
-                            </Link>
-                          </span>
-                        </div>
-                      </div>
+                      </Link>
                     </Col>
-
                   </Row>
                 </div>
               </Col>

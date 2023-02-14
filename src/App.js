@@ -134,6 +134,9 @@ const CustomerSupportView = lazy(() =>
 const FreeKundli = lazy(() =>
   import("./components/astrology/kundalimatch/freekundli")
 );
+const PitraDosh = lazy(() => import("./components/astrology/PitraDosh"));
+const KalsharpDosh = lazy(() => import("./components/astrology/KalsharpDosh"));
+const ManglikDosh = lazy(() => import("./components/astrology/ManglikDosh"));
 
 const bannerSection = lazy(() =>
   import("./components/astrology/bannerSection")
@@ -526,6 +529,19 @@ const App = (props) => {
                   <Route
                     path={process.env.PUBLIC_URL + "/freekundli"}
                     component={FreeKundli}
+                  />
+                  <Route
+                    path={process.env.PUBLIC_URL + "/manglikdosh"}
+                    component={ManglikDosh}
+                  />
+                  <Route
+                    path={process.env.PUBLIC_URL + "/kalsharpdosh"}
+                    component={KalsharpDosh}
+                  />
+
+                  <Route
+                    path={process.env.PUBLIC_URL + "/pitradosh"}
+                    component={PitraDosh}
                   />
                   <Route
                     path={process.env.PUBLIC_URL + "/sectionpooja"}

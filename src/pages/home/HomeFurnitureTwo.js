@@ -26,6 +26,7 @@ import SectionPooja from "../../components/astrology/sectionpooja";
 // import AstroTeam from "../../components/astrology/astroteam";
 import SliderList from "../../components/astrology/sliderlist";
 import ServiceList from "../../components/astrology/ServiceList";
+import OurService from "../../components/astrology/OurService";
 
 
 const HomeFurnitureTwo = () => {
@@ -40,10 +41,10 @@ const HomeFurnitureTwo = () => {
       <OurWorkFlow />
       {/* Second section */}
 
-       {/* feature text */}
-       <FeatureIconSix spaceBottomClass="pb-30" spaceTopClass="pt-30" />
-      
-      <ServiceList/>
+      {/* feature text */}
+      <FeatureIconSix spaceBottomClass="pb-30" spaceTopClass="pt-30" />
+
+      <OurService />
 
 
       <AboutUs />
@@ -52,17 +53,17 @@ const HomeFurnitureTwo = () => {
       {/* <PredictionallHome /> */}
       {/* third section */}
 
-      
+
 
       {/* <FirstSectiontwo /> */}
       {/* Second Store */}
 
       {/* <FirstSectiontree /> */}
       {/* <TeamMemberOne spaceTopClass="pt-95" spaceBottomClass="pb-70" /> */}
-      <SliderList/>
+      <SliderList />
 
-   
-      <SectionPooja/>
+
+      <SectionPooja />
       {/* third section */}
 
       {/* Product slider */}
@@ -70,20 +71,20 @@ const HomeFurnitureTwo = () => {
       {/* Browse by category */}
       {/* <ByCategory /> */}
       {/* newsletter */}
-     {/* <NewsletterTwo spaceBottomClass="pb-100" /> */}
+      {/* <NewsletterTwo spaceBottomClass="pb-100" /> */}
 
-     {/* fun fact */}
-       <FunFactOne
-          spaceTopClass="pt-30"
-          spaceBottomClass="pb-30"
-          
-        />
+      {/* fun fact */}
+      <FunFactOne
+        spaceTopClass="pt-30"
+        spaceBottomClass="pb-30"
 
-       {/* testimonial */}
-     <TestimonialOne
-          spaceTopClass="pt-95"
-          spaceBottomClass="pb-95"
-          bgColorClass="bg-gray-3"
+      />
+
+      {/* testimonial */}
+      <TestimonialOne
+        spaceTopClass="pt-95"
+        spaceBottomClass="pb-95"
+        bgColorClass="bg-gray-3"
       />
 
       {/* blog featured */}

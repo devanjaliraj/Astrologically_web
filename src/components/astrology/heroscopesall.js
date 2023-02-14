@@ -1,10 +1,8 @@
 import React from 'react'
-// import { Link } from "react-router-dom";
 import { Container, Row, Col } from 'reactstrap'
 import LayoutOne from '../../layouts/LayoutOne'
-import heroscope1 from '../../assets/img/heroscope/heroscope1.png'
+import aries from '../../assets/img/heroscope/aries.png'
 import astromob from '../../assets/img/astromob.png'
-
 class HeroscopesAll extends React.Component {
   render() {
     return (
@@ -31,7 +29,6 @@ class HeroscopesAll extends React.Component {
             </Container>
           </div>
         </section>
-
         <section className="ptb-0">
           <Container>
             <Row>
@@ -47,7 +44,6 @@ class HeroscopesAll extends React.Component {
                     astrology sessions, Daily horoscope, Free kundli matching
                     service, Spiritual store and much more.
                   </p>
-
                   <Row>
                     <Col md="12">
                       <div className="scope-detail">
@@ -55,7 +51,7 @@ class HeroscopesAll extends React.Component {
                           Aries Horoscope Predictions 2022
                         </h4>
                         <div className="scope-img">
-                          <img src={heroscope1} alt="" />
+                          <img src={aries} alt="" />
                         </div>
                         <div className="scope-text">
                           <p>
@@ -71,7 +67,6 @@ class HeroscopesAll extends React.Component {
                             of professional goal.
                           </p>
                         </div>
-
                         <p className="mt-20">
                           As per the Aries yearly horoscope 2022, the native
                           will perform exceptionally well in their professional
@@ -126,5 +121,4 @@ class HeroscopesAll extends React.Component {
     )
   }
 }
-
 export default HeroscopesAll
