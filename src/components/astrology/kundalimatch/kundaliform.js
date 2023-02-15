@@ -1,14 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Container, Row, Col, Card, Input, Form, Button } from "reactstrap";
-// import Pj from "../../../assets/img/pj.gif";
 import "../../../assets/scss/astropooja.css";
-// import pagetitle from "../../../assets/img/pagetitle.jpg";
 import LayoutOne from "../../../layouts/LayoutOne";
 import MatchSearch from "../MatchSearch";
 import axiosConfig from "../../../axiosConfig";
 import swal from "sweetalert";
-
+import Axios from "axios";
 class KundaliForm extends React.Component {
     constructor(props) {
         super(props);
@@ -29,45 +27,62 @@ class KundaliForm extends React.Component {
             f_lat: "",
             f_lon: "",
             f_tzone: "",
+            matchmakingreport: {},
+
         };
+    }
+
+    componentDidMount() {
+        let { id } = this.props.match.params;
+        this.setState({ m_day: id })
+        let payload = {
+            m_day: id
+        };
+        axiosConfig
+            .post(`/user/match_making_report`, payload)
+            .then((response) => {
+                console.log("matchmakingreport", response.data.data.received_points);
+                this.setState({ matchmakingreport: response.data.data });
+            })
+
+            .catch((error) => {
+                swal("Error!", "You clicked the button!", "error");
+                console.log(error);
+            });
     }
     changeHandler = (e) => {
         this.setState({ [e.target.name]: e.target.value });
     };
     submitHandler = (e) => {
         e.preventDefault();
-        // let obj = {
-        //     // astroId: id,
-        //     // astroid: astroid,
-        //     // userid: user_id,
-        //     // question: this.state.question,
-        //     m_day: this.state.m_day,
-        //     m_month: this.state.m_month,
-        //     m_year: this.state.m_year,
-        //     m_hour: this.state.m_hour,
-        //     m_min: this.state.m_min,
-        //     m_lat: this.state.m_lat,
-        //     m_lon: this.state.m_lon,
-        //     m_tzone: this.state.m_tzone,
-        //     f_day: this.state.f_day,
-        //     f_month: this.state.f_month,
-        //     f_year: this.state.f_year,
-        //     f_hour: this.state.f_hour,
-        //     f_min: this.state.f_min,
-        //     f_lat: this.state.f_lat,
-        //     f_lon: this.state.f_lon,
-        //     f_tzone: this.state.f_tzone
-        // };
-
-        axiosConfig
-            .post(`/user/match_making_report`)
-
+        let obj = {
+            m_day: this.state.m_day,
+            m_month: this.state.m_month,
+            m_year: this.state.m_year,
+            m_hour: this.state.m_hour,
+            m_min: this.state.m_min,
+            m_lat: this.state.m_lat,
+            m_lon: this.state.m_lon,
+            m_tzone: this.state.m_tzone,
+            f_day: this.state.f_day,
+            f_month: this.state.f_month,
+            f_year: this.state.f_year,
+            f_hour: this.state.f_hour,
+            f_min: this.state.f_min,
+            f_lat: this.state.f_lat,
+            f_lon: this.state.f_lon,
+            f_tzone: this.state.f_tzone
+        };
+        console.log(obj)
+        Axios.post(`http://13.233.228.168:8000/user/match_making_report`, obj)
             .then((response) => {
-                console.log("@@@@@", response.data.data);
-
-                // this.getQuestionList(id)
+                console.log("matchmakingreport", response.data.data);
+                // this.setState({ matchmakingreport: response.data.data });
+                console.log("matchmakingreport", response.data);
                 swal("Success!", "Submitted SuccessFull!", "success");
                 //window.location.reload('/askQuestion')
+                this.props.history.push("/kundaliMatchList");
+
             })
 
             .catch((error) => {
@@ -75,13 +90,14 @@ class KundaliForm extends React.Component {
                 console.log(error);
             });
     };
-
     // handleChange = (e) => {
-    //     this.setState({
-    //         // question: e.target.value,
-    //     });
+    // this.setState({
+    // question: e.target.value,
+    // });
     // };
     render() {
+        const { matchmakingreport } = this.state;
+
         return (
             <LayoutOne headerTop="visible">
                 <section className="pt-0 pb-0">
@@ -92,14 +108,14 @@ class KundaliForm extends React.Component {
                             width: "100%",
                             padding: "70px 0px",
                             backgroundSize: "cover",
-                        }}
-                    >
+                        }}>
                         <Container>
                             <Row>
                                 <Col md="12">
                                     <div className="leftcont text-left">
                                         <h1>Kundli Matching</h1>
                                         <h3>Find your right one, through matchmaking</h3>
+                                        <h3>{matchmakingreport?.received_points}</h3>
                                     </div>
                                 </Col>
                             </Row>
@@ -110,35 +126,11 @@ class KundaliForm extends React.Component {
                     <Row>
                         <Col md="12">
                             <Card className="mb-50 pt-d">
-                                <h3>
-                                    Free Match Making - Kundli Milan & Gun Milan to Check
-                                    Possibilities of Marriage
-                                </h3>
-                                <p>
-                                    Kundli milan or kundali matching is an important consideration
-                                    to make when you decide to get married. Kundli matching, also
-                                    called Gun matching or Horoscope matching is the first step
-                                    towards marriage when the parents decide to match the kundlis
-                                    of the girl and the boy to ensure the couple is compatible.
-                                    The gun milan exercise has been a part of India's culture for
-                                    1000s of years now and continues to be so. So, if you too are
-                                    the lucky one who is planning to get married, and hence
-                                    looking for a horoscope matching with someone you have started
-                                    liking, then Astrotalk can help you. The Kundali milan online
-                                    software on Astrotalk has been prepared by the top astrologers
-                                    of Astrotalk. The software caters to the free Kundli milan
-                                    needs of the individuals and gives you insights; such as the
-                                    number of guns matching for the girl and the boy, what they
-                                    are compatible in, what their future would be like if they get
-                                    married, and so much more. The online gun milan software can
-                                    save you time and the hassle of going out to look for an
-                                    astrologer to get the gun milan exercise done. Also, in case
-                                    you have any doubts about the free kundali milan offered by
-                                    Astrotalk, you can always connect with the astrologers on
-                                    board and get those doubts sorted for yourself.
-                                </p>
+                                <h3>Free Match Making - Kundli Milan & Gun Milan to Check Possibilities of Marriage</h3>
+                                <p>Kundli milan or kundali matching is an important consideration to make when you decide to   get married. Kundli matching, also called Gun matching or Horoscope matching is the first step
+                                    towards marriage when the parents decide to match the kundlis of the girl and the boy to ensure the couple is compatible.The gun milan exercise has been a part of India's culture for 1000s of years now and continues to be so. So, if you too are the lucky one who is planning to get married, and hence looking for a horoscope matching with someone you have started liking, then Astrotalk can help you. The Kundali milan online software on Astrotalk has been prepared by the top astrologers of Astrotalk. The software caters to the free Kundli milan needs of the individuals and gives you insights; such as the number of guns matching for the girl and the boy, what they are compatible in, what their future would be like if they get married, and so much more. The online gun milan software can save you time and the hassle of going out to look for an astrologer to get the gun milan exercise done. Also, in case you have any doubts about the free kundali milan offered by Astrotalk, you can always connect with the astrologers on board and get those doubts sorted for yourself.</p>
                                 <div className="match-bx">
-                                    <Form>
+                                    <form onSubmit={this.submitHandler}>
                                         <Row>
                                             <Col md="8">
                                                 <h3>Fill Up Partner's Detail</h3>
@@ -154,19 +146,6 @@ class KundaliForm extends React.Component {
                                                                         placeholder="Name"
                                                                     />
                                                                 </Col>
-                                                                {/* <Col lg="6" md="6" className="mb-2">
-                                                                <label>Gender*</label>
-                                                                <Input
-                                                                    id="exampleSelect"
-                                                                    name="gender"
-                                                                    type="select"
-                                                                    value={this.state.data.gender}
-                                                                    onChange={this.changeHandler}>
-                                                                    <option>Select Gender</option>
-                                                                    <option>Male</option>
-                                                                    <option>Female</option>
-                                                                </Input>
-                                                            </Col> */}
                                                                 <Col md="4">
                                                                     <label>Birth Day</label>
                                                                     <Input
@@ -174,8 +153,7 @@ class KundaliForm extends React.Component {
                                                                         name="m_day"
                                                                         type="select"
                                                                         value={this.state.m_day}
-                                                                        onChange={this.changeHandler}
-                                                                    >
+                                                                        onChange={this.changeHandler}>
                                                                         <option>--Select--</option>
                                                                         <option>0</option>
                                                                         <option>1</option>
@@ -217,8 +195,7 @@ class KundaliForm extends React.Component {
                                                                         name="m_month"
                                                                         type="select"
                                                                         value={this.state.m_month}
-                                                                        onChange={this.changeHandler}
-                                                                    >
+                                                                        onChange={this.changeHandler}>
                                                                         <option>--Select--</option>
                                                                         <option>January</option>
                                                                         <option>February</option>
@@ -241,8 +218,7 @@ class KundaliForm extends React.Component {
                                                                         name="m_year"
                                                                         type="select"
                                                                         value={this.state.m_year}
-                                                                        onChange={this.changeHandler}
-                                                                    >
+                                                                        onChange={this.changeHandler}>
                                                                         <option>--Select--</option>
                                                                         <option value="1942">1942</option>
                                                                         <option value="1943">1943</option>
@@ -376,7 +352,7 @@ class KundaliForm extends React.Component {
                                                                     <label>Birth Minute</label>
                                                                     <select
                                                                         className="form-control"
-                                                                        name="f_min"
+                                                                        name="m_min"
                                                                         value={this.state.m_min}
                                                                         onChange={this.changeHandler}
                                                                     >
@@ -443,84 +419,13 @@ class KundaliForm extends React.Component {
                                                                         <option>60</option>
                                                                     </select>
                                                                 </Col>
-                                                                <Col md="4">
-                                                                    <label>Birth Second</label>
-                                                                    <select
-                                                                        className="form-control"
-                                                                        name="m_day"
-                                                                        type="select"
-                                                                        value={this.state.m_day}
-                                                                        onChange={this.changeHandler}
-                                                                    >
-                                                                        <option>--Select--</option>
-                                                                        <option>1</option>
-                                                                        <option>2</option>
-                                                                        <option>3</option>
-                                                                        <option>4</option>
-                                                                        <option>5</option>
-                                                                        <option>6</option>
-                                                                        <option>7</option>
-                                                                        <option>8</option>
-                                                                        <option>9</option>
-                                                                        <option>10</option>
-                                                                        <option>11</option>
-                                                                        <option>12</option>
-                                                                        <option>13</option>
-                                                                        <option>14</option>
-                                                                        <option>15</option>
-                                                                        <option>16</option>
-                                                                        <option>17</option>
-                                                                        <option>18</option>
-                                                                        <option>19</option>
-                                                                        <option>20</option>
-                                                                        <option>21</option>
-                                                                        <option>22</option>
-                                                                        <option>23</option>
-                                                                        <option>24</option>
-                                                                        <option>25</option>
-                                                                        <option>26</option>
-                                                                        <option>27</option>
-                                                                        <option>28</option>
-                                                                        <option>29</option>
-                                                                        <option>30</option>
-                                                                        <option>31</option>
-                                                                        <option>32</option>
-                                                                        <option>33</option>
-                                                                        <option>34</option>
-                                                                        <option>35</option>
-                                                                        <option>36</option>
-                                                                        <option>37</option>
-                                                                        <option>38</option>
-                                                                        <option>39</option>
-                                                                        <option>40</option>
-                                                                        <option>41</option>
-                                                                        <option>42</option>
-                                                                        <option>43</option>
-                                                                        <option>44</option>
-                                                                        <option>45</option>
-                                                                        <option>46</option>
-                                                                        <option>47</option>
-                                                                        <option>48</option>
-                                                                        <option>49</option>
-                                                                        <option>50</option>
-                                                                        <option>51</option>
-                                                                        <option>52</option>
-                                                                        <option>53</option>
-                                                                        <option>54</option>
-                                                                        <option>55</option>
-                                                                        <option>56</option>
-                                                                        <option>57</option>
-                                                                        <option>58</option>
-                                                                        <option>59</option>
-                                                                        <option>60</option>
-                                                                    </select>
-                                                                </Col>
+
 
                                                                 <Col md="12">
                                                                     <label>Birth Place Latitude</label>
                                                                     <Input
                                                                         type="tel"
-                                                                        maxLength={5}
+                                                                        maxLength={8}
                                                                         name="m_lat"
                                                                         placeholder="00.00"
                                                                         value={this.state.m_lat}
@@ -532,7 +437,7 @@ class KundaliForm extends React.Component {
                                                                     <input
                                                                         name="m_lon"
                                                                         placeholder="00.000"
-                                                                        maxLength={5}
+                                                                        maxLength={8}
                                                                         value={this.state.m_lon}
                                                                         onChange={this.changeHandler}
                                                                     />
@@ -543,7 +448,7 @@ class KundaliForm extends React.Component {
                                                                         // type="time"
                                                                         name="m_tzone"
                                                                         placeholder="00.00"
-                                                                        maxLength={6}
+                                                                        maxLength={8}
                                                                         value={this.state.m_tzone}
                                                                         onChange={this.changeHandler}
                                                                     />
@@ -562,14 +467,7 @@ class KundaliForm extends React.Component {
                                                                         placeholder="Name"
                                                                     />
                                                                 </Col>
-                                                                <Col md="12">
-                                                                    <label>Gender</label>
-                                                                    <select className="form-control">
-                                                                        <option>--Select--</option>
-                                                                        <option>Male</option>
-                                                                        <option>Female</option>
-                                                                    </select>
-                                                                </Col>
+
                                                                 <Col md="4">
                                                                     <label>Birth Day</label>
                                                                     <Input
@@ -846,7 +744,7 @@ class KundaliForm extends React.Component {
                                                                         <option>60</option>
                                                                     </select>
                                                                 </Col>
-                                                                <Col md="4">
+                                                                {/* <Col md="4">
                                                                     <label>Birth Second</label>
                                                                     <select
                                                                         className="form-control"
@@ -917,14 +815,14 @@ class KundaliForm extends React.Component {
                                                                         <option>59</option>
                                                                         <option>60</option>
                                                                     </select>
-                                                                </Col>
+                                                                </Col> */}
 
                                                                 <Col md="12">
                                                                     <label>Birth Place Latitude</label>
                                                                     <input
                                                                         name="f_lat"
                                                                         placeholder="00.00"
-                                                                        maxLength={4}
+                                                                        maxLength={8}
                                                                         value={this.state.f_lat}
                                                                         onChange={this.changeHandler}
                                                                     />
@@ -934,7 +832,7 @@ class KundaliForm extends React.Component {
                                                                     <input
                                                                         name="f_lon"
                                                                         placeholder="00.000"
-                                                                        maxLength={5}
+                                                                        maxLength={8}
                                                                         value={this.state.f_lon}
                                                                         onChange={this.changeHandler}
                                                                     />
@@ -945,7 +843,7 @@ class KundaliForm extends React.Component {
                                                                         // type="time"
                                                                         name="f_tzone"
                                                                         placeholder="00.00"
-                                                                        maxLength={4}
+                                                                        maxLength={8}
                                                                         value={this.state.f_tzone}
                                                                         onChange={this.changeHandler}
                                                                     />
@@ -953,16 +851,16 @@ class KundaliForm extends React.Component {
                                                             </Row>
                                                         </div>
                                                     </Col>
-                                                    <Col md="12">
-                                                        <Link to="/kundalimatchlist">
-                                                            <Button className="mt-25 btn btn-secondary">
-                                                                Match Horoscope
-                                                            </Button>
-                                                        </Link>
-                                                    </Col>
+
+                                                    {/* <Link to="/kundalimatchlist"> */}
+
+                                                    {/* <Button className="mt-25 btn btn-secondary">
+                                                            Match Horoscope
+                                                        </Button> */}
+                                                    {/* </Link> */}
+
                                                 </Row>
                                             </Col>
-
                                             <Col md="4">
                                                 <h3>Saved Matches</h3>
                                                 <div className="form-m">
@@ -1016,7 +914,13 @@ class KundaliForm extends React.Component {
                                                 </div>
                                             </Col>
                                         </Row>
-                                    </Form>
+                                        <Button className="btn btn-warning">Match Horoscope</Button>
+                                        <Row> </Row>
+
+                                    </form>
+
+
+
                                 </div>
                             </Card>
                         </Col>
