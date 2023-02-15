@@ -209,7 +209,8 @@ class AstrologerDetail extends React.Component {
                         </Col>
                         <Col md="3" className="mt-30">
                           {/* <Button className="btn-as st" onClick={this.toggle}> */}
-                          <Link to="/Call">
+                          {/* <Link to="/Call"> */}
+                          <Link to="/UserRequestFormCall">
                             <Button
                               className="btn-as st"
                             // onClick={(e) =>
@@ -230,7 +231,9 @@ class AstrologerDetail extends React.Component {
                           </Link>
                         </Col>
                         <Col md="3" className="mt-30">
-                          <Link to="/VideoCall">
+                          {/* <Link to="/VideoCall"> */}
+                          <Link to="/UserRequestFormVideoCall">
+
                             <Button className="btn-as st" onClick={this.toggle}>
                               <i
                                 class="fa fa-video-camera"

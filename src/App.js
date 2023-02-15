@@ -124,6 +124,12 @@ const UserChatHistoryList = lazy(() =>
 const UserRequestForm = lazy(() =>
   import("./components/astrology/UserRequestForm")
 );
+const UserRequestFormCall = lazy(() =>
+  import("./components/astrology/UserRequestFormCall")
+);
+const UserRequestFormVideoCall = lazy(() =>
+  import("./components/astrology/UserRequestFormVideoCall")
+);
 const CustomerSupportForm = lazy(() =>
   import("./components/astrology/CustomerSupportForm")
 );
@@ -214,7 +220,12 @@ const SliderList = lazy(() => import("./components/astrology/sliderlist"));
 const AllMinRecharge = lazy(() =>
   import("./components/astrology/AllMinRecharge")
 );
-
+const AllMinRechargeCall = lazy(() =>
+  import("./components/astrology/AllMinRechargeCall")
+);
+const AllMinRechargeVideoCall = lazy(() =>
+  import("./components/astrology/AllMinRechargeVideo")
+);
 const ChatList = lazy(() => import("./components/chat/chatlist"));
 
 const ChatApp = lazy(() => import("./components/chat/ChatApp"));
@@ -644,7 +655,14 @@ const App = (props) => {
                     path={process.env.PUBLIC_URL + "/userrequestform"}
                     component={UserRequestForm}
                   />
-
+                  <Route
+                    path={process.env.PUBLIC_URL + "/userrequestformCall"}
+                    component={UserRequestFormCall}
+                  />
+                  <Route
+                    path={process.env.PUBLIC_URL + "/userrequestformVideoCall"}
+                    component={UserRequestFormVideoCall}
+                  />
                   <Route
                     path={process.env.PUBLIC_URL + "/ourservice"}
                     component={OurService}
@@ -685,6 +703,14 @@ const App = (props) => {
                     component={AllMinRecharge}
                   />
                   <Route
+                    path={process.env.PUBLIC_URL + "/allMinRechargeCall"}
+                    component={AllMinRechargeCall}
+                  />
+                  <Route
+                    path={process.env.PUBLIC_URL + "/allMinRechargeVideoCall"}
+                    component={AllMinRechargeVideoCall}
+                  />
+                  <Route
                     path={process.env.PUBLIC_URL + "/chatlist"}
                     component={ChatList}
                   />
@@ -707,7 +733,7 @@ const App = (props) => {
                   />
 
                   <Route
-                    path={process.env.PUBLIC_URL + "/kundalimatchlist"}
+                    path={process.env.PUBLIC_URL + "/kundalimatchlist/:id"}
                     component={KundaliMatchList}
                   />
 

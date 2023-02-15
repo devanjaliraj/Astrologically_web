@@ -8,10 +8,10 @@ import {
 import swal from "sweetalert";
 import LayoutOne from "../../layouts/LayoutOne";
 import "../../assets/scss/astroteam.scss";
-import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import { Modal, ModalHeader, ModalBody } from "reactstrap";
 import axiosConfig from "../../axiosConfig";
 
-class AllMinRecharge extends React.Component {
+class AllMinRechargeCall extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -113,7 +113,7 @@ class AllMinRecharge extends React.Component {
                       {/* <Link to="/chatApp"> */}
                       <button onClick={() => {
                         localStorage.setItem("minute", allmin.minute)
-                        this.props.history.push('/chatApp')
+                        this.props.history.push('/call')
                       }}>
                         <div className="promoBox success-box info-ribbon"
 
@@ -163,4 +163,4 @@ class AllMinRecharge extends React.Component {
   }
 }
 
-export default AllMinRecharge;
+export default AllMinRechargeCall;

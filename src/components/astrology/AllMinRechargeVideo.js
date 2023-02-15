@@ -11,7 +11,7 @@ import "../../assets/scss/astroteam.scss";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import axiosConfig from "../../axiosConfig";
 
-class AllMinRecharge extends React.Component {
+class AllMinRechargeVideo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -113,7 +113,7 @@ class AllMinRecharge extends React.Component {
                       {/* <Link to="/chatApp"> */}
                       <button onClick={() => {
                         localStorage.setItem("minute", allmin.minute)
-                        this.props.history.push('/chatApp')
+                        this.props.history.push('/videoCall')
                       }}>
                         <div className="promoBox success-box info-ribbon"
 
@@ -163,4 +163,4 @@ class AllMinRecharge extends React.Component {
   }
 }
 
-export default AllMinRecharge;
+export default AllMinRechargeVideo;

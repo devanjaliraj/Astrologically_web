@@ -41,7 +41,7 @@ class KundaliForm extends React.Component {
         axiosConfig
             .post(`/user/match_making_report`, payload)
             .then((response) => {
-                console.log("matchmakingreport", response.data.data.received_points);
+                console.log("matchmakingreport", response.data.data.ashtakoota);
                 this.setState({ matchmakingreport: response.data.data });
             })
 
@@ -76,7 +76,7 @@ class KundaliForm extends React.Component {
         console.log(obj)
         Axios.post(`http://13.233.228.168:8000/user/match_making_report`, obj)
             .then((response) => {
-                console.log("matchmakingreport", response.data.data);
+                console.log("matchmakingreport", response.data.data.ashtakoota);
                 // this.setState({ matchmakingreport: response.data.data });
                 console.log("matchmakingreport", response.data);
                 swal("Success!", "Submitted SuccessFull!", "success");
@@ -115,7 +115,7 @@ class KundaliForm extends React.Component {
                                     <div className="leftcont text-left">
                                         <h1>Kundli Matching</h1>
                                         <h3>Find your right one, through matchmaking</h3>
-                                        <h3>{matchmakingreport?.received_points}</h3>
+                                        <h3>{matchmakingreport?.ashtakoota?.received_points}</h3>
                                     </div>
                                 </Col>
                             </Row>
