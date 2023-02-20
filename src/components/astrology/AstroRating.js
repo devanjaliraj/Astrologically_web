@@ -94,7 +94,7 @@ class AstroRating extends React.Component {
 
     axiosConfig
       .post(`/user/addChatReview`, obj)
-      // 13.233.228.168:8000/user/addChatReview
+      // 13.234.48.35:8000/user/addChatReview
       .then((response) => {
         console.log("@@@@@", response.data.data);
         this.setState({

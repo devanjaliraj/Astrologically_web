@@ -35,11 +35,11 @@ class KundaliForm extends React.Component {
     componentDidMount() {
         let { id } = this.props.match.params;
         this.setState({ m_day: id })
-        let payload = {
+        let obj = {
             m_day: id
         };
         axiosConfig
-            .post(`/user/match_making_report`, payload)
+            .post(`/user/match_making_report`, obj)
             .then((response) => {
                 console.log("matchmakingreport", response.data.data.ashtakoota);
                 this.setState({ matchmakingreport: response.data.data });
@@ -74,15 +74,14 @@ class KundaliForm extends React.Component {
             f_tzone: this.state.f_tzone
         };
         console.log(obj)
-        Axios.post(`http://13.233.228.168:8000/user/match_making_report`, obj)
+        axiosConfig.post(`/user/match_making_report`, obj)
             .then((response) => {
                 console.log("matchmakingreport", response.data.data.ashtakoota);
                 // this.setState({ matchmakingreport: response.data.data });
                 console.log("matchmakingreport", response.data);
                 swal("Success!", "Submitted SuccessFull!", "success");
                 //window.location.reload('/askQuestion')
-                this.props.history.push("/kundaliMatchList");
-
+                this.props.history.push("/kundalimatchlist");
             })
 
             .catch((error) => {
@@ -197,18 +196,18 @@ class KundaliForm extends React.Component {
                                                                         value={this.state.m_month}
                                                                         onChange={this.changeHandler}>
                                                                         <option>--Select--</option>
-                                                                        <option>January</option>
-                                                                        <option>February</option>
-                                                                        <option>March</option>
-                                                                        <option>April</option>
-                                                                        <option>May</option>
-                                                                        <option>June</option>
-                                                                        <option>July</option>
-                                                                        <option>August</option>
-                                                                        <option>September</option>
-                                                                        <option>October</option>
-                                                                        <option>November</option>
-                                                                        <option>December</option>
+                                                                        <option>1</option>
+                                                                        <option>2</option>
+                                                                        <option>3</option>
+                                                                        <option>4</option>
+                                                                        <option>5</option>
+                                                                        <option>6</option>
+                                                                        <option>7</option>
+                                                                        <option>8</option>
+                                                                        <option>9</option>
+                                                                        <option>10</option>
+                                                                        <option>11</option>
+                                                                        <option>12</option>
                                                                     </Input>
                                                                 </Col>
                                                                 <Col md="4">
@@ -521,18 +520,18 @@ class KundaliForm extends React.Component {
                                                                         onChange={this.changeHandler}
                                                                     >
                                                                         <option>--Select--</option>
-                                                                        <option>January</option>
-                                                                        <option>February</option>
-                                                                        <option>March</option>
-                                                                        <option>April</option>
-                                                                        <option>May</option>
-                                                                        <option>June</option>
-                                                                        <option>July</option>
-                                                                        <option>August</option>
-                                                                        <option>September</option>
-                                                                        <option>October</option>
-                                                                        <option>November</option>
-                                                                        <option>December</option>
+                                                                        <option>1</option>
+                                                                        <option>2</option>
+                                                                        <option>3</option>
+                                                                        <option>4</option>
+                                                                        <option>5</option>
+                                                                        <option>6</option>
+                                                                        <option>7</option>
+                                                                        <option>8</option>
+                                                                        <option>9</option>
+                                                                        <option>10</option>
+                                                                        <option>11</option>
+                                                                        <option>12</option>
                                                                     </Input>
                                                                 </Col>
                                                                 <Col md="4">
@@ -915,6 +914,7 @@ class KundaliForm extends React.Component {
                                             </Col>
                                         </Row>
                                         <Button className="btn btn-warning">Match Horoscope</Button>
+
                                         <Row> </Row>
 
                                     </form>

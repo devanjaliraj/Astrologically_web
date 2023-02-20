@@ -1,12 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import {
-  Container,
-  Row,
-  Col,
-
-} from "reactstrap";
-
+import { Container, Row, Col } from "reactstrap";
 import textbottom from '../../assets/img/textbottom.png'
 
 class OurService extends React.Component {
@@ -32,17 +26,14 @@ class OurService extends React.Component {
                     <p></p>
                   </div>
                 </Col>
-
               </Row>
             </Container>
-
           </div>
         </section> */}
-
         <section className="ptb-30">
           <Container>
             <div className="heading">
-              <h2>Astrologer Services</h2>
+              <h2>Free Astrologer Services</h2>
               <img src={textbottom} alt="" className="sb-img" />
             </div>
             <Row>
@@ -50,64 +41,121 @@ class OurService extends React.Component {
                 <Row>
                   <Col md="2">
                     <div className="serve-1">
-                      {/* <img src={pisces} alt="" width="80px" /> */}
-
                       <Link to="/heroscopestwo">
                         <h3>Horoscopes</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur</p></Link>
+                        <p>Lorem ipsum dolor sit amet, consectetur</p>
+                      </Link>
                     </div>
                   </Col>
                   <Col md="2">
                     <div className="serve-1">
-                      {/* <img src={pisces} alt="" width="80px" /> */}
-
-                      <Link to="/kundaliform"> <h3> Match Matching</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur</p></Link>
+                      <Link to="/kundaliform">
+                        <h3> Match Matching</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur</p>
+                      </Link>
                     </div>
                   </Col>
                   <Col md="2">
                     <div className="serve-1">
-                      {/* <img src={pisces} alt="" width="80px" /> */}
-
-                      <Link to="/manglikdosh"> <h3>Manglik Dosh</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur</p></Link>
+                      <Link to="/manglikdosh">
+                        <h3>Manglik Dosh</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur</p>
+                      </Link>
                     </div>
                   </Col>
                   <Col md="2">
                     <div className="serve-1">
-                      {/* <img src={pisces} alt="" width="80px" /> */}
-
-                      <Link to="/pitraDosh"><h3>Pitra Dosh</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur</p></Link>
+                      <Link to="/pitraDosh">
+                        <h3>Pitra Dosh</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur</p>
+                      </Link>
                     </div>
                   </Col> <Col md="2">
                     <div className="serve-1">
-                      {/* <img src={pisces} alt="" width="80px" /> */}
-
-                      <Link to="/kalsharpDosh"><h3>Kalsharp Dosh</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur</p></Link>
+                      <Link to="/kalsharpDosh">
+                        <h3>Kalsharp Dosh</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur</p>
+                      </Link>
                     </div>
-                  </Col> <Col md="2">
+                  </Col>
+                  {/* <Col md="2">
                     <div className="serve-1">
-                      {/* <img src={pisces} alt="" width="80px" /> */}
-
-                      <Link to="/allastrologerlist">
+                     <img src={pisces} alt="" width="80px" />
+                       <Link to="/allastrologerlist">
                         <h3>Talk Astrologer</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur</p></Link>
                     </div>
+                  </Col>*/}
+                </Row>
+              </Col>
+            </Row>
+          </Container>
+        </section>
+        <section className="ptb-30">
+          <Container>
+            <div className="heading">
+              <h2>Paid Astrologer Services</h2>
+              <img src={textbottom} alt="" className="sb-img" />
+            </div>
+            <Row>
+              <Col lg="12">
+                <Row>
+                  <Col md="2">
+                    <div className="serve-1">
+                      <Link to="/#/">
+                        <h3>Chat Astrologer</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur</p>
+                      </Link>
+                    </div>
                   </Col>
+                  <Col md="2">
+                    <div className="serve-1">
+                      <Link to="/#/">
+                        <h3>Call Astrologer</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur</p>
+                      </Link>
+                    </div>
+                  </Col>
+                  <Col md="2">
+                    <div className="serve-1">
+                      <Link to="/#/">
+                        <h3>Video Call Astrologer</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur</p>
+                      </Link>
+                    </div>
+                  </Col>
+                  <Col md="2">
+                    <div className="serve-1">
+                      <Link to="/askQuestionList">
+                        <h3>Ask Question </h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur</p>
+                      </Link>
+                    </div>
+                  </Col>
+                  <Col md="2">
+                    <div className="serve-1">
+                      <Link to="/allastrologerlist">
+                        <h3>Talk Astrologer</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur</p>
+                      </Link>
+                    </div>
+                  </Col>
+                  {/* <Col md="2">
+                    <div className="serve-1">
+                      <img src={pisces} alt="" width="80px" />
+                      <Link to="/pitraDosh"><h3>Pitra Dosh</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur</p></Link>
+                    </div>
+                  </Col> */}
                 </Row>
               </Col>
             </Row>
           </Container>
         </section>
       </div>
-
-
     );
   }
 }
-
 export default OurService;
 
 

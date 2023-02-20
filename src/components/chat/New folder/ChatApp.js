@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { Container } from "reactstrap";
 import "../../assets/scss/chat.scss";
 import LayoutOne from "../../layouts/LayoutOne";
@@ -10,30 +9,11 @@ class ChatApp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      contacts: [
-        { text: "John Smith", active: false },
-        { text: "Molly Watt", active: true },
-        { text: "Ivan Mackay", active: false },
-      ],
-      messages: [
-        { id: "1", text: "Hi Molly!", me: true },
-        { id: "2", text: "Hey, how are you doing?", me: false },
-        { id: "3", text: "It's been a while", me: false },
-        { id: "4", text: "Yes it is!", me: true },
-        { id: "5", text: "Have you ever heard of lorem ipsum?", me: true },
-        { id: "6", text: "No, what is it?", me: false },
-        {
-          id: "7",
-          text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-          me: true,
-        },
-      ],
       message: "",
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-
   render() {
     return (
       <LayoutOne headerTop="visible">
@@ -48,7 +28,7 @@ class ChatApp extends React.Component {
                 <div className="chat-header">
                   <p>
                     <span>
-                      <img src={{ Buyimg }} className="app-img" />
+                      <img src={{ Buyimg }} className="app-img" alt="" />
                     </span>
                     Astrologer name
                   </p>
@@ -101,7 +81,6 @@ class ChatApp extends React.Component {
     }));
   }
 }
-
 class MessagesHistory extends React.Component {
   render() {
     return []
@@ -114,7 +93,6 @@ class MessagesHistory extends React.Component {
       ));
   }
 }
-
 class ContactList extends React.Component {
   render() {
     return (
@@ -122,7 +100,7 @@ class ContactList extends React.Component {
         {this.props.items.map((item) => (
           <li className={item.active ? "active" : ""}>
             <div className="imglf">
-              <img src={{ Buyimg }} className="app-img" />
+              <img src={{ Buyimg }} className="app-img" alt="" />
             </div>
             <div className="lst-con">
               <h5>{item.text}</h5>
@@ -134,10 +112,4 @@ class ContactList extends React.Component {
     );
   }
 }
-
-//   ReactDOM.render(
-//     <ChatApp />,
-//     document.getElementById('root')
-//   );
-
 export default ChatApp;

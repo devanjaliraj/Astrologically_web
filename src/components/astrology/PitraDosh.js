@@ -6,17 +6,128 @@ import {
   Col,
   Card,
   Input,
-  InputGroup,
   Form,
   Button,
 } from "reactstrap";
 import "../../assets/scss/astropooja.css";
 import LayoutOne from "../../layouts/LayoutOne";
-import astromob from "../../assets/img/astromob.png";
+import axiosConfig from "../../axiosConfig";
+
 // import MatchSearch from "../MatchSearch";
+import swal from "sweetalert";
 
 class PitraDosh extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      day: "",
+      month: "",
+      year: "",
+      hour: "",
+      min: "",
+      lat: "",
+      lon: "",
+      tzone: "",
+      data: {},
+      place: "",
+      searchQuery: "",
+    };
+  }
+  changeHandler = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+  handleInputChanged(event) {
+    this.setState({
+      searchQuery: event.target.value
+    });
+    axiosConfig.post(`/user/geo_detail`, {
+      "place": this.state.searchQuery
+    }).then(response => { console.log(response.data) }).catch(error => { console.log(error) })
+    console.log(this.state.searchQuery)
+
+  }
+  componentDidMount() {
+    // let { id } = this.props.match.params;
+    // this.setState({ day: id })
+    // let payload = {
+    //   day: id
+    // };
+    // axiosConfig
+    //   .post(`/user/PitriDosh`)
+    //   .then((response) => {
+    //     console.log("PitriDosh", response.data.data);
+    //     this.setState({ PitriDosh: response.data.what_is_pitri_dosha });
+    //   })
+
+    //   .catch((error) => {
+    //     // swal("Error!", "You clicked the button!", "error");
+    //     console.log(error);
+    //   });
+  }
+  submitHandler = (e) => {
+    e.preventDefault();
+
+    let payload = {
+      // data: this.state.data
+      day: this.state.day,
+      month: this.state.month,
+      year: this.state.year,
+      hour: this.state.hour,
+      min: this.state.min,
+      lat: this.state.lat,
+      lon: this.state.lon,
+      tzone: this.state.tzone,
+      place: this.state.place,
+
+    };
+    console.log("shgdjhg", payload)
+    axiosConfig.post(`user/PitriDosh`, payload)
+      .then((response) => {
+        // console.log("data1", response.data.what_is_pitri_dosha);
+        this.setState({ data: response.data.what_is_pitri_dosha });
+        console.log("data11", response.data);
+
+
+        swal("Success!", "Submitted SuccessFull!", "success");
+      })
+
+      .catch((error) => {
+        swal("Error!", "You clicked the button!", "error");
+        console.log(error);
+      });
+  };
+  changeHandler1 = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+  submitPlaceHandler = (e) => {
+    e.preventDefault();
+
+    let payload = {
+      // data: this.state.data
+      place: this.state.place,
+
+
+    };
+    console.log("shgdjhg", payload)
+    axiosConfig.post(`/user/geo_detail`, payload)
+      .then((response) => {
+
+        this.setState({ data: response.data });
+        console.log("place", response.data.geonames?.place_name);
+
+
+        swal("Success!", "Submitted SuccessFull!", "success");
+      })
+
+      .catch((error) => {
+        swal("Error!", "You clicked the button!", "error");
+        console.log(error);
+      });
+  };
+
   render() {
+    // const { PitriDosh } = this.state;
+
     return (
       <LayoutOne headerTop="visible">
         <section className="pt-0 pb-0">
@@ -50,6 +161,7 @@ class PitraDosh extends React.Component {
                   PITRA DOSH Online - Get Your Detailed Birth Chart with
                   Predictions
                 </h3>
+                {/* <h3>{PitriDosh?.what_is_pitri_dosha}</h3> */}
                 <p>
                   Looking for your free Kundli from expert astrologers? Then you
                   have come to the right place. The online free kundali
@@ -81,10 +193,10 @@ class PitraDosh extends React.Component {
                   <Row>
                     <Col md="8">
                       <h3> PITRA DOSH</h3>
-                      <form>
+                      <Form onSubmit={this.submitHandler} >
                         <div className="form-m">
                           <Row>
-                            <Col md="12">
+                            {/* <Col md="12">
                               <label>Name</label>
                               <input type="text" name="" placeholder="Name" />
                             </Col>
@@ -95,10 +207,14 @@ class PitraDosh extends React.Component {
                                 <option>Male</option>
                                 <option>Female</option>
                               </select>
-                            </Col>
+                            </Col> */}
                             <Col md="4">
                               <label>Birth Day</label>
-                              <select className="form-control">
+                              <Input className="form-control"
+                                type="select"
+                                name="day"
+                                value={this.state.day}
+                                onChange={this.changeHandler}>
                                 <option>--Select--</option>
                                 <option>0</option>
                                 <option>1</option>
@@ -131,29 +247,37 @@ class PitraDosh extends React.Component {
                                 <option>29</option>
                                 <option>30</option>
                                 <option>31</option>
-                              </select>
+                              </Input>
                             </Col>
                             <Col md="4">
                               <label>Birth Month</label>
-                              <select className="form-control">
+                              <Input className="form-control"
+                                type="select"
+                                name="month"
+                                value={this.state.month}
+                                onChange={this.changeHandler}>
                                 <option>--Select--</option>
-                                <option>January</option>
-                                <option>February</option>
-                                <option>March</option>
-                                <option>April</option>
-                                <option>May</option>
-                                <option>June</option>
-                                <option>July</option>
-                                <option>August</option>
-                                <option>September</option>
-                                <option>October</option>
-                                <option>November</option>
-                                <option>December</option>
-                              </select>
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                                <option>6</option>
+                                <option>7</option>
+                                <option>8</option>
+                                <option>9</option>
+                                <option>10</option>
+                                <option>11</option>
+                                <option>12</option>
+                              </Input>
                             </Col>
                             <Col md="4">
                               <label>Birth Year</label>
-                              <select className="form-control">
+                              <Input className="form-control"
+                                type="select"
+                                name="year"
+                                value={this.state.year}
+                                onChange={this.changeHandler}>
                                 <option>--Select--</option>
                                 <option value="1942">1942</option>
                                 <option value="1943">1943</option>
@@ -245,11 +369,15 @@ class PitraDosh extends React.Component {
                                 <option value="2011">2028</option>
                                 <option value="2011">2029</option>
                                 <option value="2011">2030</option>
-                              </select>
+                              </Input>
                             </Col>
                             <Col md="4">
                               <label>Birth Hour</label>
-                              <select className="form-control">
+                              <Input className="form-control"
+                                type="select"
+                                name="hour"
+                                value={this.state.hour}
+                                onChange={this.changeHandler}>
                                 <option>--Select--</option>
                                 <option>1</option>
                                 <option>2</option>
@@ -275,11 +403,15 @@ class PitraDosh extends React.Component {
                                 <option>22</option>
                                 <option>23</option>
                                 <option>24</option>
-                              </select>
+                              </Input>
                             </Col>
                             <Col md="4">
                               <label>Birth Minute</label>
-                              <select className="form-control">
+                              <Input className="form-control"
+                                type="select"
+                                name="min"
+                                value={this.state.min}
+                                onChange={this.changeHandler}>
                                 <option>--Select--</option>
                                 <option>1</option>
                                 <option>2</option>
@@ -340,11 +472,14 @@ class PitraDosh extends React.Component {
                                 <option>57</option>
                                 <option>58</option>
                                 <option>59</option> <option>60</option>
-                              </select>
+                              </Input>
                             </Col>
-                            <Col md="4">
+                            {/* <Col md="4">
                               <label>Birth Second</label>
-                              <select className="form-control">
+                              <Input className="form-control" type="select"
+                                name="year"
+                                value={this.state.s}
+                                onChange={this.changeHandler}>
                                 <option>--Select--</option>
                                 <option>1</option>
                                 <option>2</option>
@@ -405,45 +540,66 @@ class PitraDosh extends React.Component {
                                 <option>57</option>
                                 <option>58</option>
                                 <option>59</option> <option>60</option>
-                              </select>
+                              </Input>
+                            </Col> */}
+                            <Col md="4">
+                              <label>Place</label>
+                              {/* <Input
+                                // name="f_lat"
+                                placeholder="city"
+
+                                type="text"
+                                name="place"
+                                value={this.state.place}
+                                onChange={this.changeHandler1}
+                              // onSubmit={this.submitPlaceHandler}
+                              /> */}
+                              <input type="text" placeholder="City" value={this.state.searchQuery} onChange={this.handleInputChanged.bind(this)} />
                             </Col>
                             <Col md="4">
                               <label>Birth Place Latitude</label>
-                              <input
+                              <Input
                                 // name="f_lat"
                                 placeholder="00.00"
-                                maxLength={4}
-                                // value={this.state.f_lat}
-                                // onChange={this.changeHandler}
+                                maxLength={7}
+                                type="text"
+                                name="lat"
+                                value={this.state.lat}
+                                onChange={this.changeHandler}
                               />
                             </Col>
                             <Col md="4">
                               <label>Birth Place Longitude</label>
-                              <input
+                              <Input
                                 // name="f_lon"
                                 placeholder="00.000"
-                                maxLength={5}
-                                // value={this.state.f_lon}
-                                // onChange={this.changeHandler}
+                                maxLength={7}
+                                type="text"
+                                name="lon"
+                                value={this.state.lon}
+                                onChange={this.changeHandler}
                               />
                             </Col>
                             <Col md="4">
                               <label>Birth Place Time Zone</label>
                               <input
-                                type="time"
+                                type="text"
                                 // name="f_tzone"
                                 placeholder="00.00"
-                                maxLength={4}
-                                // value={this.state.f_tzone}
-                                // onChange={this.changeHandler}
+                                maxLength={5}
+                                // type="select"
+                                name="tzone"
+                                value={this.state.tzone}
+                                onChange={this.changeHandler}
                               />
                             </Col>
                           </Row>
+                          <Button className="btn btn-warning">submit</Button>
                         </div>
-                      </form>
-                      <Link to="/kundalimatchlist">
-                        <Button className="mt-25">Submit</Button>
-                      </Link>
+                      </Form>
+                      {/* <Link to="/kundalimatchlist"> */}
+                      {/* <Button className="mt-25">Submit</Button> */}
+                      {/* </Link> */}
                     </Col>
                     <Col md="4">
                       <h3>Saved Pitra Dosh </h3>

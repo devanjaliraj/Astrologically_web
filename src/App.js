@@ -733,7 +733,7 @@ const App = (props) => {
                   />
 
                   <Route
-                    path={process.env.PUBLIC_URL + "/kundalimatchlist/:id"}
+                    path={process.env.PUBLIC_URL + "/kundalimatchlist"}
                     component={KundaliMatchList}
                   />
 

@@ -6,16 +6,80 @@ import {
   Col,
   Card,
   Input,
-  InputGroup,
   Form,
   Button,
 } from "reactstrap";
 import "../../assets/scss/astropooja.css";
 import LayoutOne from "../../layouts/LayoutOne";
-import astromob from "../../assets/img/astromob.png";
-// import MatchSearch from "../MatchSearch";
-
+import axiosConfig from "../../axiosConfig";
+import swal from "sweetalert";
 class ManglikDosh extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      day: "",
+      month: "",
+      year: "",
+      hour: "",
+      min: "",
+      lat: "",
+      lon: "",
+      tzone: "",
+      data: {},
+
+    };
+  }
+  changeHandler = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+  componentDidMount() {
+    // let { id } = this.props.match.params;
+    // this.setState({ day: id })
+    // let payload = {
+    //   day: id
+    // };
+    // axiosConfig
+    //   .post(`/user/PitriDosh`)
+    //   .then((response) => {
+    //     console.log("PitriDosh", response.data.data);
+    //     this.setState({ PitriDosh: response.data.what_is_pitri_dosha });
+    //   })
+
+    //   .catch((error) => {
+    //     // swal("Error!", "You clicked the button!", "error");
+    //     console.log(error);
+    //   });
+  }
+  submitHandler = (e) => {
+    e.preventDefault();
+
+    let payload = {
+      // data: this.state.data
+      day: this.state.day,
+      month: this.state.month,
+      year: this.state.year,
+      hour: this.state.hour,
+      min: this.state.min,
+      lat: this.state.lat,
+      lon: this.state.lon,
+      tzone: this.state.tzone,
+    };
+    console.log("shgdjhg", payload)
+    axiosConfig.post(`/user/ManglikDosh`, payload)
+      .then((response) => {
+        console.log("data1", response.data.data?.manglik_present_rule);
+        this.setState({
+          data: response.data.data?.manglik_present_rule,
+        });
+        console.log("data11", response.data.data);
+        swal("Success!", "Submitted SuccessFull!", "success");
+      })
+      .catch((error) => {
+        swal("Error!", "You clicked the button!", "error");
+        console.log(error);
+      });
+  };
+
   render() {
     return (
       <LayoutOne headerTop="visible">
@@ -41,7 +105,6 @@ class ManglikDosh extends React.Component {
             </Container>
           </div>
         </section>
-
         <Container>
           <Row>
             <Col md="12">
@@ -63,7 +126,6 @@ class ManglikDosh extends React.Component {
                   for purposes like matching making, kundali matching for
                   marriage or simply making future predictions.
                 </p>
-
                 <p>
                   Talking about future predictions, the kundali catered by
                   Astrotalk to you is such that it considers the movement of all
@@ -76,15 +138,14 @@ class ManglikDosh extends React.Component {
                   try the fre online kunldi, and let us know what you feel about
                   it.
                 </p>
-
                 <div className="match-bx">
                   <Row>
                     <Col md="8">
                       <h3> MANGLIK DOSH</h3>
-                      <form>
+                      <Form onSubmit={this.submitHandler} >
                         <div className="form-m">
                           <Row>
-                            <Col md="12">
+                            {/* <Col md="12">
                               <label>Name</label>
                               <input type="text" name="" placeholder="Name" />
                             </Col>
@@ -95,10 +156,14 @@ class ManglikDosh extends React.Component {
                                 <option>Male</option>
                                 <option>Female</option>
                               </select>
-                            </Col>
+                            </Col> */}
                             <Col md="4">
                               <label>Birth Day</label>
-                              <select className="form-control">
+                              <Input className="form-control"
+                                type="select"
+                                name="day"
+                                value={this.state.day}
+                                onChange={this.changeHandler}>
                                 <option>--Select--</option>
                                 <option>0</option>
                                 <option>1</option>
@@ -131,29 +196,37 @@ class ManglikDosh extends React.Component {
                                 <option>29</option>
                                 <option>30</option>
                                 <option>31</option>
-                              </select>
+                              </Input>
                             </Col>
                             <Col md="4">
                               <label>Birth Month</label>
-                              <select className="form-control">
+                              <Input className="form-control"
+                                type="select"
+                                name="month"
+                                value={this.state.month}
+                                onChange={this.changeHandler}>
                                 <option>--Select--</option>
-                                <option>January</option>
-                                <option>February</option>
-                                <option>March</option>
-                                <option>April</option>
-                                <option>May</option>
-                                <option>June</option>
-                                <option>July</option>
-                                <option>August</option>
-                                <option>September</option>
-                                <option>October</option>
-                                <option>November</option>
-                                <option>December</option>
-                              </select>
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                                <option>6</option>
+                                <option>7</option>
+                                <option>8</option>
+                                <option>9</option>
+                                <option>10</option>
+                                <option>11</option>
+                                <option>12</option>
+                              </Input>
                             </Col>
                             <Col md="4">
                               <label>Birth Year</label>
-                              <select className="form-control">
+                              <Input className="form-control"
+                                type="select"
+                                name="year"
+                                value={this.state.year}
+                                onChange={this.changeHandler}>
                                 <option>--Select--</option>
                                 <option value="1942">1942</option>
                                 <option value="1943">1943</option>
@@ -245,11 +318,15 @@ class ManglikDosh extends React.Component {
                                 <option value="2011">2028</option>
                                 <option value="2011">2029</option>
                                 <option value="2011">2030</option>
-                              </select>
+                              </Input>
                             </Col>
                             <Col md="4">
                               <label>Birth Hour</label>
-                              <select className="form-control">
+                              <Input className="form-control"
+                                type="select"
+                                name="hour"
+                                value={this.state.hour}
+                                onChange={this.changeHandler}>
                                 <option>--Select--</option>
                                 <option>1</option>
                                 <option>2</option>
@@ -275,11 +352,15 @@ class ManglikDosh extends React.Component {
                                 <option>22</option>
                                 <option>23</option>
                                 <option>24</option>
-                              </select>
+                              </Input>
                             </Col>
                             <Col md="4">
                               <label>Birth Minute</label>
-                              <select className="form-control">
+                              <Input className="form-control"
+                                type="select"
+                                name="min"
+                                value={this.state.min}
+                                onChange={this.changeHandler}>
                                 <option>--Select--</option>
                                 <option>1</option>
                                 <option>2</option>
@@ -340,11 +421,14 @@ class ManglikDosh extends React.Component {
                                 <option>57</option>
                                 <option>58</option>
                                 <option>59</option> <option>60</option>
-                              </select>
+                              </Input>
                             </Col>
-                            <Col md="4">
+                            {/* <Col md="4">
                               <label>Birth Second</label>
-                              <select className="form-control">
+                              <Input className="form-control" type="select"
+                                name="year"
+                                value={this.state.s}
+                                onChange={this.changeHandler}>
                                 <option>--Select--</option>
                                 <option>1</option>
                                 <option>2</option>
@@ -405,45 +489,52 @@ class ManglikDosh extends React.Component {
                                 <option>57</option>
                                 <option>58</option>
                                 <option>59</option> <option>60</option>
-                              </select>
-                            </Col>
+                              </Input>
+                            </Col> */}
                             <Col md="4">
                               <label>Birth Place Latitude</label>
-                              <input
+                              <Input
                                 // name="f_lat"
                                 placeholder="00.00"
-                                maxLength={4}
-                                // value={this.state.f_lat}
-                                // onChange={this.changeHandler}
+                                maxLength={7}
+                                type="text"
+                                name="lat"
+                                value={this.state.lat}
+                                onChange={this.changeHandler}
                               />
                             </Col>
                             <Col md="4">
                               <label>Birth Place Longitude</label>
-                              <input
+                              <Input
                                 // name="f_lon"
                                 placeholder="00.000"
-                                maxLength={5}
-                                // value={this.state.f_lon}
-                                // onChange={this.changeHandler}
+                                maxLength={7}
+                                type="text"
+                                name="lon"
+                                value={this.state.lon}
+                                onChange={this.changeHandler}
                               />
                             </Col>
                             <Col md="4">
                               <label>Birth Place Time Zone</label>
                               <input
-                                type="time"
+                                type="text"
                                 // name="f_tzone"
                                 placeholder="00.00"
-                                maxLength={4}
-                                // value={this.state.f_tzone}
-                                // onChange={this.changeHandler}
+                                maxLength={5}
+                                // type="select"
+                                name="tzone"
+                                value={this.state.tzone}
+                                onChange={this.changeHandler}
                               />
                             </Col>
                           </Row>
+                          <Button className="btn btn-warning">submit</Button>
                         </div>
-                      </form>
-                      <Link to="/kundalimatchlist">
-                        <Button className="mt-25">Submit</Button>
-                      </Link>
+                      </Form>
+                      {/* <Link to="/kundalimatchlist"> */}
+                      {/* <Button className="mt-25">Submit</Button> */}
+                      {/* </Link> */}
                     </Col>
                     <Col md="4">
                       <h3>Saved Manglik Dosh Matches</h3>
@@ -507,5 +598,4 @@ class ManglikDosh extends React.Component {
     );
   }
 }
-
 export default ManglikDosh;
