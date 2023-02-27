@@ -185,7 +185,7 @@ const IconGroup = ({
                 </li>
                 <li>
                   <Link to={process.env.PUBLIC_URL + '/walletmoney'}>
-                    Wallet Recharge
+                    Wallet Recharge <span className='ml-2'>₹ {customer?.amount}</span>
                   </Link>
                 </li>
                 <li>
@@ -195,7 +195,7 @@ const IconGroup = ({
                 </li>
                 <li>
                   <Link to={process.env.PUBLIC_URL + '/userChatHistoryList'}>
-                  User Chat History List
+                    User Chat History List
                   </Link>
                 </li>
                 <li>
@@ -213,7 +213,7 @@ const IconGroup = ({
                     //   //localStorage.removeItem("auth-token","userInfo")
                     // )}
                     onClick={(e) => handleLogout()}
-                    //}
+                  //}
                   >
                     Logout
                   </Link>

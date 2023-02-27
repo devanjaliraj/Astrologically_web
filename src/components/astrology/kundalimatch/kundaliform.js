@@ -7,6 +7,8 @@ import MatchSearch from "../MatchSearch";
 import axiosConfig from "../../../axiosConfig";
 import swal from "sweetalert";
 import Axios from "axios";
+import Select from "react-select";
+import { Country, State, City } from "country-state-city";
 class KundaliForm extends React.Component {
     constructor(props) {
         super(props);
@@ -28,10 +30,53 @@ class KundaliForm extends React.Component {
             f_lon: "",
             f_tzone: "",
             matchmakingreport: {},
+            data: {},
+            place: "",
+            searchQuery: "",
+            state: [],
+            city: [],
+            country: [],
+            selectedCountry: null,
+            selectedState: null,
+            selectedCity: null
 
         };
     }
+    handleInputChanged(event) {
+        this.setState({
+            searchQuery: event.target.value
+        });
+        axiosConfig.post(`/user/geo_detail`, {
+            "place": this.state.searchQuery
+        }).then(response => { console.log(response.data) }).catch(error => { console.log(error) })
+        console.log(this.state.searchQuery)
 
+    }
+    submitPlaceHandler = (e) => {
+        e.preventDefault();
+
+        let payload = {
+            // data: this.state.data
+            place: this.state.place,
+
+
+        };
+        console.log("shgdjhg", payload)
+        axiosConfig.post(`/user/geo_detail`, payload)
+            .then((response) => {
+
+                this.setState({ data: response.data });
+                console.log("place", response.data.geonames?.place_name);
+
+
+                swal("Success!", "Submitted SuccessFull!", "success");
+            })
+
+            .catch((error) => {
+                swal("Error!", "You clicked the button!", "error");
+                console.log(error);
+            });
+    };
     componentDidMount() {
         let { id } = this.props.match.params;
         this.setState({ m_day: id })
@@ -418,7 +463,62 @@ class KundaliForm extends React.Component {
                                                                         <option>60</option>
                                                                     </select>
                                                                 </Col>
+                                                                <Col md="4">
+                                                                    <label>Country</label>
+                                                                    <Select
+                                                                        options={Country.getAllCountries()}
+                                                                        getOptionLabel={(options) => {
+                                                                            return options["name"];
+                                                                        }}
+                                                                        getOptionValue={(options) => {
+                                                                            return options["name"];
+                                                                        }}
+                                                                        value={this.state.selectedCountry}
+                                                                        onChange={(item) => {
+                                                                            //setSelectedCountry(item);
+                                                                            this.setState({ selectedCountry: item })
+                                                                        }}
+                                                                    />
+                                                                </Col>
 
+                                                                <Col md="4">
+                                                                    <label>State</label>
+                                                                    <Select
+                                                                        options={State?.getStatesOfCountry(this.state.selectedCountry?.isoCode)}
+                                                                        getOptionLabel={(options) => {
+                                                                            return options["name"];
+                                                                        }}
+                                                                        getOptionValue={(options) => {
+                                                                            return options["name"];
+                                                                        }}
+                                                                        value={this.state.selectedState}
+                                                                        onChange={(item) => {
+                                                                            //setSelectedState(item);
+                                                                            this.setState({ selectedState: item })
+                                                                        }}
+                                                                    />
+                                                                </Col>
+
+                                                                <Col md="4">
+                                                                    <label>state</label>
+                                                                    <Select
+                                                                        options={City.getCitiesOfState(
+                                                                            this.state.selectedState?.countryCode,
+                                                                            this.state.selectedState?.isoCode
+                                                                        )}
+                                                                        getOptionLabel={(options) => {
+                                                                            return options["name"];
+                                                                        }}
+                                                                        getOptionValue={(options) => {
+                                                                            return options["name"];
+                                                                        }}
+                                                                        value={this.state.selectedCity}
+                                                                        onChange={(item) => {
+                                                                            //setSelectedCity(item);
+                                                                            this.setState({ selectedCity: item })
+                                                                        }}
+                                                                    />
+                                                                </Col>
 
                                                                 <Col md="12">
                                                                     <label>Birth Place Latitude</label>
@@ -816,7 +916,62 @@ class KundaliForm extends React.Component {
                                                                     </select>
                                                                 </Col> */}
 
-                                                                <Col md="12">
+                                                                <Col md="4">
+                                                                    <label>Country</label>
+                                                                    <Select
+                                                                        options={Country.getAllCountries()}
+                                                                        getOptionLabel={(options) => {
+                                                                            return options["name"];
+                                                                        }}
+                                                                        getOptionValue={(options) => {
+                                                                            return options["name"];
+                                                                        }}
+                                                                        value={this.state.selectedCountry}
+                                                                        onChange={(item) => {
+                                                                            //setSelectedCountry(item);
+                                                                            this.setState({ selectedCountry: item })
+                                                                        }}
+                                                                    />
+                                                                </Col>
+
+                                                                <Col md="4">
+                                                                    <label>State</label>
+                                                                    <Select
+                                                                        options={State?.getStatesOfCountry(this.state.selectedCountry?.isoCode)}
+                                                                        getOptionLabel={(options) => {
+                                                                            return options["name"];
+                                                                        }}
+                                                                        getOptionValue={(options) => {
+                                                                            return options["name"];
+                                                                        }}
+                                                                        value={this.state.selectedState}
+                                                                        onChange={(item) => {
+                                                                            //setSelectedState(item);
+                                                                            this.setState({ selectedState: item })
+                                                                        }}
+                                                                    />
+                                                                </Col>
+
+                                                                <Col md="4">
+                                                                    <label>state</label>
+                                                                    <Select
+                                                                        options={City.getCitiesOfState(
+                                                                            this.state.selectedState?.countryCode,
+                                                                            this.state.selectedState?.isoCode
+                                                                        )}
+                                                                        getOptionLabel={(options) => {
+                                                                            return options["name"];
+                                                                        }}
+                                                                        getOptionValue={(options) => {
+                                                                            return options["name"];
+                                                                        }}
+                                                                        value={this.state.selectedCity}
+                                                                        onChange={(item) => {
+                                                                            //setSelectedCity(item);
+                                                                            this.setState({ selectedCity: item })
+                                                                        }}
+                                                                    />
+                                                                </Col>                                              <Col md="12">
                                                                     <label>Birth Place Latitude</label>
                                                                     <input
                                                                         name="f_lat"

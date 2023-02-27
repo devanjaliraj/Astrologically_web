@@ -12,7 +12,8 @@ import {
 import "../../assets/scss/astropooja.css";
 import LayoutOne from "../../layouts/LayoutOne";
 import axiosConfig from "../../axiosConfig";
-
+import Select from "react-select";
+import { Country, State, City } from "country-state-city";
 // import MatchSearch from "../MatchSearch";
 import swal from "sweetalert";
 
@@ -31,6 +32,12 @@ class PitraDosh extends React.Component {
       data: {},
       place: "",
       searchQuery: "",
+      state: [],
+      city: [],
+      country: [],
+      selectedCountry: null,
+      selectedState: null,
+      selectedCity: null
     };
   }
   changeHandler = (e) => {
@@ -99,31 +106,31 @@ class PitraDosh extends React.Component {
   changeHandler1 = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
-  submitPlaceHandler = (e) => {
-    e.preventDefault();
+  // submitPlaceHandler = (e) => {
+  //   e.preventDefault();
 
-    let payload = {
-      // data: this.state.data
-      place: this.state.place,
-
-
-    };
-    console.log("shgdjhg", payload)
-    axiosConfig.post(`/user/geo_detail`, payload)
-      .then((response) => {
-
-        this.setState({ data: response.data });
-        console.log("place", response.data.geonames?.place_name);
+  //   let payload = {
+  //     // data: this.state.data
+  //     place: this.state.place,
 
 
-        swal("Success!", "Submitted SuccessFull!", "success");
-      })
+  //   };
+  //   console.log("shgdjhg", payload)
+  //   axiosConfig.post(`/user/geo_detail`, payload)
+  //     .then((response) => {
 
-      .catch((error) => {
-        swal("Error!", "You clicked the button!", "error");
-        console.log(error);
-      });
-  };
+  //       this.setState({ data: response.data });
+  //       console.log("place", response.data.geonames?.place_name);
+
+
+  //       swal("Success!", "Submitted SuccessFull!", "success");
+  //     })
+
+  //     .catch((error) => {
+  //       swal("Error!", "You clicked the button!", "error");
+  //       console.log(error);
+  //     });
+  // };
 
   render() {
     // const { PitriDosh } = this.state;
@@ -543,18 +550,60 @@ class PitraDosh extends React.Component {
                               </Input>
                             </Col> */}
                             <Col md="4">
-                              <label>Place</label>
-                              {/* <Input
-                                // name="f_lat"
-                                placeholder="city"
+                              <label>Country</label>
+                              <Select
+                                options={Country.getAllCountries()}
+                                getOptionLabel={(options) => {
+                                  return options["name"];
+                                }}
+                                getOptionValue={(options) => {
+                                  return options["name"];
+                                }}
+                                value={this.state.selectedCountry}
+                                onChange={(item) => {
+                                  //setSelectedCountry(item);
+                                  this.setState({ selectedCountry: item })
+                                }}
+                              />
+                            </Col>
 
-                                type="text"
-                                name="place"
-                                value={this.state.place}
-                                onChange={this.changeHandler1}
-                              // onSubmit={this.submitPlaceHandler}
-                              /> */}
-                              <input type="text" placeholder="City" value={this.state.searchQuery} onChange={this.handleInputChanged.bind(this)} />
+                            <Col md="4">
+                              <label>State</label>
+                              <Select
+                                options={State?.getStatesOfCountry(this.state.selectedCountry?.isoCode)}
+                                getOptionLabel={(options) => {
+                                  return options["name"];
+                                }}
+                                getOptionValue={(options) => {
+                                  return options["name"];
+                                }}
+                                value={this.state.selectedState}
+                                onChange={(item) => {
+                                  //setSelectedState(item);
+                                  this.setState({ selectedState: item })
+                                }}
+                              />
+                            </Col>
+
+                            <Col md="4">
+                              <label>state</label>
+                              <Select
+                                options={City.getCitiesOfState(
+                                  this.state.selectedState?.countryCode,
+                                  this.state.selectedState?.isoCode
+                                )}
+                                getOptionLabel={(options) => {
+                                  return options["name"];
+                                }}
+                                getOptionValue={(options) => {
+                                  return options["name"];
+                                }}
+                                value={this.state.selectedCity}
+                                onChange={(handleInputChanged) => {
+                                  //setSelectedCity(item);
+                                  this.setState({ selectedCity: handleInputChanged })
+                                }}
+                              />
                             </Col>
                             <Col md="4">
                               <label>Birth Place Latitude</label>

@@ -29,7 +29,8 @@ class AskQuestionList extends React.Component {
       .then((response) => {
         console.log(response.data)
         if (response.data.status === true) {
-          this.setState({ askAstroList: response.data.data })
+          this.setState({ askAstroList: response.data?.data })
+          console.log(response.data?.data)
         }
       })
       .catch((error) => {
@@ -104,73 +105,72 @@ class AskQuestionList extends React.Component {
             <Row>
               {askAstroList.length
                 ? askAstroList.map((askAstro, index) => {
-                    return (
-                      <Col md="3" key={index}>
-                        <div className="image-flip">
-                          <div className="mainflip flip-0">
-                            <div className="frontside">
-                              <Link
-                                to={
-                                  '/askquestion/' +
-                                  askAstro?.astroId.astroid._id
-                                }
-                                className=""
-                              >
-                                <div className="card">
-                                  <div className="card-body text-center">
-                                    <p>
-                                      <img
-                                        src={askAstro?.astroId.astroid.img}
-                                        alt=""
-                                      />
-                                    </p>
-                                    <h4 className="card-title">
-                                      {askAstro?.astroId.astroid.fullname}
-                                    </h4>
-                                    <ul className="mb-3">
-                                      <li>
-                                        Specility:{' '}
-                                        <span>
-                                          {askAstro?.astroId.astroid.all_skills}
-                                        </span>
-                                      </li>
-                                      <li>
-                                        Language:{' '}
-                                        <span>
-                                          {askAstro?.astroId.astroid.language}
-                                        </span>
-                                      </li>
-                                      <li>
-                                        Experience:{' '}
-                                        <span>
-                                          {
-                                            askAstro?.astroId.astroid
-                                              .exp_in_years
-                                          }
-                                        </span>
-                                      </li>
-                                      <li>
-                                        Call Rate:{' '}
-                                        <span>
-                                          {askAstro?.astroId.astroid.callCharge}
-                                          /
-                                          {
-                                            askAstro?.astroId.astroid
-                                              .conrubute_hrs
-                                          }
-                                        </span>
-                                      </li>
-                                    </ul>
-                                    <Link
-                                      className="btn btn-primary btn-sm st-d"
-                                      to={
-                                        '/askquestion/' +
-                                        askAstro?.astroId.astroid._id
-                                      }
-                                    >
-                                      Ask Question
-                                    </Link>
-                                    {/* 
+                  return (
+                    <Col md="3" key={index}>
+                      <div className="image-flip">
+                        <div className="mainflip flip-0">
+                          <div className="frontside">
+                            <Link
+                              to={
+                                '/askquestion/' +
+                                askAstro?.astroid._id
+                              }
+                              className=""
+                            >
+                              <div className="card">
+                                <div className="card-body text-center">
+                                  <p>
+                                    <img
+                                      src={askAstro?.astroid.img}
+                                      alt=""
+                                    />
+                                  </p>
+                                  <h4 className="card-title">
+                                    {askAstro?.astroid.fullname}
+                                  </h4>
+                                  <ul className="mb-3">
+                                    <li>
+                                      Specility:{' '}
+                                      <span>
+                                        {askAstro?.astroid.all_skills}
+                                      </span>
+                                    </li>
+                                    <li>
+                                      Language:{' '}
+                                      <span>
+                                        {askAstro?.astroid.language}
+                                      </span>
+                                    </li>
+                                    <li>
+                                      Experience:{' '}
+                                      <span>
+                                        {
+                                          askAstro?.astroid.exp_in_years
+                                        }
+                                      </span>
+                                    </li>
+                                    <li>
+                                      Call Rate:{' '}
+                                      <span>
+                                        {askAstro?.astroid.callCharge}
+                                        /
+                                        {
+                                          askAstro?.astroid
+                                            .conrubute_hrs
+                                        }
+                                      </span>
+                                    </li>
+                                  </ul>
+                                  <Link
+                                    className="btn btn-primary btn-sm st-d"
+                                    to={
+                                      '/askquestion/' +
+                                      askAstro?.astroid._id
+                                    }
+                                  >
+                                    Ask Question
+                                  </Link>
+                                  {/* 
                                     <Link className="btn btn-primary btn-sm st-d">
                                       Online
                                     </Link>
@@ -178,7 +178,7 @@ class AskQuestionList extends React.Component {
                                       className="btn btn-primary btn-sm"
                                       to={'/allastrologerlist/' + askAstro._id}
                                     > */}
-                                    {/* <span
+                                  {/* <span
                                         className="sr-btn"
                                         onClick={this.onCallSubmit}
                                       >
@@ -188,8 +188,8 @@ class AskQuestionList extends React.Component {
                                         Call
                                       </span> */}
 
-                                    {/* {localStorage.getItem('auth-token') ? ( */}
-                                    {/* <span
+                                  {/* {localStorage.getItem('auth-token') ? ( */}
+                                  {/* <span
                                         className="sr-btn"
                                         onClick={(e) =>
                                           this.submitHandler(
@@ -201,7 +201,7 @@ class AskQuestionList extends React.Component {
                                       >
                                         <i class="fa fa-phone"></i> Call
                                       </span> */}
-                                    {/* ) : (
+                                  {/* ) : (
                                         <span
                                           className="sr-btn"
                                           onClick={(e) =>
@@ -213,23 +213,23 @@ class AskQuestionList extends React.Component {
                                         </span>
                                       )} */}
 
-                                    {/* <small>
+                                  {/* <small>
                                             / 20{' '}
                                             <i class="fa fa-inr" aria-hidden="true">
                                               {astrologer?.conrubute_hrs}
                                             </i>{' '}
                                             per Hour
                                           </small> */}
-                                    {/* </Link> */}
-                                  </div>
+                                  {/* </Link> */}
                                 </div>
-                              </Link>
-                            </div>
+                              </div>
+                            </Link>
                           </div>
                         </div>
-                      </Col>
-                    )
-                  })
+                      </div>
+                    </Col>
+                  )
+                })
                 : null}
             </Row>
           </Container>

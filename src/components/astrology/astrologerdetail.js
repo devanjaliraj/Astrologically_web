@@ -21,7 +21,7 @@ import Nav from "react-bootstrap/Nav";
 // import pagetitle from "../../assets/img/pagetitle.jpg";
 import axiosConfig from "../../axiosConfig";
 // import axios from "axios";
-// import { Modal, ModalHeader, ModalBody } from "reactstrap";
+import { Modal, ModalHeader, ModalBody } from "reactstrap";
 
 class AstrologerDetail extends React.Component {
   constructor(props) {
@@ -37,6 +37,7 @@ class AstrologerDetail extends React.Component {
       astroMobile: "",
       astroId: "",
     };
+
     this.state = {
       modal: false,
     };
@@ -195,10 +196,8 @@ class AstrologerDetail extends React.Component {
                           {/* <Link to="/AllMinRecharge"> */}
                           <Link to="/UserRequestForm">
                             <Button className="btn-as st" onClick={this.toggle}>
-                              <i
-                                class="fa fa-commenting"
-                                aria-hidden="true"
-                              ></i>{" "}
+                              <i className="fa fa-commenting" aria-hidden="true">
+                              </i>{" "}
                               Start Chat
                               <small className="sm-text">
                                 {/* <i class="fa fa-inr" aria-hidden="true"></i>{" "} */}
@@ -212,7 +211,7 @@ class AstrologerDetail extends React.Component {
                           {/* <Link to="/Call"> */}
                           <Link to="/UserRequestFormCall">
                             <Button
-                              className="btn-as st"
+                              className="btn-as st" onClick={this.toggle}
                             // onClick={(e) =>
                             //   this.submitHandler(
                             //     e,
@@ -221,7 +220,7 @@ class AstrologerDetail extends React.Component {
                             //   )
                             // }
                             >
-                              <i class="fa fa-phone" aria-hidden="true"></i>
+                              <i className="fa fa-phone" aria-hidden="true"></i>
                               Start Call
                               <small className="sm-text">
                                 {/* <i class="fa fa-inr" aria-hidden="true"></i>{" "} */}
@@ -263,8 +262,11 @@ class AstrologerDetail extends React.Component {
                           </Link>
                         </Col>
                       </Row>
+
                     </Col>
                   </Row>
+                  <div className="img_slider">shdsjkshaghjg</div>
+
                 </section>
                 <section className="mt-50 mb-30">
                   <div className="description-review-wrapper">
@@ -313,7 +315,7 @@ class AstrologerDetail extends React.Component {
                             RATINGS <i class="fa fa-star"></i>
                           </h3>
                           <div className="row">
-                            <div className="col-lg-7">
+                            <div className="col-lg-6">
                               <div className="row">
                                 <div className="col-md-4">
                                   {/* <h1
@@ -361,7 +363,6 @@ class AstrologerDetail extends React.Component {
                                 </div>
                               </div>
                               <hr />
-
                               <div className="review-wrapper">
                                 <div className="single-review">
                                   *{" "}
@@ -419,20 +420,97 @@ class AstrologerDetail extends React.Component {
                                 </div>
                               </div>
                             </div>
-                            <div className="col-lg-5">
+                            <div className="col-md-6">
+                              <div className="table-avail">
+
+                                <h2 className="title-avail">Availability</h2>
+                                <div className="time-table-avail">
+
+
+                                  <div className="week-day">
+                                    <div className="left_side_days">
+                                      <div className="black_doat_circle"></div>
+                                      <div className="days_week">
+                                        <h5>Monday</h5>
+                                        <span>February 27</span>
+                                      </div>
+                                    </div>
+                                    <div className="right_side_time_table">
+                                      <div className="timming_astrologer active">
+                                        11:00 AM - 12:00 AM
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div className="week-day">
+                                    <div className="left_side_days">
+                                      <div className="black_doat_circle"></div>
+                                      <div className="days_week">
+                                        <h5>Tuesday</h5>
+                                        <span>February 27</span>
+                                      </div>
+                                    </div>
+                                    <div className="right_side_time_table">
+                                      <div className="timming_astrologer active">
+                                        11:00 AM - 12:00 AM
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div className="week-day">
+                                    <div className="left_side_days">
+                                      <div className="black_doat_circle"></div>
+                                      <div className="days_week">
+                                        <h5>Wednesday</h5>
+                                        <span>February 27</span>
+                                      </div>
+                                    </div>
+                                    <div className="right_side_time_table">
+                                      <div className="timming_astrologer active">
+                                        11:00 AM - 12:00 AM
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div className="week-day">
+                                    <div className="left_side_days">
+                                      <div className="black_doat_circle"></div>
+                                      <div className="days_week">
+                                        <h5>Thursday</h5>
+                                        <span>February 27</span>
+                                      </div>
+                                    </div>
+                                    <div className="right_side_time_table">
+                                      <div className="timming_astrologer active">
+                                        11:00 AM - 12:00 AM
+                                      </div>
+                                      <div className="timming_astrologer active">
+                                        11:00 AM - 12:00 AM
+                                      </div>
+                                      <div className="timming_astrologer active">
+                                        11:00 AM - 12:00 AM
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                </div>
+                              </div>
+
+
+
+
+                            </div>
+                            {/* <div className="col-lg-5">
                               <div className="ratting-form-wrapper pl-50">
                                 <h3>Write a Review</h3>
                                 <div className="ratting-form">
                                   <form action="#">
                                     <div className="star-box">
-                                      {/* <span>Your rating:</span> */}
-                                      {/* <div className="ratting-star">
+                                       <span>Your rating:</span> 
+                                     <div className="ratting-star">
                               <i className="fa fa-star" />
                               <i className="fa fa-star" />
                               <i className="fa fa-star" />
                               <i className="fa fa-star" />
                               <i className="fa fa-star" />
-                            </div> */}
+                            </div> 
                                     </div>
                                     <div className="row">
                                       <div className="rating-form-style mb-10">
@@ -470,6 +548,8 @@ class AstrologerDetail extends React.Component {
                                             type="submit"
                                             defaultValue="Submit"
                                           />
+                                          <>
+                                          </>
                                         </div>
                                       </div>
                                     </div>
@@ -477,6 +557,69 @@ class AstrologerDetail extends React.Component {
                                 </div>
                               </div>
                             </div>
+                            <div className="col-lg-5"></div>
+
+                            <div className="col-lg-5">
+                              <div className="ratting-form-wrapper pl-50">
+                                <h3>Write a Review</h3>
+                                <div className="ratting-form">
+                                  <form action="#">
+                                    <div className="star-box">
+                                       <span>Your rating:</span> 
+                                     <div className="ratting-star">
+                              <i className="fa fa-star" />
+                              <i className="fa fa-star" />
+                              <i className="fa fa-star" />
+                              <i className="fa fa-star" />
+                              <i className="fa fa-star" />
+                            </div> 
+                                    </div>
+                                    <div className="row">
+                                      <div className="rating-form-style mb-10">
+                                        <Rating
+                                          name="simple-controlled"
+                                          onChange={(event, newValue) => { }}
+                                        />
+                                      </div>
+                                      <div class="col-md-6">
+                                        <div class="rating-form-style mb-10">
+                                          <input
+                                            placeholder="Name"
+                                            type="text"
+                                          />
+                                        </div>
+                                      </div>
+                                      <div class="col-md-6">
+                                        <div class="rating-form-style mb-10">
+                                          <input
+                                            placeholder="Email"
+                                            type="email"
+                                          />
+                                        </div>
+                                      </div>
+                                      <div className="col-md-12">
+                                        <div className="rating-form-style form-submit">
+                                          <textarea
+                                            name="comment"
+                                            placeholder="Comment"
+                                            defaultValue={""}
+                                            style={{ height: "auto" }}
+                                            rows={3}
+                                          />
+                                          <input
+                                            type="submit"
+                                            defaultValue="Submit"
+                                          />
+
+                                          <>
+                                          </>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </form>
+                                </div>
+                              </div>
+                            </div> */}
                           </div>
                         </Tab.Pane>
                       </Tab.Content>
@@ -489,7 +632,33 @@ class AstrologerDetail extends React.Component {
         </div>
 
         {/* modal for recharge*/}
-
+        <Modal
+          size="md"
+          style={{ maxWidth: "600px", width: "100%" }}
+          isOpen={this.state.modal}
+          toggle={this.toggle}
+          className={this.props.className}
+        >
+          <ModalHeader className="wr-3" toggle={this.toggle}>
+            <h2 className="wr-4">Recharge Now</h2>
+          </ModalHeader>
+          <ModalBody>
+            <div className="Wr-1">
+              <h3>
+                Minimum balance of 5 minutes (INR 25.0) is required to start
+                call with RajnishM
+              </h3>
+              <Link className="wr-5">
+                <Button color="secondary" onClick={this.toggle}>
+                  Cancel
+                </Button>
+              </Link>
+              <Link className="wr-6" to="/walletmoney">
+                <Button>Recharge</Button>
+              </Link>
+            </div>
+          </ModalBody>
+        </Modal>
         {/* <Modal
           size="md"
           style={{ maxWidth: "600px", width: "100%" }}

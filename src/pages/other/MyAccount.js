@@ -1,36 +1,33 @@
-import PropTypes from "prop-types";
 import React, { Fragment, Component } from "react";
-import MetaTags from "react-meta-tags";
-import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import Card from "react-bootstrap/Card";
-import Accordion from "react-bootstrap/Accordion";
 import LayoutOne from "../../layouts/LayoutOne";
-import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import { Container, Form, Row, Col } from "reactstrap";
-import axios from "axios";
-import userpic from "../../assets/img/userpic.png";
 import axiosConfig from "../../axiosConfig";
 export default class MyAccount extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       fullname: "",
       email: "",
       mobile: "",
       dob: "",
+      otp: "",
+      gender: "",
       bithplace: "",
       birth_tym: "",
       userimg: "",
       address: "",
-      locality: "",
+      // locality: "",
       pincode: "",
       city: "",
       state: "",
       country: "",
+      walletId: "",
+      amount: "",
+      deductedAmt: "",
       selectedName: "",
       selectedFile: null,
-      // data: {},
+      data: {},
     };
   }
   onChangeHandler = (event) => {
@@ -49,12 +46,12 @@ export default class MyAccount extends Component {
           fullname: response.data.data.fullname,
           email: response.data.data.email,
           mobile: response.data.data.mobile,
+          gender: response.data.data.gender,
           dob: response.data.data.dob,
           bithplace: response.data.data.bithplace,
           birth_tym: response.data.data.birth_tym,
           userimg: response.data.data.userimg,
-          address: response.data.address,
-          // locality: response.data.data.locality,
+          address: response.data.data.address,
           pincode: response.data.data.pincode,
           city: response.data.data.city,
           state: response.data.data.state,
@@ -80,6 +77,7 @@ export default class MyAccount extends Component {
     data.append("email", this.state.email);
     data.append("mobile", this.state.mobile);
     data.append("dob", this.state.dob);
+    data.append("gender", this.state.gender);
     data.append("bithplace", this.state.bithplace);
     data.append("birth_tym", this.state.birth_tym);
     data.append("address", this.state.address);
@@ -87,14 +85,13 @@ export default class MyAccount extends Component {
     data.append("city", this.state.city);
     data.append("state", this.state.state);
     data.append("country", this.state.country);
+    // data.append("locality", this.state.locality);
     if (this.state.selectedFile !== null) {
       data.append("userimg", this.state.selectedFile, this.state.selectedName);
     }
-
     for (var value of data.values()) {
       console.log(value);
     }
-
     for (var key of data.keys()) {
       console.log(key);
     }
@@ -147,56 +144,29 @@ export default class MyAccount extends Component {
                         src={this.state.userimg}
                         alt="userimg"
                         className="img-fluid img-border rounded-circle box-shadow-1"
-                        width="150"
-                      />
+                        width="150" />
                       <ul>
-                        <li>
-                          Name : <span>{this.state.fullname}</span>
-                        </li>
-                        <li>
-                          Mobile : <span>{this.state.mobile}</span>
-                        </li>
-                        <li>
-                          Email : <span>{this.state.email}</span>
-                        </li>
-                        <li>
-                          DOB : <span>{this.state.dob}</span>
-                        </li>
-                        <li>
-                          Address : <span>{this.state.address}</span>
-                        </li>
-                        {/* <li>
-                          Locality : <span>{this.state.data.locality}</span>
-                        </li> */}
-                        <li>
-                          Pin Code : <span>{this.state.pincode}</span>
-                        </li>
-                        <li>
-                          State : <span>{this.state.state}</span>
-                        </li>
-                        <li>
-                          City : <span>{this.state.city}</span>
-                        </li>
-
-                        <li>
-                          Country : <span>{this.state.country}</span>
-                        </li>
+                        <li>Name : <span>{this.state.fullname}</span></li>
+                        <li>Email : <span>{this.state.email}</span></li>
+                        <li>Mobile : <span>{this.state.mobile}</span></li>
+                        <li>Gender : <span>{this.state.gender}</span></li>
+                        <li>DOB : <span>{this.state.dob}</span></li>
+                        <li>Address : <span>{this.state.address}</span></li>
+                        <li>Bith Place : <span>{this.state.bithplace}</span></li>
+                        <li>Birth Time : <span>{this.state.birth_tym}</span></li>
+                        <li>Pin Code : <span>{this.state.pincode}</span></li>
+                        <li>State : <span>{this.state.state}</span></li>
+                        <li>City : <span>{this.state.city}</span></li>
+                        <li>Country : <span>{this.state.country}</span></li>
                       </ul>
                     </div>
                   </Card.Body>
                 </div>
                 <div className="col-lg-8">
                   <div className="myaccount-wrapper">
-                    {/* <Accordion defaultActiveKey="0"> */}
                     <Card className="single-my-account mb-20">
                       <Card.Header className="panel-heading">
-                        {/* <Accordion.Toggle variant="link" eventKey="0">
-                            <h3 className="panel-title">
-                              Edit your account information{" "}
-                            </h3>
-                          </Accordion.Toggle> */}
                       </Card.Header>
-                      {/* <Accordion.Collapse eventKey="0"> */}
                       <Card.Body className="usr-1">
                         <Form onSubmit={this.submitHandler}>
                           <div className="myaccount-info-wrapper">
@@ -216,18 +186,18 @@ export default class MyAccount extends Component {
                                   />
                                 </div>
                               </div>
-                              {/* <div className="col-lg-6 col-md-6">
+                              <div className="col-lg-6 col-md-6">
                                 <div className="billing-info">
-                                  <label>Last Name</label>
+                                  <label>DOB</label>
                                   <input
                                     type="text"
-                                    placeholder="Last Name"
-                                    name="lastname"
-                                    value={this.state.lastname}
+                                    placeholder="Enter DOB"
+                                    name="dob"
+                                    value={this.state.dob}
                                     onChange={this.changeHandler}
                                   />
                                 </div>
-                              </div> */}
+                              </div>
                               <div className="col-lg-6 col-md-6">
                                 <div className="billing-info">
                                   <label>Email Address</label>
@@ -248,7 +218,45 @@ export default class MyAccount extends Component {
                                     className="form-control"
                                     type="file"
                                     name="userimg"
-                                    onChange={this.onChangeHandler}
+                                    onChange={this.changeHandler}
+                                  />
+                                </div>
+                              </div>
+                              <div className="col-lg-6 col-md-6">
+                                <div className="billing-info">
+                                  <label>Birth Place</label>
+                                  <input
+                                    type="text"
+                                    name="bithplace"
+                                    value={this.state.bithplace}
+                                    onChange={this.changeHandler}
+                                  />
+                                </div>
+                              </div>
+                              <div className="col-lg-6 col-md-6">
+                                <div className="billing-info">
+                                  <label>Gender</label>
+                                  <select
+                                    type="select"
+                                    className="form-control"
+                                    value={this.state.gender}
+                                    onChange={this.changeHandler}
+                                    name="gender"
+                                  >
+                                    <option selected>--select--</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                  </select>
+                                </div>
+                              </div>
+                              <div className="col-lg-6 col-md-6">
+                                <div className="billing-info">
+                                  <label>Birth Time</label>
+                                  <input
+                                    type="text"
+                                    name="birth_tym"
+                                    value={this.state.birth_tym}
+                                    onChange={this.changeHandler}
                                   />
                                 </div>
                               </div>
@@ -276,7 +284,7 @@ export default class MyAccount extends Component {
                     </Card>
                     <Card className="single-my-account mb-20">
                       <Card.Body className="usr-1">
-                        <Form onSubmit={this.addAddress}>
+                        <Form onSubmit={this.submitHandler}>
                           <div className="myaccount-info-wrapper">
                             <div className="account-info-wrapper">
                               <h4>My Address</h4>
@@ -294,7 +302,7 @@ export default class MyAccount extends Component {
                                   />
                                 </div>
                               </div>
-                              <div className="col-lg-6 col-md-6">
+                              {/* <div className="col-lg-6 col-md-6">
                                 <div className="billing-info">
                                   <label>Locality</label>
                                   <input
@@ -305,12 +313,13 @@ export default class MyAccount extends Component {
                                     onChange={this.changeHandler}
                                   />
                                 </div>
-                              </div>
+                              </div> */}
                               <div className="col-lg-6 col-md-6">
                                 <div className="billing-info">
                                   <label>Pin Code</label>
                                   <input
                                     type="number"
+                                    maxLength={6}
                                     placeholder="Pin Code"
                                     name="pincode"
                                     value={this.state.pincode}
@@ -342,6 +351,18 @@ export default class MyAccount extends Component {
                                   />
                                 </div>
                               </div>
+                              <div className="col-lg-6 col-md-6">
+                                <div className="billing-info">
+                                  <label>Country</label>
+                                  <input
+                                    type="text"
+                                    placeholder="Country"
+                                    name="country"
+                                    value={this.state.country}
+                                    onChange={this.changeHandler}
+                                  />
+                                </div>
+                              </div>
                             </div>
                             <div className="billing-back-btn">
                               <div className="billing-btn">
@@ -353,7 +374,7 @@ export default class MyAccount extends Component {
                       </Card.Body>
                       {/* </Accordion.Collapse> */}
                     </Card>
-                    <Card className="single-my-account mb-20">
+                    {/* <Card className="single-my-account mb-20">
                       <Card.Body className="usr-1">
                         <Form onSubmit={this.addAddress}>
                           <div className="myaccount-info-wrapper">
@@ -369,8 +390,8 @@ export default class MyAccount extends Component {
                           </div>
                         </Form>
                       </Card.Body>
-                      {/* </Accordion.Collapse> */}
-                    </Card>
+                      </Accordion.Collapse> 
+                    </Card> */}
                   </div>
                 </div>
               </div>
@@ -381,5 +402,3 @@ export default class MyAccount extends Component {
     );
   }
 }
-
-//export default MyAccount;

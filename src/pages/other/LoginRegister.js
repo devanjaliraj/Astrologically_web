@@ -14,6 +14,8 @@ export default class LoginRegister extends Component {
       email: "",
       mobile: "",
       dob: "",
+      gender: "",
+      city: "",
       userimg: "",
       selectedName: "",
       selectedFile: null,
@@ -37,8 +39,7 @@ export default class LoginRegister extends Component {
       })
       .then((response) => {
         console.log("@@@####", response.data);
-        let id = response.data.user;
-
+        // let id = response.data.user;
         if (response.data.status === true) {
           this.setState({ otpMsg: response.data.msg });
           localStorage.setItem(
@@ -66,18 +67,15 @@ export default class LoginRegister extends Component {
         //this.setState({ errormsg: error });
       });
   };
-
   handlechange = (e) => {
     e.preventDefault();
     this.setState({ [e.target.name]: e.target.value });
   };
-
   loginHandler = (e) => {
     e.preventDefault();
     let obj = {
       mobile: parseInt(this.state.mobile),
     };
-
     axios
       .post(`http://13.234.48.35:8000/user/userlogin`, obj)
       .then((response) => {
@@ -106,16 +104,15 @@ export default class LoginRegister extends Component {
     data.append("fullname", this.state.fullname);
     data.append("email", this.state.email);
     data.append("mobile", this.state.mobile);
-
+    data.append("gender", this.state.gender);
+    data.append("city", this.state.city);
     data.append("dob", this.state.dob);
     if (this.state.selectedFile !== null) {
       data.append("userimg", this.state.selectedFile, this.state.selectedName);
     }
-
     for (var value of data.values()) {
       console.log(value);
     }
-
     for (var key of data.keys()) {
       console.log(key);
     }
@@ -181,7 +178,6 @@ export default class LoginRegister extends Component {
                                     value={this.state.otp}
                                     onChange={this.changeHandler}
                                   />
-
                                   <div className="button-box">
                                     <div className="login-toggle-btn"></div>
                                     <button type="submit">
@@ -202,7 +198,6 @@ export default class LoginRegister extends Component {
                                     value={this.state.mobile}
                                     onChange={this.changeHandler}
                                   />
-
                                   <div className="button-box">
                                     <div className="login-toggle-btn"></div>
                                     <button type="submit">
@@ -214,17 +209,14 @@ export default class LoginRegister extends Component {
                             )}
                           </div>
                         </Tab.Pane>
-
                         {/* Register the user now */}
-
                         <Tab.Pane eventKey="register">
                           <div className="login-form-container">
                             <div className="login-register-form">
                               <Form
                                 className="text-center"
                                 onSubmit={this.submitHandler}
-                                method="post"
-                              >
+                                method="post">
                                 <Input
                                   type="text"
                                   name="fullname"
@@ -233,7 +225,6 @@ export default class LoginRegister extends Component {
                                   value={this.state.fullname}
                                   onChange={this.changeHandler}
                                 />
-
                                 <Input
                                   type="email"
                                   name="email"
@@ -259,9 +250,26 @@ export default class LoginRegister extends Component {
                                   value={this.state.dob}
                                   onChange={this.changeHandler}
                                 />
+                                <Input
+                                  type="text"
+                                  name="city"
+                                  required
+                                  placeholder="Enter city"
+                                  value={this.state.city}
+                                  onChange={this.changeHandler}
+                                />
+                                <Input
+                                  type="select"
+                                  name="gender"
+                                  placeholder=""
+                                  value={this.state.gender}
+                                  onChange={this.changeHandler}>
+                                  <option>Select Gender</option>
+                                  <option>Male</option>
+                                  <option>Female</option>
+                                </Input>
                                 <Label>User Image</Label>
                                 <Input
-                                  className="form-control"
                                   type="file"
                                   name="userimg"
                                   onChange={this.onChangeHandler}
@@ -278,7 +286,6 @@ export default class LoginRegister extends Component {
                       </Tab.Content>
                     </Tab.Container>
                   </div>
-
                   <>
                     <div className="login-form-container">
                       <div className="login-register-form">

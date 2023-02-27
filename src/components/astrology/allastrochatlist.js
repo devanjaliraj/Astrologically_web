@@ -19,6 +19,8 @@ class allastrochatlist extends React.Component {
       To: "",
       astroid: "",
       userid: "",
+      price_high_to_low: []
+
     };
   }
   componentDidMount = () => {
@@ -34,8 +36,37 @@ class allastrochatlist extends React.Component {
         console.log(error);
         console.log(error.response);
       });
+    axiosConfig
+      .get("/user/price_high_to_low")
+      .then((response) => {
+        console.log(response.data);
+        if (response.data.status === true) {
+          this.setState({
+            price_high_to_low: response.data.data
+          });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        console.log(error.response);
+      });
   };
-
+  filterMethod = (name) => {
+    axiosConfig
+      .get(`/user/` + name)
+      .then((response) => {
+        console.log(response.data);
+        if (response.data.status === true) {
+          this.setState({
+            astrologerList: response.data.data
+          });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        console.log(error.response);
+      });
+  }
   submitHandler = (e, astroid, mobile) => {
     e.preventDefault();
     // let astrologerList = localStorage.getItem('astrologerList')
@@ -65,6 +96,7 @@ class allastrochatlist extends React.Component {
       });
   };
 
+
   render() {
     const { astrologerList } = this.state;
 
@@ -84,7 +116,7 @@ class allastrochatlist extends React.Component {
               <Row>
                 <Col md="12">
                   <div className="leftcont text-left">
-                    <h1>Talk To Astrologer</h1>
+                    <h1>Chat With Astrologer</h1>
                     <p></p>
                   </div>
                 </Col>
@@ -102,58 +134,59 @@ class allastrochatlist extends React.Component {
               <Col md="3">
                 <div className="bx-list fbg">
                   <h3 className="mb-3">
-                    <b>Sort By :</b>
+                    <b>Sort By:</b>
                   </h3>
                   <form>
                     <ul>
-                      <li>
+                      {/* <li>
                         <span>
                           <Form.Check type="radio" aria-label="radio 1" />
                         </span>
-                        Popularity :
-                      </li>
+                        Popularity
+                      </li> */}
                       <li>
                         <span>
-                          <Form.Check type="radio" aria-label="radio 1" />
+                          <Form.Check type="radio" aria-label="radio 1" name="exp_high_to_low" onChange={() => this.filterMethod("exp_high_to_low")} />
                         </span>
                         Experience : High to Low
+
                       </li>
                       <li>
                         <span>
-                          <Form.Check type="radio" aria-label="radio 1" />
+                          <Form.Check type="radio" aria-label="radio 2" name="exp_low_to_high" onChange={() => this.filterMethod("exp_low_to_high")} />
                         </span>
                         Experience : Low to High
                       </li>
                       <li>
                         <span>
-                          <Form.Check type="radio" aria-label="radio 1" />
-                        </span>
-                        Total orders : High to Low
-                      </li>
-                      <li>
-                        <span>
-                          <Form.Check type="radio" aria-label="radio 1" />
-                        </span>
-                        Total orders : Low to High
-                      </li>
-                      <li>
-                        <span>
-                          <Form.Check type="radio" aria-label="radio 1" />
+                          <Form.Check type="radio" aria-label="radio 3" name="price_high_to_low" onChange={() => this.filterMethod("price_high_to_low")} />
                         </span>
                         Price : High to Low
                       </li>
                       <li>
                         <span>
-                          <Form.Check type="radio" aria-label="radio 1" />
+                          <Form.Check type="radio" aria-label="radio 4" name="price_low_to_high" onChange={() => this.filterMethod("price_low_to_high")} />
                         </span>
                         Price : Low to High
                       </li>
                       <li>
                         <span>
-                          <Form.Check type="radio" aria-label="radio 1" />
+                          <Form.Check type="radio" aria-label="radio 5" name="rating_high_to_low" onChange={() => this.filterMethod("rating_high_to_low")} />
                         </span>
                         Rating : High to Low
                       </li>
+                      <li>
+                        <span>
+                          <Form.Check type="radio" aria-label="radio 6" name="rating_low_to_high" onChange={() => this.filterMethod("rating_low_to_high")} />
+                        </span>
+                        Rating : Low to High
+                      </li>
+                      {/* <li>
+                        <span>
+                          <Form.Check type="radio" aria-label="radio 7" name="exp_low_to_high" onChange={() => this.filterMethod("exp_low_to_high")}/>
+                        </span>
+                        Rating : High to Low
+                      </li> */}
                     </ul>
                   </form>
                 </div>
@@ -242,6 +275,18 @@ class allastrochatlist extends React.Component {
                                                 Chat
                                               </i>{" "}
                                             </span>
+                                            {/* <span
+                                              className="sr-btn"
+                                              onClick={(e) =>
+                                                this.submitHandler(
+                                                  e,
+                                                  astrologer?._id,
+                                                  astrologer?.mobile
+                                                )
+                                              }
+                                            >
+                                              <i class="fa fa-phone"> Chat</i>
+                                            </span> */}
                                             {/* <span
                                         className="sr-btn"
                                         onClick={(e) =>

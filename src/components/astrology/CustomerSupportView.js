@@ -23,7 +23,7 @@ class CustomerSupportView extends React.Component {
 
     // console.log('jdhgkfjgkjd', astroId)
     axiosConfig
-      .get(`/admin/getoneTicket/${id}`)
+      .get(`/user/getoneTicket/${id}`)
       .then((response) => {
         console.log(response.data);
         this.setState({
@@ -31,10 +31,9 @@ class CustomerSupportView extends React.Component {
           desc: response.data.data.desc,
           subject: response.data.data.subject,
           img: response.data.data.img[0],
-          status: response?.data?.data?.status,
-
-          userId: response?.data?.data?._id,
-          createdAt: response?.data?.data?.createdAt,
+          status: response.data.data.status,
+          userId: response.data.data._id,
+          createdAt: response.data.data.createdAt,
         });
       })
       .catch((error) => {
@@ -48,7 +47,7 @@ class CustomerSupportView extends React.Component {
       .then((response) => {
         console.log("fgshdfhsdfhs", response.data.data);
         this.setState({
-          astroQuesList: response?.data?.data,
+          astroQuesList: response.data.data,
         });
       })
       .catch((error) => {

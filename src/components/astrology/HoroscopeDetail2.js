@@ -73,6 +73,8 @@ class HoroscopeDetail2 extends React.Component {
                 <Col md="12">
                   <div className="leftcont text-left">
                     <h1>Monthly Horoscope</h1>
+                    <p>{dailyHoroscope.sun_sign}</p>
+
                   </div>
                 </Col>
               </Row>

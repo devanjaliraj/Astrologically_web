@@ -8,9 +8,8 @@ import {
 import swal from "sweetalert";
 import LayoutOne from "../../layouts/LayoutOne";
 import "../../assets/scss/astroteam.scss";
-import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import { Modal, ModalHeader, ModalBody } from "reactstrap";
 import axiosConfig from "../../axiosConfig";
-
 class AllMinRecharge extends React.Component {
   constructor(props) {
     super(props);
@@ -22,10 +21,8 @@ class AllMinRecharge extends React.Component {
       astroid: "",
       recharge_planId: ""
     };
-
     this.toggle = this.toggle.bind(this);
   }
-
   toggle() {
     this.setState({
       modal: !this.state.modal,
@@ -58,7 +55,6 @@ class AllMinRecharge extends React.Component {
       recharge_planid: recharge_planid,
       userId: this.state.userid,
     };
-
     await axiosConfig
       .post(`/user/addChatWallet`, obj)
       .then((response) => {
@@ -68,13 +64,11 @@ class AllMinRecharge extends React.Component {
           });
         }
       })
-
       .catch((error) => {
         swal("Error!", "You clicked the button!", "error");
         console.log(error);
       });
   };
-
   render() {
     const { allminrechargeList } = this.state;
     return (
@@ -115,9 +109,7 @@ class AllMinRecharge extends React.Component {
                         localStorage.setItem("minute", allmin.minute)
                         this.props.history.push('/chatApp')
                       }}>
-                        <div className="promoBox success-box info-ribbon"
-
-                        >
+                        <div className="promoBox success-box info-ribbon">
                           {/* <aside>
                             <p>{allmin.title}</p>
                           </aside> */}
@@ -129,21 +121,16 @@ class AllMinRecharge extends React.Component {
                   );
                 })
                 : null}
-
-
             </Row>
           </Container>
         </section>
-
         {/* modal for recharge*/}
-
         <Modal
           size="md"
           style={{ maxWidth: "600px", width: "100%" }}
           isOpen={this.state.modal}
           toggle={this.toggle}
-          className={this.props.className}
-        >
+          className={this.props.className}>
           <ModalHeader className="wr-3" toggle={this.toggle}>
             <h2 className="wr-4">Apply Voucher Code</h2>
           </ModalHeader>
@@ -162,5 +149,4 @@ class AllMinRecharge extends React.Component {
     );
   }
 }
-
 export default AllMinRecharge;

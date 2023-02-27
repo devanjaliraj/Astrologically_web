@@ -10,6 +10,7 @@ class WalletTransacList extends React.Component {
         super(props)
         this.state = {
             WalletTransacList: [],
+            data: {}
         }
     }
     componentDidMount = () => {
@@ -18,12 +19,29 @@ class WalletTransacList extends React.Component {
             .then((response) => {
                 console.log(response.data);
                 if (response.data.status === true) {
-                    this.setState({ WalletTransacList: response.data.data });
+
+                    this.setState({
+                        WalletTransacList: response.data.data,
+
+                    });
+
+
                 }
             })
             .catch((error) => {
                 console.log(error);
                 console.log(error.response);
+            });
+        axiosConfig
+            .get(`/user/viewoneuser/${userId}`)
+            .then((response) => {
+                console.log("sjdfjdfg", response.data.data);
+                this.setState({
+                    amount: response.data.data.amount,
+                });
+            })
+            .catch((error) => {
+                console.log(error);
             });
     };
     render() {
@@ -37,6 +55,10 @@ class WalletTransacList extends React.Component {
                                 <Col md="12">
                                     <div className="leftcont text-left">
                                         <h1>Wallet Transactions</h1>
+
+                                        <h3>
+                                            Available balance : <span>{this.state.amount}</span>
+                                        </h3>
                                     </div>
                                 </Col>
                             </Row>
@@ -62,8 +84,8 @@ class WalletTransacList extends React.Component {
                                         <tbody>
                                             {WalletTransacList.length ? WalletTransacList.map((WalletTransac, index) => {
                                                 return (
+
                                                     <tr>
-                                                        {/* <th scope="row">{WalletTransac.transaction_id}</th> */}
                                                         <th>{WalletTransac.transaction_id}{WalletTransac.conversationId}</th>
                                                         <td>{WalletTransac.beforeAmt}</td>
                                                         <td>{WalletTransac.deductedAmt} {WalletTransac.creditedAmt}</td>

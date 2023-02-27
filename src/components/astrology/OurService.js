@@ -102,8 +102,8 @@ class OurService extends React.Component {
                 <Row>
                   <Col md="2">
                     <div className="serve-1">
-                      <Link to="/#/">
-                        <h3>Chat Astrologer</h3>
+                      <Link to="/allastrochatlist">
+                        <h3>Chat with Astrologer</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur</p>
                       </Link>
                     </div>

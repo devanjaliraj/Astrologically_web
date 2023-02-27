@@ -15,8 +15,9 @@ class AllAstrologerList extends React.Component {
 
     this.state = {
       // data: {},
+
       astrologerList: [],
-      Form: "",
+      From: "",
       To: "",
       astroid: "",
       userid: "",
@@ -66,35 +67,35 @@ class AllAstrologerList extends React.Component {
 
 
 
-  // submitHandler = (e, astroid, mobile) => {
-  //   e.preventDefault();
-  //   // let astrologerList = localStorage.getItem('astrologerList')
-  //   let mobileNo = localStorage.getItem("user_mobile_no");
-  //   let userId = JSON.parse(localStorage.getItem("user_id"));
-  //   let astroId = astroid;
-  //   let obj = {
-  //     userid: userId,
-  //     astroid: astroId,
-  //     // astrologerList: astrologerList,
-  //     From: mobile, //parseInt(this.state.number)
-  //     To: mobileNo, //parseInt(this.state.number)
-  //   };
-  //   axiosConfig
-  //     .post(`/user/make_call`, obj)
+  submitHandler = (e, astroid, mobile) => {
+    e.preventDefault();
+    // let astrologerList = localStorage.getItem('astrologerList')
+    let mobileNo = localStorage.getItem("user_mobile_no");
+    let userId = JSON.parse(localStorage.getItem("user_id"));
+    let astroId = astroid;
+    let obj = {
+      userid: userId,
+      astroid: astroId,
+      // astrologerList: astrologerList,
+      From: mobile, //parseInt(this.state.number)
+      To: mobileNo, //parseInt(this.state.number)
+    };
+    axiosConfig
+      .post(`/user/make_call`, obj)
 
-  //     .then((response) => {
-  //       console.log("rhsagdhgshgdjhgj", response.data.data);
-  //       // console.log(response.data.STATUSMSG)
-  //       // this.setState({ responseData: response.data })
-  //       // swal('Successful!', 'Recharge Successful!', 'success')
-  //       // this.props.history.push('/orderrecharge')
-  //     })
+      .then((response) => {
+        console.log("rhsagdhgshgdjhgj", response.data.data);
+        // console.log(response.data.STATUSMSG)
+        // this.setState({ responseData: response.data })
+        // swal('Successful!', 'Recharge Successful!', 'success')
+        // this.props.history.push('/orderrecharge')
+      })
 
-  //     .catch((error) => {
-  //       console.log(error);
-  //       // swal('Error!', 'Invalid!', 'error')
-  //     });
-  // };
+      .catch((error) => {
+        console.log(error);
+        // swal('Error!', 'Invalid!', 'error')
+      });
+  };
 
 
   filterMethod = (name) => {
@@ -283,6 +284,19 @@ class AllAstrologerList extends React.Component {
                                       </span> */}
                                             {/* {localStorage.getItem('auth-token') ? ( */}
 
+                                            {/* <span
+                                              className="sr-btn"
+                                              onClick={(e) =>
+                                                this.submitHandler(
+                                                  e,
+                                                  astrologer?._id,
+                                                  astrologer?.mobile
+                                                )
+                                              }
+                                            >
+                                              <i class="fa fa-phone"> Call</i>
+                                            </span> */}
+
                                             <span
                                               className="sr-btn"
                                               onClick={(e) =>
@@ -295,19 +309,6 @@ class AllAstrologerList extends React.Component {
                                             >
                                               <i class="fa fa-phone"> Call</i>
                                             </span>
-
-                                            {/* <span
-                                        className="sr-btn"
-                                        onClick={(e) =>
-                                          this.submitHandler(
-                                            e,
-                                            astrologer?._id,
-                                            astrologer?.mobile
-                                          )
-                                        }
-                                      >
-                                        <i class="fa fa-phone"> Call</i>
-                                      </span> */}
 
                                             {/* ) : (
                                         <span

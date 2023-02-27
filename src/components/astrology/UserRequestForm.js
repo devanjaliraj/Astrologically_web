@@ -3,6 +3,8 @@ import { Container, Row, Col, Button, Input } from "reactstrap";
 import LayoutOne from "../../layouts/LayoutOne";
 import axiosConfig from "../../axiosConfig";
 import swal from "sweetalert";
+import Select from "react-select";
+import { Country, State, City } from "country-state-city";
 class UserRequestForm extends React.Component {
   constructor(props) {
     super(props);
@@ -26,6 +28,15 @@ class UserRequestForm extends React.Component {
       topic_of_cnsrn: "",
       entertopic_of_cnsrn: "",
       data: [],
+      // data: {},
+      state: [],
+      city: [],
+      country: [],
+      // SelectedCountry: "Country",
+      // SelectedState: "State",
+      selectedCountry: null,
+      selectedState: null,
+      selectedCity: null
     };
   }
   componentDidMount() {
@@ -242,6 +253,62 @@ class UserRequestForm extends React.Component {
                             placeholder="Enter Your  Birth Place"
                           />
                         </div>
+                      </Col>
+                      <Col md="4">
+                        <label>Country</label>
+                        <Select
+                          options={Country.getAllCountries()}
+                          getOptionLabel={(options) => {
+                            return options["name"];
+                          }}
+                          getOptionValue={(options) => {
+                            return options["name"];
+                          }}
+                          value={this.state.selectedCountry}
+                          onChange={(item) => {
+                            //setSelectedCountry(item);
+                            this.setState({ selectedCountry: item })
+                          }}
+                        />
+                      </Col>
+
+                      <Col md="4">
+                        <label>State</label>
+                        <Select
+                          options={State?.getStatesOfCountry(this.state.selectedCountry?.isoCode)}
+                          getOptionLabel={(options) => {
+                            return options["name"];
+                          }}
+                          getOptionValue={(options) => {
+                            return options["name"];
+                          }}
+                          value={this.state.selectedState}
+                          onChange={(item) => {
+                            //setSelectedState(item);
+                            this.setState({ selectedState: item })
+                          }}
+                        />
+                      </Col>
+
+                      <Col md="4">
+                        <label>City</label>
+                        <Select
+                          options={City.getCitiesOfState(
+                            this.state.selectedState?.countryCode,
+                            this.state.selectedState?.isoCode
+                          )}
+                          getOptionLabel={(options) => {
+                            return options["name"];
+                          }}
+                          getOptionValue={(options) => {
+                            return options["name"];
+                          }}
+                          value={this.state.selectedCity}
+                          onChange={(item) => {
+                            //setSelectedCity(item);
+                            this.setState({ selectedCity: item })
+                          }}
+                        />
                       </Col>
                       <Col md="4">
                         <div class="form-group mtb-10">

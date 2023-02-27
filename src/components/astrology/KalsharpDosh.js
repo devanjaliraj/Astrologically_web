@@ -13,7 +13,8 @@ import "../../assets/scss/astropooja.css";
 import LayoutOne from "../../layouts/LayoutOne";
 import axiosConfig from "../../axiosConfig";
 import swal from "sweetalert";
-
+import Select from "react-select";
+import { Country, State, City } from "country-state-city";
 class KalsharpDosh extends React.Component {
   constructor(props) {
     super(props);
@@ -27,9 +28,30 @@ class KalsharpDosh extends React.Component {
       lon: "",
       tzone: "",
       data: {},
+      place: "",
+      searchQuery: "",
+      state: [],
+      city: [],
+      country: [],
+      selectedCountry: null,
+      selectedState: null,
+      selectedCity: null
     };
   }
   changeHandler = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+  handleInputChanged(event) {
+    this.setState({
+      searchQuery: event.target.value
+    });
+    axiosConfig.post(`/user/geo_detail`, {
+      "place": this.state.searchQuery
+    }).then(response => { console.log(response.data) }).catch(error => { console.log(error) })
+    console.log(this.state.searchQuery)
+
+  }
+  changeHandler1 = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
   componentDidMount() {
@@ -71,6 +93,31 @@ class KalsharpDosh extends React.Component {
         console.log("data11", response.data);
         swal("Success!", "Submitted SuccessFull!", "success");
       })
+      .catch((error) => {
+        swal("Error!", "You clicked the button!", "error");
+        console.log(error);
+      });
+  };
+  submitPlaceHandler = (e) => {
+    e.preventDefault();
+
+    let payload = {
+      // data: this.state.data
+      place: this.state.place,
+
+
+    };
+    console.log("shgdjhg", payload)
+    axiosConfig.post(`/user/geo_detail`, payload)
+      .then((response) => {
+
+        this.setState({ data: response.data });
+        console.log("place", response.data.geonames?.place_name);
+
+
+        swal("Success!", "Submitted SuccessFull!", "success");
+      })
+
       .catch((error) => {
         swal("Error!", "You clicked the button!", "error");
         console.log(error);
@@ -418,6 +465,62 @@ class KalsharpDosh extends React.Component {
                                 <option>58</option>
                                 <option>59</option> <option>60</option>
                               </Input>
+                            </Col>
+                            <Col md="4">
+                              <label>Country</label>
+                              <Select
+                                options={Country.getAllCountries()}
+                                getOptionLabel={(options) => {
+                                  return options["name"];
+                                }}
+                                getOptionValue={(options) => {
+                                  return options["name"];
+                                }}
+                                value={this.state.selectedCountry}
+                                onChange={(item) => {
+                                  //setSelectedCountry(item);
+                                  this.setState({ selectedCountry: item })
+                                }}
+                              />
+                            </Col>
+
+                            <Col md="4">
+                              <label>State</label>
+                              <Select
+                                options={State?.getStatesOfCountry(this.state.selectedCountry?.isoCode)}
+                                getOptionLabel={(options) => {
+                                  return options["name"];
+                                }}
+                                getOptionValue={(options) => {
+                                  return options["name"];
+                                }}
+                                value={this.state.selectedState}
+                                onChange={(item) => {
+                                  //setSelectedState(item);
+                                  this.setState({ selectedState: item })
+                                }}
+                              />
+                            </Col>
+
+                            <Col md="4">
+                              <label>state</label>
+                              <Select
+                                options={City.getCitiesOfState(
+                                  this.state.selectedState?.countryCode,
+                                  this.state.selectedState?.isoCode
+                                )}
+                                getOptionLabel={(options) => {
+                                  return options["name"];
+                                }}
+                                getOptionValue={(options) => {
+                                  return options["name"];
+                                }}
+                                value={this.state.selectedCity}
+                                onChange={(item) => {
+                                  //setSelectedCity(item);
+                                  this.setState({ selectedCity: item })
+                                }}
+                              />
                             </Col>
                             <Col md="4">
                               <label>Birth Place Latitude</label>
