@@ -1,6 +1,6 @@
 import React from "react";
 // import ReactDOM from "react-dom";
-
+import astrologinbg from "../../assets/img/astrologin-bg.jpg"
 import StarRatingComponent from "react-star-rating-component";
 import { Col, Container, Row } from "reactstrap";
 import LayoutOne from "../../layouts/LayoutOne";
@@ -18,7 +18,7 @@ class AstroRating extends React.Component {
       astroid: "",
       userid: "",
       // question: "",
-      rating: "",
+      // rating: "",
       comment: "",
 
     };
@@ -126,10 +126,22 @@ class AstroRating extends React.Component {
           <div
             className=""
             style={{
-              backgroundColor: "#FFD59E",
+              // backgroundColor: "#FFD59E",
+              // width: "100%",
+              // padding: "70px 0px",
+              // backgroundSize: "cover",
+              float: "left",
               width: "100%",
-              padding: "70px 0px",
+              backgroundColor: "#272727",
+              position: "relative",
+              backgroundAttachment: "fixed",
               backgroundSize: "cover",
+              color: "#ffffff",
+              padding: " 50px 0px 50px 0px",
+              backgroundImage: `url(${astrologinbg})`,
+              backgroundPosition: "center center",
+              backgroundRepeat: " no-repeat",
+              textAlign: "center",
             }}
           >
             <Container>

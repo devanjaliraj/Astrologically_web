@@ -1525,7 +1525,7 @@ h2.title-avail {
 }
 .left_side_days {
   width: 30%;
-  border-right: 1px solid #313131;
+  // border-right: 1px solid #313131;
   text-align: center;
   position: relative;
 }
@@ -1570,4 +1570,26 @@ h2.title-avail {
 
 .img_slider {
   margin-top: 15px;
+}
+
+li.week {
+  /* display: flex; */
+  font-size: 12px;
+  padding: 5px 0;
+  background-color: #fff;
+  border-radius: 25px;
+  border: 1px solid #919191;
+  color: #919191;
+  width: 180px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+ul.week {
+  /* margin: 0; */
+  padding: 0;
+  list-style: outside none none;
+  display: flex;
 }

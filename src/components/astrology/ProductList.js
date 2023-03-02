@@ -10,6 +10,7 @@ import LayoutOne from '../../layouts/LayoutOne'
 // import poojaone from '../../assets/img/pooja/pooja-1.jpg'
 import AutoSearch from './autosearch'
 import axiosConfig from '../../axiosConfig'
+import astrologinbg from "../../assets/img/astrologin-bg.jpg"
 
 class ProductList extends React.Component {
   constructor(props) {
@@ -45,10 +46,22 @@ class ProductList extends React.Component {
           <div
             className=""
             style={{
-              backgroundColor: '#FFD59E',
-              width: '100%',
-              padding: '70px 0px',
-              backgroundSize: 'cover',
+              // backgroundColor: '#FFD59E',
+              // width: '100%',
+              // padding: '70px 0px',
+              // backgroundSize: 'cover',
+              float: "left",
+              width: "100%",
+              backgroundColor: "#272727",
+              position: "relative",
+              backgroundAttachment: "fixed",
+              backgroundSize: "cover",
+              color: "#ffffff",
+              padding: " 50px 0px 50px 0px",
+              backgroundImage: `url(${astrologinbg})`,
+              backgroundPosition: "center center",
+              backgroundRepeat: " no-repeat",
+              textAlign: "center",
             }}
           >
             <Container>

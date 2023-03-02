@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Container, Row, Col, Button } from 'reactstrap'
-// import textbottom from '../../assets/img/textbottom.png'
+import astrologinbg from '../../assets/img/astrologin-bg.jpg'
 // import astro3 from '../../assets/img/team/astro3.jpg'
 import '../../assets/scss/astroteam.scss'
 import LayoutOne from '../../layouts/LayoutOne'
@@ -78,10 +78,22 @@ class AskQuestionList extends React.Component {
           <div
             className=""
             style={{
-              backgroundColor: '#FFD59E',
-              width: '100%',
-              padding: '70px 0px',
-              backgroundSize: 'cover',
+              // backgroundColor: '#FFD59E',
+              // width: '100%',
+              // padding: '70px 0px',
+              // backgroundSize: 'cover',
+              float: "left",
+              width: "100%",
+              backgroundColor: "#272727",
+              position: "relative",
+              backgroundAttachment: "fixed",
+              backgroundSize: "cover",
+              color: "#ffffff",
+              padding: " 50px 0px 50px 0px",
+              backgroundImage: `url(${astrologinbg})`,
+              backgroundPosition: "center center",
+              backgroundRepeat: " no-repeat",
+              textAlign: "center",
             }}
           >
             <Container>

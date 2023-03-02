@@ -4,6 +4,7 @@ import "../../assets/scss/astroteam.scss";
 import axiosConfig from "../../axiosConfig"
 import { Container, Row, Col } from "reactstrap";
 import LayoutOne from "../../layouts/LayoutOne";
+import astrologinbg from "../../assets/img/astrologin-bg.jpg"
 
 class WalletTransacList extends React.Component {
     constructor(props) {
@@ -49,7 +50,22 @@ class WalletTransacList extends React.Component {
         return (
             <LayoutOne headerTop="visible">
                 <section className="pt-0 pb-0" >
-                    <div className="" style={{ backgroundColor: "#FFD59E", width: "100%", padding: "70px 0px", backgroundSize: "cover" }}>
+                    <div className="" style={{
+
+                        float: "left",
+                        width: "100%",
+                        backgroundColor: "#272727",
+                        position: "relative",
+                        backgroundAttachment: "fixed",
+                        backgroundSize: "cover",
+                        color: "#ffffff",
+                        padding: " 50px 0px 50px 0px",
+                        backgroundImage: `url(${astrologinbg})`,
+                        backgroundPosition: "center center",
+                        backgroundRepeat: " no-repeat",
+                        textAlign: "center",
+                        // backgroundColor: "#FFD59E", width: "100%", padding: "70px 0px", backgroundSize: "cover" 
+                    }}>
                         <Container>
                             <Row>
                                 <Col md="12">

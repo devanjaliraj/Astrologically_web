@@ -25,7 +25,8 @@ import FeatureIconSix from "../../wrappers/feature-icon/FeatureIconSix";
 import SectionPooja from "../../components/astrology/sectionpooja";
 // import AstroTeam from "../../components/astrology/astroteam";
 import SliderList from "../../components/astrology/sliderlist";
-import ServiceList from "../../components/astrology/ServiceList";
+import SliderYouTubeList from "../../components/astrology/sliderYouTubeVideo";
+// import ServiceList from "../../components/astrology/ServiceList";
 import OurService from "../../components/astrology/OurService";
 
 
@@ -61,7 +62,7 @@ const HomeFurnitureTwo = () => {
       {/* <FirstSectiontree /> */}
       {/* <TeamMemberOne spaceTopClass="pt-95" spaceBottomClass="pb-70" /> */}
       <SliderList />
-
+      {/* <SliderYouTubeList /> */}
 
       <SectionPooja />
       {/* third section */}

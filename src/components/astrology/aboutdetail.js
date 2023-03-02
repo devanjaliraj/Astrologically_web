@@ -13,7 +13,7 @@ import {
 import aboutone from "../../assets/img/aboutone.png";
 import abouttwo from "../../assets/img/abouttwo.png";
 import LayoutOne from "../../layouts/LayoutOne";
-import pagetitle from "../../assets/img/pagetitle.jpg";
+import astrologinbg from "../../assets/img/astrologin-bg.jpg";
 import FunFactOne from "../../wrappers/fun-fact/FunFactOne";
 import asectionbg from "../../assets/img/asectionbg.jpg";
 import axiosConfig from "../../axiosConfig";
@@ -50,10 +50,22 @@ class AboutDetail extends React.Component {
           <div
             className=""
             style={{
-              backgroundColor: "#FFD59E",
+              // backgroundColor: "#FFD59E",
+              // width: "100%",
+              // padding: "70px 0px",
+              // backgroundSize: "cover",
+              float: "left",
               width: "100%",
-              padding: "70px 0px",
+              backgroundColor: "#272727",
+              position: "relative",
+              backgroundAttachment: "fixed",
               backgroundSize: "cover",
+              color: "#ffffff",
+              padding: " 50px 0px 50px 0px",
+              backgroundImage: `url(${astrologinbg})`,
+              backgroundPosition: "center center",
+              backgroundRepeat: " no-repeat",
+              textAlign: "center",
             }}
           >
             <Container>
@@ -74,22 +86,22 @@ class AboutDetail extends React.Component {
             <Row>
               {aboutDetail.length
                 ? aboutDetail.map((abtdetail, index) => {
-                    return (
-                      <Col key={index} lg="6">
-                        <div className="abo-1">
-                          <h3>WHAT WE DO</h3>
-                          <p>{abtdetail?.aboutDetail}</p>
-                          <div className="bst-stro">
-                            <h2>Call Us </h2>
-                            <h3>
-                              <i class="fa fa-phone"></i>
-                              189 000 000 000
-                            </h3>
-                          </div>
+                  return (
+                    <Col key={index} lg="6">
+                      <div className="abo-1">
+                        <h3>WHAT WE DO</h3>
+                        <p>{abtdetail?.aboutDetail}</p>
+                        <div className="bst-stro">
+                          <h2>Call Us </h2>
+                          <h3>
+                            <i class="fa fa-phone"></i>
+                            189 000 000 000
+                          </h3>
                         </div>
-                      </Col>
-                    );
-                  })
+                      </div>
+                    </Col>
+                  );
+                })
                 : null}
               <Col lg="6">
                 <div className="abo-2">

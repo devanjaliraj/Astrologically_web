@@ -17,12 +17,22 @@ import Tab from "react-bootstrap/Tab";
 import Rating from "@mui/material/Rating";
 import LinearProgress from "@mui/material/LinearProgress";
 import Nav from "react-bootstrap/Nav";
-// import detailsbg from "../../assets/img/details-bg.jpg";
+import astrologinbg from "../../assets/img/astrologin-bg.jpg";
 // import pagetitle from "../../assets/img/pagetitle.jpg";
 import axiosConfig from "../../axiosConfig";
+import PrettyRating from 'pretty-rating-react';
+import { faStarHalfAlt } from "@fortawesome/free-solid-svg-icons";
+import { faStar as farStar } from "@fortawesome/free-regular-svg-icons";
 // import axios from "axios";
 import { Modal, ModalHeader, ModalBody } from "reactstrap";
 
+const colors = {
+  star: ["#d9ad26", "#d9ad26", "#434b4d"],
+  // heart: ['#9b111e', '#a83f39'],
+};
+// const colors = {
+//   star: ["#d9ad26", "#d9ad26", "#434b4d"],
+// };
 class AstrologerDetail extends React.Component {
   constructor(props) {
     super(props);
@@ -36,6 +46,8 @@ class AstrologerDetail extends React.Component {
       userid: "",
       astroMobile: "",
       astroId: "",
+      avg_rating: [false]
+
     };
 
     this.state = {
@@ -50,6 +62,9 @@ class AstrologerDetail extends React.Component {
       modal: !this.state.modal,
     });
   }
+
+
+
 
   componentDidMount = () => {
     axiosConfig
@@ -75,7 +90,7 @@ class AstrologerDetail extends React.Component {
           all_skills: response.data.data.all_skills,
           language: response.data.data.language,
           img: response.data.data.img[0],
-          status: response.data.status,
+          avg_rating: response.data.data.avg_rating,
           Exp: response.data.data.Exp,
           exp_in_years: response.data.data.exp_in_years,
           callCharge: response.data.data.callCharge,
@@ -123,6 +138,13 @@ class AstrologerDetail extends React.Component {
 
   render() {
     // const { allminrechargeList } = this.state;
+    const icons = {
+      star: {
+        complete: farStar,
+        half: faStarHalfAlt,
+        empty: farStar,
+      },
+    };
 
     return (
       <LayoutOne headerTop="visible">
@@ -130,10 +152,22 @@ class AstrologerDetail extends React.Component {
           <div
             className=""
             style={{
-              backgroundColor: "#FFD59E",
+              // backgroundColor: "#FFD59E",
+              // width: "100%",
+              // padding: "70px 0px",
+              // backgroundSize: "cover",
+              float: "left",
               width: "100%",
-              padding: "70px 0px",
+              backgroundColor: "#272727",
+              position: "relative",
+              backgroundAttachment: "fixed",
               backgroundSize: "cover",
+              color: "#ffffff",
+              padding: " 50px 0px 50px 0px",
+              backgroundImage: `url(${astrologinbg})`,
+              backgroundPosition: "center center",
+              backgroundRepeat: " no-repeat",
+              textAlign: "center",
             }}
           >
             <Container>
@@ -160,33 +194,51 @@ class AstrologerDetail extends React.Component {
                       </div>
                     </Col>
                     <Col md="9">
+
+                      {/* <Rating name="no-value" value={null} /> */}
                       <div className="as-content mt-60">
                         <h3>{this.state.fullname}</h3>
+
                         <div className="review-rating">
+                          <PrettyRating
+                            value={this.state.avg_rating}
+                            icons={icons.star}
+                            setColors={["#d9ad26", "#d9ad26", "#434b4d"]}
+                          // colors={["#d9ad26", "#d9ad26", "#434b4d"]}
+                          />
+                          {/* {this.state.avg_rating && this.state.avg_rating > 0 ? ( */}
+                          {/* <div className="review-rating"> */}
+                          {/* <Rating ratingValue={this.state.avg_rating} /> */}
+                          {/* </div> */}
+                          {/* // ) : (
+                          //   ""
+                          // )} */}
+                          {/* {this.state.avg_rating}
                           <i className="fa fa-star" />
                           <i className="fa fa-star" />
                           <i className="fa fa-star" />
                           <i className="fa fa-star" />
-                          <i className="fa fa-star" />
+                          <i className="fa fa-star" /> */}
                         </div>
+
                         <ul>
                           <li>
-                            {/* Language: */}
+                            Language:
                             <span>{this.state.language}</span>
                           </li>
 
                           <li>
-                            Skills: <span> {this.state.all_skills}</span>
+                            Specility: <span> {this.state.all_skills}</span>
                           </li>
                           <li>
                             Experience: <span>{this.state.exp_in_years}</span>
                           </li>
                           <li>
-                            <span>{this.state.callCharge}</span>
+                            Call Rate: <span>{this.state.callCharge}</span>
                           </li>
                           <li>
                             <span className="">{this.state.status}</span>{" "}
-                            <span className="">{this.state.status}</span>
+                            {/* <span className="">{this.state.status}</span> */}
                           </li>
                         </ul>
                       </div>
@@ -265,6 +317,7 @@ class AstrologerDetail extends React.Component {
 
                     </Col>
                   </Row>
+                  {/* <AstroProfileVideo /> */}
                   <div className="img_slider">shdsjkshaghjg</div>
 
                 </section>
@@ -429,21 +482,32 @@ class AstrologerDetail extends React.Component {
 
                                   <div className="week-day">
                                     <div className="left_side_days">
-                                      <div className="black_doat_circle"></div>
+                                      {/* <div className="black_doat_circle"></div> */}
                                       <div className="days_week">
-                                        <h5>Monday</h5>
-                                        <span>February 27</span>
+                                        <ul class="week">
+                                          <li class="week">Monday</li>
+                                          <li class="week">Monday</li>
+                                          <li class="week">Monday</li>
+                                          <li class="week">Monday</li>
+                                          <li class="week">Monday</li>
+                                          <li class="week">Monday</li>
+                                          <li class="week">Monday</li>
+
+
+                                        </ul>
+
+
+
                                       </div>
                                     </div>
-                                    <div className="right_side_time_table">
+                                    {/* <div className="right_side_time_table">
                                       <div className="timming_astrologer active">
                                         11:00 AM - 12:00 AM
                                       </div>
-                                    </div>
+                                    </div> */}
                                   </div>
                                   <div className="week-day">
                                     <div className="left_side_days">
-                                      <div className="black_doat_circle"></div>
                                       <div className="days_week">
                                         <h5>Tuesday</h5>
                                         <span>February 27</span>
@@ -455,9 +519,8 @@ class AstrologerDetail extends React.Component {
                                       </div>
                                     </div>
                                   </div>
-                                  <div className="week-day">
+                                  {/* <div className="week-day">
                                     <div className="left_side_days">
-                                      <div className="black_doat_circle"></div>
                                       <div className="days_week">
                                         <h5>Wednesday</h5>
                                         <span>February 27</span>
@@ -471,7 +534,6 @@ class AstrologerDetail extends React.Component {
                                   </div>
                                   <div className="week-day">
                                     <div className="left_side_days">
-                                      <div className="black_doat_circle"></div>
                                       <div className="days_week">
                                         <h5>Thursday</h5>
                                         <span>February 27</span>
@@ -488,7 +550,7 @@ class AstrologerDetail extends React.Component {
                                         11:00 AM - 12:00 AM
                                       </div>
                                     </div>
-                                  </div>
+                                  </div> */}
 
                                 </div>
                               </div>

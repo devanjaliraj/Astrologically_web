@@ -9,6 +9,8 @@ import {
   Form,
   Button,
 } from "reactstrap";
+import astrologinbg from "../../assets/img/astrologin-bg.jpg"
+
 import "../../assets/scss/astropooja.css";
 import LayoutOne from "../../layouts/LayoutOne";
 import axiosConfig from "../../axiosConfig";
@@ -130,10 +132,22 @@ class KalsharpDosh extends React.Component {
           <div
             className=""
             style={{
-              backgroundColor: "#FFD59E",
+              // backgroundColor: "#FFD59E",
+              // width: "100%",
+              // padding: "70px 0px",
+              // backgroundSize: "cover",
+              float: "left",
               width: "100%",
-              padding: "70px 0px",
+              backgroundColor: "#272727",
+              position: "relative",
+              backgroundAttachment: "fixed",
               backgroundSize: "cover",
+              color: "#ffffff",
+              padding: " 50px 0px 50px 0px",
+              backgroundImage: `url(${astrologinbg})`,
+              backgroundPosition: "center center",
+              backgroundRepeat: " no-repeat",
+              textAlign: "center",
             }}
           >
             <Container>

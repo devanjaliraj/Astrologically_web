@@ -102,7 +102,7 @@ class AstroTeam extends React.Component {
                         <ul className="mb-3">
                           <li>
                             {' '}
-                            <span>Tarot Card Reading , Vedic Astrology</span>
+                            Specility: <span>Tarot Card Reading , Vedic Astrology</span>
                           </li>
                           <li>
                             Language: <span>English , Tamil , Malayalam</span>

@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Container, Row, Col, ModalHeader, ModalBody, Modal } from "reactstrap";
 // import textbottom from '../../assets/img/textbottom.png'
-// import astro3 from '../../assets/img/team/astro3.jpg'
+import astrologinbg from '../../assets/img/astrologin-bg.jpg'
 import "../../assets/scss/astroteam.scss";
 import LayoutOne from "../../layouts/LayoutOne";
 import axiosConfig from "../../axiosConfig";
@@ -77,7 +77,7 @@ class AllAstrologerList extends React.Component {
       userid: userId,
       astroid: astroId,
       // astrologerList: astrologerList,
-      From: mobile, //parseInt(this.state.number)
+      From: mobile,//parseInt(this.state.number)
       To: mobileNo, //parseInt(this.state.number)
     };
     axiosConfig
@@ -124,10 +124,22 @@ class AllAstrologerList extends React.Component {
           <div
             className=""
             style={{
-              backgroundColor: "#FFD59E",
+              // backgroundColor: "#FFD59E",
+              // width: "100%",
+              // padding: "70px 0px",
+              // backgroundSize: "cover",
+              float: "left",
               width: "100%",
-              padding: "70px 0px",
+              backgroundColor: "#272727",
+              position: "relative",
+              backgroundAttachment: "fixed",
               backgroundSize: "cover",
+              color: "#ffffff",
+              padding: " 50px 0px 50px 0px",
+              backgroundImage: `url(${astrologinbg})`,
+              backgroundPosition: "center center",
+              backgroundRepeat: " no-repeat",
+              textAlign: "center",
             }}
           >
             <Container>
