@@ -14,6 +14,7 @@ const SliderYouTubeList = ({
   spaceRightClass,
   bgColorClass,
   sliderdemoClass,
+  sliderYouTubeVideoClass,
   backgroundImage,
 }) => {
   // swiper slider settings
@@ -99,8 +100,8 @@ const SliderYouTubeList = ({
                       <SliderYouTubeVideo
                         data={single}
                         key={key}
-                        sliderClass="swiper-slide rtt"
-                        sliderdemoClass={sliderdemoClass}
+                        slideryoutubeClass="swiper-slide rtt"
+                        sliderYouTubeVideoClass={sliderYouTubeVideoClass}
                       />
                     );
                   })}

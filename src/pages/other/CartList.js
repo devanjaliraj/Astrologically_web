@@ -10,6 +10,8 @@ import pay3 from '../../assets/img/icon-img/pay-3.png'
 import pay4 from '../../assets/img/icon-img/pay-4.png'
 import pay5 from '../../assets/img/icon-img/pay-5.png'
 import pay6 from '../../assets/img/icon-img/pay-6.png'
+import astrologinbg from "../../assets/img/astrologin-bg.jpg";
+
 import swal from 'sweetalert'
 import axiosConfig from '../../axiosConfig'
 import ReactHtmlParser from 'react-html-parser'
@@ -176,10 +178,22 @@ class CartList extends React.Component {
           <div
             className=""
             style={{
-              backgroundColor: '#FFD59E',
-              width: '100%',
-              padding: '70px 0px',
-              backgroundSize: 'cover',
+              // backgroundColor: '#FFD59E',
+              // width: '100%',
+              // padding: '70px 0px',
+              // backgroundSize: 'cover',
+              float: "left",
+              width: "100%",
+              backgroundColor: "#272727",
+              position: "relative",
+              backgroundAttachment: "fixed",
+              backgroundSize: "cover",
+              color: "#ffffff",
+              padding: " 50px 0px 50px 0px",
+              backgroundImage: `url(${astrologinbg})`,
+              backgroundPosition: "center center",
+              backgroundRepeat: " no-repeat",
+              textAlign: "center",
             }}
           >
             <Container>

@@ -62,11 +62,11 @@ const HomeFurnitureTwo = () => {
       {/* <FirstSectiontree /> */}
       {/* <TeamMemberOne spaceTopClass="pt-95" spaceBottomClass="pb-70" /> */}
       <SliderList />
-      {/* <SliderYouTubeList /> */}
+
 
       <SectionPooja />
       {/* third section */}
-
+      <SliderYouTubeList />
       {/* Product slider */}
       {/* <SecondSection /> */}
       {/* Browse by category */}

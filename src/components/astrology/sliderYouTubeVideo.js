@@ -1,10 +1,11 @@
 import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Col, Row } from "reactstrap";
+import { Col, Row, Container } from "reactstrap";
 import astro3 from "../../assets/img/team/astro3.jpg";
+import textbottom from "../../assets/img/textbottom.png";
 
-const SliderDemo = ({ data, sliderClass, sliderdemoClass }) => {
+const SliderYouTubeVideoClass = ({ data, slideryoutubeClass, slideryoutubevideoClass }) => {
   const [userId, setUserId] = useState("");
   const [bestAstrology, setBestAstrology] = useState(data);
 
@@ -21,8 +22,8 @@ const SliderDemo = ({ data, sliderClass, sliderdemoClass }) => {
 
   return (
     <div
-      className={`${sliderdemoClass ? sliderdemoClass : " slider-demo"
-        } text-center ${sliderClass ? sliderClass : ""} st-hit`}
+      className={`${slideryoutubevideoClass ? slideryoutubevideoClass : " slider-demo"
+        } text-center ${slideryoutubeClass ? slideryoutubeClass : ""} st-hit`}
     >
       {/* <img src={process.env.PUBLIC_URL + data.image} alt="" />
       <p className="st-testmonial">{data.content}</p>
@@ -31,60 +32,79 @@ const SliderDemo = ({ data, sliderClass, sliderdemoClass }) => {
         <h5>{data.customerName}</h5>
         <span>{data.title}</span>
       </div> */}
-
-      <div className="image-flip">
-        <div className="mainflip flip-0">
-          <div className="frontside">
-            <Link to={"/astrologerdetail/" + data._id}>
-              <div className="card">
-                <div className="card-body text-center">
-                  <p>
-                    <img src={data?.img} alt="" />
-                  </p>
-                  <h4 className="card-title">{data?.fullname}</h4>
-                  <ul className="mb-3">
-                    <li>
-                      Specility: <span>{data?.all_skills}</span>
-                    </li>
-                    <li>
-                      Language: <span>{data?.language}</span>
-                    </li>
-                    <li>
-                      Experience: <span>{data?.exp_in_years}</span>
-                    </li>
-                    <li>
-                      Call Rate:{" "}
-                      <span>
-                        {data?.callCharge}/{data?.conrubute_hrs}
-                      </span>
-                    </li>
-                  </ul>
-                  <Link className="btn btn-primary btn-sm st-d">
-                    {data?.status}
-                  </Link>
-                  <Link className="btn btn-primary btn-sm">
-                    <i class="fa fa-phone"></i> Call Now
-                    <small>
-                      {/* / 20{" "}
-                                      <i class="fa fa-inr" aria-hidden="true">
-                                        {data.conrubute_hrs}
-                                      </i>{" "}
-                                      per Hour */}
-                    </small>
-                  </Link>
-                </div>
-              </div>
-            </Link>
-          </div>
+      <Container>
+        <div className="heading mt-40">
+          <h2>Watch Astrologers video</h2>
+          <img src={textbottom} alt="" />
         </div>
-      </div>
+        <Row>
+          <Col md="3">
+            <div className="product-grid8">
+              <div class="product-image8">
+                <Link to="/poojadetail">
+                  <img src={astro3} alt="" />
+                </Link>
+              </div>
+              <div className="product-content">
+
+                <h3 className="title"><Link>Magic ball reader</Link></h3>
+
+              </div>
+            </div>
+          </Col>
+          <Col md="3">
+            <div className="product-grid8">
+              <div class="product-image8">
+                <Link to="/poojadetail">
+                  <img src={astro3} alt="" />
+                </Link>
+              </div>
+              <div className="product-content">
+
+                <h3 className="title"><Link>Magic ball reader</Link></h3>
+
+              </div>
+            </div>
+          </Col>
+          <Col md="3">
+            <div className="product-grid8">
+              <div class="product-image8">
+                <Link to="/poojadetail">
+                  <img src={astro3} alt="" />
+                </Link>
+              </div>
+              <div className="product-content">
+
+                <h3 className="title"><Link>Magic ball reader</Link></h3>
+
+              </div>
+            </div>
+          </Col>
+          <Col md="3">
+            <div className="product-grid8">
+              <div class="product-image8">
+                <Link to="/poojadetail">
+                  <img src={astro3} alt="" />
+                </Link>
+              </div>
+              <div className="product-content">
+
+                <h3 className="title"><Link>Magic ball reader</Link></h3>
+
+              </div>
+            </div>
+          </Col>
+
+        </Row>
+      </Container>
     </div>
+
   );
 };
 
-SliderDemo.propTypes = {
+SliderYouTubeVideoClass.propTypes = {
   data: PropTypes.object,
-  sliderClass: PropTypes.string,
+  slideryoutubeClass: PropTypes.string,
 };
 
-export default SliderDemo;
+export default SliderYouTubeVideoClass;
