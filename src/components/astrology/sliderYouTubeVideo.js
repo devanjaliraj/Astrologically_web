@@ -5,7 +5,7 @@ import { Col, Row, Container } from "reactstrap";
 import astro3 from "../../assets/img/team/astro3.jpg";
 import textbottom from "../../assets/img/textbottom.png";
 
-const SliderYouTubeVideoClass = ({ data, slideryoutubeClass, slideryoutubevideoClass }) => {
+const SliderYouTubeVideoClass = ({ data, sliderClass, slideryoutubevideoClass }) => {
   const [userId, setUserId] = useState("");
   const [bestAstrology, setBestAstrology] = useState(data);
 
@@ -23,7 +23,7 @@ const SliderYouTubeVideoClass = ({ data, slideryoutubeClass, slideryoutubevideoC
   return (
     <div
       className={`${slideryoutubevideoClass ? slideryoutubevideoClass : " slider-demo"
-        } text-center ${slideryoutubeClass ? slideryoutubeClass : ""} st-hit`}
+        } text-center ${sliderClass ? sliderClass : ""} st-hit`}
     >
       {/* <img src={process.env.PUBLIC_URL + data.image} alt="" />
       <p className="st-testmonial">{data.content}</p>
@@ -38,6 +38,7 @@ const SliderYouTubeVideoClass = ({ data, slideryoutubeClass, slideryoutubevideoC
           <img src={textbottom} alt="" />
         </div>
         <Row>
+
           <Col md="3">
             <div className="product-grid8">
               <div class="product-image8">
@@ -66,6 +67,20 @@ const SliderYouTubeVideoClass = ({ data, slideryoutubeClass, slideryoutubevideoC
               </div>
             </div>
           </Col>
+          {/* <Col md="3">
+            <div className="product-grid8">
+              <div class="product-image8">
+                <Link to="/poojadetail">
+                  <img src={astro3} alt="" />
+                </Link>
+              </div>
+              <div className="product-content">
+
+                <h3 className="title"><Link>Magic ball reader</Link></h3>
+
+              </div>
+            </div>
+          </Col> */}
           <Col md="3">
             <div className="product-grid8">
               <div class="product-image8">
@@ -104,7 +119,7 @@ const SliderYouTubeVideoClass = ({ data, slideryoutubeClass, slideryoutubevideoC
 
 SliderYouTubeVideoClass.propTypes = {
   data: PropTypes.object,
-  slideryoutubeClass: PropTypes.string,
+  sliderClass: PropTypes.string,
 };
 
 export default SliderYouTubeVideoClass;

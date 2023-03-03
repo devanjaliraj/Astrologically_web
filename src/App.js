@@ -19,7 +19,6 @@ import { history } from "./history";
 
 const HomeFurnitureTwo = lazy(() => import("./pages/home/HomeFurnitureTwo"));
 
-
 // shop pages
 const ShopGridStandard = lazy(() => import("./pages/shop/ShopGridStandard"));
 const ShopGridFilter = lazy(() => import("./pages/shop/ShopGridFilter"));
@@ -110,6 +109,8 @@ const CustomerSupport = lazy(() =>
   import("./components/astrology/CustomerSupport")
 );
 const AskQuestion = lazy(() => import("./components/astrology/AskQuestion"));
+const AstroProfileVideo = lazy(() => import("./components/astrology/AstroProfileVideo"))
+
 const AskQuestionList = lazy(() =>
   import("./components/astrology/AskQuestionList")
 );
@@ -491,6 +492,10 @@ const App = (props) => {
                   <Route
                     path={process.env.PUBLIC_URL + "/userChatHistoryList"}
                     component={UserChatHistoryList}
+                  />
+                  <Route
+                    path={process.env.PUBLIC_URL + "/astroProfileVideo"}
+                    component={AstroProfileVideo}
                   />
 
                   <Route

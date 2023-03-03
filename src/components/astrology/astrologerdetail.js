@@ -25,7 +25,7 @@ import { faStarHalfAlt } from "@fortawesome/free-solid-svg-icons";
 import { faStar as farStar } from "@fortawesome/free-regular-svg-icons";
 // import axios from "axios";
 import { Modal, ModalHeader, ModalBody } from "reactstrap";
-
+import AstroProfileVideo from "./AstroProfileVideo"
 const colors = {
   star: ["#d9ad26", "#d9ad26", "#434b4d"],
   // heart: ['#9b111e', '#a83f39'],
@@ -317,8 +317,12 @@ class AstrologerDetail extends React.Component {
 
                     </Col>
                   </Row>
-                  {/* <AstroProfileVideo /> */}
-                  <div className="img_slider">shdsjkshaghjg</div>
+
+                  <div>
+                    <AstroProfileVideo />
+
+                  </div>
+                  {/* <div className="img_slider">shdsjkshaghjg</div> */}
 
                 </section>
                 <section className="mt-50 mb-30">

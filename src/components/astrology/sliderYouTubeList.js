@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import Swiper from "react-id-swiper";
-//import testimonialData from "../../data/testimonial/testimonial-one.json";
+import testimonialData from "../../data/testimonial/testimonial-one.json";
 // import TestimonialOneSingle from "../../components/testimonial/TestimonialOneSingle.js";
 import textbottom from "../../assets/img/textbottom.png";
 import SliderYouTubeVideo from "./sliderYouTubeVideo";
@@ -24,58 +24,58 @@ const SliderYouTubeList = ({
     autoplay: {
       delay: 5000,
       disableOnInteraction: false,
-    },
-    breakpoints: {
+    }
+    // breakpoints: {
 
-      768: {
-        slidesPerView: 4,
-        direction: "horizontal",
-        spaceBetween: 20,
-      },
-      640: {
-        slidesPerView: 2,
-        direction: "horizontal",
-        spaceBetween: 20,
-      },
-      320: {
-        slidesPerView: 2,
-        direction: "horizontal",
-        spaceBetween: 20,
-      },
-    },
+    //   768: {
+    //     slidesPerView: 4,
+    //     direction: "horizontal",
+    //     spaceBetween: 20,
+    //   },
+    //   640: {
+    //     slidesPerView: 2,
+    //     direction: "horizontal",
+    //     spaceBetween: 20,
+    //   },
+    //   320: {
+    //     slidesPerView: 2,
+    //     direction: "horizontal",
+    //     spaceBetween: 20,
+    //   },
+    // },
 
-    navigation: {
-      nextEl: ".swiper-button-next",
-      prevEl: ".swiper-button-prev"
-    },
-    renderPrevButton: () => (
-      <button className="swiper-button-prev ht-swiper-button-nav">
-        <i className="pe-7s-angle-left" />
-      </button>
-    ),
-    renderNextButton: () => (
-      <button className="swiper-button-next ht-swiper-button-nav">
-        <i className="pe-7s-angle-right" />
-      </button>
-    )
+    // navigation: {
+    //   nextEl: ".swiper-button-next",
+    //   prevEl: ".swiper-button-prev"
+    // },
+    // renderPrevButton: () => (
+    //   <button className="swiper-button-prev ht-swiper-button-nav">
+    //     <i className="pe-7s-angle-left" />
+    //   </button>
+    // ),
+    // renderNextButton: () => (
+    //   <button className="swiper-button-next ht-swiper-button-nav">
+    //     <i className="pe-7s-angle-right" />
+    //   </button>
+    // )
 
   };
 
-  const [testimonialData, setTestimonialData] = useState([]);
+  // const [testimonialData, setTestimonialData] = useState([]);
 
-  useEffect(() => {
-    axiosConfig
-      .get(`/admin/allAstro`)
-      .then((response) => {
-        console.log(response.data.data);
-        if (response.data.status === true) {
-          setTestimonialData(response.data.data)
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+  // useEffect(() => {
+  //   axiosConfig
+  //     .get(`/admin/allAstro`)
+  //     .then((response) => {
+  //       console.log(response.data.data);
+  //       if (response.data.status === true) {
+  //         setTestimonialData(response.data.data)
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }, []);
 
 
 
@@ -100,7 +100,7 @@ const SliderYouTubeList = ({
                       <SliderYouTubeVideo
                         data={single}
                         key={key}
-                        slideryoutubeClass="swiper-slide rtt"
+                        sliderClass="swiper-slide rtt"
                         sliderYouTubeVideoClass={sliderYouTubeVideoClass}
                       />
                     );
@@ -121,6 +121,7 @@ SliderYouTubeList.propTypes = {
   spaceRightClass: PropTypes.string,
   spaceTopClass: PropTypes.string,
   testimonialClass: PropTypes.string,
+  sliderYouTubeVideoClass: PropTypes.string,
 };
 
 export default SliderYouTubeList;

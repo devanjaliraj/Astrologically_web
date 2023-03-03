@@ -2,34 +2,93 @@ import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-export default function SimpleSlider() {
+import { Link } from "react-router-dom";
+import {
+    Container,
+    Row,
+    Col,
+    Card,
+
+} from "reactstrap";
+import astro3 from "../../assets/img/team/astro3.jpg";
+
+export default function AstroProfileVideo() {
     var settings = {
-        dots: true,
+        // dots: true,
         infinite: true,
         speed: 500,
-        slidesToShow: 1,
+        slidesToShow: 4,
         slidesToScroll: 1
     };
     return (
         <Slider {...settings}>
-            <div>
-                <h3>1</h3>
-            </div>
-            <div>
-                <h3>2</h3>
-            </div>
-            <div>
-                <h3>3</h3>
-            </div>
-            <div>
-                <h3>4</h3>
-            </div>
-            <div>
-                <h3>5</h3>
-            </div>
-            <div>
-                <h3>6</h3>
-            </div>
+
+
+
+            <Col md="3" className="videoimg">
+                <div className="product-grid8">
+                    <div class="product-image8">
+                        {/* <Link to="/poojadetail"> */}
+                        <img src={astro3} alt="" />
+                        {/* </Link> */}
+                    </div>
+
+                </div>
+            </Col>
+            <Col md="3" className="videoimg">
+                <div className="product-grid8">
+                    <div class="product-image8">
+                        {/* <Link to="/poojadetail"> */}
+                        <img src={astro3} alt="" />
+                        {/* </Link> */}
+                    </div>
+
+                </div>
+            </Col>
+            <Col md="3" className="videoimg">
+                <div className="product-grid8">
+                    <div class="product-image8">
+                        {/* <Link to="/poojadetail"> */}
+                        <img src={astro3} alt="" />
+                        {/* </Link> */}
+                    </div>
+
+                </div>
+            </Col>
+            <Col md="3" className="videoimg">
+                <div className="product-grid8">
+                    <div class="product-image8">
+                        {/* <Link to="/poojadetail"> */}
+                        <img src={astro3} alt="" />
+                        {/* </Link> */}
+                    </div>
+
+                </div>
+            </Col>
+            <Col md="3" className="videoimg">
+                <div className="product-grid8">
+                    <div class="product-image8">
+                        {/* <Link to="/poojadetail"> */}
+                        <img src={astro3} alt="" />
+                        {/* </Link> */}
+                    </div>
+
+                </div>
+            </Col>
+            <Col md="3" className="videoimg">
+                <div className="product-grid8">
+                    <div class="product-image8">
+                        {/* <Link to="/poojadetail"> */}
+                        <img src={astro3} alt="" />
+                        {/* </Link> */}
+                    </div>
+
+                </div>
+            </Col>
+
+
+
+
         </Slider>
     );
 }
