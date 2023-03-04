@@ -5,7 +5,7 @@ import { Col, Row, Container } from "reactstrap";
 import astro3 from "../../assets/img/team/astro3.jpg";
 import textbottom from "../../assets/img/textbottom.png";
 
-const SliderYouTubeVideoClass = ({ data, sliderClass, slideryoutubevideoClass }) => {
+const SliderYouTubeVideo = ({ data, sliderClass, slideryoutubevideoClass }) => {
   const [userId, setUserId] = useState("");
   const [bestAstrology, setBestAstrology] = useState(data);
 
@@ -117,9 +117,11 @@ const SliderYouTubeVideoClass = ({ data, sliderClass, slideryoutubevideoClass })
   );
 };
 
-SliderYouTubeVideoClass.propTypes = {
+SliderYouTubeVideo.propTypes = {
   data: PropTypes.object,
   sliderClass: PropTypes.string,
 };
 
-export default SliderYouTubeVideoClass;
+export default SliderYouTubeVideo;
+
+

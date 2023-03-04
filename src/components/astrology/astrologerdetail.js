@@ -26,6 +26,9 @@ import { faStar as farStar } from "@fortawesome/free-regular-svg-icons";
 // import axios from "axios";
 import { Modal, ModalHeader, ModalBody } from "reactstrap";
 import AstroProfileVideo from "./AstroProfileVideo"
+
+
+
 const colors = {
   star: ["#d9ad26", "#d9ad26", "#434b4d"],
   // heart: ['#9b111e', '#a83f39'],
@@ -245,8 +248,9 @@ class AstrologerDetail extends React.Component {
 
                       <Row>
                         <Col md="3" className="mt-30">
-                          {/* <Link to="/AllMinRecharge"> */}
-                          <Link to="/UserRequestForm">
+                          <Link to="/AllMinRecharge">
+
+                            {/* <Link to="/UserRequestForm"> */}
                             <Button className="btn-as st" onClick={this.toggle}>
                               <i className="fa fa-commenting" aria-hidden="true">
                               </i>{" "}
@@ -477,91 +481,80 @@ class AstrologerDetail extends React.Component {
                                 </div>
                               </div>
                             </div>
+                            {/* avai */}
                             <div className="col-md-6">
-                              <div className="table-avail">
+                              <div className="avai-box text-center">
+                                <h3>Availability</h3>
+                                <div className="tab-bxx p-1">
+                                  <Tab.Container defaultActiveKey="">
+                                    <Nav
+                                      variant="pills"
+                                      className="rt_tab"
+                                    >
+                                      <Nav.Item className="rt_tab">
+                                        <Nav.Link eventKey="tab_one">
+                                          Monday
+                                        </Nav.Link>
+                                      </Nav.Item>
 
-                                <h2 className="title-avail">Availability</h2>
-                                <div className="time-table-avail">
+                                      <Nav.Item className="rt_tab">
+                                        <Nav.Link eventKey="tab_two">Tuesday</Nav.Link>
+                                      </Nav.Item>
 
+                                      <Nav.Item className="rt_tab">
+                                        <Nav.Link eventKey="tab_three">
+                                          Monday
+                                        </Nav.Link>
+                                      </Nav.Item>
 
-                                  <div className="week-day">
-                                    <div className="left_side_days">
-                                      {/* <div className="black_doat_circle"></div> */}
-                                      <div className="days_week">
-                                        <ul class="week">
-                                          <li class="week">Monday</li>
-                                          <li class="week">Monday</li>
-                                          <li class="week">Monday</li>
-                                          <li class="week">Monday</li>
-                                          <li class="week">Monday</li>
-                                          <li class="week">Monday</li>
-                                          <li class="week">Monday</li>
+                                      <Nav.Item className="rt_tab">
+                                        <Nav.Link eventKey="tab_four">Tuesday</Nav.Link>
+                                      </Nav.Item>
 
+                                      <Nav.Item className="rt_tab">
+                                        <Nav.Link eventKey="tab_five">
+                                          Monday
+                                        </Nav.Link>
+                                      </Nav.Item>
 
-                                        </ul>
+                                      <Nav.Item className="rt_tab">
+                                        <Nav.Link eventKey="tab_six">Tuesday</Nav.Link>
+                                      </Nav.Item>
+                                    </Nav>
 
+                                    <Tab.Content className="description-review-bottom">
+                                      <Tab.Pane eventKey="tab_one">
+                                        Hello
+                                      </Tab.Pane>
 
+                                      <Tab.Pane eventKey="tab_two">
+                                        World
 
-                                      </div>
-                                    </div>
-                                    {/* <div className="right_side_time_table">
-                                      <div className="timming_astrologer active">
-                                        11:00 AM - 12:00 AM
-                                      </div>
-                                    </div> */}
-                                  </div>
-                                  <div className="week-day">
-                                    <div className="left_side_days">
-                                      <div className="days_week">
-                                        <h5>Tuesday</h5>
-                                        <span>February 27</span>
-                                      </div>
-                                    </div>
-                                    <div className="right_side_time_table">
-                                      <div className="timming_astrologer active">
-                                        11:00 AM - 12:00 AM
-                                      </div>
-                                    </div>
-                                  </div>
-                                  {/* <div className="week-day">
-                                    <div className="left_side_days">
-                                      <div className="days_week">
-                                        <h5>Wednesday</h5>
-                                        <span>February 27</span>
-                                      </div>
-                                    </div>
-                                    <div className="right_side_time_table">
-                                      <div className="timming_astrologer active">
-                                        11:00 AM - 12:00 AM
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <div className="week-day">
-                                    <div className="left_side_days">
-                                      <div className="days_week">
-                                        <h5>Thursday</h5>
-                                        <span>February 27</span>
-                                      </div>
-                                    </div>
-                                    <div className="right_side_time_table">
-                                      <div className="timming_astrologer active">
-                                        11:00 AM - 12:00 AM
-                                      </div>
-                                      <div className="timming_astrologer active">
-                                        11:00 AM - 12:00 AM
-                                      </div>
-                                      <div className="timming_astrologer active">
-                                        11:00 AM - 12:00 AM
-                                      </div>
-                                    </div>
-                                  </div> */}
+                                      </Tab.Pane>
 
+                                      <Tab.Pane eventKey="tab_three">
+                                        World
+
+                                      </Tab.Pane>
+
+                                      <Tab.Pane eventKey="tab_four">
+                                        World
+
+                                      </Tab.Pane>
+
+                                      <Tab.Pane eventKey="tab_five">
+                                        World
+
+                                      </Tab.Pane>
+
+                                      <Tab.Pane eventKey="tab_six">
+                                        World
+
+                                      </Tab.Pane>
+                                    </Tab.Content>
+                                  </Tab.Container>
                                 </div>
                               </div>
-
-
-
-
                             </div>
                             {/* <div className="col-lg-5">
                               <div className="ratting-form-wrapper pl-50">

@@ -1593,6 +1593,20 @@ ul.week {
   list-style: outside none none;
   display: flex;
 }
-Col.videoimg {
+.videoimg.col-md-3 {
   margin-top: 10px;
+}
+
+// tabcsss
+.avai-box.text-center h3 {
+  border: 1px solid#fc6e00;
+  padding: 11px;
+  border-radius: 9px;
+  background: #fc6e00;
+  color: #fff;
+}
+.avai-box.text-center {
+  /* padding: 10px; */
+  border: 1px solid#c1c1c1c4;
+  border-radius: 10px;
 }

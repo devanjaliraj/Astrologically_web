@@ -87,7 +87,8 @@ class UserRequestForm extends React.Component {
         swal("Success!", "Submitted SuccessFull!", "success");
         // window.location.reload("/allastrologerlist");
         // this.props.history.push("/allastrologerlist");
-        this.props.history.push("/allMinRecharge");
+        // this.props.history.push("/allMinRecharge");
+        this.props.history.push("/chatApp");
       })
       .catch((error) => {
         swal("Error!", "You clicked the button!", "error");

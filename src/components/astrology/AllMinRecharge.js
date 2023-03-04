@@ -120,7 +120,8 @@ class AllMinRecharge extends React.Component {
                       {/* <Link to="/chatApp"> */}
                       <button onClick={() => {
                         localStorage.setItem("minute", allmin.minute)
-                        this.props.history.push('/chatApp')
+                        // this.props.history.push('/chatApp')
+                        this.props.history.push('/UserRequestForm')
                       }}>
                         <div className="promoBox success-box info-ribbon">
                           {/* <aside>

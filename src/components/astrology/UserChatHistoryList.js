@@ -27,7 +27,7 @@ class UserChatHistoryList extends React.Component {
     };
   }
   componentDidMount() {
-    let { id } = this.props.match.params;
+    // let { id } = this.props.match.params;
     let userId = JSON.parse(localStorage.getItem("user_id"));
 
     console.log(userId);

@@ -77,6 +77,32 @@ class ManglikDosh extends React.Component {
     console.log(this.state.searchQuery)
 
   }
+
+  submitCountryHandler = (e) => {
+    e.preventDefault();
+
+    let payload = {
+      // data: this.state.data
+      country_code: this.state.country_code,
+
+
+    };
+    console.log("shgdjhg", payload)
+    axiosConfig.post(`/user/time_zone`, payload)
+      .then((response) => {
+
+        this.setState({ data: response.data });
+        console.log("country_code", response.data.timezone);
+
+
+        swal("Success!", "Submitted SuccessFull!", "success");
+      })
+
+      .catch((error) => {
+        swal("Error!", "You clicked the button!", "error");
+        console.log(error);
+      });
+  };
   submitPlaceHandler = (e) => {
     e.preventDefault();
 
@@ -640,7 +666,7 @@ class ManglikDosh extends React.Component {
                             </Col>
 
                             <Col md="4">
-                              <label>state</label>
+                              <label>City</label>
                               <Select
                                 options={City.getCitiesOfState(
                                   this.state.selectedState?.countryCode,
@@ -652,11 +678,14 @@ class ManglikDosh extends React.Component {
                                 getOptionValue={(options) => {
                                   return options["name"];
                                 }}
-                                value={this.state.selectedCity}
+                                // value={this.state.selectedCity}
+                                value={this.state.submitPlaceHandler}
+                                // onClick={this.submitPlaceHandler}
                                 onChange={(item) => {
                                   //setSelectedCity(item);
-                                  this.setState({ selectedCity: item })
+                                  this.setState({ submitPlaceHandler: item })
                                 }}
+
                               />
                             </Col>
 

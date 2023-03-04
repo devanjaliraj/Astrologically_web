@@ -255,6 +255,7 @@ const NotificationList = lazy(() =>
 const WalletAddForm = lazy(() =>
   import("./components/astrology/WalletAddForm")
 );
+const AddEvent = lazy(() => import("./components/astrology/AddEvent"))
 const AddressForm = lazy(() => import("./components/astrology/AddressForm"));
 const AddressFormEdit = lazy(() =>
   import("./components/astrology/AddressFormEdit")
@@ -476,6 +477,10 @@ const App = (props) => {
                   <Route
                     path={process.env.PUBLIC_URL + "/my-order"}
                     component={MyOrder}
+                  />
+                  <Route
+                    path={process.env.PUBLIC_URL + "/addEvent"}
+                    component={AddEvent}
                   />
                   <Route
                     path={process.env.PUBLIC_URL + "/addressform/:id"}
