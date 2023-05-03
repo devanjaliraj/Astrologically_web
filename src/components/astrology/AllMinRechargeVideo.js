@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  Container,
-  Row,
-  Col,
-  Button,
-} from "reactstrap";
+import { Container, Row, Col, Button } from "reactstrap";
 import swal from "sweetalert";
 import LayoutOne from "../../layouts/LayoutOne";
 import "../../assets/scss/astroteam.scss";
@@ -20,7 +15,7 @@ class AllMinRechargeVideo extends React.Component {
       data: {},
       userid: "",
       astroid: "",
-      recharge_planId: ""
+      recharge_planId: "",
     };
 
     this.toggle = this.toggle.bind(this);
@@ -38,7 +33,6 @@ class AllMinRechargeVideo extends React.Component {
         console.log(response.data);
         if (response.data.status === true) {
           this.setState({ allminrechargeList: response.data.data });
-          swal("Success!", "Submitted SuccessFull!", "success");
         }
       })
       .catch((error) => {
@@ -62,10 +56,9 @@ class AllMinRechargeVideo extends React.Component {
     await axiosConfig
       .post(`/user/addChatWallet`, obj)
       .then((response) => {
-        console.log("hdfkjh", response.data.status)
+        console.log("hdfkjh", response.data.status);
         if (response.data.status === true) {
-          this.setState({
-          });
+          this.setState({});
         }
       })
 
@@ -75,10 +68,16 @@ class AllMinRechargeVideo extends React.Component {
       });
   };
 
+  handleCallDuration = (allmin, index) => {
+    console.log(allmin, index);
+    console.log(allmin?.minute * 60);
+  };
+
   render() {
     const { allminrechargeList } = this.state;
     return (
-      <LayoutOne headerTop="visible">
+      <>
+        {/* <LayoutOne headerTop="visible"> */}
         <section className="pt-0 pb-0">
           <div
             className=""
@@ -103,11 +102,11 @@ class AllMinRechargeVideo extends React.Component {
           >
             <Container>
               <Row>
-                <Col md="12">
-                  <div className="leftcont text-left" >
+                <Col md="8">
+                  <div className="leftcont text-left mb-1">
                     <h1>Select Minute Now</h1>
-                    <h3 >
-                      Available Minute : <span >{this.state.minute}</span>
+                    <h3>
+                      Available Minute : <span>{this.state.minute}</span>
                     </h3>
                   </div>
                 </Col>
@@ -116,33 +115,41 @@ class AllMinRechargeVideo extends React.Component {
           </div>
         </section>
         <section>
-          <Container>
+          <Container className="mb-1">
             <Row>
               {allminrechargeList.length
                 ? allminrechargeList.map((allmin, index) => {
-                  return (
-                    <Col xl="3" lg="3" md="3" sm="6" xs="6" key={index}>
-                      {/* <Link to="/chatApp"> */}
-                      <button onClick={() => {
-                        localStorage.setItem("minute", allmin.minute)
-                        this.props.history.push('/videoCall')
-                      }}>
-                        <div className="promoBox success-box info-ribbon"
-
+                    return (
+                      <Col
+                        onClick={() => this.handleCallDuration(allmin, index)}
+                        style={{ cursor: "pointer" }}
+                        className="mt-2 mintovidoecall "
+                        xl="3"
+                        lg="3"
+                        md="3"
+                        sm="6"
+                        xs="6"
+                        key={index}
+                      >
+                        {/* <Link to="/chatApp"> */}
+                        <div
+                        // onClick={() => {
+                        //   localStorage.setItem("minute", allmin.minute);
+                        //   this.props.history.push("/videoCall");
+                        // }}
                         >
-                          {/* <aside>
+                          <div className="promoBox success-box info-ribbon videocallminbody">
+                            {/* <aside>
                             <p>{allmin.title}</p>
                           </aside> */}
-                          <h4>Minute {allmin.minute}</h4>
+                            <h4>Minute {allmin.minute}</h4>
+                          </div>
                         </div>
-                      </button>
-                      {/* </Link> */}
-                    </Col>
-                  );
-                })
+                        {/* </Link> */}
+                      </Col>
+                    );
+                  })
                 : null}
-
-
             </Row>
           </Container>
         </section>
@@ -170,7 +177,8 @@ class AllMinRechargeVideo extends React.Component {
             </div>
           </ModalBody>
         </Modal>
-      </LayoutOne>
+        {/* </LayoutOne> */}
+      </>
     );
   }
 }

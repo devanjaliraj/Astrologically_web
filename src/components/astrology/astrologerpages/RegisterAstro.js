@@ -1,13 +1,20 @@
-import React from "react"
+import React from "react";
 import { Link } from "react-router-dom";
-import { Container, Row, Col, Input, InputGroup, Form, Button } from "reactstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Input,
+  InputGroup,
+  Form,
+  Button,
+} from "reactstrap";
 import LayoutOne from "../../../layouts/LayoutOne";
 import "../../../assets/scss/astroteam.scss";
 import swal from "sweetalert";
 import axios from "axios";
 
 class RegisterAstro extends React.Component {
-
   constructor() {
     super();
     this.state = {
@@ -15,12 +22,9 @@ class RegisterAstro extends React.Component {
       fullname: "",
       email: "",
       mobile: "",
-      otp: ""
-
+      otp: "",
     };
-
   }
-
 
   handlechange = (e) => {
     // e.preventDefault();
@@ -36,35 +40,33 @@ class RegisterAstro extends React.Component {
     e.preventDefault();
     // this.setState({ otp: false });
     axios
-      .post("http://13.234.48.35:8000/user/signup", this.state)
+      .post("http://65.2.148.70:8000/user/signup", this.state)
       .then((response) => {
         console.log(response);
         localStorage.setItem("auth-token", response.data.token);
         this.setState({
           token: response.data.token,
         });
-        swal("Success!", " OTP Send Your Register Mobile Number Successful Done!", "success");
+        swal(
+          "Success!",
+          " OTP Send Your Register Mobile Number Successful Done!",
+          "success"
+        );
         this.props.history.push("/otpverify");
       })
       .catch((error) => {
         console.log(error.response);
         swal("Error!", "Something went wrong", "error");
       });
-
   };
 
   render() {
-
-
     return (
-
       <LayoutOne headerTop="visible">
         <section>
           <Container>
             <Row>
-              <Col lg="2">
-
-              </Col>
+              <Col lg="2"></Col>
               <Col lg="8">
                 <div className="wal-amt">
                   <h1>Register Astrologer</h1>
@@ -117,9 +119,7 @@ class RegisterAstro extends React.Component {
                   </form>
                 </div>
               </Col>
-              <Col lg="2">
-
-              </Col>
+              <Col lg="2"></Col>
             </Row>
           </Container>
         </section>
@@ -127,6 +127,5 @@ class RegisterAstro extends React.Component {
     );
   }
 }
-
 
 export default RegisterAstro;

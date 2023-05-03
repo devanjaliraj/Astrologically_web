@@ -24,7 +24,7 @@ const SliderYouTubeList = ({
     autoplay: {
       delay: 5000,
       disableOnInteraction: false,
-    }
+    },
     // breakpoints: {
 
     //   768: {
@@ -58,7 +58,6 @@ const SliderYouTubeList = ({
     //     <i className="pe-7s-angle-right" />
     //   </button>
     // )
-
   };
 
   // const [testimonialData, setTestimonialData] = useState([]);
@@ -77,13 +76,13 @@ const SliderYouTubeList = ({
   //     });
   // }, []);
 
-
-
   return (
     <div
-      className={` ${spaceTopClass ? spaceTopClass : ""}  ${spaceBottomClass ? spaceBottomClass : ""
-        } ${spaceLeftClass ? spaceLeftClass : ""}  ${spaceRightClass ? spaceRightClass : ""
-        } ${bgColorClass ? bgColorClass : ""}`}
+      className={` ${spaceTopClass ? spaceTopClass : ""}  ${
+        spaceBottomClass ? spaceBottomClass : ""
+      } ${spaceLeftClass ? spaceLeftClass : ""}  ${
+        spaceRightClass ? spaceRightClass : ""
+      } ${bgColorClass ? bgColorClass : ""}`}
     >
       <div className="container">
         <div className="row">

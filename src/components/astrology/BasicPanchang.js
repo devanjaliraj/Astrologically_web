@@ -1,20 +1,28 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { Container, Row, Col, Card, Input, Form, Button } from "reactstrap";
+// import { Link } from "react-router-dom";
+import {
+  Container,
+  Row,
+  Col,
+  Card,
+  Input,
+  Form,
+  Button,
+  Table,
+} from "reactstrap";
 import astrologinbg from "../../assets/img/astrologin-bg.jpg";
 import "../../assets/scss/astropooja.css";
 import LayoutOne from "../../layouts/LayoutOne";
 import axiosConfig from "../../axiosConfig";
 import swal from "sweetalert";
+// import { Select } from "@mui/material";
 import Select from "react-select";
 import { Country, State, City } from "country-state-city";
-// import imgon from "../../assets/img/44.png";
-// import imgin from "../../assets/img/33.png";
-
-class ManglikDosh extends React.Component {
+class BasicPanchang extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      data1: false,
       day: "",
       month: "",
       year: "",
@@ -23,7 +31,7 @@ class ManglikDosh extends React.Component {
       lat: "",
       lon: "",
       tzone: "",
-      ManglikDosh: {},
+      data: {},
       state: [],
       city: [],
       country: [],
@@ -33,7 +41,6 @@ class ManglikDosh extends React.Component {
       timezone: null,
       latitude: "",
       longitude: "",
-      data1: false,
     };
   }
   changeHandler = (e) => {
@@ -59,8 +66,9 @@ class ManglikDosh extends React.Component {
 
   changeCountry = (item) => {
     this.setState({ selectedCountry: item });
+
     axiosConfig
-      .post(`/user/time_zone`, {
+      .post(`http://65.2.148.70:8000/user/time_zone`, {
         country_code: item?.timezones[0].zoneName,
       })
       .then((response) => {
@@ -76,8 +84,9 @@ class ManglikDosh extends React.Component {
     this.setState({
       submitPlaceHandler: item,
     });
+
     axiosConfig
-      .post(`/user/geo_detail`, {
+      .post(`http://65.2.148.70:8000/user/geo_detail`, {
         place: item?.name,
       })
       .then((response) => {
@@ -93,6 +102,7 @@ class ManglikDosh extends React.Component {
 
   submitCountryHandler = (e) => {
     e.preventDefault();
+
     let payload = {
       country_code: this.state.country_code,
     };
@@ -112,6 +122,7 @@ class ManglikDosh extends React.Component {
   submitPlaceHandler = (e) => {
     e.preventDefault();
     let payload = {
+      // data: this.state.data
       place: this.state.place,
     };
     console.log("shgdjhg", payload);
@@ -127,7 +138,6 @@ class ManglikDosh extends React.Component {
         console.log(error);
       });
   };
-
   submitHandler = (e) => {
     e.preventDefault();
     let payload = {
@@ -142,16 +152,17 @@ class ManglikDosh extends React.Component {
     };
     console.log("shgdjhg", payload);
     axiosConfig
-      .post(`/user/ManglikDosh`, payload)
+      .post(`/user/basicPanchang`, payload)
       .then((response) => {
         this.setState({ data1: true });
         console.log("data1", response.data.data);
         this.setState({
-          ManglikDosh: response.data.data,
+          data: response.data.data,
         });
         console.log("data11", response.data.data);
-        swal("Success!", "Submitted SuccessFull!", "success");
-        // this.props.history.push("/manglikDoshDetail");
+        // swal("Success!", "Submitted SuccessFull!", "success");
+        // this.props.history.push("/lalKitabPage");
+        // window.location.reload("/lalKitab");
       })
       .catch((error) => {
         swal("Error!", "You clicked the button!", "error");
@@ -160,34 +171,17 @@ class ManglikDosh extends React.Component {
   };
 
   render() {
-    const customStyles = {
-      option: (provided, state) => ({
-        ...provided,
-      }),
-      control: (provided) => ({
-        ...provided,
-
-        width: "100%",
-
-        height: "40px",
-
-        minHeight: "40px",
-      }),
-    };
-    const { ManglikDosh } = this.state;
-    console.log("Magalik@@@@", ManglikDosh);
+    const { data } = this.state;
+    console.log("firstResponse", data);
     if (this.state.data1 === true) {
       console.log("first", this.state.data1);
+      // const { data2 } = this.state;
       return (
         <LayoutOne headerTop="visible">
           <section className="pt-0 pb-0">
             <div
               className=""
               style={{
-                // backgroundColor: "#ffcc01",
-                // width: "100%",
-                // padding: "70px 0px",
-                // backgroundSize: "cover",
                 float: "left",
                 width: "100%",
                 backgroundColor: "#272727",
@@ -206,8 +200,8 @@ class ManglikDosh extends React.Component {
                 <Row>
                   <Col md="12">
                     <div className="leftcont text-left">
-                      <h1>MANGLIK DOSH</h1>
-                      <h3>Get instant & accurate, Janam Kundli</h3>
+                      <h1>Panchang</h1>
+                      <h3>Get instant & accurate, Panchang</h3>
                     </div>
                   </Col>
                 </Row>
@@ -219,100 +213,76 @@ class ManglikDosh extends React.Component {
               <Col md="12">
                 <Card className="mb-50 pt-d">
                   <h3>
-                    MANGLIK DOSH Online - Get Your Detailed Birth Chart with
+                    Panchang Online - Get Your Detailed Birth Chart with
                     Predictions
                   </h3>
                   <p>
-                    Looking for your free Kundli from expert astrologers? Then
-                    you have come to the right place. The online free kundali
-                    available on AstroGyata is a 100% free and authentic free
-                    Kundli that has been prepared after consulting more than 50
-                    expert astrologers on board. The free kundli is such that it
-                    can give you a glimpse into various aspects of your life
-                    such as your career, love life, marriage, business and much
-                    more. The online kundli prepared by the free Kundali
-                    software here is no less than any traditional Kundli and can
-                    also be used for purposes like matching making, kundali
-                    matching for marriage or simply making future predictions.
+                    Panchang is a remarkable branch of Vedic astrology.
+                    Collection of the 5 books, written during the period of
+                    1939-1952 is called Panchang. Written in ancient Urdu
+                    language, first time in the history of astrology, Panchang
+                    introduced a new style of horoscope analysis with quick and
+                    affordable remedies. Authorship of the books seems to be
+                    disputed. However, finding by our research community shows
+                    that the books were written by Pt. Roop Chand Joshi.
                   </p>
-                  <p>
-                    Talking about future predictions, the kundali catered by
-                    AstroGyata to you is such that it considers the movement of
-                    all the planets in the native's life from the beginning of
-                    his or her life till as far as 100 years. Doing so helps you
-                    understand the reasons behind not only the ongoing
-                    circumstances but also what's to come for you in the future.
-                    So if in any way you are confused about life, the online
-                    kundli can be your saviour. Having said that, make sure you
-                    try the fre online kunldi, and let us know what you feel
-                    about it.
-                  </p>
-                  <h3> MANGLIK DOSH</h3>
-                  <div className="match-bx bg-white">
+
+                  <div className="match-bx">
                     <Row>
-                      {ManglikDosh?.is_mars_manglik_cancelled === true ? (
-                        <>
-                          <h3>Is Mars Manglik Cancelled</h3>
-                          <span>Yes</span>
-                        </>
-                      ) : null}
+                      <Col md="12">
+                        <h3> Panchang </h3>
+                        {/* <div className="form-m"> */}
+                        <Table striped className="">
+                          <thead>
+                            <tr>
+                              <th>Name </th>
+                              <th>Value </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <th>Day</th>
+                              <td>{data.day}</td>
+                            </tr>
+                            <tr>
+                              <th>Tithi</th>
+                              <td>{data.tithi}</td>
+                            </tr>
 
-                      {ManglikDosh?.is_present === true ? (
-                        <>
-                          <h3>Is Present</h3>
-                          <span>Yes</span>
-                        </>
-                      ) : null}
+                            <tr>
+                              <th>Nakshatra</th>
+                              <td>{data.nakshatra} </td>
+                            </tr>
+                            <tr>
+                              <th>Yog</th>
+                              <td>{data.yog}</td>
+                            </tr>
+                            <tr>
+                              <th>Karan</th>
+                              <td>{data.karan}</td>
+                            </tr>
 
-                      {ManglikDosh?.manglik_cancel_rule > 0 ? (
-                        <>
-                          <h3>Manglik Cancel Rule</h3>
-                          <p>{ManglikDosh?.manglik_cancel_rule}</p>
-                        </>
-                      ) : null}
+                            <tr>
+                              <th>Sunrise</th>
+                              <td>{data.sunrise}</td>
+                            </tr>
+                            <tr>
+                              <th>Sunset</th>
+                              <td>{data.sunset}</td>
+                            </tr>
 
-                      <h3>Manglik Report</h3>
-                      <span>{ManglikDosh?.manglik_report}</span>
-
-                      <h3>Manglik Status</h3>
-                      <span>{ManglikDosh?.manglik_status}</span>
-
-                      <h3>Percentage Manglik After Cancellation</h3>
-                      <span>
-                        {ManglikDosh?.percentage_manglik_after_cancellation}
-                      </span>
-
-                      <h3>Percentage Manglik Present </h3>
-                      <span>{ManglikDosh?.percentage_manglik_present}</span>
-
-                      {ManglikDosh?.manglik_present_rule?.based_on_aspect ==
-                      null ? null : (
-                        <>
-                          <h3>Manglik Present Rule</h3>
-                          <h4 className="dosh">Based On Aspect</h4>
-                          {ManglikDosh?.manglik_present_rule?.based_on_aspect?.map(
-                            (value, i) => (
-                              <p key={value?._id}>
-                                {i + 1}-{value}
-                              </p>
-                            )
-                          )}
-                        </>
-                      )}
-                      {ManglikDosh?.manglik_present_rule?.based_on_house ==
-                      null ? null : (
-                        <>
-                          {/* <h3>Manglik Present Rule</h3> */}
-                          <h4 className="dosh">Based On House</h4>
-                          {ManglikDosh?.manglik_present_rule?.based_on_house?.map(
-                            (value, i) => (
-                              <p key={value?._id}>
-                                {i + 1}-{value}
-                              </p>
-                            )
-                          )}
-                        </>
-                      )}
+                            <tr>
+                              <th>Vedic Sunrise</th>
+                              <td>{data.vedic_sunrise}</td>
+                            </tr>
+                            <tr>
+                              <th>Vedic Sunset</th>
+                              <td>{data.vedic_sunset}</td>
+                            </tr>
+                          </tbody>
+                        </Table>
+                        {/* </div> */}
+                      </Col>
                     </Row>
                   </div>
                 </Card>
@@ -330,42 +300,24 @@ class ManglikDosh extends React.Component {
               style={{
                 float: "left",
                 width: "100%",
-                backgroundColor: "#ffd59e",
+                backgroundColor: "#272727",
                 position: "relative",
                 backgroundAttachment: "fixed",
                 backgroundSize: "cover",
                 color: "#ffffff",
                 padding: " 50px 0px 50px 0px",
-                // backgroundImage: `url(${astrologinbg})`,
+                backgroundImage: `url(${astrologinbg})`,
                 backgroundPosition: "center center",
                 backgroundRepeat: " no-repeat",
-                // textAlign: "center",
+                textAlign: "center",
               }}
             >
               <Container>
                 <Row>
-                  <Col md="6">
+                  <Col md="12">
                     <div className="leftcont text-left">
-                      <h1>MANGLIK DOSH</h1>
-                      <h3>Get instant & accurate, Janam Kundli</h3>
-                    </div>
-                  </Col>
-                  <Col md="6">
-                    <div className="img-rotate">
-                      <div className="img-23">
-                        <img
-                          //  src={imgon}
-                          alt=""
-                          width="180px"
-                        />
-                        <div className="img-22">
-                          <img
-                            //  src={imgin}
-                            alt=""
-                            width="80px"
-                          />
-                        </div>
-                      </div>
+                      <h1>Panchang</h1>
+                      <h3>Get instant & accurate, Panchang</h3>
                     </div>
                   </Col>
                 </Row>
@@ -377,43 +329,29 @@ class ManglikDosh extends React.Component {
               <Col md="12">
                 <Card className="mb-50 pt-d">
                   <h3>
-                    MANGLIK DOSH Online - Get Your Detailed Birth Chart with
+                    Panchang Online - Get Your Detailed Birth Chart with
                     Predictions
                   </h3>
                   <p>
-                    Looking for your free Kundli from expert astrologers? Then
-                    you have come to the right place. The online free kundali
-                    available on AstroGyata is a 100% free and authentic free
-                    Kundli that has been prepared after consulting more than 50
-                    expert astrologers on board. The free kundli is such that it
-                    can give you a glimpse into various aspects of your life
-                    such as your career, love life, marriage, business and much
-                    more. The online kundli prepared by the free Kundali
-                    software here is no less than any traditional Kundli and can
-                    also be used for purposes like matching making, kundali
-                    matching for marriage or simply making future predictions.
+                    Panchang is a remarkable branch of Vedic astrology.
+                    Collection of the 5 books, written during the period of
+                    1939-1952 is called Panchang. Written in ancient Urdu
+                    language, first time in the history of astrology, Panchang
+                    introduced a new style of horoscope analysis with quick and
+                    affordable remedies. Authorship of the books seems to be
+                    disputed. However, finding by our research community shows
+                    that the books were written by Pt. Roop Chand Joshi.
                   </p>
-                  <p>
-                    Talking about future predictions, the kundali catered by
-                    AstroGyata to you is such that it considers the movement of
-                    all the planets in the native's life from the beginning of
-                    his or her life till as far as 100 years. Doing so helps you
-                    understand the reasons behind not only the ongoing
-                    circumstances but also what's to come for you in the future.
-                    So if in any way you are confused about life, the online
-                    kundli can be your saviour. Having said that, make sure you
-                    try the fre online kunldi, and let us know what you feel
-                    about it.
-                  </p>
+
                   <div className="match-bx">
                     <Row>
-                      <Col md="8">
-                        <h3> MANGLIK DOSH</h3>
+                      <Col md="12">
+                        <h3>Panchang</h3>
                         <Form onSubmit={this.submitHandler}>
                           <div className="form-m">
                             <Row>
-                              <Col md="3">
-                                <label>Birth Day</label>
+                              <Col md="2">
+                                <label>Day</label>
                                 <Input
                                   className="form-control"
                                   type="select"
@@ -455,8 +393,8 @@ class ManglikDosh extends React.Component {
                                   <option>31</option>
                                 </Input>
                               </Col>
-                              <Col md="3">
-                                <label>Birth Month</label>
+                              <Col md="2">
+                                <label>Month</label>
                                 <Input
                                   className="form-control"
                                   type="select"
@@ -479,8 +417,8 @@ class ManglikDosh extends React.Component {
                                   <option>12</option>
                                 </Input>
                               </Col>
-                              <Col md="3">
-                                <label>Birth Year</label>
+                              <Col md="2">
+                                <label>Year</label>
                                 <Input
                                   className="form-control"
                                   type="select"
@@ -581,8 +519,8 @@ class ManglikDosh extends React.Component {
                                   <option value="2011">2030</option>
                                 </Input>
                               </Col>
-                              <Col md="3">
-                                <label>Birth Hour</label>
+                              <Col md="2">
+                                <label>Hour</label>
                                 <Input
                                   className="form-control"
                                   type="select"
@@ -617,8 +555,8 @@ class ManglikDosh extends React.Component {
                                   <option>24</option>
                                 </Input>
                               </Col>
-                              <Col md="3">
-                                <label>Birth Minute</label>
+                              <Col md="2">
+                                <label>Minute</label>
                                 <Input
                                   className="form-control"
                                   type="select"
@@ -685,15 +623,14 @@ class ManglikDosh extends React.Component {
                                   <option>56</option>
                                   <option>57</option>
                                   <option>58</option>
-                                  <option>59</option>
-                                  <option>60</option>
+                                  <option>59</option> <option>60</option>
                                 </Input>
                               </Col>
-                              <Col md="3">
+                            </Row>
+                            <Row>
+                              <Col md="4">
                                 <label>Country</label>
                                 <Select
-                                  styles={customStyles}
-                                  className="cus-slt"
                                   options={Country.getAllCountries()}
                                   getOptionLabel={(options) => {
                                     return options["name"];
@@ -708,11 +645,9 @@ class ManglikDosh extends React.Component {
                                 />
                               </Col>
 
-                              <Col md="3">
+                              <Col md="4">
                                 <label>State</label>
                                 <Select
-                                  className="cus-slt"
-                                  styles={customStyles}
                                   options={State?.getStatesOfCountry(
                                     this.state.selectedCountry?.isoCode
                                   )}
@@ -729,10 +664,9 @@ class ManglikDosh extends React.Component {
                                 />
                               </Col>
 
-                              <Col md="3">
+                              <Col md="4">
                                 <label>City</label>
                                 <Select
-                                  styles={customStyles}
                                   options={City.getCitiesOfState(
                                     this.state.selectedState?.countryCode,
                                     this.state.selectedState?.isoCode
@@ -750,7 +684,7 @@ class ManglikDosh extends React.Component {
                                 />
                               </Col>
 
-                              <Col md="3">
+                              <Col md="4">
                                 <label>Birth Place Latitude</label>
                                 <Input
                                   className="form-control"
@@ -762,7 +696,7 @@ class ManglikDosh extends React.Component {
                                   onChange={this.changeHandler}
                                 />
                               </Col>
-                              <Col md="3">
+                              <Col md="4">
                                 <label>Birth Place Longitude</label>
                                 <Input
                                   className="form-control"
@@ -774,7 +708,7 @@ class ManglikDosh extends React.Component {
                                   onChange={this.changeHandler}
                                 />
                               </Col>
-                              <Col md="3">
+                              <Col md="4">
                                 <label>Birth Place Time Zone</label>
                                 <input
                                   className="form-control"
@@ -787,62 +721,9 @@ class ManglikDosh extends React.Component {
                                 />
                               </Col>
                             </Row>
-                            <br></br>
                             <Button className="btn btn-primary">submit</Button>
                           </div>
                         </Form>
-                      </Col>
-                      <Col md="4">
-                        <h3>Saved Manglik Dosh Matches</h3>
-                        <div className="form-m">
-                          <Row>
-                            <Col>
-                              {/* <MatchSearch /> */}
-                              <h4 className="mt-3">Recent Views</h4>
-                              <hr></hr>
-                              <div className="mtkun-box">
-                                <Link>
-                                  <div className="k-bx">
-                                    <p>R</p>
-                                  </div>
-                                  <div className="k-bxx">
-                                    <h5>lorem</h5>
-                                    <p>21/09/2022</p>
-                                    <p>Indore</p>
-                                  </div>
-                                  <div className="k-dlt">
-                                    <Link className="Tansdel">
-                                      <i
-                                        class="fa fa-trash-o"
-                                        aria-hidden="true"
-                                      ></i>
-                                    </Link>
-                                  </div>
-                                </Link>
-                              </div>
-                              <div className="mtkun-box">
-                                <Link>
-                                  <div className="k-bx">
-                                    <p>S</p>
-                                  </div>
-                                  <div className="k-bxx">
-                                    <h5>lorem</h5>
-                                    <p>21/09/2022</p>
-                                    <p>Indore</p>
-                                  </div>
-                                  <div className="k-dlt">
-                                    <Link className="Tansdel">
-                                      <i
-                                        class="fa fa-trash-o"
-                                        aria-hidden="true"
-                                      ></i>
-                                    </Link>
-                                  </div>
-                                </Link>
-                              </div>
-                            </Col>
-                          </Row>
-                        </div>
                       </Col>
                     </Row>
                   </div>
@@ -855,4 +736,4 @@ class ManglikDosh extends React.Component {
     }
   }
 }
-export default ManglikDosh;
+export default BasicPanchang;

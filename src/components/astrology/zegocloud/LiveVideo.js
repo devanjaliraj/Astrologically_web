@@ -31,8 +31,8 @@ export default function LiveVideo() {
     role_str === "Host"
       ? ZegoUIKitPrebuilt.Host
       : role_str === "Cohost"
-        ? ZegoUIKitPrebuilt.Cohost
-        : ZegoUIKitPrebuilt.Audience;
+      ? ZegoUIKitPrebuilt.Cohost
+      : ZegoUIKitPrebuilt.Audience;
 
   let sharedLinks = [];
   if (role === ZegoUIKitPrebuilt.Host || role === ZegoUIKitPrebuilt.Cohost) {
@@ -68,7 +68,7 @@ export default function LiveVideo() {
     serverSecret,
     roomID,
     randomID(5),
-    response,
+    response
     // response1
   );
 

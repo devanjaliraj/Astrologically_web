@@ -9,7 +9,7 @@ const NavMenu = ({ strings, menuWhiteClass, sidebarMenu }) => {
   const [categoryList, setCategoryList] = useState([]);
 
   const getCategory = () => {
-    Axios.get(`http://13.234.48.35:8000/admin/getallCategory`)
+    Axios.get(`http://65.2.148.70:8000/admin/getallCategory`)
       .then((response) => {
         console.log("5555555", response.data.data);
         setCategoryList(response.data.data);
@@ -24,10 +24,11 @@ const NavMenu = ({ strings, menuWhiteClass, sidebarMenu }) => {
 
   return (
     <div
-      className={` ${sidebarMenu
-        ? "sidebar-menu"
-        : `main-menu ${menuWhiteClass ? menuWhiteClass : ""}`
-        } `}
+      className={` ${
+        sidebarMenu
+          ? "sidebar-menu"
+          : `main-menu ${menuWhiteClass ? menuWhiteClass : ""}`
+      } `}
     >
       <nav>
         <ul>
@@ -43,8 +44,6 @@ const NavMenu = ({ strings, menuWhiteClass, sidebarMenu }) => {
             <Link to="/freekundli"> Free Kundli</Link>
           </li> */}
 
-
-
           <li>
             <Link to="/allastrologerlist">Talk Astrologer</Link>
           </li>
@@ -55,17 +54,17 @@ const NavMenu = ({ strings, menuWhiteClass, sidebarMenu }) => {
           <li>
             <Link>Dosh</Link>
             <ul className="submenu">
-              <li className="" >
+              <li className="">
                 <Link to={process.env.PUBLIC_URL + "/manglikdosh"}>
                   Manglik Dosh
                 </Link>
               </li>
-              <li className="" >
+              <li className="">
                 <Link to={process.env.PUBLIC_URL + "/pitraDosh"}>
                   Pitra Dosh
                 </Link>
               </li>
-              <li className="" >
+              <li className="">
                 <Link to={process.env.PUBLIC_URL + "/kalsharpDosh"}>
                   Kalsharp Dosh
                 </Link>
@@ -82,17 +81,17 @@ const NavMenu = ({ strings, menuWhiteClass, sidebarMenu }) => {
           <li>
             <Link>Horoscopes</Link>
             <ul className="submenu">
-              <li className="" >
+              <li className="">
                 <Link to={process.env.PUBLIC_URL + "/heroscopestwo"}>
                   Daily
                 </Link>
               </li>
-              <li className="" >
+              <li className="">
                 <Link to={process.env.PUBLIC_URL + "/heroscopestwo1"}>
                   Weekly
                 </Link>
               </li>
-              <li className="" >
+              <li className="">
                 <Link to={process.env.PUBLIC_URL + "/heroscopestwo2"}>
                   Monthly
                 </Link>

@@ -13,7 +13,7 @@ import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 //   const { pathname } = location;
 // function Otp(props) {
 export default class Verify_otp extends React.Component {
-  state = { otp: '' };
+  state = { otp: "" };
   constructor() {
     super();
     this.state = {
@@ -25,11 +25,9 @@ export default class Verify_otp extends React.Component {
 
       //   "status": true,
 
-
       input: {},
       errors: {},
-
-    }
+    };
     //     this.handleChange = otp => this.setState({ otp });
     //     this.handleChange = this.handleChange.bind(this);
     // this.handleSubmit = this.handleSubmit.bind(this);
@@ -38,10 +36,10 @@ export default class Verify_otp extends React.Component {
   }
 
   resenddd = () => {
-    this.setState({ otp: '' })
-    this.interval()
-    this.sendOtp()
-  }
+    this.setState({ otp: "" });
+    this.interval();
+    this.sendOtp();
+  };
   interval() {
     this.setState({ seconds: 26 });
 
@@ -58,12 +56,9 @@ export default class Verify_otp extends React.Component {
     this.setState({ [evt.target.name]: evt.target.value });
   }
 
-
   handleSubmit(event) {
     event.preventDefault();
     // this.otpIntegration()
-
-
 
     // handleverifyotp=()=>{
     //   const sendData = {
@@ -71,19 +66,17 @@ export default class Verify_otp extends React.Component {
     //     status: this.state.status,
     //   };
 
-    axios.post("http://13.234.48.35:8000/user/verifyotp", this.state)
+    axios
+      .post("http://65.2.148.70:8000/user/verifyotp", this.state)
 
-      .then(res => {
+      .then((res) => {
         console.log(res);
-        alert("anjali")
-
+        alert("anjali");
       })
       .catch((error) => {
-        console.log(error.response)
+        console.log(error.response);
       });
   }
-
-
 
   render() {
     return (
@@ -109,7 +102,6 @@ export default class Verify_otp extends React.Component {
                 <div className="col-lg-7 col-md-12 ml-auto mr-auto">
                   <div className="login-register-wrapper">
                     <Tab.Container defaultActiveKey="login">
-
                       <Tab.Content>
                         <Tab.Pane eventKey="login">
                           <div className="login-form-container">
@@ -122,11 +114,12 @@ export default class Verify_otp extends React.Component {
                                     numInputs={4}
                                     type="number"
                                     name="otp"
-
-                                    separator={<span></span>} />
-                                  {this.state.OTPError ? this.state.OTPError : null}
+                                    separator={<span></span>}
+                                  />
+                                  {this.state.OTPError
+                                    ? this.state.OTPError
+                                    : null}
                                 </div>
-
 
                                 {/* <input
                                onChange={this.changeHandler}
@@ -150,18 +143,13 @@ export default class Verify_otp extends React.Component {
                                     Forgot Password?
                                   </Link>
                                 </div> */}
-                                  <button type="back">
-                                    Back
-                                  </button>
-                                  <button type="submit">
-                                    SendOTP
-                                  </button>
+                                  <button type="back">Back</button>
+                                  <button type="submit">SendOTP</button>
                                 </div>
                               </form>
                             </div>
                           </div>
                         </Tab.Pane>
-
                       </Tab.Content>
                     </Tab.Container>
                   </div>
@@ -174,7 +162,3 @@ export default class Verify_otp extends React.Component {
     );
   }
 }
-
-
-
-

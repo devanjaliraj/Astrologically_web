@@ -30,8 +30,7 @@ export function getRandomName() {
     "Ashish",
   ];
   // return names[Math.round(Math.random() * names.length)];
-  return "Prabhat"
-  
+  return "Prabhat";
 }
 
 // // export function getUrlParams(

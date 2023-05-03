@@ -8,11 +8,6 @@ const SliderDemo = ({ data, sliderClass, sliderdemoClass }) => {
   const [userId, setUserId] = useState("");
   const [bestAstrology, setBestAstrology] = useState(data);
 
-  // useEffect(() => {
-  //   var user_id = localStorage.getItem("user_id");
-  //   setUserId(user_id);
-  // });
-
   useEffect(() => {
     setBestAstrology(data);
   }, [data]);
@@ -25,14 +20,6 @@ const SliderDemo = ({ data, sliderClass, sliderdemoClass }) => {
         sliderdemoClass ? sliderdemoClass : " slider-demo"
       } text-center ${sliderClass ? sliderClass : ""} st-hit`}
     >
-      {/* <img src={process.env.PUBLIC_URL + data.image} alt="" />
-      <p className="st-testmonial">{data.content}</p>
-      <div className="client-info">
-        <i className="fa fa-map-signs" />
-        <h5>{data.customerName}</h5>
-        <span>{data.title}</span>
-      </div> */}
-
       <div className="image-flip">
         <div className="mainflip flip-0">
           <div className="frontside">

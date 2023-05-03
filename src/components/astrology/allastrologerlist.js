@@ -2,12 +2,19 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Container, Row, Col, ModalHeader, ModalBody, Modal } from "reactstrap";
 // import textbottom from '../../assets/img/textbottom.png'
-import astrologinbg from '../../assets/img/astrologin-bg.jpg'
+import Tab from "react-bootstrap/Tab";
+import Nav from "react-bootstrap/Nav";
+import axios from "axios";
+
+import astrologinbg from "../../assets/img/astrologin-bg.jpg";
+import { Label, Input, Button } from "reactstrap";
 import "../../assets/scss/astroteam.scss";
 import LayoutOne from "../../layouts/LayoutOne";
 import axiosConfig from "../../axiosConfig";
 // import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import Form from "react-bootstrap/Form";
+import swal from "sweetalert";
+import LoginRegister from "../../pages/other/LoginRegister";
 
 class AllAstrologerList extends React.Component {
   constructor(props) {
@@ -15,17 +22,31 @@ class AllAstrologerList extends React.Component {
 
     this.state = {
       // data: {},
-
+      fullname: "",
+      email: "",
+      mobile: "",
+      dob: "",
+      gender: "",
+      city: "",
+      userimg: "",
+      selectedName: "",
+      selectedFile: null,
+      otp: "",
+      otpMsg: "",
+      callingmode: false,
+      indexnow: null,
       astrologerList: [],
       From: "",
       To: "",
       astroid: "",
       userid: "",
       modal: false,
-      price_high_to_low: []
+      modalone: false,
+      price_high_to_low: [],
     };
 
     this.toggle = this.toggle.bind(this);
+    this.toggleone = this.toggleone.bind(this);
   }
 
   toggle() {
@@ -33,6 +54,125 @@ class AllAstrologerList extends React.Component {
       modal: !this.state.modal,
     });
   }
+  toggleone() {
+    this.setState({
+      modalone: !this.state.modalone,
+    });
+  }
+
+  changeHandler = (e) => {
+    e.preventDefault();
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  submitHandler = (e) => {
+    e.preventDefault();
+    console.log(this.state.data);
+    const data = new FormData();
+    data.append("fullname", this.state.fullname);
+    data.append("email", this.state.email);
+    data.append("mobile", this.state.mobile);
+    data.append("gender", this.state.gender);
+    data.append("city", this.state.city);
+    data.append("dob", this.state.dob);
+    if (this.state.selectedFile !== null) {
+      data.append("userimg", this.state.selectedFile, this.state.selectedName);
+    }
+    for (var value of data.values()) {
+      console.log(value);
+    }
+    for (var key of data.keys()) {
+      console.log(key);
+    }
+    // this.setState({ otp: false });
+    axios
+      .post(`http://65.2.148.70:8000/user/usersignup`, data)
+      .then((response) => {
+        console.log(response.data.msg);
+        localStorage.setItem("auth-token", response.data.token);
+        this.setState({
+          // token: response.data.token,
+          otpMsg: response.data.otp,
+        });
+        swal("Success!", " Register Successful Done!", "success");
+        this.props.history.push("/");
+      })
+      .catch((error) => {
+        console.log(error.response);
+        swal("Error!", "Something went wrong", "error");
+      });
+  };
+  loginHandler = (e) => {
+    e.preventDefault();
+    let obj = {
+      mobile: parseInt(this.state.mobile),
+    };
+    axios
+      .post(`http://65.2.148.70:8000/user/userlogin`, obj)
+      .then((response) => {
+        console.log("@@@####", response.data);
+        this.setState({ otpMsg: response.data.msg });
+        if (response.data.msg === "otp Send Successfully") {
+          swal("otp Send Successfully");
+          // this.props.history.push('/')
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        console.log(error.response);
+        swal("Error!", "User doesn't Exist", "error");
+      });
+  };
+
+  //Image Submit Handler
+  onChangeHandler = (event) => {
+    this.setState({ selectedFile: event.target.files[0] });
+    this.setState({ selectedName: event.target.files[0].name });
+    console.log(event.target.files[0]);
+  };
+  otpHandler = (e) => {
+    e.preventDefault();
+    console.log(this.state);
+    axios
+      .post(`http://65.2.148.70:8000/user/userVryfyotp`, {
+        mobile: parseInt(this.state.mobile),
+        otp: parseInt(this.state.otp),
+      })
+      .then((response) => {
+        console.log("@@@####", response.data);
+        // let id = response.data.user;
+        if (response.data.status === true) {
+          this.setState({ otpMsg: response.data.msg });
+          localStorage.setItem(
+            "userData",
+            JSON.stringify(response?.data?.data)
+          );
+          localStorage.setItem("token", JSON.stringify(response?.data?.token));
+          localStorage.setItem(
+            "user_id",
+            JSON.stringify(response?.data?.data?._id)
+          );
+          localStorage.setItem(
+            "user_mobile_no",
+            JSON.stringify(response?.data?.data?.mobile)
+          );
+          if (response.data.msg === "otp verified") {
+            swal("otp verified");
+            // window.location.replace('/')
+            this.props.history.push("/");
+          }
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        //this.setState({ errormsg: error });
+      });
+  };
+
+  handlechange = (e) => {
+    e.preventDefault();
+    this.setState({ [e.target.name]: e.target.value });
+  };
 
   componentDidMount = () => {
     axiosConfig
@@ -54,7 +194,7 @@ class AllAstrologerList extends React.Component {
         console.log(response.data);
         if (response.data.status === true) {
           this.setState({
-            price_high_to_low: response.data.data
+            price_high_to_low: response.data.data,
           });
         }
       })
@@ -62,41 +202,69 @@ class AllAstrologerList extends React.Component {
         console.log(error);
         console.log(error.response);
       });
-
   };
 
-
-
-  submitHandler = (e, astroid, mobile) => {
-    e.preventDefault();
-    // let astrologerList = localStorage.getItem('astrologerList')
+  submitHandler = (e, astroid, mobile, data, index) => {
+    // this.setState({ modalone: true });
     let mobileNo = localStorage.getItem("user_mobile_no");
     let userId = JSON.parse(localStorage.getItem("user_id"));
+    localStorage.setItem("astroId", astroid);
+    console.log(e);
+    console.log("astroid", astroid);
+    console.log("mobile", mobile);
+    console.log("data", data);
+    console.log("index", index);
+    console.log("mobileNo", mobileNo);
+    console.log("userId", userId);
+    localStorage.setItem("astroname", data?.fullname);
+    this.setState({ indexnow: index });
+
+    e.preventDefault();
+    // let astrologerList = localStorage.getItem('astrologerList')
+
     let astroId = astroid;
     let obj = {
       userid: userId,
       astroid: astroId,
       // astrologerList: astrologerList,
-      From: mobile,//parseInt(this.state.number)
+      From: mobile, //parseInt(this.state.number)
       To: mobileNo, //parseInt(this.state.number)
     };
-    axiosConfig
-      .post(`/user/make_call`, obj)
+    if (userId !== "" && userId !== null) {
+      const data = {
+        userid: userId,
+        astroid: astroId,
+      };
+      this.setState({ callingmode: true });
 
-      .then((response) => {
-        console.log("rhsagdhgshgdjhgj", response.data.data);
-        // console.log(response.data.STATUSMSG)
-        // this.setState({ responseData: response.data })
-        // swal('Successful!', 'Recharge Successful!', 'success')
-        // this.props.history.push('/orderrecharge')
-      })
-
-      .catch((error) => {
-        console.log(error);
-        // swal('Error!', 'Invalid!', 'error')
-      });
+      axiosConfig
+        .post(`/user/addCallWallet`, data)
+        .then((response) => {
+          if (response.data.status === true) {
+            axiosConfig
+              .post(`/user/make_call`, obj)
+              .then((response) => {
+                console.log("Calling", response.data);
+                this.setState({ callingmode: false });
+              })
+              .catch((error) => {
+                console.log(error?.response?.data?.error);
+                if (error?.response?.data?.error) {
+                  swal("Try again after some Time ", "Internal server");
+                  this.setState({ callingmode: false });
+                }
+              });
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          // swal('Error!', 'Invalid!', 'error')
+        });
+    } else {
+      swal("Need to Login first");
+      // this.setState({ modal: true });
+    }
   };
-
 
   filterMethod = (name) => {
     axiosConfig
@@ -105,7 +273,7 @@ class AllAstrologerList extends React.Component {
         console.log(response.data);
         if (response.data.status === true) {
           this.setState({
-            astrologerList: response.data.data
+            astrologerList: response.data.data,
           });
         }
       })
@@ -113,7 +281,7 @@ class AllAstrologerList extends React.Component {
         console.log(error);
         console.log(error.response);
       });
-  }
+  };
 
   render() {
     const { astrologerList } = this.state;
@@ -154,7 +322,7 @@ class AllAstrologerList extends React.Component {
             </Container>
           </div>
         </section>
-        <section id="team" class="pb-5">
+        <section id="team" class="pb-5 ">
           <Container>
             <Row>
               <Col md="3">
@@ -172,40 +340,133 @@ class AllAstrologerList extends React.Component {
                       </li> */}
                       <li>
                         <span>
-                          <Form.Check type="radio" aria-label="radio 1" name="exp_high_to_low" onChange={() => this.filterMethod("exp_high_to_low")} />
+                          <Form.Check
+                            type="radio"
+                            aria-label="radio 1"
+                            name="id"
+                            onChange={() =>
+                              this.filterMethod("exp_high_to_low")
+                            }
+                          />
                         </span>
                         Experience : High to Low
-
                       </li>
                       <li>
                         <span>
-                          <Form.Check type="radio" aria-label="radio 2" name="exp_low_to_high" onChange={() => this.filterMethod("exp_low_to_high")} />
+                          <Form.Check
+                            type="radio"
+                            aria-label="radio 2"
+                            name="id"
+                            onChange={() =>
+                              this.filterMethod("exp_low_to_high")
+                            }
+                          />
                         </span>
                         Experience : Low to High
                       </li>
                       <li>
                         <span>
-                          <Form.Check type="radio" aria-label="radio 3" name="price_high_to_low" onChange={() => this.filterMethod("price_high_to_low")} />
+                          <Form.Check
+                            type="radio"
+                            aria-label="radio 3"
+                            name="id"
+                            onChange={() =>
+                              this.filterMethod("price_high_to_low")
+                            }
+                          />
                         </span>
                         Price : High to Low
                       </li>
                       <li>
                         <span>
-                          <Form.Check type="radio" aria-label="radio 4" name="price_low_to_high" onChange={() => this.filterMethod("price_low_to_high")} />
+                          <Form.Check
+                            type="radio"
+                            aria-label="radio 4"
+                            name="id"
+                            onChange={() =>
+                              this.filterMethod("price_low_to_high")
+                            }
+                          />
                         </span>
                         Price : Low to High
                       </li>
                       <li>
                         <span>
-                          <Form.Check type="radio" aria-label="radio 5" name="rating_high_to_low" onChange={() => this.filterMethod("rating_high_to_low")} />
+                          <Form.Check
+                            type="radio"
+                            aria-label="radio 5"
+                            name="id"
+                            onChange={() =>
+                              this.filterMethod("rating_high_to_low")
+                            }
+                          />
                         </span>
                         Rating : High to Low
                       </li>
                       <li>
                         <span>
-                          <Form.Check type="radio" aria-label="radio 6" name="rating_low_to_high" onChange={() => this.filterMethod("rating_low_to_high")} />
+                          <Form.Check
+                            type="radio"
+                            aria-label="radio 6"
+                            name="id"
+                            onChange={() =>
+                              this.filterMethod("rating_low_to_high")
+                            }
+                          />
                         </span>
                         Rating : Low to High
+                      </li>
+                      <li>
+                        <span>
+                          <Form.Check
+                            type="radio"
+                            aria-label="radio 6"
+                            name="id"
+                            onChange={() =>
+                              this.filterMethod("rating_low_to_high")
+                            }
+                          />
+                        </span>
+                        Skills
+                      </li>
+                      <li>
+                        <span>
+                          <Form.Check
+                            type="radio"
+                            aria-label="radio 6"
+                            name="id"
+                            onChange={() =>
+                              this.filterMethod("rating_low_to_high")
+                            }
+                          />
+                        </span>
+                        Area of Specialisation
+                      </li>
+                      <li>
+                        <span>
+                          <Form.Check
+                            type="radio"
+                            aria-label="radio 6"
+                            name="id"
+                            onChange={() =>
+                              this.filterMethod("rating_low_to_high")
+                            }
+                          />
+                        </span>
+                        Language
+                      </li>
+                      <li>
+                        <span>
+                          <Form.Check
+                            type="radio"
+                            aria-label="radio 6"
+                            name="id"
+                            onChange={() =>
+                              this.filterMethod("rating_low_to_high")
+                            }
+                          />
+                        </span>
+                        Active/Non Active
                       </li>
                       {/* <li>
                         <span>
@@ -218,22 +479,25 @@ class AllAstrologerList extends React.Component {
                 </div>
               </Col>
               <Col md="9">
-                <Row>
+                <Row className="mt-2">
                   {astrologerList.length
                     ? astrologerList.map((astrologer, index) => {
-                      return (
-                        <Col md="4" key={index}>
-                          <div className="image-flip">
-                            <div className="mainflip flip-0">
-                              <div className="frontside">
-                                <Link
-                                  // to={"/astrologerdetail/" + astrologer._id}
-                                  className=""
-                                >
+                        return (
+                          <Col md="4" key={index}>
+                            <div className="image-flip">
+                              <div className="mainflip flip-0">
+                                <div className="frontside">
                                   <div className="card">
                                     <div className="card-body text-center">
                                       <p>
-                                        <img src={astrologer?.img} alt="" />
+                                        <Link
+                                          to={
+                                            "/astrologerdetail/" +
+                                            astrologer._id
+                                          }
+                                        >
+                                          <img src={astrologer?.img} alt="" />
+                                        </Link>
                                       </p>
                                       <h4 className="card-title">
                                         {astrologer?.fullname}
@@ -241,9 +505,7 @@ class AllAstrologerList extends React.Component {
                                       <ul className="mb-3">
                                         <li>
                                           Specility:{" "}
-                                          <span>
-                                            {astrologer?.all_skills}
-                                          </span>
+                                          <span>{astrologer?.all_skills}</span>
                                         </li>
                                         <li>
                                           Language:{" "}
@@ -274,18 +536,14 @@ class AllAstrologerList extends React.Component {
                                     </Link> */}
                                       {astrologer.waiting_queue === 0 ? (
                                         <>
-                                          <Link
+                                          {/* <Link
                                             className="btn btn-primary btn-sm sc"
-                                            // to={
-                                            //   "/allastrologerlist/" +
-                                            //   astrologer._id
-                                            // }
                                             to={
                                               "/astrologerdetail/" +
                                               astrologer._id
                                             }
-                                          >
-                                            {/* <span
+                                          > */}
+                                          {/* <span
                                         className="sr-btn"
                                         onClick={this.onCallSubmit}
                                       >
@@ -294,9 +552,9 @@ class AllAstrologerList extends React.Component {
                                         </i>{' '}
                                         Call
                                       </span> */}
-                                            {/* {localStorage.getItem('auth-token') ? ( */}
+                                          {/* {localStorage.getItem('auth-token') ? ( */}
 
-                                            {/* <span
+                                          {/* <span
                                               className="sr-btn"
                                               onClick={(e) =>
                                                 this.submitHandler(
@@ -309,20 +567,43 @@ class AllAstrologerList extends React.Component {
                                               <i class="fa fa-phone"> Call</i>
                                             </span> */}
 
-                                            <span
-                                              className="sr-btn"
-                                              onClick={(e) =>
-                                                this.submitHandler(
-                                                  e,
-                                                  astrologer?._id,
-                                                  astrologer?.mobile
-                                                )
-                                              }
-                                            >
-                                              <i class="fa fa-phone"> Call</i>
-                                            </span>
+                                          <span
+                                            className="sr-btn"
+                                            onClick={(e) =>
+                                              this.submitHandler(
+                                                e,
+                                                astrologer?._id,
+                                                astrologer?.mobile,
+                                                astrologer,
+                                                index
+                                              )
+                                            }
+                                          >
+                                            {this.state.callingmode === true &&
+                                            this.state.indexnow === index ? (
+                                              <>
+                                                <span>
+                                                  <div className="btn btn-primary btn-sm sc">
+                                                    <i class="fa fa-phone">
+                                                      -Calling...
+                                                    </i>
+                                                  </div>
+                                                </span>
+                                              </>
+                                            ) : (
+                                              <>
+                                                <span>
+                                                  <div className="btn btn-success btn-sm sc">
+                                                    <i class="fa fa-phone">
+                                                      -Call
+                                                    </i>
+                                                  </div>
+                                                </span>
+                                              </>
+                                            )}
+                                          </span>
 
-                                            {/* ) : (
+                                          {/* ) : (
                                         <span
                                           className="sr-btn"
                                           onClick={(e) =>
@@ -333,14 +614,14 @@ class AllAstrologerList extends React.Component {
                                           <i class="fa fa-phone"></i> Call
                                         </span>
                                       )} */}
-                                            {/* <small>
+                                          {/* <small>
                                             / 20{' '}
                                             <i class="fa fa-inr" aria-hidden="true">
                                               {astrologer?.conrubute_hrs}
                                             </i>{' '}
                                             per Hour
                                           </small> */}
-                                          </Link>
+                                          {/* </Link> */}
                                         </>
                                       ) : (
                                         <>
@@ -357,13 +638,12 @@ class AllAstrologerList extends React.Component {
                                       </span>
                                     </div>
                                   </div>
-                                </Link>
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        </Col>
-                      );
-                    })
+                          </Col>
+                        );
+                      })
                     : null}
                 </Row>
               </Col>
@@ -377,21 +657,186 @@ class AllAstrologerList extends React.Component {
           <div>
             {/* modal  */}
             <Modal
+              style={{ maxWidth: "700px" }}
+              size="lg"
               isOpen={this.state.modal}
               toggle={this.toggle}
-              className={this.props.className}
+              // className={(this.props.className)}
             >
-              <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
+              <ModalHeader toggle={this.toggle}>
+                Login with Credentials
+              </ModalHeader>
               <ModalBody>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                sunt in culpa qui officia deserunt mollit anim id est laborum.
+                <div className="login-register-area pt-50 pb-50">
+                  <div className="container">
+                    <div className="row d-flex align-items-center justify-content-center">
+                      <div className="col-lg-7 col-md-12 ml-auto mr-auto">
+                        <div className="login-register-wrapper">
+                          <Tab.Container defaultActiveKey="login">
+                            <Nav
+                              variant="pills"
+                              className="login-register-tab-list"
+                            >
+                              <Nav.Item>
+                                <Nav.Link eventKey="login">
+                                  <h4>Login</h4>
+                                </Nav.Link>
+                              </Nav.Item>
+                              <Nav.Item>
+                                <Nav.Link eventKey="register">
+                                  <h4>Register</h4>
+                                </Nav.Link>
+                              </Nav.Item>
+                            </Nav>
+                            <Tab.Content>
+                              <Tab.Pane eventKey="login">
+                                <div className="login-form-container">
+                                  {this.state.otpMsg ===
+                                  "otp Send Successfully" ? (
+                                    <div className="login-register-form">
+                                      <Form onSubmit={this.otpHandler}>
+                                        <Input
+                                          type="number"
+                                          name="otp"
+                                          required
+                                          placeholder="Enter otp"
+                                          value={this.state.otp}
+                                          onChange={this.changeHandler}
+                                        />
+                                        <div className="button-box">
+                                          <div className="login-toggle-btn"></div>
+                                          <button type="submit">
+                                            <span>Otp Verify</span>
+                                          </button>
+                                        </div>
+                                      </Form>
+                                    </div>
+                                  ) : (
+                                    <div className="login-register-form">
+                                      <Form onSubmit={this.loginHandler}>
+                                        <Input
+                                          type="number"
+                                          name="mobile"
+                                          maxLength="12"
+                                          required
+                                          placeholder="Enter Your Mobile No."
+                                          value={this.state.mobile}
+                                          onChange={this.changeHandler}
+                                        />
+                                        <div className="button-box">
+                                          <div className="login-toggle-btn"></div>
+                                          <button type="submit">
+                                            <span>Login</span>
+                                          </button>
+                                        </div>
+                                      </Form>
+                                    </div>
+                                  )}
+                                </div>
+                              </Tab.Pane>
+                              {/* Register the user now */}
+                              <Tab.Pane eventKey="register">
+                                <div className="login-form-container">
+                                  <div className="login-register-form">
+                                    <Form
+                                      className="text-center"
+                                      onSubmit={this.submitHandler}
+                                      method="post"
+                                    >
+                                      <Input
+                                        type="text"
+                                        name="fullname"
+                                        required
+                                        placeholder="Enter Your Fullname"
+                                        value={this.state.fullname}
+                                        onChange={this.changeHandler}
+                                      />
+                                      <Input
+                                        type="email"
+                                        name="email"
+                                        required
+                                        placeholder="Enter Your Email"
+                                        value={this.state.email}
+                                        onChange={this.changeHandler}
+                                      />
+                                      <Input
+                                        type="number"
+                                        name="mobile"
+                                        maxLength="12"
+                                        required
+                                        placeholder="Enter Your Mobile No."
+                                        value={this.state.mobile}
+                                        onChange={this.changeHandler}
+                                      />
+                                      <Input
+                                        type="date"
+                                        name="dob"
+                                        required
+                                        placeholder="Date of birth"
+                                        value={this.state.dob}
+                                        onChange={this.changeHandler}
+                                      />
+                                      <Input
+                                        type="text"
+                                        name="city"
+                                        required
+                                        placeholder="Enter city"
+                                        value={this.state.city}
+                                        onChange={this.changeHandler}
+                                      />
+                                      <Input
+                                        type="select"
+                                        name="gender"
+                                        placeholder=""
+                                        value={this.state.gender}
+                                        onChange={this.changeHandler}
+                                      >
+                                        <option>Select Gender</option>
+                                        <option>Male</option>
+                                        <option>Female</option>
+                                      </Input>
+                                      <Label>User Image</Label>
+                                      <Input
+                                        type="file"
+                                        name="userimg"
+                                        onChange={this.onChangeHandler}
+                                      />
+                                      <div className="button-box">
+                                        <Button type="submit">
+                                          <span>Register</span>
+                                        </Button>
+                                      </div>
+                                    </Form>
+                                  </div>
+                                </div>
+                              </Tab.Pane>
+                            </Tab.Content>
+                          </Tab.Container>
+                        </div>
+                        <>
+                          <div className="login-form-container">
+                            <div className="login-register-form">
+                              <div className="button-box">
+                                <div className="login-toggle-btn"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </ModalBody>
-
+            </Modal>
+            <Modal
+              style={{ maxWidth: "700px" }}
+              size="lg"
+              isOpen={this.state.modalone}
+              toggle={this.toggleone}
+              // className={(this.props.className)}
+            >
+              <ModalHeader toggle={this.toggleone}>Logindfsd</ModalHeader>
+              <ModalBody>dsffsssfsd</ModalBody>
             </Modal>
           </div>
         </section>

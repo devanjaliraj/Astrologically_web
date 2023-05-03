@@ -332,6 +332,7 @@ a.btn.btn-primary.btn-sm.st-d {
   position: relative;
   margin: 5px;
   padding: 10px;
+  border: 1px solid #000 !important;
   width: 300px;
   border: 2px solid #ddd;
   -webkit-border-radius: 8px;
@@ -492,4 +493,15 @@ li.btt {
 }
 .image-flip {
   margin: 0 10px;
+}
+.bx-list.fbg {
+ 
+  height: 500px !important;
+  
+}
+.login-register-wrapper .login-form-containers {
+  background: transparent none repeat scroll 0 0;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  text-align: left;
 }

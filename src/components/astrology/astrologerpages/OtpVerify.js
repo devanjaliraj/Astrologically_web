@@ -1,15 +1,21 @@
-import React from "react"
+import React from "react";
 import { Link } from "react-router-dom";
-import { Container, Row, Col, Input, InputGroup, Form, Button } from "reactstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Input,
+  InputGroup,
+  Form,
+  Button,
+} from "reactstrap";
 import LayoutOne from "../../../layouts/LayoutOne";
 import "../../../assets/scss/astroteam.scss";
 import axios from "axios";
 import swal from "sweetalert";
 
-
 class OtpVerify extends React.Component {
-
-  state = { otp: '' };
+  state = { otp: "" };
   constructor() {
     super();
     this.state = {
@@ -21,11 +27,9 @@ class OtpVerify extends React.Component {
 
       //   "status": true,
 
-
       input: {},
       errors: {},
-
-    }
+    };
     //     this.handleChange = otp => this.setState({ otp });
     //     this.handleChange = this.handleChange.bind(this);
     // this.handleSubmit = this.handleSubmit.bind(this);
@@ -34,10 +38,10 @@ class OtpVerify extends React.Component {
   }
 
   resenddd = () => {
-    this.setState({ otp: '' })
-    this.interval()
-    this.sendOtp()
-  }
+    this.setState({ otp: "" });
+    this.interval();
+    this.sendOtp();
+  };
   interval() {
     this.setState({ seconds: 26 });
 
@@ -54,7 +58,6 @@ class OtpVerify extends React.Component {
     this.setState({ [evt.target.name]: evt.target.value });
   }
 
-
   handleSubmit(event) {
     event.preventDefault();
     // this.otpIntegration()
@@ -64,33 +67,27 @@ class OtpVerify extends React.Component {
     //     status: this.state.status,
     //   };
 
-    axios.post("http://13.234.48.35:8000/user/verifyotp", this.state)
+    axios
+      .post("http://65.2.148.70:8000/user/verifyotp", this.state)
 
-      .then(res => {
+      .then((res) => {
         console.log(res);
-        alert("anjali")
+        alert("anjali");
         swal("Success!", " OTP Verify Successful Done!", "success");
         this.props.history.push("/completeproastro");
       })
       .catch((error) => {
-        console.log(error.response)
+        console.log(error.response);
       });
   }
 
-
-
   render() {
-
-
     return (
-
       <LayoutOne headerTop="visible">
         <section>
           <Container>
             <Row>
-              <Col lg="2">
-
-              </Col>
+              <Col lg="2"></Col>
               <Col lg="8">
                 <div className="wal-amt">
                   <h1>Verify OTP</h1>
@@ -111,13 +108,10 @@ class OtpVerify extends React.Component {
                         <Button className="btn btn-success">Submit</Button>
                       </Col>
                     </Row>
-
                   </form>
                 </div>
               </Col>
-              <Col lg="2">
-
-              </Col>
+              <Col lg="2"></Col>
             </Row>
           </Container>
         </section>
@@ -125,6 +119,5 @@ class OtpVerify extends React.Component {
     );
   }
 }
-
 
 export default OtpVerify;

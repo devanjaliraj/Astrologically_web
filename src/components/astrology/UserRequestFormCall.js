@@ -3,7 +3,7 @@ import { Container, Row, Col, Button, Input } from "reactstrap";
 import LayoutOne from "../../layouts/LayoutOne";
 import axiosConfig from "../../axiosConfig";
 import swal from "sweetalert";
-import astrologinbg from "../../assets/img/astrologin-bg.jpg"
+import astrologinbg from "../../assets/img/astrologin-bg.jpg";
 
 class UserRequestForm extends React.Component {
   constructor(props) {
@@ -67,7 +67,6 @@ class UserRequestForm extends React.Component {
       occupation: this.state.occupation,
       topic_of_cnsrn: this.state.topic_of_cnsrn,
       entertopic_of_cnsrn: this.state.entertopic_of_cnsrn,
-
     };
     axiosConfig
       .post(`/user/add_chat_intake`, obj)
@@ -112,7 +111,7 @@ class UserRequestForm extends React.Component {
               <Row>
                 <Col md="12">
                   <div className="leftcont text-left">
-                    <h1>Chat InTake Form</h1>
+                    <h1>Call InTake Form</h1>
                   </div>
                 </Col>
               </Row>
@@ -124,7 +123,7 @@ class UserRequestForm extends React.Component {
             <Row>
               <Col lg="12">
                 <div className="wal-amt">
-                  <h3>Chat InTake Form </h3>
+                  <h3>Call InTake Form </h3>
                   <hr></hr>
                   <form onSubmit={this.submitHandler}>
                     <Row>
@@ -378,7 +377,7 @@ class UserRequestForm extends React.Component {
                       </Col>
                       <Col md="12" className="mt-3">
                         <Button className="btn btn-warning">
-                          Start chat with Mukesh07
+                          Start call with Mukesh07
                         </Button>
                       </Col>
                     </Row>

@@ -44,13 +44,44 @@
 
 // iframe css
 iframe {
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  width: unset !important;
-  height: unset !important;
+  // position: fixed;
+  // top: 0px;
+  // left: 0px;
+  // width: unset !important;
+  // height: unset !important;
+  // border: none;
+  // z-index: 2147483647;
+}
+
+// video i frame 
+// .swiper-slide.v-bx {
+//   width: unset;
+// }
+.swiper-slide.v-bx {
+  width: 300px !important;
+  margin: 0 4px;
+}
+.vdl-l {
+  
+  background: #ffd59e;
+  padding: 10px 18px;
+  border-radius: 15px;
+}
+button.swiper-button-next.ht-swiper-button-nav.gt-2 {
   border: none;
-  z-index: 2147483647;
+  font-size: 40px;
+  background: #ffd59e;
+  color: #fff;
+  font-weight: 700;
+  border-radius: 6px;
+}
+button.swiper-button-prev.ht-swiper-button-nav.gt-1 {
+  border: none;
+  font-size: 40px;
+  background: #ffd59e;
+  color: #fff;
+  font-weight: 700;
+  border-radius: 6px;
 }
 
 // liveastropage css
@@ -1610,3 +1641,5 @@ ul.week {
   border: 1px solid#c1c1c1c4;
   border-radius: 10px;
 }
+
+

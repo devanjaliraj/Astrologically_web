@@ -16,7 +16,13 @@ import { BreadcrumbsProvider } from "react-breadcrumbs-dynamic";
 import TermsOfUse from "./wrappers/myPage/TermsOfUse";
 import { Component } from "react";
 import { history } from "./history";
-
+// const OrderHistory = lazy(() => import("./components/astrology/OrderHistory"));
+const TodayPanchang = lazy(() =>
+  import("./components/astrology/TodayPanchang")
+);
+const BasicPanchang = lazy(() =>
+  import("./components/astrology/BasicPanchang")
+);
 const HomeFurnitureTwo = lazy(() => import("./pages/home/HomeFurnitureTwo"));
 
 // shop pages
@@ -94,6 +100,12 @@ const Room = lazy(() => import("./components/astrology/zegocloud/Room"));
 const LiveVideo = lazy(() =>
   import("./components/astrology/zegocloud/LiveVideo")
 );
+const LiveVideonew = lazy(() =>
+  import("./components/astrology/zegocloud/LiveVideonew")
+);
+const LiveStreamNew = lazy(() =>
+  import("./components/astrology/zegocloud/LiveStreaming")
+);
 const VideoCall = lazy(() =>
   import("./components/astrology/zegocloud/VideoCall")
 );
@@ -109,7 +121,9 @@ const CustomerSupport = lazy(() =>
   import("./components/astrology/CustomerSupport")
 );
 const AskQuestion = lazy(() => import("./components/astrology/AskQuestion"));
-const AstroProfileVideo = lazy(() => import("./components/astrology/AstroProfileVideo"))
+const AstroProfileVideo = lazy(() =>
+  import("./components/astrology/AstroProfileVideo")
+);
 
 const AskQuestionList = lazy(() =>
   import("./components/astrology/AskQuestionList")
@@ -255,7 +269,7 @@ const NotificationList = lazy(() =>
 const WalletAddForm = lazy(() =>
   import("./components/astrology/WalletAddForm")
 );
-const AddEvent = lazy(() => import("./components/astrology/AddEvent"))
+const AddEvent = lazy(() => import("./components/astrology/AddEvent"));
 const AddressForm = lazy(() => import("./components/astrology/AddressForm"));
 const AddressFormEdit = lazy(() =>
   import("./components/astrology/AddressFormEdit")
@@ -304,7 +318,6 @@ const App = (props) => {
                     path={process.env.PUBLIC_URL + "/"}
                     component={HomeFurnitureTwo}
                   />
-
 
                   <Route
                     exact
@@ -812,6 +825,14 @@ const App = (props) => {
                     component={LiveVideo}
                   />
                   <Route
+                    path={process.env.PUBLIC_URL + "/livestreaming"}
+                    component={LiveVideonew}
+                  />
+                  <Route
+                    path={process.env.PUBLIC_URL + "/livestreamingnew"}
+                    component={LiveStreamNew}
+                  />
+                  <Route
                     path={process.env.PUBLIC_URL + "/videocall"}
                     component={VideoCall}
                   />
@@ -863,6 +884,18 @@ const App = (props) => {
                   <Route
                     path={process.env.PUBLIC_URL + "/compare"}
                     component={Compare}
+                  />
+                  {/* <Route
+                    path={process.env.PUBLIC_URL + "/orderHistory"}
+                    component={OrderHistory}
+                  /> */}
+                  <Route
+                    path={process.env.PUBLIC_URL + "/todayPanchang"}
+                    component={TodayPanchang}
+                  />
+                  <Route
+                    path={process.env.PUBLIC_URL + "/basicPanchang"}
+                    component={BasicPanchang}
                   />
                   {/* <Route
                   path={process.env.PUBLIC_URL + "/checkout"}

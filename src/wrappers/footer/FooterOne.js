@@ -20,7 +20,7 @@ const FooterOne = ({
   const [top, setTop] = useState(0);
   const [categoryList, setCategoryList] = useState([]);
   const getCategory = () => {
-    Axios.get(`http://13.234.48.35:8000/admin/getallCategory`)
+    Axios.get(`http://65.2.148.70:8000/admin/getallCategory`)
       .then((response) => {
         console.log("5555555", response.data.data);
         setCategoryList(response.data.data);
@@ -50,16 +50,20 @@ const FooterOne = ({
 
   return (
     <footer
-      className={`footer-area ${backgroundColorClass ? backgroundColorClass : ""
-        } ${spaceTopClass ? spaceTopClass : ""} ${spaceBottomClass ? spaceBottomClass : ""
-        } ${extraFooterClass ? extraFooterClass : ""} ${spaceLeftClass ? spaceLeftClass : ""
-        } ${spaceRightClass ? spaceRightClass : ""}`}
+      className={`footer-area ${
+        backgroundColorClass ? backgroundColorClass : ""
+      } ${spaceTopClass ? spaceTopClass : ""} ${
+        spaceBottomClass ? spaceBottomClass : ""
+      } ${extraFooterClass ? extraFooterClass : ""} ${
+        spaceLeftClass ? spaceLeftClass : ""
+      } ${spaceRightClass ? spaceRightClass : ""}`}
     >
       <div className={`${containerClass ? containerClass : "container"}`}>
         <div className="row">
           <div
-            className={`${sideMenu ? "col-xl-2 col-sm-4" : "col-lg-2 col-sm-4"
-              }`}
+            className={`${
+              sideMenu ? "col-xl-2 col-sm-4" : "col-lg-2 col-sm-4"
+            }`}
           >
             {/* footer copyright */}
             <h3 className="stltext">AstroVipra </h3>
@@ -87,14 +91,16 @@ const FooterOne = ({
           </div> */}
 
           <div
-            className={`${sideMenu ? "col-xl-2 col-sm-4" : "col-lg-2 col-sm-6"
-              }`}
+            className={`${
+              sideMenu ? "col-xl-2 col-sm-4" : "col-lg-2 col-sm-6"
+            }`}
           >
             <div
-              className={`${sideMenu
-                ? "footer-widget mb-30 ml-145"
-                : "footer-widget mb-30 ml-75"
-                }`}
+              className={`${
+                sideMenu
+                  ? "footer-widget mb-30 ml-145"
+                  : "footer-widget mb-30 ml-75"
+              }`}
             >
               <div className="footer-title">
                 <h3>Horoscope</h3>
@@ -104,17 +110,17 @@ const FooterOne = ({
                   <li>
                     {/* <Link>Horoscopes</Link> */}
                     <ul className="submenu">
-                      <li className="" >
+                      <li className="">
                         <Link to={process.env.PUBLIC_URL + "/heroscopesall"}>
                           Daily
                         </Link>
                       </li>
-                      <li className="" >
+                      <li className="">
                         <Link to={process.env.PUBLIC_URL + "/heroscopesall"}>
                           Weekly
                         </Link>
                       </li>
-                      <li className="" >
+                      <li className="">
                         <Link to={process.env.PUBLIC_URL + "/heroscopesall"}>
                           Monthly
                         </Link>
@@ -163,19 +169,20 @@ const FooterOne = ({
                   </li> */}
                 </ul>
               </div>
-
             </div>
           </div>
 
           <div
-            className={`${sideMenu ? "col-xl-2 col-sm-4" : "col-lg-2 col-sm-6"
-              }`}
+            className={`${
+              sideMenu ? "col-xl-2 col-sm-4" : "col-lg-2 col-sm-6"
+            }`}
           >
             <div
-              className={`${sideMenu
-                ? "footer-widget mb-30 ml-145"
-                : "footer-widget mb-30 ml-75"
-                }`}
+              className={`${
+                sideMenu
+                  ? "footer-widget mb-30 ml-145"
+                  : "footer-widget mb-30 ml-75"
+              }`}
             >
               <div className="footer-title">
                 <h3>Dosh</h3>
@@ -185,17 +192,17 @@ const FooterOne = ({
                   <li>
                     {/* <h3>Dosh</h3> */}
                     <ul className="submenu">
-                      <li className="" >
+                      <li className="">
                         <Link to={process.env.PUBLIC_URL + "/ManglikDosh"}>
                           Manglik Dosh
                         </Link>
                       </li>
-                      <li className="" >
+                      <li className="">
                         <Link to={process.env.PUBLIC_URL + "/pitraDosh"}>
                           Pitra Dosh
                         </Link>
                       </li>
-                      <li className="" >
+                      <li className="">
                         <Link to={process.env.PUBLIC_URL + "/kalsharpDosh"}>
                           Kalsharvp Dosh
                         </Link>
@@ -244,19 +251,20 @@ const FooterOne = ({
                   </li> */}
                 </ul>
               </div>
-
             </div>
           </div>
 
           <div
-            className={`${sideMenu ? "col-xl-2 col-sm-4" : "col-lg-2 col-sm-6"
-              }`}
+            className={`${
+              sideMenu ? "col-xl-2 col-sm-4" : "col-lg-2 col-sm-6"
+            }`}
           >
             <div
-              className={`${sideMenu
-                ? "footer-widget mb-30 ml-145"
-                : "footer-widget mb-30 ml-75"
-                }`}
+              className={`${
+                sideMenu
+                  ? "footer-widget mb-30 ml-145"
+                  : "footer-widget mb-30 ml-75"
+              }`}
             >
               <div className="footer-title">
                 <h3>Astrologer</h3>
@@ -266,12 +274,12 @@ const FooterOne = ({
                   <li>
                     {/* <h3>Dosh</h3> */}
                     <ul className="submenu">
-                      <li className="" >
+                      <li className="">
                         <Link to={process.env.PUBLIC_URL + "/pages/login"}>
                           Astrologer Login
                         </Link>
                       </li>
-                      <li className="" >
+                      <li className="">
                         <Link to={process.env.PUBLIC_URL + "/astrologersignup"}>
                           Astrologer Register
                         </Link>
@@ -321,19 +329,20 @@ const FooterOne = ({
                   </li> */}
                 </ul>
               </div>
-
             </div>
           </div>
 
           <div
-            className={`${sideMenu ? "col-xl-2 col-sm-4" : "col-lg-2 col-sm-4"
-              }`}
+            className={`${
+              sideMenu ? "col-xl-2 col-sm-4" : "col-lg-2 col-sm-4"
+            }`}
           >
             <div
-              className={`${sideMenu
-                ? "footer-widget mb-30 ml-95"
-                : "footer-widget mb-30 ml-50"
-                }`}
+              className={`${
+                sideMenu
+                  ? "footer-widget mb-30 ml-95"
+                  : "footer-widget mb-30 ml-50"
+              }`}
             >
               <div className="footer-title">
                 {/* <h3>USEFUL LINKS</h3> */}
@@ -354,7 +363,9 @@ const FooterOne = ({
                     </li>
 
                     <li>
-                      <Link to={process.env.PUBLIC_URL + "/blog-standard"}>Blog</Link>
+                      <Link to={process.env.PUBLIC_URL + "/blog-standard"}>
+                        Blog
+                      </Link>
                     </li>
                     <li>
                       <Link to={process.env.PUBLIC_URL + "/aboutdetail"}>
@@ -388,8 +399,9 @@ const FooterOne = ({
           </div>
 
           <div
-            className={`${sideMenu ? "col-xl-2 col-sm-8" : "col-lg-2 col-sm-6"
-              }`}
+            className={`${
+              sideMenu ? "col-xl-2 col-sm-8" : "col-lg-2 col-sm-6"
+            }`}
           >
             {/* footer newsletter */}
             <FooterNewsletter

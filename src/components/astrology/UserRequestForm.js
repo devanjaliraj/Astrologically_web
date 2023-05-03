@@ -5,7 +5,7 @@ import axiosConfig from "../../axiosConfig";
 import swal from "sweetalert";
 import Select from "react-select";
 import { Country, State, City } from "country-state-city";
-import astrologinbg from "../../assets/img/astrologin-bg.jpg"
+import astrologinbg from "../../assets/img/astrologin-bg.jpg";
 
 class UserRequestForm extends React.Component {
   constructor(props) {
@@ -38,7 +38,7 @@ class UserRequestForm extends React.Component {
       // SelectedState: "State",
       selectedCountry: null,
       selectedState: null,
-      selectedCity: null
+      selectedCity: null,
     };
   }
   componentDidMount() {
@@ -78,7 +78,6 @@ class UserRequestForm extends React.Component {
       occupation: this.state.occupation,
       topic_of_cnsrn: this.state.topic_of_cnsrn,
       entertopic_of_cnsrn: this.state.entertopic_of_cnsrn,
-
     };
     axiosConfig
       .post(`/user/add_chat_intake`, obj)
@@ -282,7 +281,7 @@ class UserRequestForm extends React.Component {
                           value={this.state.selectedCountry}
                           onChange={(item) => {
                             //setSelectedCountry(item);
-                            this.setState({ selectedCountry: item })
+                            this.setState({ selectedCountry: item });
                           }}
                         />
                       </Col>
@@ -290,7 +289,9 @@ class UserRequestForm extends React.Component {
                       <Col md="4">
                         <label>State</label>
                         <Select
-                          options={State?.getStatesOfCountry(this.state.selectedCountry?.isoCode)}
+                          options={State?.getStatesOfCountry(
+                            this.state.selectedCountry?.isoCode
+                          )}
                           getOptionLabel={(options) => {
                             return options["name"];
                           }}
@@ -300,7 +301,7 @@ class UserRequestForm extends React.Component {
                           value={this.state.selectedState}
                           onChange={(item) => {
                             //setSelectedState(item);
-                            this.setState({ selectedState: item })
+                            this.setState({ selectedState: item });
                           }}
                         />
                       </Col>
@@ -321,7 +322,7 @@ class UserRequestForm extends React.Component {
                           value={this.state.selectedCity}
                           onChange={(item) => {
                             //setSelectedCity(item);
-                            this.setState({ selectedCity: item })
+                            this.setState({ selectedCity: item });
                           }}
                         />
                       </Col>
