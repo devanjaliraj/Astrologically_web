@@ -5,6 +5,7 @@ import { animateScroll } from "react-scroll";
 import FooterCopyright from "../../components/footer/FooterCopyright";
 import FooterNewsletter from "../../components/footer/FooterNewsletter";
 import Axios from "axios";
+import OthePage from "../../components/astrology/OthePage";
 
 const FooterOne = ({
   backgroundColorClass,
@@ -251,6 +252,79 @@ const FooterOne = ({
                   </li> */}
                 </ul>
               </div>
+              <div className="footer-title mt-3">
+                <h3>Others</h3>
+              </div>
+              <div className="footer-list">
+                <ul>
+                  <li>
+                    {/* <h3>Dosh</h3> */}
+                    <ul className="submenu">
+                      <li className="">
+                        <Link to={process.env.PUBLIC_URL + "/otherpage"}>
+                          {/* <OthePage /> */}
+                          otherpage 1
+                        </Link>
+                      </li>
+                      <li className="">
+                        <Link to={process.env.PUBLIC_URL + "/otherpage"}>
+                          otherpage 2
+                        </Link>
+                      </li>
+                      <li className="">
+                        <Link to={process.env.PUBLIC_URL + "/otherpage"}>
+                          otherpage 3
+                        </Link>
+                      </li>
+                      <li className="">
+                        <Link to={process.env.PUBLIC_URL + "/otherpage"}>
+                          otherpage 4
+                        </Link>
+                      </li>
+                      {/* {categoryList?.map((cat) => (
+                        <li className="" key={cat._id}>
+                          <Link to={process.env.PUBLIC_URL + "/heroscopesall"}>
+                            {cat?.title}
+                          </Link>
+                        </li>
+                      ))} */}
+                    </ul>
+                  </li>
+                  {/* <li>
+                      <Link to="/heroscopesall">Health Horoscope 2022</Link>
+                  </li>
+                  <li>
+                      <Link to="/">Career Horoscope 2022</Link>
+                  </li>
+                  <li>
+                      <Link to="/">Finance Horoscope 2022</Link>
+                  </li>
+                  <li>
+                      <Link to="/">Education Horoscope 2022</Link>
+                  </li>
+                  <li>
+                      <Link to="/">Chinese Horoscope 2022</Link>
+                  </li>
+                  <li>
+                      <Link to="/">Lal Kitab Horoscope 2022</Link>
+                  </li>
+                  <li>
+                      <Link to="/">Numerology Horoscope 2022</Link>
+                  </li>
+                  <li>
+                      <Link to="/">Tarot Reading Predictions 2022</Link>
+                  </li>
+                  <li>
+                      <Link to="/">Festival 2022</Link>
+                  </li>
+                  <li>
+                      <Link to="/">Planetary Transit 2022</Link>
+                  </li>
+                  <li>
+                      <Link to="/">Planetary Transit 2022</Link>
+                  </li> */}
+                </ul>
+              </div>
             </div>
           </div>
 
@@ -284,6 +358,69 @@ const FooterOne = ({
                           Astrologer Register
                         </Link>
                       </li>
+
+                      {/* {categoryList?.map((cat) => (
+                        <li className="" key={cat._id}>
+                          <Link to={process.env.PUBLIC_URL + "/heroscopesall"}>
+                            {cat?.title}
+                          </Link>
+                        </li>
+                      ))} */}
+                    </ul>
+                  </li>
+                  {/* <li>
+                      <Link to="/heroscopesall">Health Horoscope 2022</Link>
+                  </li>
+                  <li>
+                      <Link to="/">Career Horoscope 2022</Link>
+                  </li>
+                  <li>
+                      <Link to="/">Finance Horoscope 2022</Link>
+                  </li>
+                  <li>
+                      <Link to="/">Education Horoscope 2022</Link>
+                  </li>
+                  <li>
+                      <Link to="/">Chinese Horoscope 2022</Link>
+                  </li>
+                  <li>
+                      <Link to="/">Lal Kitab Horoscope 2022</Link>
+                  </li>
+                  <li>
+                      <Link to="/">Numerology Horoscope 2022</Link>
+                  </li>
+                  <li>
+                      <Link to="/">Tarot Reading Predictions 2022</Link>
+                  </li>
+                  <li>
+                      <Link to="/">Festival 2022</Link>
+                  </li>
+                  <li>
+                      <Link to="/">Planetary Transit 2022</Link>
+                  </li>
+                  <li>
+                      <Link to="/">Planetary Transit 2022</Link>
+                  </li> */}
+                </ul>
+              </div>
+              <div className="footer-title mt-3">
+                <h3>Book Pooja </h3>
+              </div>
+              <div className="footer-list">
+                <ul>
+                  <li>
+                    {/* <h3>Dosh</h3> */}
+                    <ul className="submenu">
+                      <li className="">
+                        <Link to={process.env.PUBLIC_URL + "/bookEvent"}>
+                          Book Online Puja
+                        </Link>
+                      </li>
+                      {/* <li className="">
+                        <Link to={process.env.PUBLIC_URL + "/astrologersignup"}>
+                          Astrologer Register
+                        </Link>
+                      </li> */}
 
                       {/* {categoryList?.map((cat) => (
                         <li className="" key={cat._id}>

@@ -1,33 +1,33 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { Container, Row, Col } from 'reactstrap'
-import LayoutOne from '../../layouts/LayoutOne'
-import axiosConfig from '../../axiosConfig'
-import astrologinbg from "../../assets/img/astrologin-bg.jpg"
+import React from "react";
+import { Link } from "react-router-dom";
+import { Container, Row, Col } from "reactstrap";
+import LayoutOne from "../../layouts/LayoutOne";
+import axiosConfig from "../../axiosConfig";
+import astrologinbg from "../../assets/img/astrologin-bg.jpg";
 class ConsultantList extends React.Component {
   constructor() {
-    super()
+    super();
     this.state = {
       consultantList: [],
-    }
+    };
   }
 
   componentDidMount() {
-    let { id } = this.props.match.params
-    console.log(id)
+    let { id } = this.props.match.params;
+    console.log(id);
     axiosConfig
       .get(`/user/product_consltnt_list/${id}`)
       .then((response) => {
-        console.log(response.data.data)
-        this.setState({ consultantList: response.data.data })
-        localStorage.setItem('astro_id', response?.data?.data[0]?._id)
+        console.log(response.data.data);
+        this.setState({ consultantList: response.data.data });
+        localStorage.setItem("astro_id", response?.data?.data[0]?._id);
       })
       .catch((error) => {
-        console.log(error.response)
-      })
+        console.log(error.response);
+      });
   }
   render() {
-    console.log('first', this.state.consultantList)
+    console.log("first", this.state.consultantList);
     return (
       <LayoutOne headerTop="visible">
         <section className="pt-0 pb-0">
@@ -69,7 +69,14 @@ class ConsultantList extends React.Component {
           <Container>
             <Row>
               {this.state.consultantList.map((list) => (
-                <Col lg="3" md="3" sm="6" xs="12" key={list._id}>
+                <Col
+                  style={{ cursor: "pointer" }}
+                  lg="3"
+                  md="3"
+                  sm="6"
+                  xs="12"
+                  key={list._id}
+                >
                   <Col className="frontside">
                     <div className="card">
                       <div className="card-body text-center py-2">
@@ -90,24 +97,25 @@ class ConsultantList extends React.Component {
                             </p>
                           </li>
                           <li>
-                            {' '}
+                            {" "}
                             <span>{list?.astroid?.primary_skills}</span>
                           </li>
                           <li>
                             Language: <span>{list?.astroid?.language}</span>
                           </li>
                           <li>
-                            {' '}
+                            {" "}
                             ₹ <span>{list?.price}</span>
                           </li>
                           <li>
-                            Experience: <span>{list?.astroid?.exp_in_years}</span>
+                            Experience:{" "}
+                            <span>{list?.astroid?.exp_in_years}</span>
                           </li>
                         </ul>
                         <div className="my-2">
                           <Link
                             // to={'/addressform/' + list?.astroid?._id}
-                            to={'/addressform/' + list?._id}
+                            to={"/addressform/" + list?._id}
                             className="btn btn-primary btn-sm"
                           >
                             Select
@@ -122,8 +130,8 @@ class ConsultantList extends React.Component {
           </Container>
         </section>
       </LayoutOne>
-    )
+    );
   }
 }
 
-export default ConsultantList
+export default ConsultantList;

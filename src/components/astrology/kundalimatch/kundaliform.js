@@ -95,7 +95,7 @@ class KundaliForm extends React.Component {
       })
 
       .catch((error) => {
-        swal("Error!", "You clicked the button!", "error");
+        // swal("Error!", "You clicked the button!", "error");
         console.log(error);
       });
   }
@@ -135,7 +135,7 @@ class KundaliForm extends React.Component {
       })
 
       .catch((error) => {
-        // swal("Error!", "You clicked the button!", "error");
+        swal("Error!", "You clicked the button!", "error");
         console.log(error);
       });
   };
