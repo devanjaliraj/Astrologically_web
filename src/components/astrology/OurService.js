@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Container, Row, Col } from "reactstrap";
-import textbottom from '../../assets/img/textbottom.png'
+import textbottom from "../../assets/img/textbottom.png";
 
 class OurService extends React.Component {
   render() {
@@ -70,10 +70,19 @@ class OurService extends React.Component {
                         <p>Lorem ipsum dolor sit amet, consectetur</p>
                       </Link>
                     </div>
-                  </Col> <Col md="2">
+                  </Col>{" "}
+                  <Col md="2">
                     <div className="serve-1">
                       <Link to="/kalsharpDosh">
                         <h3>Kalsharp Dosh</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur</p>
+                      </Link>
+                    </div>
+                  </Col>{" "}
+                  <Col md="2">
+                    <div className="serve-1">
+                      <Link to="/lalkitab">
+                        <h3>Lal kitab</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur</p>
                       </Link>
                     </div>
@@ -158,11 +167,6 @@ class OurService extends React.Component {
 }
 export default OurService;
 
-
-
-
-
-
 // import PropTypes from 'prop-types'
 // import React, { useState, useEffect } from 'react'
 // import { Link } from 'react-router-dom'
@@ -206,7 +210,6 @@ export default OurService;
 //         <Link to="/">Read More</Link>
 //       </div>
 
-
 //     </div>
 //   )
 // }
@@ -217,4 +220,3 @@ export default OurService;
 // }
 
 // export default OurService
-

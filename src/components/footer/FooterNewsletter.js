@@ -1,8 +1,7 @@
 import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
-
-import SubscribeEmail from "./sub-components/SubscribeEmail";
 import axiosConfig from "../../axiosConfig";
+
 const FooterNewsletter = ({
   spaceBottomClass,
   spaceLeftClass,
@@ -17,7 +16,6 @@ const FooterNewsletter = ({
       console.log(response.data.data);
       let rowData = response.data.data;
       setdata(rowData);
-      // this.setState({ rowData });
     });
   };
   useEffect(() => {
@@ -37,51 +35,96 @@ const FooterNewsletter = ({
         <p>Get E-mail updates about our latest shop and special offers.</p>
         <div className="social-box">
           <ul>
-            {/* {data?.map((ele)=>{
-              if(ele.select_sslmedia==="Facebook" )
-            })} */}
-            <li>
-              <i class="fa fa-facebook foot-icon" aria-hidden="true"></i>
-              <a
-                href="//www.facebook.com"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Facebook
-              </a>
-            </li>
-            <li>
-              <i class="fa fa-twitter foot-icon" aria-hidden="true"></i>
+            {/* facebook */}
+            {data.map((ele) => {
+              if (ele?.select_sslmedia == "Facebook") {
+                return (
+                  <span>
+                    {" "}
+                    <li>
+                      <i
+                        class="fa fa-facebook foot-icon"
+                        aria-hidden="true"
+                      ></i>
+                      <a
+                        href={ele?.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <span>Facebook</span>
+                      </a>
+                    </li>
+                  </span>
+                );
+              }
+            })}
+            {/* Twittor */}
+            {data.map((ele) => {
+              if (ele?.select_sslmedia == "Twitter") {
+                return (
+                  <span>
+                    {" "}
+                    <li>
+                      <i class="fa fa-twitter foot-icon" aria-hidden="true"></i>
+                      <a
+                        href={ele?.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <span>Twitter</span>
+                      </a>
+                    </li>
+                  </span>
+                );
+              }
+            })}
+            {/* instagram */}
+            {data.map((ele) => {
+              if (ele?.select_sslmedia == "Instagram") {
+                return (
+                  <span>
+                    {" "}
+                    <li>
+                      <i
+                        class="fa fa-instagram foot-icon"
+                        aria-hidden="true"
+                      ></i>
+                      <a
+                        href={ele?.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <span>Instagram</span>
+                      </a>
+                    </li>
+                  </span>
+                );
+              }
+            })}
 
-              <a
-                href="//www.twitter.com"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Twitter
-              </a>
-            </li>
-            <li>
-              <i class="fa fa-instagram foot-icon" aria-hidden="true"></i>
-
-              <a
-                href="//www.instagram.com"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Instagram
-              </a>
-            </li>
-            <li>
-              <i class="fa fa-youtube-play foot-icon" aria-hidden="true"></i>
-              <a
-                href="//www.youtube.com"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Youtube
-              </a>
-            </li>
+            {/* youtube */}
+            {data.map((ele) => {
+              if (ele?.select_sslmedia == "Youtube") {
+                return (
+                  <span>
+                    {" "}
+                    <li>
+                      <i
+                        class="fa fa-youtube-play foot-icon"
+                        aria-hidden="true"
+                      ></i>
+                      <a
+                        href={ele?.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <span>Youtube</span>
+                      </a>
+                    </li>
+                  </span>
+                );
+              }
+            })}
           </ul>
         </div>
       </div>

@@ -68,7 +68,7 @@ class TodayPanchang extends React.Component {
     this.setState({ selectedCountry: item });
 
     axiosConfig
-      .post(`http://65.2.148.70:8000/user/time_zone`, {
+      .post(`/user/time_zone`, {
         country_code: item?.timezones[0].zoneName,
       })
       .then((response) => {
@@ -86,7 +86,7 @@ class TodayPanchang extends React.Component {
     });
 
     axiosConfig
-      .post(`http://65.2.148.70:8000/user/geo_detail`, {
+      .post(`/user/geo_detail`, {
         place: item?.name,
       })
       .then((response) => {

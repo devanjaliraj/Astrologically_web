@@ -1,16 +1,40 @@
-import React from "react";
-import styled from "styled-components";
-import PropTypes from "prop-types";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import LayoutOne from "../../layouts/LayoutOne";
 import { Container, Row, Col } from "reactstrap";
-import LiveAstro from "../../assets/img/team/live-astro.jpg";
-import MatchSearch from "./MatchSearch";
 import astrologinbg from "../../assets/img/astrologin-bg.jpg";
+import "../../../src/assets/scss/style.scss";
+import ReactHtmlParser from "react-html-parser";
+
+import axiosConfig from "../../axiosConfig";
+import HtmlParser from "react-html-parser";
+
+import { useParams } from "react-router-dom";
+
 const propTypes = {};
 const defaultProps = {};
 
 const OthePage = () => {
+  const [pages, setPages] = useState({});
+
+  const Param = useParams();
+
+  const getPages = () => {
+    axiosConfig
+      .get(`/admin/getonePages/${Param.id}`)
+      .then((res) => {
+        console.log(res.data.data);
+        setPages(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    console.log("object");
+  };
+  useEffect(() => {
+    getPages();
+  }, [Param]);
   return (
     <div>
       <LayoutOne headerTop="visible">
@@ -39,9 +63,9 @@ const OthePage = () => {
             <Container>
               <Row>
                 <Col md="12">
-                  <div className="leftcont text-left">
-                    <h1>other page</h1>
-                    <h3>heading</h3>
+                  <div className="leftcont text-left mt-3">
+                    <h1>{pages?.pageName}</h1>
+                    {/* <h3 className="mt-1">heading</h3> */}
                   </div>
                 </Col>
               </Row>
@@ -50,33 +74,11 @@ const OthePage = () => {
         </section>
         <section>
           <Container>
-            <Row className="mb-40 mt-2">
-              <Col lg="12">
-                <p>
-                  In a new way to interact with astrologers, Astrotalk brings
-                  you Astrotalk Live, where you can talk to astrologers via live
-                  sessions and ask them questions for free. Astrotalk Live is a
-                  new and innovative way to talk to an astrologer face-to-face
-                  and get your queries answered while enjoying the best of
-                  astrology. On Astrotalk live, anyone can get guidance from the
-                  best astrologers in India on questions spanning across topics
-                  such as marriage, career, love, health and much more.
-                </p>
+            <Row className="mb-40 othermain">
+              <Col className="othersubmain" lg="12">
+                <p>{HtmlParser(pages?.desc)}</p>
+
                 <br></br>
-                <p>
-                  Talking with astrologers through live sessions is one of the
-                  most popular features of Astrotalk, as no other app provides
-                  this unique way to consult an astrologer. Apart from just
-                  being unique, the feature is easy to use and highly
-                  interactive. Accessing an astrologer on Astrotalk Live is
-                  fairly simple, and so is getting your queries answered by
-                  them. To have the best experience of live sessions, it is
-                  recommended that you ask YES and NO questions to the
-                  astrologer. Also, if you like the session being delivered by
-                  an astrologer, you can even contribute to their earnings by
-                  the means of donations. The Astrotalk Live feature is also
-                  available on the Astrotalk app.
-                </p>
               </Col>
             </Row>
 

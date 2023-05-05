@@ -17,12 +17,7 @@ import TermsOfUse from "./wrappers/myPage/TermsOfUse";
 import { Component } from "react";
 import { history } from "./history";
 // const OrderHistory = lazy(() => import("./components/astrology/OrderHistory"));
-const TodayPanchang = lazy(() =>
-  import("./components/astrology/TodayPanchang")
-);
-const BasicPanchang = lazy(() =>
-  import("./components/astrology/BasicPanchang")
-);
+
 const HomeFurnitureTwo = lazy(() => import("./pages/home/HomeFurnitureTwo"));
 
 // shop pages
@@ -158,8 +153,12 @@ const FreeKundli = lazy(() =>
 const PitraDosh = lazy(() => import("./components/astrology/PitraDosh"));
 const KalsharpDosh = lazy(() => import("./components/astrology/KalsharpDosh"));
 const ManglikDosh = lazy(() => import("./components/astrology/ManglikDosh"));
+const lalkitab = lazy(() => import("./components/astrology/LalKitab"));
 const otherpage = lazy(() => import("./components/astrology/OthePage"));
 const BookEvent = lazy(() => import("./components/astrology/BookEvent"));
+const BookPooojaForm = lazy(() =>
+  import("./components/astrology/BookPoojaForm")
+);
 const Bookpoojadetail = lazy(() =>
   import("./components/astrology/Bookpoojadetail")
 );
@@ -244,6 +243,12 @@ const AllMinRechargeCall = lazy(() =>
 );
 const AllMinRechargeVideoCall = lazy(() =>
   import("./components/astrology/AllMinRechargeVideo")
+);
+const TodayPanchang = lazy(() =>
+  import("./components/astrology/TodayPanchang")
+);
+const BasicPanchang = lazy(() =>
+  import("./components/astrology/BasicPanchang")
 );
 const ChatList = lazy(() => import("./components/chat/chatlist"));
 
@@ -573,12 +578,20 @@ const App = (props) => {
                     component={ManglikDosh}
                   />
                   <Route
-                    path={process.env.PUBLIC_URL + "/otherpage"}
+                    path={process.env.PUBLIC_URL + "/lalkitab"}
+                    component={lalkitab}
+                  />
+                  <Route
+                    path={process.env.PUBLIC_URL + "/otherpage/:id"}
                     component={otherpage}
                   />
                   <Route
                     path={process.env.PUBLIC_URL + "/bookEvent"}
                     component={BookEvent}
+                  />
+                  <Route
+                    path={process.env.PUBLIC_URL + "/BookPooojaForm"}
+                    component={BookPooojaForm}
                   />
                   <Route
                     path={process.env.PUBLIC_URL + "/Poojadetailpage/:id"}
@@ -750,6 +763,14 @@ const App = (props) => {
                     component={AllMinRechargeVideoCall}
                   />
                   <Route
+                    path={process.env.PUBLIC_URL + "/todayPanchang"}
+                    component={TodayPanchang}
+                  />
+                  <Route
+                    path={process.env.PUBLIC_URL + "/basicPanchang"}
+                    component={BasicPanchang}
+                  />
+                  <Route
                     path={process.env.PUBLIC_URL + "/chatlist"}
                     component={ChatList}
                   />
@@ -905,14 +926,15 @@ const App = (props) => {
                     path={process.env.PUBLIC_URL + "/orderHistory"}
                     component={OrderHistory}
                   /> */}
-                  <Route
+                  {/* <Route
                     path={process.env.PUBLIC_URL + "/todayPanchang"}
                     component={TodayPanchang}
                   />
                   <Route
                     path={process.env.PUBLIC_URL + "/basicPanchang"}
                     component={BasicPanchang}
-                  />
+                  /> */}
+
                   {/* <Route
                   path={process.env.PUBLIC_URL + "/checkout"}
                   component={Checkout}

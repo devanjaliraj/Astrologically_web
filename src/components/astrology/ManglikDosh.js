@@ -353,17 +353,9 @@ class ManglikDosh extends React.Component {
                   <Col md="6">
                     <div className="img-rotate">
                       <div className="img-23">
-                        <img
-                          //  src={imgon}
-                          alt=""
-                          width="180px"
-                        />
+                        {/* <img src={imgon} alt="" width="180px" /> */}
                         <div className="img-22">
-                          <img
-                            //  src={imgin}
-                            alt=""
-                            width="80px"
-                          />
+                          {/* <img src={imgin} alt="" width="80px" /> */}
                         </div>
                       </div>
                     </div>

@@ -6,6 +6,7 @@ import FooterCopyright from "../../components/footer/FooterCopyright";
 import FooterNewsletter from "../../components/footer/FooterNewsletter";
 import Axios from "axios";
 import OthePage from "../../components/astrology/OthePage";
+import axiosConfig from "../../axiosConfig";
 
 const FooterOne = ({
   backgroundColorClass,
@@ -20,10 +21,23 @@ const FooterOne = ({
   const [scroll, setScroll] = useState(0);
   const [top, setTop] = useState(0);
   const [categoryList, setCategoryList] = useState([]);
+  const [pages, setPages] = useState([]);
+
+  const getPages = () => {
+    axiosConfig
+      .get(`/admin/getPages`)
+      .then((res) => {
+        console.log(res.data.data);
+        setPages(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   const getCategory = () => {
     Axios.get(`http://65.2.148.70:8000/admin/getallCategory`)
       .then((response) => {
-        console.log("5555555", response.data.data);
+        // console.log("5555555", response.data.data);
         setCategoryList(response.data.data);
       })
       .catch((error) => {
@@ -31,8 +45,10 @@ const FooterOne = ({
       });
   };
   useEffect(() => {
+    getPages();
     getCategory();
   }, []);
+
   useEffect(() => {
     setTop(100);
     window.addEventListener("scroll", handleScroll);
@@ -126,6 +142,26 @@ const FooterOne = ({
                           Monthly
                         </Link>
                       </li>
+
+                      <div className="footer-title">
+                        <h3 className="mt-4">Panchang</h3>
+                        <ul className="submenu">
+                          <li className="">
+                            <Link
+                              to={process.env.PUBLIC_URL + "/basicPanchang"}
+                            >
+                              Basic Panchang
+                            </Link>
+                          </li>
+                          <li className="">
+                            <Link
+                              to={process.env.PUBLIC_URL + "/todayPanchang"}
+                            >
+                              Today Panchang
+                            </Link>
+                          </li>
+                        </ul>
+                      </div>
                       {/* {categoryList?.map((cat) => (
                         <li className="" key={cat._id}>
                           <Link to={process.env.PUBLIC_URL + "/heroscopesall"}>
@@ -252,17 +288,47 @@ const FooterOne = ({
                   </li> */}
                 </ul>
               </div>
-              <div className="footer-title mt-3">
-                <h3>Others</h3>
-              </div>
+              {pages[0]?.other === true ? (
+                <>
+                  <div className="footer-title mt-3">
+                    <h3>Others</h3>
+                  </div>
+                </>
+              ) : null}
+
               <div className="footer-list">
                 <ul>
                   <li>
-                    {/* <h3>Dosh</h3> */}
                     <ul className="submenu">
-                      <li className="">
+                      {pages.length > 0 ? (
+                        <>
+                          {pages?.map((ele) => {
+                            if (ele?.status === true) {
+                              return (
+                                <li key={ele?._id} className="">
+                                  <Link
+                                    to={
+                                      process.env.PUBLIC_URL +
+                                      `/otherpage/${ele?._id}`
+                                    }
+                                  >
+                                    {ele?.pageName}
+                                  </Link>
+                                </li>
+                              );
+                            }
+                          })}
+                          {/* {pages?.map((ele) => (
+                            <li key={ele?._id} className="">
+                              <Link to={process.env.PUBLIC_URL + "/otherpage"}>
+                                {ele?.pageName}
+                              </Link>
+                            </li>
+                          ))} */}
+                        </>
+                      ) : null}
+                      {/* <li className="">
                         <Link to={process.env.PUBLIC_URL + "/otherpage"}>
-                          {/* <OthePage /> */}
                           otherpage 1
                         </Link>
                       </li>
@@ -280,14 +346,7 @@ const FooterOne = ({
                         <Link to={process.env.PUBLIC_URL + "/otherpage"}>
                           otherpage 4
                         </Link>
-                      </li>
-                      {/* {categoryList?.map((cat) => (
-                        <li className="" key={cat._id}>
-                          <Link to={process.env.PUBLIC_URL + "/heroscopesall"}>
-                            {cat?.title}
-                          </Link>
-                        </li>
-                      ))} */}
+                      </li> */}
                     </ul>
                   </li>
                   {/* <li>
