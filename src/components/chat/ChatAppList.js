@@ -22,11 +22,10 @@ class ChatAppList extends React.Component {
     axiosConfig
       .get(`/user/getroomid/${userId}`)
       .then((response) => {
-
         if (response.data.status === true) {
           this.setState({
             userChatList: response.data?.data,
-            roomid: response.data.data?.roomid
+            roomid: response.data.data?.roomid,
           });
         }
       })
@@ -35,39 +34,44 @@ class ChatAppList extends React.Component {
       });
   }
   render() {
-
     const { userChatList } = this.state;
 
     return (
       <ul>
         {userChatList.length
           ? userChatList.map((user, index) => {
-            return (
-              <li>
-                {/* <Link to="this.state.data.roomid"> */}
+              return (
+                <li>
+                  {/* <Link to="this.state.data.roomid"> */}
 
-                <div className="list-main" onClick={() => this.props.getChatRoomId(user)}>
-                  <div className="imglf">
-                    <img src={user.astroid?.img} className="app-img" alt="" />
+                  <div
+                    key={user?._id}
+                    className="list-main"
+                    onClick={() => this.props.getChatRoomId(user)}
+                  >
+                    <div className="imglf">
+                      <img src={user.astroid?.img} className="app-img" alt="" />
+                    </div>
+                    <div
+                      onClick={() => this.props.getChatRoomId(user)}
+                      className="lst-con"
+                    >
+                      <h5 onClick={() => this.props.getChatRoomId(user)}>
+                        {user.astroid?.fullname}
+                      </h5>
+                      <p onClick={() => this.props.getChatRoomId(user)}>
+                        {user.msg}
+                      </p>
+                    </div>
                   </div>
-                  <div className="lst-con">
-                    <h5>{user.astroid?.fullname}</h5>
-                    <p>{user.msg}</p>
-
-                  </div>
-                </div>
-                {/* </Link> */}
-              </li>
-            );
-          })
+                  {/* </Link> */}
+                </li>
+              );
+            })
           : null}
       </ul>
-
-
     );
   }
 }
-
-
 
 export default ChatAppList;

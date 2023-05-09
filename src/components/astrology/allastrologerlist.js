@@ -5,7 +5,15 @@ import { Container, Row, Col, ModalHeader, ModalBody, Modal } from "reactstrap";
 import Tab from "react-bootstrap/Tab";
 import Nav from "react-bootstrap/Nav";
 import axios from "axios";
-
+import {
+  NavItem,
+  TabContent,
+  NavLink,
+  TabPane,
+  Card,
+  CardTitle,
+  CardText,
+} from "reactstrap";
 import astrologinbg from "../../assets/img/astrologin-bg.jpg";
 import { Label, Input, Button } from "reactstrap";
 import "../../assets/scss/astroteam.scss";
@@ -245,7 +253,7 @@ class AllAstrologerList extends React.Component {
               .post(`/user/make_call`, obj)
               .then((response) => {
                 console.log("Calling", response.data);
-                this.setState({ callingmode: false });
+                // this.setState({ callingmode: false });
               })
               .catch((error) => {
                 console.log(error?.response?.data?.error);
@@ -330,6 +338,7 @@ class AllAstrologerList extends React.Component {
                   <h3 className="mb-3">
                     <b>Sort By:</b>
                   </h3>
+                  <hr />
                   <form>
                     <ul>
                       {/* <li>
@@ -416,6 +425,14 @@ class AllAstrologerList extends React.Component {
                         </span>
                         Rating : Low to High
                       </li>
+                      {/* filter */}
+                      <hr />
+                      <h3 className="mb-3 mt-1">
+                        <Button className="filtericon" onClick={this.toggle}>
+                          Filter <i class="fa fa-filter" aria-hidden="true"></i>
+                        </Button>
+                      </h3>
+
                       <li>
                         <span>
                           <Form.Check
@@ -663,166 +680,62 @@ class AllAstrologerList extends React.Component {
               toggle={this.toggle}
               // className={(this.props.className)}
             >
-              <ModalHeader toggle={this.toggle}>
-                Login with Credentials
-              </ModalHeader>
+              <ModalHeader toggle={this.toggle}>Filters Now</ModalHeader>
               <ModalBody>
                 <div className="login-register-area pt-50 pb-50">
                   <div className="container">
-                    <div className="row d-flex align-items-center justify-content-center">
-                      <div className="col-lg-7 col-md-12 ml-auto mr-auto">
-                        <div className="login-register-wrapper">
-                          <Tab.Container defaultActiveKey="login">
-                            <Nav
-                              variant="pills"
-                              className="login-register-tab-list"
-                            >
-                              <Nav.Item>
-                                <Nav.Link eventKey="login">
-                                  <h4>Login</h4>
-                                </Nav.Link>
-                              </Nav.Item>
-                              <Nav.Item>
-                                <Nav.Link eventKey="register">
-                                  <h4>Register</h4>
-                                </Nav.Link>
-                              </Nav.Item>
-                            </Nav>
-                            <Tab.Content>
-                              <Tab.Pane eventKey="login">
-                                <div className="login-form-container">
-                                  {this.state.otpMsg ===
-                                  "otp Send Successfully" ? (
-                                    <div className="login-register-form">
-                                      <Form onSubmit={this.otpHandler}>
-                                        <Input
-                                          type="number"
-                                          name="otp"
-                                          required
-                                          placeholder="Enter otp"
-                                          value={this.state.otp}
-                                          onChange={this.changeHandler}
-                                        />
-                                        <div className="button-box">
-                                          <div className="login-toggle-btn"></div>
-                                          <button type="submit">
-                                            <span>Otp Verify</span>
-                                          </button>
-                                        </div>
-                                      </Form>
-                                    </div>
-                                  ) : (
-                                    <div className="login-register-form">
-                                      <Form onSubmit={this.loginHandler}>
-                                        <Input
-                                          type="number"
-                                          name="mobile"
-                                          maxLength="12"
-                                          required
-                                          placeholder="Enter Your Mobile No."
-                                          value={this.state.mobile}
-                                          onChange={this.changeHandler}
-                                        />
-                                        <div className="button-box">
-                                          <div className="login-toggle-btn"></div>
-                                          <button type="submit">
-                                            <span>Login</span>
-                                          </button>
-                                        </div>
-                                      </Form>
-                                    </div>
-                                  )}
-                                </div>
-                              </Tab.Pane>
-                              {/* Register the user now */}
-                              <Tab.Pane eventKey="register">
-                                <div className="login-form-container">
-                                  <div className="login-register-form">
-                                    <Form
-                                      className="text-center"
-                                      onSubmit={this.submitHandler}
-                                      method="post"
-                                    >
-                                      <Input
-                                        type="text"
-                                        name="fullname"
-                                        required
-                                        placeholder="Enter Your Fullname"
-                                        value={this.state.fullname}
-                                        onChange={this.changeHandler}
-                                      />
-                                      <Input
-                                        type="email"
-                                        name="email"
-                                        required
-                                        placeholder="Enter Your Email"
-                                        value={this.state.email}
-                                        onChange={this.changeHandler}
-                                      />
-                                      <Input
-                                        type="number"
-                                        name="mobile"
-                                        maxLength="12"
-                                        required
-                                        placeholder="Enter Your Mobile No."
-                                        value={this.state.mobile}
-                                        onChange={this.changeHandler}
-                                      />
-                                      <Input
-                                        type="date"
-                                        name="dob"
-                                        required
-                                        placeholder="Date of birth"
-                                        value={this.state.dob}
-                                        onChange={this.changeHandler}
-                                      />
-                                      <Input
-                                        type="text"
-                                        name="city"
-                                        required
-                                        placeholder="Enter city"
-                                        value={this.state.city}
-                                        onChange={this.changeHandler}
-                                      />
-                                      <Input
-                                        type="select"
-                                        name="gender"
-                                        placeholder=""
-                                        value={this.state.gender}
-                                        onChange={this.changeHandler}
-                                      >
-                                        <option>Select Gender</option>
-                                        <option>Male</option>
-                                        <option>Female</option>
-                                      </Input>
-                                      <Label>User Image</Label>
-                                      <Input
-                                        type="file"
-                                        name="userimg"
-                                        onChange={this.onChangeHandler}
-                                      />
-                                      <div className="button-box">
-                                        <Button type="submit">
-                                          <span>Register</span>
-                                        </Button>
-                                      </div>
-                                    </Form>
-                                  </div>
-                                </div>
-                              </Tab.Pane>
-                            </Tab.Content>
-                          </Tab.Container>
-                        </div>
-                        <>
-                          <div className="login-form-container">
-                            <div className="login-register-form">
-                              <div className="button-box">
-                                <div className="login-toggle-btn"></div>
-                              </div>
-                            </div>
-                          </div>
-                        </>
-                      </div>
+                    <div>
+                      <Nav vertical>
+                        <NavItem>
+                          <NavLink
+                            className="active"
+                            onClick={function noRefCheck() {}}
+                          >
+                            Tab1
+                          </NavLink>
+                        </NavItem>
+                        <NavItem>
+                          <NavLink
+                            className=""
+                            onClick={function noRefCheck() {}}
+                          >
+                            More Tabs
+                          </NavLink>
+                        </NavItem>
+                      </Nav>
+                      <TabContent activeTab="1">
+                        <TabPane tabId="1">
+                          <Row>
+                            <Col sm="12">
+                              <h4>Tab 1 Contents</h4>
+                            </Col>
+                          </Row>
+                        </TabPane>
+                        <TabPane tabId="2">
+                          <Row>
+                            <Col sm="6">
+                              <Card body>
+                                <CardTitle>Special Title Treatment</CardTitle>
+                                <CardText>
+                                  With supporting text below as a natural
+                                  lead-in to additional content.
+                                </CardText>
+                                <Button>Go somewhere</Button>
+                              </Card>
+                            </Col>
+                            <Col sm="6">
+                              <Card body>
+                                <CardTitle>Special Title Treatment</CardTitle>
+                                <CardText>
+                                  With supporting text below as a natural
+                                  lead-in to additional content.
+                                </CardText>
+                                <Button>Go somewhere</Button>
+                              </Card>
+                            </Col>
+                          </Row>
+                        </TabPane>
+                      </TabContent>
                     </div>
                   </div>
                 </div>

@@ -40,7 +40,7 @@ class BookPoojaForm extends React.Component {
       country: "",
       address: "",
       listofpooja: [],
-      poojatype: "offline",
+      poojatype: "",
       state: [],
       city: [],
       country: [],
@@ -125,7 +125,17 @@ class BookPoojaForm extends React.Component {
   componentDidMount() {
     const bookpooja = JSON.parse(localStorage.getItem("poojaviewone"));
     this.setState({ bookpoojadata: bookpooja });
-    console.log(bookpooja);
+    console.log(bookpooja.mode);
+    this.setState({ poojatype: bookpooja?.mode });
+    // axiosConfig
+    //   .get(`/admin/admin_getone_event/${bookpooja._id}`)
+    //   .then((res) => {
+    //     console.log(res.data.data);
+    //     // setPooja(res.data.data);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
     axiosConfig
       .get(`/admin/get_adminevent`)
       .then((res) => {
@@ -176,7 +186,9 @@ class BookPoojaForm extends React.Component {
   render() {
     const poojadata = this.state.bookpoojadata;
     return (
-      <LayoutOne headerTop="visible">
+      // <LayoutOne headerTop="visible">
+      // </LayoutOne>
+      <>
         <section className="pt-0 pb-0">
           <div
             className=""
@@ -240,6 +252,7 @@ class BookPoojaForm extends React.Component {
                               <label>Slots*</label>
 
                               <select
+                                className="form-control"
                                 onChange={(e) =>
                                   this.setState({
                                     timeslot: e.target.value,
@@ -321,6 +334,7 @@ class BookPoojaForm extends React.Component {
                               <label>Slots*</label>
 
                               <select
+                                className="form-control"
                                 onChange={(e) =>
                                   this.setState({
                                     timeslot: e.target.value,
@@ -433,7 +447,7 @@ class BookPoojaForm extends React.Component {
             </Row>
           </Container>
         </section>
-      </LayoutOne>
+      </>
     );
   }
 }

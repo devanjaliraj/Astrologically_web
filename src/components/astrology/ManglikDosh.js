@@ -741,7 +741,7 @@ class ManglikDosh extends React.Component {
                                   }}
                                 />
                               </Col>
-
+                              {/* 
                               <Col md="3">
                                 <label>Birth Place Latitude</label>
                                 <Input
@@ -777,7 +777,7 @@ class ManglikDosh extends React.Component {
                                   value={this.state.timezone}
                                   onChange={this.changeHandler}
                                 />
-                              </Col>
+                              </Col> */}
                             </Row>
                             <br></br>
                             <Button className="btn btn-primary">submit</Button>

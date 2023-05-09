@@ -2,6 +2,8 @@ import { Container, Row, Col, Button, Input } from "reactstrap";
 import LayoutOne from "../../layouts/LayoutOne";
 import React from "react";
 import AgoraUIKit from "agora-react-uikit";
+import { AgoraRTC, Client, getSessionStats } from "agora-rtc-sdk-ng";
+
 // import {
 //   AgoraVideoPlayer,
 //   createClient,
@@ -12,6 +14,8 @@ import swal from "sweetalert";
 import astrologinbg from "../../assets/img/astrologin-bg.jpg";
 import "../../../src/assets/scss/style.scss";
 import AllMinRechargeVideo from "./AllMinRechargeVideo";
+import AlertPage from "./AlertPage";
+import { LiveStreaming } from "./zegocloud/LiveStreaming";
 
 // const config = { mode: "rtc", codec: "vp8" };
 // const useClient = createClient(config);
@@ -26,7 +30,7 @@ class UserRequestForm extends React.Component {
       userid: "",
       astroid: "",
       mobile: "",
-      astrodata: {},
+      userData: {},
       firstname: "",
       p_firstname: "",
       lastname: "",
@@ -42,6 +46,8 @@ class UserRequestForm extends React.Component {
       occupation: "",
       topic_of_cnsrn: "",
       entertopic_of_cnsrn: "",
+      Astrodata: "",
+      Responseofvideo: "",
       data: [],
       setVideoCall: false,
       toggle: true,
@@ -49,12 +55,22 @@ class UserRequestForm extends React.Component {
   }
 
   componentDidMount() {
+    const callingastro_id = localStorage.getItem("videoCallAstro_id");
     let userId = JSON.parse(localStorage.getItem("user_id"));
+    axiosConfig
+      .get(`/admin/getoneAstro/${callingastro_id}`)
+      .then((response) => {
+        console.log("callingdata", response.data.data);
+        this.setState({ Astrodata: response.data.data });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     axiosConfig
       .get(`/user/viewoneuser/${userId}`)
       .then((response) => {
         this.setState({ mobile: response.data.data.mobile });
-        this.setState({ astrodata: response.data.data });
+        this.setState({ userData: response.data.data });
       })
       .catch((error) => {
         console.log(error);
@@ -67,10 +83,59 @@ class UserRequestForm extends React.Component {
 
   submitHandler = (e) => {
     e.preventDefault();
-    this.setState({ setVideoCall: true });
-    this.setState({ changeView: true });
-    // this.setState({ toggle: false });
-    // test
+
+    const userid = localStorage.getItem("user_id");
+    const callingastro_id = localStorage.getItem("videoCallAstro_id");
+    console.log(this.state.Astrodata.channelName);
+    const payload = {
+      user: userid,
+      calling: callingastro_id,
+    };
+    axiosConfig
+      .post(``, payload)
+      .then((res) => {
+        console.log(res.data);
+        this.setState({ Responseofvideo: res.data.data });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    let userId = JSON.parse(localStorage.getItem("user_id"));
+    let astroId = localStorage.getItem("astro_id");
+    let obj = {
+      userid: userId,
+      astroid: astroId,
+      mobile: parseInt(this.state.mobile),
+      firstname: this.state.firstname,
+      p_firstname: this.state.p_firstname,
+      lastname: this.state.lastname,
+      p_lastname: this.state.p_lastname,
+      dob: this.state.dob,
+      p_dob: this.state.p_dob,
+      birthPlace: this.state.birthPlace,
+      p_birthPlace: this.state.p_birthPlace,
+      date_of_time: this.state.date_of_time,
+      p_date_of_time: this.state.p_date_of_time,
+      gender: this.state.gender,
+      marital_status: this.state.marital_status,
+      occupation: this.state.occupation,
+      topic_of_cnsrn: this.state.topic_of_cnsrn,
+      entertopic_of_cnsrn: this.state.entertopic_of_cnsrn,
+    };
+    axiosConfig
+      .post(`/user/add_chat_intake`, obj)
+      .then((response) => {
+        console.log("videointakeform", response.data.data);
+        swal("Success!", "Submitted SuccessFully!", "Success");
+        // window.location.reload("/allastrologerlist");
+        // this.props.history.push("/allastrologerlist");
+        // this.props.history.push("/");
+      })
+      .catch((error) => {
+        swal("Error!", "error");
+        console.log(error);
+      });
   };
 
   rtcProps = {
@@ -80,14 +145,23 @@ class UserRequestForm extends React.Component {
     channel: "anujesh",
     // Pass your temp token here.
     token:
-      "007eJxTYGDa4maqVP+s4+G3uCl1Ajd6budsjz63fv9KUYPn7F+ispcoMJinGKYZmCebm6VZppiYJaVamCUlm5glmlsaWliYGBgZf5zmn9IQyMhwbqo3IyMDBIL47AyJeaVZqcUZDAwAEmUiBQ==",
+      "0067d1f07c76f9d46be86bc46a791884023IAB8XZD16tOryzZlXroWrQqHgEVRCc8a9ZiBubdNn/CNtUlEne4AAAAAEADE5kO9ez9bZAEAAQAAAAAA",
+    // token:
+    //   "007eJxTYDgh+fefxobNlcqHuZiV5tUksPQsnbky8DLD45MxN08G9yxRYDBPMUwzME82N0uzTDExS0q1MEtKNjFLNLc0tLAwMTAyXn4pMqUhkJEh7PIBZkYGCATx2RkS80qzUoszGBgA59ghrA==",
     // Set the user ID.
     uid: 0,
     // Set the user role
     role: "",
   };
   callbacks = {
+    Duration: (e) => {
+      console.log(e);
+      Client.getSessionStats();
+    },
     EndCall: () => this.setState({ setVideoCall: false }),
+    // ["leave-channel"]: (e) => {
+    //   console.log(e);
+    // },
   };
 
   render() {
@@ -95,11 +169,6 @@ class UserRequestForm extends React.Component {
     // const { ready, tracks } = useMicrophoneAndCameraTracks();
     return (
       <LayoutOne headerTop="visible">
-        {/* <AgoraVideoPlayer
-          videoTrack={tracks[1]}
-          style={{ height: "100%", width: "100%" }}
-        /> */}
-
         {/* {this.state.toggle === true ? ( */}
         <>
           {this.state.changeView === true ? (
@@ -110,7 +179,7 @@ class UserRequestForm extends React.Component {
                     <div
                       style={{
                         display: "flex",
-                        width: "80vw",
+                        width: "100vw",
                         height: "80vh",
                       }}
                     >
@@ -119,16 +188,22 @@ class UserRequestForm extends React.Component {
                         callbacks={this.callbacks}
                       />
                     </div>
-                    <div>
+                  </>
+                ) : (
+                  <>
+                    {" "}
+                    {/* <div className="d-flex justify-content-center">
                       <Button
-                        onClick={() => this.setState({ changeView: false })}
+                        onClick={() => this.props.history.push("/")}
+                        // onClick={() => this.setState({ changeView: false })}
                         color="primary"
                       >
-                        Back
+                        Home
                       </Button>
-                    </div>
+                    </div> */}
+                    <AlertPage />
                   </>
-                ) : null}
+                )}
               </section>
             </>
           ) : (
@@ -137,10 +212,6 @@ class UserRequestForm extends React.Component {
                 <div
                   className=""
                   style={{
-                    // backgroundColor: "#FFD59E",
-                    // width: "100%",
-                    // padding: "70px 0px",
-                    // backgroundSize: "cover",
                     float: "left",
                     width: "100%",
                     backgroundColor: "#272727",
@@ -441,14 +512,19 @@ class UserRequestForm extends React.Component {
             </>
           )}
         </>
+
         {/* ) : (
           <>
             <AllMinRechargeVideo />
           </>
         )} */}
-        {/* <div style={{ display: "flex", width: "100vw", height: "90vh" }}>
+        <div style={{ display: "flex", width: "100vw", height: "90vh" }}>
           <AgoraUIKit rtcProps={this.rtcProps} callbacks={this.callbacks} />
-        </div> */}
+        </div>
+        <div style={{ display: "flex", width: "100vw", height: "90vh" }}>
+          {/* <AgoraUIKit rtcProps={this.rtcProps} callbacks={this.callbacks} /> */}
+          <LiveStreaming />
+        </div>
       </LayoutOne>
     );
   }

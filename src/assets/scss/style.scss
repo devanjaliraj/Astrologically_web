@@ -1501,7 +1501,7 @@ button.stb-btn {
   background: #fff;
   padding: 20px;
   border-radius: 10px;
-  height: 400px;
+  height: 530px;
   position: -webkit-sticky !important;
   position: sticky;
   top: 100px;
@@ -1660,4 +1660,15 @@ p.priceofadd {
 }
 .othersubmain.col-lg-12 {
   margin-top: 25px;
+}
+section.mt-30.ratingmaindiv {
+  margin-top: 161px;
+}
+button.filtericon.btn.btn-secondary {
+  background: none;
+  color: black;
+}
+button.filtericon.btn.btn-secondary:hover {
+  background: #e7ad30;
+  color: black;
 }

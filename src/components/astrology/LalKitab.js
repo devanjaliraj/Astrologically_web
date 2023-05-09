@@ -675,7 +675,7 @@ class LalKitab extends Component {
                                 />
                               </Col>
 
-                              <Col md="4">
+                              {/* <Col md="4">
                                 <label>Birth Place Latitude</label>
                                 <Input
                                   className="form-control"
@@ -710,11 +710,11 @@ class LalKitab extends Component {
                                   value={this.state.timezone}
                                   onChange={this.changeHandler}
                                 />
-                              </Col>
+                              </Col> */}
                             </Row>
                             {/* <button className="btn btn-primary" onClick={() => this.setState({ showContent: true })}>Show Content</button> */}
                             <Button
-                              className="btn btn-primary"
+                              className="btn btn-primary mt-2"
                               onClick={(e) => {
                                 this.submitHandler(e);
                                 // this.setState({ data1: true })

@@ -232,7 +232,7 @@ class KundaliForm extends React.Component {
                                     placeholder="Name"
                                   />
                                 </Col>
-                                <Col md="4">
+                                <Col md="6">
                                   <label>Birth Day</label>
                                   <Input
                                     className="form-control"
@@ -275,7 +275,7 @@ class KundaliForm extends React.Component {
                                     <option>31</option>
                                   </Input>
                                 </Col>
-                                <Col md="4">
+                                <Col md="6">
                                   <label>Birth Month</label>
                                   <Input
                                     className="form-control"
@@ -299,7 +299,7 @@ class KundaliForm extends React.Component {
                                     <option>12</option>
                                   </Input>
                                 </Col>
-                                <Col md="4">
+                                <Col md="6">
                                   <label>Birth Year</label>
                                   <Input
                                     className="form-control"
@@ -401,7 +401,7 @@ class KundaliForm extends React.Component {
                                     <option value="2011">2030</option>
                                   </Input>
                                 </Col>
-                                <Col md="4">
+                                <Col md="6">
                                   <label>Birth Hour</label>
                                   <select
                                     className="form-control"
@@ -437,7 +437,7 @@ class KundaliForm extends React.Component {
                                     <option>24</option>
                                   </select>
                                 </Col>
-                                <Col md="4">
+                                <Col md="6">
                                   <label>Birth Minute</label>
                                   <select
                                     className="form-control"
@@ -508,7 +508,7 @@ class KundaliForm extends React.Component {
                                     <option>60</option>
                                   </select>
                                 </Col>
-                                <Col md="4">
+                                <Col md="6">
                                   <label>Country</label>
                                   <Select
                                     options={Country.getAllCountries()}
@@ -526,7 +526,7 @@ class KundaliForm extends React.Component {
                                   />
                                 </Col>
 
-                                <Col md="4">
+                                <Col md="6">
                                   <label>State</label>
                                   <Select
                                     options={State?.getStatesOfCountry(
@@ -546,7 +546,7 @@ class KundaliForm extends React.Component {
                                   />
                                 </Col>
 
-                                <Col md="4">
+                                <Col md="6">
                                   <label>state</label>
                                   <Select
                                     options={City.getCitiesOfState(
@@ -613,7 +613,7 @@ class KundaliForm extends React.Component {
                                     placeholder="Name"
                                   />
                                 </Col>
-                                <Col md="4">
+                                <Col md="6">
                                   <label>Birth Day</label>
                                   <Input
                                     className="form-control"
@@ -656,7 +656,7 @@ class KundaliForm extends React.Component {
                                     <option>31</option>
                                   </Input>
                                 </Col>
-                                <Col md="4">
+                                <Col md="6">
                                   <label>Birth Month</label>
                                   <Input
                                     className="form-control"
@@ -680,7 +680,7 @@ class KundaliForm extends React.Component {
                                     <option>12</option>
                                   </Input>
                                 </Col>
-                                <Col md="4">
+                                <Col md="6">
                                   <label>Birth Year</label>
                                   <Input
                                     className="form-control"
@@ -782,7 +782,7 @@ class KundaliForm extends React.Component {
                                     <option value="2011">2030</option>
                                   </Input>
                                 </Col>
-                                <Col md="4">
+                                <Col md="6">
                                   <label>Birth Hour</label>
                                   <select
                                     className="form-control"
@@ -818,7 +818,7 @@ class KundaliForm extends React.Component {
                                     <option>24</option>
                                   </select>
                                 </Col>
-                                <Col md="4">
+                                <Col md="6">
                                   <label>Birth Minute</label>
                                   <select
                                     className="form-control"
@@ -961,7 +961,7 @@ class KundaliForm extends React.Component {
                                                                         <option>60</option>
                                                                     </select>
                                                                 </Col> */}
-                                <Col md="4">
+                                <Col md="6">
                                   <label>Country</label>
                                   <Select
                                     options={Country.getAllCountries()}
@@ -978,7 +978,7 @@ class KundaliForm extends React.Component {
                                     }}
                                   />
                                 </Col>
-                                <Col md="4">
+                                <Col md="6">
                                   <label>State</label>
                                   <Select
                                     options={State?.getStatesOfCountry(
@@ -997,7 +997,7 @@ class KundaliForm extends React.Component {
                                     }}
                                   />
                                 </Col>
-                                <Col md="4">
+                                <Col md="6">
                                   <label>state</label>
                                   <Select
                                     options={City.getCitiesOfState(

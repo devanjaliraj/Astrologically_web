@@ -10,7 +10,7 @@ export const LiveStreaming = () => {
     channel: "anujesh",
     // Pass your temp token here.
     token:
-      "007eJxTYGDa4maqVP+s4+G3uCl1Ajd6budsjz63fv9KUYPn7F+ispcoMJinGKYZmCebm6VZppiYJaVamCUlm5glmlsaWliYGBgZf5zmn9IQyMhwbqo3IyMDBIL47AyJeaVZqcUZDAwAEmUiBQ==",
+      "0067d1f07c76f9d46be86bc46a791884023IAB8XZD16tOryzZlXroWrQqHgEVRCc8a9ZiBubdNn/CNtUlEne4AAAAAEADE5kO9ez9bZAEAAQAAAAAA",
     // Set the user ID.
     uid: 0,
     // Set the user role
@@ -131,7 +131,7 @@ export const LiveStreaming = () => {
         removeVideoDiv(localPlayerContainer.id);
         // Leave the channel
         await agoraEngine.leave();
-        console.log("You left the channel");
+        console.log("You left the channel", agoraEngine);
         // Refresh the page for reuse
         window.location.reload();
       };

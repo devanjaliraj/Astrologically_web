@@ -1,10 +1,5 @@
 import React from "react";
-import {
-  Container,
-  Row,
-  Col,
-  Button,
-} from "reactstrap";
+import { Container, Row, Col, Button } from "reactstrap";
 import swal from "sweetalert";
 import LayoutOne from "../../layouts/LayoutOne";
 import "../../assets/scss/astroteam.scss";
@@ -20,7 +15,7 @@ class AllMinRecharge extends React.Component {
       data: {},
       userid: "",
       astroid: "",
-      recharge_planId: ""
+      recharge_planId: "",
     };
     this.toggle = this.toggle.bind(this);
   }
@@ -36,7 +31,6 @@ class AllMinRecharge extends React.Component {
         console.log(response.data);
         if (response.data.status === true) {
           this.setState({ allminrechargeList: response.data.data });
-          swal("Success!", "Submitted SuccessFull!", "success");
         }
       })
       .catch((error) => {
@@ -59,10 +53,9 @@ class AllMinRecharge extends React.Component {
     await axiosConfig
       .post(`/user/addChatWallet`, obj)
       .then((response) => {
-        console.log("hdfkjh", response.data.status)
+        console.log("hdfkjh", response.data.status);
         if (response.data.status === true) {
-          this.setState({
-          });
+          this.setState({});
         }
       })
       .catch((error) => {
@@ -96,13 +89,13 @@ class AllMinRecharge extends React.Component {
               textAlign: "center",
             }}
           >
-            <Container>
+            <Container className="mb-3">
               <Row>
                 <Col md="12">
-                  <div className="leftcont text-left" >
+                  <div className="leftcont text-left">
                     <h1>Select Minute Now</h1>
-                    <h3 >
-                      Available Minute : <span >{this.state.minute}</span>
+                    <h3>
+                      Available Minute : <span>{this.state.minute}</span>
                     </h3>
                   </div>
                 </Col>
@@ -110,30 +103,32 @@ class AllMinRecharge extends React.Component {
             </Container>
           </div>
         </section>
-        <section>
+        <section className="mt-3">
           <Container>
             <Row>
               {allminrechargeList.length
                 ? allminrechargeList.map((allmin, index) => {
-                  return (
-                    <Col xl="3" lg="3" md="3" sm="6" xs="6" key={index}>
-                      {/* <Link to="/chatApp"> */}
-                      <button onClick={() => {
-                        localStorage.setItem("minute", allmin.minute)
-                        // this.props.history.push('/chatApp')
-                        this.props.history.push('/UserRequestForm')
-                      }}>
-                        <div className="promoBox success-box info-ribbon">
-                          {/* <aside>
+                    return (
+                      <Col xl="3" lg="3" md="3" sm="6" xs="6" key={index}>
+                        {/* <Link to="/chatApp"> */}
+                        <button
+                          onClick={() => {
+                            localStorage.setItem("minute", allmin.minute);
+                            // this.props.history.push('/chatApp')
+                            this.props.history.push("/UserRequestForm");
+                          }}
+                        >
+                          <div className="promoBox success-box info-ribbon">
+                            {/* <aside>
                             <p>{allmin.title}</p>
                           </aside> */}
-                          <h4>Minute {allmin.minute}</h4>
-                        </div>
-                      </button>
-                      {/* </Link> */}
-                    </Col>
-                  );
-                })
+                            <h4>Minute {allmin.minute}</h4>
+                          </div>
+                        </button>
+                        {/* </Link> */}
+                      </Col>
+                    );
+                  })
                 : null}
             </Row>
           </Container>
@@ -144,7 +139,8 @@ class AllMinRecharge extends React.Component {
           style={{ maxWidth: "600px", width: "100%" }}
           isOpen={this.state.modal}
           toggle={this.toggle}
-          className={this.props.className}>
+          className={this.props.className}
+        >
           <ModalHeader className="wr-3" toggle={this.toggle}>
             <h2 className="wr-4">Apply Voucher Code</h2>
           </ModalHeader>

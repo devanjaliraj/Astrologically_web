@@ -190,6 +190,30 @@ class BookEvent extends React.Component {
                                         </div>
                                       </Col>
                                     </Row>
+                                    <Row className="priceandname">
+                                      <Col lg="6" md="6" sm="6">
+                                        <div
+                                          style={{
+                                            fontSize: "12px",
+                                            fontWeight: "200",
+                                          }}
+                                          //   className=" poojaname  justify-content-left"
+                                        >
+                                          Mode of Pooja
+                                        </div>
+                                      </Col>
+                                      <Col lg="6" md="6" sm="6">
+                                        <div
+                                          style={{ fontSize: "12px" }}
+                                          className=" poojanames  justify-content-end"
+                                        >
+                                          <span style={{ color: "green" }}>
+                                            {" "}
+                                            {value?.mode}
+                                          </span>
+                                        </div>
+                                      </Col>
+                                    </Row>
                                     <Row className="mt-1">
                                       <Col lg="6" md="6" sm="6">
                                         <div
@@ -204,17 +228,19 @@ class BookEvent extends React.Component {
                                         </div>
                                       </Col>
                                       <Col lg="6" md="6" sm="6">
-                                        <div
-                                          style={{ fontSize: "12px" }}
-                                          className=" poojanames  justify-content-end"
-                                        >
-                                          LiveStreaming
-                                        </div>
                                         <span style={{ fontSize: "12px" }}>
                                           {value?.liveStreaming === true ? (
-                                            <div style={{ color: "green" }}>
-                                              Available
-                                            </div>
+                                            <>
+                                              <div
+                                                style={{ fontSize: "12px" }}
+                                                className=" poojanames  justify-content-end"
+                                              >
+                                                LiveStreaming
+                                              </div>
+                                              <div style={{ color: "green" }}>
+                                                Available
+                                              </div>
+                                            </>
                                           ) : (
                                             <div style={{ color: "red" }}>
                                               Not Available

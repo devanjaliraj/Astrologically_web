@@ -15,7 +15,7 @@ import textbottom from "../../assets/img/textbottom.png";
 class AlertPage extends React.Component {
   render() {
     return (
-      <div className="col-lg-12 col-md-12 mb-30">
+      <div className="col-lg-12 col-md-12 mb-30 container">
         <div className="category-home">
           <section>
             <Container>
@@ -32,7 +32,7 @@ class AlertPage extends React.Component {
                         <Link to="/">
                           <button className="go-home">Go to Home</button>
                         </Link>
-                        <Link to="/astrologerdetail">
+                        <Link to="/astrorating">
                           <button className="go-home">Add Review</button>
                         </Link>
                       </div>

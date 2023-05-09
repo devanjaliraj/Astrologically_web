@@ -141,7 +141,7 @@ class AstroRating extends React.Component {
               textAlign: "center",
             }}
           >
-            <Container>
+            <Container className="mb-2">
               <Row>
                 <Col md="12">
                   <div className="leftcont text-left">
@@ -153,9 +153,10 @@ class AstroRating extends React.Component {
             </Container>
           </div>
         </section>
-        <section>
+
+        <section className="mt-30 ratingmaindiv">
           <Container>
-            <Row>
+            <Row className=" ratingmaindiv">
               <Col lg="12">
                 <div className="rat-box">
                   <h3>Add Reviews</h3>

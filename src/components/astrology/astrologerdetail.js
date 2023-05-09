@@ -85,7 +85,7 @@ class AstrologerDetail extends React.Component {
 
   componentDidMount = () => {
     let { id } = this.props.match.params;
-    // console.log(id);
+    localStorage.setItem("videoCallAstro_id", id);
     axiosConfig
       .get("/user/all_min_recharge")
       .then((response) => {
@@ -697,7 +697,31 @@ class AstrologerDetail extends React.Component {
                                     </>
                                   ) : (
                                     <>
-                                      <span>Not Available</span>
+                                      <>
+                                        <div
+                                          className=""
+                                          style={{
+                                            width: "100%",
+                                            paddingBottom: "30px",
+                                            paddingTop: "10px",
+                                          }}
+                                        >
+                                          <p
+                                            style={{
+                                              backgroundColor: "rgb(25 120 4)",
+                                              color: "#fff",
+                                              padding: "10px",
+                                              borderRadius: "50px",
+                                              fontSize: "16px",
+                                              fontWeight: "600",
+                                              width: "400px",
+                                              margin: "0  auto",
+                                            }}
+                                          >
+                                            <span>Not available </span>
+                                          </p>
+                                        </div>
+                                      </>
                                     </>
                                   )}
                                 </Tab.Pane>
@@ -738,7 +762,31 @@ class AstrologerDetail extends React.Component {
                                     </>
                                   ) : (
                                     <>
-                                      <span>Not Available</span>
+                                      <>
+                                        <div
+                                          className=""
+                                          style={{
+                                            width: "100%",
+                                            paddingBottom: "30px",
+                                            paddingTop: "10px",
+                                          }}
+                                        >
+                                          <p
+                                            style={{
+                                              backgroundColor: "rgb(25 120 4)",
+                                              color: "#fff",
+                                              padding: "10px",
+                                              borderRadius: "50px",
+                                              fontSize: "16px",
+                                              fontWeight: "600",
+                                              width: "400px",
+                                              margin: "0  auto",
+                                            }}
+                                          >
+                                            <span>Not available </span>
+                                          </p>
+                                        </div>
+                                      </>
                                     </>
                                   )}
                                 </Tab.Pane>
@@ -777,7 +825,31 @@ class AstrologerDetail extends React.Component {
                                     </>
                                   ) : (
                                     <>
-                                      <span>Not Available</span>
+                                      <>
+                                        <div
+                                          className=""
+                                          style={{
+                                            width: "100%",
+                                            paddingBottom: "30px",
+                                            paddingTop: "10px",
+                                          }}
+                                        >
+                                          <p
+                                            style={{
+                                              backgroundColor: "rgb(25 120 4)",
+                                              color: "#fff",
+                                              padding: "10px",
+                                              borderRadius: "50px",
+                                              fontSize: "16px",
+                                              fontWeight: "600",
+                                              width: "400px",
+                                              margin: "0  auto",
+                                            }}
+                                          >
+                                            <span>Not available </span>
+                                          </p>
+                                        </div>
+                                      </>
                                     </>
                                   )}
                                 </Tab.Pane>
@@ -816,7 +888,31 @@ class AstrologerDetail extends React.Component {
                                     </>
                                   ) : (
                                     <>
-                                      <span>Not Available</span>
+                                      <>
+                                        <div
+                                          className=""
+                                          style={{
+                                            width: "100%",
+                                            paddingBottom: "30px",
+                                            paddingTop: "10px",
+                                          }}
+                                        >
+                                          <p
+                                            style={{
+                                              backgroundColor: "rgb(25 120 4)",
+                                              color: "#fff",
+                                              padding: "10px",
+                                              borderRadius: "50px",
+                                              fontSize: "16px",
+                                              fontWeight: "600",
+                                              width: "400px",
+                                              margin: "0  auto",
+                                            }}
+                                          >
+                                            <span>Not available </span>
+                                          </p>
+                                        </div>
+                                      </>
                                     </>
                                   )}
                                 </Tab.Pane>
@@ -855,7 +951,31 @@ class AstrologerDetail extends React.Component {
                                     </>
                                   ) : (
                                     <>
-                                      <span>Not Available</span>
+                                      <>
+                                        <div
+                                          className=""
+                                          style={{
+                                            width: "100%",
+                                            paddingBottom: "30px",
+                                            paddingTop: "10px",
+                                          }}
+                                        >
+                                          <p
+                                            style={{
+                                              backgroundColor: "rgb(25 120 4)",
+                                              color: "#fff",
+                                              padding: "10px",
+                                              borderRadius: "50px",
+                                              fontSize: "16px",
+                                              fontWeight: "600",
+                                              width: "400px",
+                                              margin: "0  auto",
+                                            }}
+                                          >
+                                            <span>Not available </span>
+                                          </p>
+                                        </div>
+                                      </>
                                     </>
                                   )}
                                 </Tab.Pane>
@@ -894,7 +1014,31 @@ class AstrologerDetail extends React.Component {
                                     </>
                                   ) : (
                                     <>
-                                      <span>Not Available</span>
+                                      <>
+                                        <div
+                                          className=""
+                                          style={{
+                                            width: "100%",
+                                            paddingBottom: "30px",
+                                            paddingTop: "10px",
+                                          }}
+                                        >
+                                          <p
+                                            style={{
+                                              backgroundColor: "rgb(25 120 4)",
+                                              color: "#fff",
+                                              padding: "10px",
+                                              borderRadius: "50px",
+                                              fontSize: "16px",
+                                              fontWeight: "600",
+                                              width: "400px",
+                                              margin: "0  auto",
+                                            }}
+                                          >
+                                            <span>Not available </span>
+                                          </p>
+                                        </div>
+                                      </>
                                     </>
                                   )}
                                 </Tab.Pane>

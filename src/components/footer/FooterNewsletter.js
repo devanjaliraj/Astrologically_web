@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import React, { useState, useEffect } from "react";
 import axiosConfig from "../../axiosConfig";
+import instagram from "../../assets/img/instagram.png";
 
 const FooterNewsletter = ({
   spaceBottomClass,
@@ -43,6 +44,7 @@ const FooterNewsletter = ({
                     {" "}
                     <li>
                       <i
+                        style={{ color: "#018eff" }}
                         class="fa fa-facebook foot-icon"
                         aria-hidden="true"
                       ></i>
@@ -51,7 +53,7 @@ const FooterNewsletter = ({
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        <span>Facebook</span>
+                        <span>{ele?.select_sslmedia}</span>
                       </a>
                     </li>
                   </span>
@@ -65,13 +67,17 @@ const FooterNewsletter = ({
                   <span>
                     {" "}
                     <li>
-                      <i class="fa fa-twitter foot-icon" aria-hidden="true"></i>
+                      <i
+                        style={{ color: "#00acee" }}
+                        class="fa fa-twitter foot-icon"
+                        aria-hidden="true"
+                      ></i>
                       <a
                         href={ele?.url}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        <span>Twitter</span>
+                        <span>{ele?.select_sslmedia}</span>
                       </a>
                     </li>
                   </span>
@@ -85,16 +91,14 @@ const FooterNewsletter = ({
                   <span>
                     {" "}
                     <li>
-                      <i
-                        class="fa fa-instagram foot-icon"
-                        aria-hidden="true"
-                      ></i>
+                      <img width={18} src={instagram} alt="instaimg" />
+
                       <a
                         href={ele?.url}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        <span>Instagram</span>
+                        <span className="mx-1">{ele?.select_sslmedia}</span>
                       </a>
                     </li>
                   </span>
@@ -110,6 +114,7 @@ const FooterNewsletter = ({
                     {" "}
                     <li>
                       <i
+                        style={{ color: "red " }}
                         class="fa fa-youtube-play foot-icon"
                         aria-hidden="true"
                       ></i>
@@ -118,7 +123,31 @@ const FooterNewsletter = ({
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        <span>Youtube</span>
+                        <span>{ele?.select_sslmedia}</span>
+                      </a>
+                    </li>
+                  </span>
+                );
+              }
+            })}
+            {/* linkedin */}
+            {data.map((ele) => {
+              if (ele?.select_sslmedia == "LinkedIn") {
+                return (
+                  <span>
+                    {" "}
+                    <li>
+                      <i
+                        style={{ color: "#0a66c2" }}
+                        class="fa fa-linkedin foot-icon"
+                        aria-hidden="true"
+                      ></i>
+                      <a
+                        href={ele?.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <span>{ele?.select_sslmedia}</span>
                       </a>
                     </li>
                   </span>

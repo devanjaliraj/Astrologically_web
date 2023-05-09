@@ -9,7 +9,7 @@ import {
   Form,
   Button,
 } from "reactstrap";
-import astrologinbg from "../../assets/img/astrologin-bg.jpg"
+import astrologinbg from "../../assets/img/astrologin-bg.jpg";
 
 import LayoutOne from "../../layouts/LayoutOne";
 import "../../assets/scss/astroteam.scss";
@@ -119,19 +119,19 @@ class WalletMoney extends React.Component {
               </Col>
               {planList.length
                 ? planList.map((plan, index) => {
-                  return (
-                    <Col xl="3" lg="3" md="3" sm="6" xs="6" key={index}>
-                      <Link to="/paymentdetail">
-                        <div className="promoBox success-box info-ribbon">
-                          <aside>
-                            <p>{plan.title}</p>
-                          </aside>
-                          <h4>INR {plan.amount}</h4>
-                        </div>
-                      </Link>
-                    </Col>
-                  );
-                })
+                    return (
+                      <Col xl="3" lg="3" md="3" sm="6" xs="6" key={index}>
+                        <Link to="/paymentdetail">
+                          <div className="promoBox success-box info-ribbon">
+                            <aside>
+                              <p>{plan.title}</p>
+                            </aside>
+                            <h4>INR {plan.amount}</h4>
+                          </div>
+                        </Link>
+                      </Col>
+                    );
+                  })
                 : null}
 
               {/*    <Col xl="3" lg="3" md="3" sm="6" xs="6">

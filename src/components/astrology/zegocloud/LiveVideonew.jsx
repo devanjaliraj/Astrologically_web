@@ -7,7 +7,7 @@ import axiosConfig from "../../../axiosConfig";
 import swal from "sweetalert";
 import astrologinbg from "../../../assets/img/astrologin-bg.jpg";
 import "../../../../src/assets/scss/style.scss";
-import Livenewpage from "./Livenewpage";
+// import Livenewpage from "./Livenewpage";
 import { LiveStreaming } from "./LiveStreaming";
 
 class LiveVideonew extends React.Component {
@@ -47,7 +47,7 @@ class LiveVideonew extends React.Component {
     channel: "anujesh",
     // Pass your temp token here.
     token:
-      "007eJxTYGDa4maqVP+s4+G3uCl1Ajd6budsjz63fv9KUYPn7F+ispcoMJinGKYZmCebm6VZppiYJaVamCUlm5glmlsaWliYGBgZf5zmn9IQyMhwbqo3IyMDBIL47AyJeaVZqcUZDAwAEmUiBQ==",
+      "007eJxTYDgh+fefxobNlcqHuZiV5tUksPQsnbky8DLD45MxN08G9yxRYDBPMUwzME82N0uzTDExS0q1MEtKNjFLNLc0tLAwMTAyXn4pMqUhkJEh7PIBZkYGCATx2RkS80qzUoszGBgA59ghrA==",
     // Set the user ID.
     uid: 0,
     // Set the user role
@@ -91,6 +91,8 @@ class LiveVideonew extends React.Component {
               height: "90vh",
             }}
           >
+            <LiveStreaming />
+
             <AgoraUIKit rtcProps={this.rtcProps} callbacks={this.callbacks} />
           </div>
           {/* <div className="container">

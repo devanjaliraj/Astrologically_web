@@ -4,11 +4,11 @@ import { Container } from "reactstrap";
 import "../../assets/scss/chat.scss";
 import LayoutOne from "../../layouts/LayoutOne";
 import Buyimg from "../../../src/assets/img/boy-img.png";
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
 
 import ChatAppList from "./ChatAppList";
 import ChatAppMassage from "./ChatAppMassage";
-import axiosConfig from "../../axiosConfig"
+import axiosConfig from "../../axiosConfig";
 
 class ChatApp extends React.Component {
   constructor(props) {
@@ -20,7 +20,7 @@ class ChatApp extends React.Component {
       userId: "",
       astroId: "",
       msg: "",
-      roomId: '',
+      roomId: "",
       time: {},
       seconds: 60 * 15,
 
@@ -29,8 +29,7 @@ class ChatApp extends React.Component {
     this.timer = 0;
     this.startTimer = this.startTimer.bind(this);
     this.countDown = this.countDown.bind(this);
-  };
-
+  }
 
   secondsToTime(secs) {
     let hours = Math.floor(secs / (60 * 60));
@@ -39,9 +38,9 @@ class ChatApp extends React.Component {
     let divisor_for_seconds = divisor_for_minutes % 60;
     let seconds = Math.ceil(divisor_for_seconds);
     let obj = {
-      "h": hours,
-      "m": minutes,
-      "s": seconds
+      h: hours,
+      m: minutes,
+      s: seconds,
     };
     return obj;
   }
@@ -49,16 +48,16 @@ class ChatApp extends React.Component {
   componentDidMount = () => {
     //this.startTimer()
     //alert(JSON.parse(localStorage.getItem('minute')))
-    let timeLeftVar = ''
-    if (JSON.parse(localStorage.getItem('minute'))) {
-      let minute = JSON.parse(localStorage.getItem('minute'))
+    let timeLeftVar = "";
+    if (JSON.parse(localStorage.getItem("minute"))) {
+      let minute = JSON.parse(localStorage.getItem("minute"));
       this.setState({ minutes: minute, seconds: minute * 60 });
-      this.startTimer()
+      this.startTimer();
       this.secondsToTime(minute * 60);
     }
     //timeLeftVar = this.secondsToTime(this.state.seconds);
     // this.setState({ time: timeLeftVar });
-    let user_id = JSON.parse(localStorage.getItem('user_id'))
+    let user_id = JSON.parse(localStorage.getItem("user_id"));
     // let { id } = this.props.match.params;
     axiosConfig
       .get(`/user/getroomid/${user_id}`)
@@ -68,7 +67,8 @@ class ChatApp extends React.Component {
           this.setState({
             data: response.data.data,
             fullname: response.data.data.fullname,
-            userimg: response.data.data.userimg, time: timeLeftVar
+            userimg: response.data.data.userimg,
+            time: timeLeftVar,
           });
         }
       })
@@ -87,10 +87,8 @@ class ChatApp extends React.Component {
   countDown() {
     // let astroid = JSON.parse(localStorage.getItem('astroid'))
     // Remove one second, set state so a re-render happens.
-    let seconds = this.state.seconds !== 0 ?
-      this.state.seconds - 1
-      :
-      alert("out time");
+    let seconds =
+      this.state.seconds !== 0 ? this.state.seconds - 1 : alert("out time");
     // this.history.redirect(`/astrologerdetail/${astroid}`)
     // <Redirect to={'/chatApp/astrologerdetail/' + astroid} />
     this.setState({
@@ -104,13 +102,14 @@ class ChatApp extends React.Component {
     // Check if we're at zero.
     if (seconds === 0) {
       clearInterval(this.timer);
-      window.location.replace('/#/astrorating')
+      window.location.replace("/#/astrorating");
     }
   }
   getChatRoomId = async (user) => {
-    console.log("sdjghjks", user)
+    console.log("sdjghjks", user);
     this.setState({ astroId: user?.astroid?._id, roomId: user?.roomid });
-    await axiosConfig.get(`/user/allchatwithuser/${user?.roomid}`)
+    await axiosConfig
+      .get(`/user/allchatwithuser/${user?.roomid}`)
       .then((response) => {
         console.log(response?.data?.data);
         if (response.data.status === true) {
@@ -120,7 +119,7 @@ class ChatApp extends React.Component {
       .catch((error) => {
         console.log(error);
       });
-  }
+  };
   submitHandler = async (e, astroid, userId) => {
     e.preventDefault();
     // let { id } = this.props.match.params;
@@ -133,10 +132,11 @@ class ChatApp extends React.Component {
     await axiosConfig
       .post(`/user/addchat/${userid}`, obj)
       .then((response) => {
-        console.log("hdfkjh", response.data.status)
+        console.log("hdfkjh", response.data.status);
         if (response.data.status === true) {
           this.setState({ msg: "" });
-          axiosConfig.get(`/user/allchatwithuser/${this.state.roomId}`)
+          axiosConfig
+            .get(`/user/allchatwithuser/${this.state.roomId}`)
             .then((response1) => {
               console.log(response1?.data?.data);
               if (response1.data.status === true) {
@@ -175,25 +175,35 @@ class ChatApp extends React.Component {
                 <div className="chat-header">
                   <p>
                     <span>
-                      <img src={this.state.roomChatData.length > 0 ? this.state.roomChatData[0]?.astroid?.img[0] : Buyimg} className="app-img" alt="" />
-
+                      <img
+                        src={
+                          this.state.roomChatData.length > 0
+                            ? this.state.roomChatData[0]?.astroid?.img[0]
+                            : Buyimg
+                        }
+                        className="app-img"
+                        alt=""
+                      />
                     </span>
-                    {this.state.roomChatData.length > 0 ? this.state.roomChatData[0]?.astroid?.fullname : null}
+                    {this.state.roomChatData.length > 0
+                      ? this.state.roomChatData[0]?.astroid?.fullname
+                      : null}
                   </p>
                   <span className="appchattimer">
-
                     {this.state.time.m} :{this.state.time.s}
-
                   </span>
                 </div>
                 <div class="messages-history">
-                  <ChatAppMassage roomChatData={this.state.roomChatData.length > 0 ? this.state.roomChatData : []} />
+                  <ChatAppMassage
+                    roomChatData={
+                      this.state.roomChatData.length > 0
+                        ? this.state.roomChatData
+                        : []
+                    }
+                  />
                 </div>
-                <form class="messages-inputs"  >
-
-
+                <form class="messages-inputs">
                   <input
-
                     type="text"
                     placeholder="Send a message"
                     onChange={(e) => {
@@ -205,16 +215,18 @@ class ChatApp extends React.Component {
                   {/* )
                     })
                     : null} */}
-                  <button onClick={(e) =>
-                    this.submitHandler(
-                      e,
-                      this.state.astroId,
-                      this.state.userId,
-
-                    )
-                  }
+                  <button
+                    onClick={(e) =>
+                      this.submitHandler(
+                        e,
+                        this.state.astroId,
+                        this.state.userId
+                      )
+                    }
                   >
-                    <i class="material-icons" onClick={this.startTimer}>send</i>
+                    <i class="material-icons" onClick={this.startTimer}>
+                      send
+                    </i>
                   </button>
                 </form>
               </div>
@@ -222,7 +234,8 @@ class ChatApp extends React.Component {
             <div className="chat-bottom">
               {/* <button>Close Chat</button> */}
               <Link to="/astrorating">
-                <button>Close Chat</button></Link>
+                <button>Close Chat</button>
+              </Link>
             </div>
           </Container>
         </section>

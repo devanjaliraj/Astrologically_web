@@ -21,7 +21,7 @@ class ChatApp extends React.Component {
           <Container>
             <div class="app rt-chat">
               <div class="contact-list">
-                <h1 class="title">My messages</h1>
+                <h1 class="title">My messages111</h1>
                 <ContactList items={this.state.contacts} />
               </div>
               <div class="messages">
