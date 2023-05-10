@@ -65,6 +65,7 @@
     "react-slick": "^0.28.1",
     "react-star-rating-component": "^1.4.1",
     "react-sticky-el": "^1.1.0",
+    "react-timer-hook": "^3.0.5",
     "react-toast-notifications": "^2.2.5",
     "react-visibility-sensor": "^5.1.1",
     "react-youtube": "^10.1.0",
