@@ -102,7 +102,9 @@ class AstrologerDetail extends React.Component {
     axiosConfig
       .get(`/admin/getoneAstro/${id}`)
       .then((response) => {
-        console.log("ddsdds", response.data);
+        console.log("ddsdds", response.data?.data);
+        localStorage.setItem("astroname", response?.data?.data?.fullname);
+        localStorage.setItem("channelName", response?.data?.data?.channelName);
         this.setState({
           fullname: response.data.data.fullname,
           all_skills: response.data.data.all_skills,
@@ -135,6 +137,54 @@ class AstrologerDetail extends React.Component {
       });
   };
 
+  handleStartCall = () => {
+    let userId = JSON.parse(localStorage.getItem("user_id"));
+    let { id } = this.props.match.params;
+    console.log(userId, id);
+    if (userId !== "" && userId !== null) {
+      const data = {
+        userid: userId,
+        astroid: id,
+      };
+      axiosConfig
+        .post(`/user/addCallWallet`, data)
+        .then((response) => {
+          console.log("@@@callingmode", response.data);
+          if (response.data?.msg === "success") {
+            this.props.history.push("/UserRequestFormCall");
+          } else
+            swal(
+              "Recharge Now",
+              "You Donot have Enough balance to Make This Call",
+              {
+                buttons: {
+                  cancel: "Recharge Now",
+                  catch: { text: "Cancel ", value: "catch" },
+                },
+              }
+            ).then((value) => {
+              switch (value) {
+                case "catch":
+                  swal("Sure Want to cancel it");
+                  break;
+                default:
+                  this.props.history.push("/walletmoney");
+              }
+            });
+        })
+        .catch((error) => {
+          console.log(error);
+          // swal('Error!', 'Invalid!', 'error')
+        });
+    } else {
+      swal("Need to Login first");
+      // this.setState({ modal: true });
+    }
+
+    //
+    //
+  };
+
   handleBalacecheck = () => {
     let userId = JSON.parse(localStorage.getItem("user_id"));
     let { id } = this.props.match.params;
@@ -146,18 +196,40 @@ class AstrologerDetail extends React.Component {
         astroid: id,
       };
 
+      const checkbal = { userid: userId, astroid: id };
       axiosConfig
-        .post(`/user/addCallWallet`, data)
-        .then((response) => {
-          console.log(response.data);
-          if (response.data.status === true) {
+        .post(`/user/addVideoCallWallet`, checkbal)
+        .then((res) => {
+          console.log("checkbal_videocall", res?.data.msg === "success");
+          if (res?.data.msg === "success") {
             this.props.history.push("/UserRequestFormVideoCall");
-            //
-          } else swal("Recharge", "you don't have enough Balance");
+          } else {
+            swal(
+              "Recharge Now",
+              "You Donot have Enough balance to Make this Call",
+              {
+                buttons: {
+                  cancel: "Recharge Now",
+                  catch: {
+                    text: "Cancel ",
+                    value: "catch",
+                  },
+                },
+              }
+            ).then((value) => {
+              switch (value) {
+                case "catch":
+                  swal("Sure Want to cancel it");
+                  break;
+
+                default:
+                  this.props.history.push("/walletmoney");
+              }
+            });
+          }
         })
-        .catch((error) => {
-          console.log(error);
-          // swal('Error!', 'Invalid!', 'error')
+        .catch((err) => {
+          console.log(err);
         });
     } else {
       swal("Need to Login first");
@@ -294,13 +366,27 @@ class AstrologerDetail extends React.Component {
                             Specility: <span> {this.state.all_skills}</span>
                           </li>
                           <li>
-                            Experience: <span>{this.state.exp_in_years}</span>
+                            Experience:{" "}
+                            <span>{this.state.exp_in_years}-Years</span>
                           </li>
                           <li>
-                            Call Rate: <span>{this.state.callCharge}</span>
+                            Call Rate:{" "}
+                            <span>{this.state.callCharge} Rs/Minute</span>
                           </li>
                           <li>
-                            <span className="">{this.state.status}</span>{" "}
+                            {this.state.status === "Online" ? (
+                              <>
+                                <span style={{ color: "green" }} className="">
+                                  <b> {this.state.status}</b>
+                                </span>{" "}
+                              </>
+                            ) : (
+                              <>
+                                <span style={{ color: "red" }} className="">
+                                  <b> {this.state.status}</b>
+                                </span>{" "}
+                              </>
+                            )}
                             {/* <span className="">{this.state.status}</span> */}
                           </li>
                         </ul>
@@ -308,7 +394,8 @@ class AstrologerDetail extends React.Component {
 
                       <Row>
                         <Col md="3" className="mt-30">
-                          <Link to="/AllMinRecharge">
+                          <Link to="/UserRequestForm">
+                            {/* <Link to="/AllMinRecharge"> */}
                             {/* <Link to="/UserRequestForm"> */}
                             <Button className="btn-as st" onClick={this.toggle}>
                               <i
@@ -326,26 +413,27 @@ class AstrologerDetail extends React.Component {
                         <Col md="3" className="mt-30">
                           {/* <Button className="btn-as st" onClick={this.toggle}> */}
                           {/* <Link to="/Call"> */}
-                          <Link to="/UserRequestFormCall">
-                            <Button
-                              className="btn-as st"
-                              onClick={this.toggle}
-                              // onClick={(e) =>
-                              //   this.submitHandler(
-                              //     e,
-                              //     this.state.astroId,
-                              //     this.state.astroMobile
-                              //   )
-                              // }
-                            >
-                              <i className="fa fa-phone" aria-hidden="true"></i>
-                              Start Call
-                              <small className="sm-text">
-                                {/* <i class="fa fa-inr" aria-hidden="true"></i>{" "} */}
-                                {/* {this.state.callCharge} */}
-                              </small>
-                            </Button>
-                          </Link>
+                          {/* <Link to="/UserRequestFormCall"> */}
+                          <Button
+                            className="btn-as st"
+                            onClick={this.handleStartCall}
+                            // onClick={this.toggle}
+                            // onClick={(e) =>
+                            //   this.submitHandler(
+                            //     e,
+                            //     this.state.astroId,
+                            //     this.state.astroMobile
+                            //   )
+                            // }
+                          >
+                            <i className="fa fa-phone" aria-hidden="true"></i>
+                            Start Call
+                            <small className="sm-text">
+                              {/* <i class="fa fa-inr" aria-hidden="true"></i>{" "} */}
+                              {/* {this.state.callCharge} */}
+                            </small>
+                          </Button>
+                          {/* </Link> */}
                         </Col>
                         <Col
                           // onClick={() => this.handleVideocall}

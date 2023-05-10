@@ -11,12 +11,12 @@ import axiosConfig from "./../../axiosConfig";
 
 export default function AstroProfileVideo({ id }) {
   const Param = useParams();
-  console.log(Param);
 
-  const [astrodata, setAstrodata] = useState([]);
+  const [astroimage, setAstroImage] = useState([]);
+  const [astrovideo, setAstroVideo] = useState([]);
 
   const handleastrodata = () => {
-    console.log("object");
+    // console.log("object");
     // axiosConfig
     //   .get(``)
     //   .then((res) => {
@@ -28,13 +28,15 @@ export default function AstroProfileVideo({ id }) {
     //   });
   };
   const getallgallary = () => {
-    console.log(Param.id);
+    // console.log(Param.id);
     axiosConfig
-      .get(`/admin/get_astroGallery/6352904e3755959407f948a6`)
-      // .get(`/admin/get_astroGallery/${Param.id}`)
+      .get(`/admin/get_astroGallery/${Param.id}`)
       .then((res) => {
-        setAstrodata(res?.data?.data);
-        console.log("@@@@@", res.data.data);
+        console.log("Gallaryimg", res.data.data);
+        console.log("Gallaryimg", res.data.data.images);
+        console.log("Gallaryvideo", res.data.data.videos);
+        // setAstroImage(res.data.data?.images);
+        // setAstroVideo(res.data.data?.videos);
       })
       .catch((err) => {
         console.log(err);
@@ -96,20 +98,21 @@ export default function AstroProfileVideo({ id }) {
   return (
     <>
       <Swiper {...settings}>
-        {astrodata?.map((value) => {
-          {
-            /* console.log(value?.image[0]); */
-          }
-          return (
-            <Col key={value?._id} md="3" className="videoimg">
-              <div key={value?._id} className="product-grid8">
-                <div class="product-image8">
-                  <img width={500} src={value?.image[0]} alt="" />
-                </div>
-              </div>
-            </Col>
-          );
-        })}
+        {astroimage?.length > 0 ? (
+          <>
+            {astroimage?.map((value) => {
+              return (
+                <Col key={value?._id} md="3" className="videoimg">
+                  <div key={value?._id} className="product-grid8">
+                    <div class="product-image8">
+                      <img width={500} src={value?.image[0]} alt="" />
+                    </div>
+                  </div>
+                </Col>
+              );
+            })}
+          </>
+        ) : null}
 
         {/* <Col md="3" className="videoimg">
           <div className="product-grid8">

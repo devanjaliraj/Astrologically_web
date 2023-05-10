@@ -16,6 +16,7 @@ import "../../../src/assets/scss/style.scss";
 import AllMinRechargeVideo from "./AllMinRechargeVideo";
 import AlertPage from "./AlertPage";
 import { LiveStreaming } from "./zegocloud/LiveStreaming";
+import App from "./MyTimer";
 
 // const config = { mode: "rtc", codec: "vp8" };
 // const useClient = createClient(config);
@@ -24,6 +25,9 @@ import { LiveStreaming } from "./zegocloud/LiveStreaming";
 class UserRequestForm extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      videoCallList: "",
+    };
     this.state = {
       stream: null,
       changeView: false,
@@ -46,28 +50,50 @@ class UserRequestForm extends React.Component {
       occupation: "",
       topic_of_cnsrn: "",
       entertopic_of_cnsrn: "",
-      Astrodata: "",
-      Responseofvideo: "",
       data: [],
       setVideoCall: false,
+      // videoCallData: "",
       toggle: true,
     };
   }
 
   componentDidMount() {
+    const userid = JSON.parse(localStorage.getItem("user_id"));
     const callingastro_id = localStorage.getItem("videoCallAstro_id");
-    let userId = JSON.parse(localStorage.getItem("user_id"));
+
+    // const checkbal = {
+    //   userid: userid,
+    //   astroid: callingastro_id,
+    // };
+    // axiosConfig
+    //   .post(`/user/addVideoCallWallet`, checkbal)
+    //   .then((res) => {
+    //     console.log("checkbal", res);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+    const payload = {
+      userAccount: userid,
+      astroAccount: callingastro_id,
+    };
     axiosConfig
-      .get(`/admin/getoneAstro/${callingastro_id}`)
-      .then((response) => {
-        console.log("callingdata", response.data.data);
-        this.setState({ Astrodata: response.data.data });
+      .post(`/user/userVideoCall`, payload)
+      .then((res) => {
+        console.log("videocallapio", res);
+        // this.setState({
+        //   videoCallList: res?.data?.channelName,
+        // });
+        // this.setState({ videoCallData: res?.data?.channelName });
+        localStorage.setItem("usertoken_for_videocall", res?.data?.userAccount);
+        localStorage.setItem("userchannel_name", res?.data?.channelName);
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((err) => {
+        console.log(err);
       });
+
     axiosConfig
-      .get(`/user/viewoneuser/${userId}`)
+      .get(`/user/viewoneuser/${userid}`)
       .then((response) => {
         this.setState({ mobile: response.data.data.mobile });
         this.setState({ userData: response.data.data });
@@ -83,23 +109,6 @@ class UserRequestForm extends React.Component {
 
   submitHandler = (e) => {
     e.preventDefault();
-
-    const userid = localStorage.getItem("user_id");
-    const callingastro_id = localStorage.getItem("videoCallAstro_id");
-    console.log(this.state.Astrodata.channelName);
-    const payload = {
-      user: userid,
-      calling: callingastro_id,
-    };
-    axiosConfig
-      .post(``, payload)
-      .then((res) => {
-        console.log(res.data);
-        this.setState({ Responseofvideo: res.data.data });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
 
     let userId = JSON.parse(localStorage.getItem("user_id"));
     let astroId = localStorage.getItem("astro_id");
@@ -128,9 +137,9 @@ class UserRequestForm extends React.Component {
       .then((response) => {
         console.log("videointakeform", response.data.data);
         swal("Success!", "Submitted SuccessFully!", "Success");
-        // window.location.reload("/allastrologerlist");
-        // this.props.history.push("/allastrologerlist");
-        // this.props.history.push("/");
+        this.setState({ changeView: true });
+        this.setState({ setVideoCall: true });
+        // this.handleagoratoken();
       })
       .catch((error) => {
         swal("Error!", "error");
@@ -138,35 +147,47 @@ class UserRequestForm extends React.Component {
       });
   };
 
+  // handleagoratoken = () => {
+  //   console.log("object");
+  // };
+
   rtcProps = {
     // Pass your App ID here.
     appId: "7d1f07c76f9d46be86bc46a791884023",
     // Set the channel name.
-    channel: "anujesh",
+
+    // channel: "anujesh",
+
+    channel: localStorage.getItem("userchannel_name"),
+    // channel: `${this.state.videoCallList}`,
     // Pass your temp token here.
-    token:
-      "0067d1f07c76f9d46be86bc46a791884023IAB8XZD16tOryzZlXroWrQqHgEVRCc8a9ZiBubdNn/CNtUlEne4AAAAAEADE5kO9ez9bZAEAAQAAAAAA",
-    // token:
-    //   "007eJxTYDgh+fefxobNlcqHuZiV5tUksPQsnbky8DLD45MxN08G9yxRYDBPMUwzME82N0uzTDExS0q1MEtKNjFLNLc0tLAwMTAyXn4pMqUhkJEh7PIBZkYGCATx2RkS80qzUoszGBgA59ghrA==",
+    token: localStorage.getItem("usertoken_for_videocall"),
+
     // Set the user ID.
     uid: 0,
     // Set the user role
-    role: "",
+    // role: "",
   };
+
   callbacks = {
-    Duration: (e) => {
-      console.log(e);
-      Client.getSessionStats();
-    },
-    EndCall: () => this.setState({ setVideoCall: false }),
-    // ["leave-channel"]: (e) => {
+    // Duration: (e) => {
     //   console.log(e);
+    //   Client.getSessionStats();
+    // },
+    EndCall: () => this.setState({ setVideoCall: false }),
+    // ["user-joined"]: (e) => {
+    //   console.log("anujesh userjoined", e);
+    // },
+    // ["user-left"]: (e) => {
+    //   console.log("anujesh left", e);
+    // },
+    // ["token-privilege-will-expire"]: (e) => {
+    //   console.log("anujesh expire", e);
     // },
   };
 
   render() {
-    // const client = useClient();
-    // const { ready, tracks } = useMicrophoneAndCameraTracks();
+    // console.log("this.state.videoCallData", this.state.videoCallData);
     return (
       <LayoutOne headerTop="visible">
         {/* {this.state.toggle === true ? ( */}
@@ -231,6 +252,8 @@ class UserRequestForm extends React.Component {
                       <Col md="12">
                         <div className="leftcont text-left">
                           <h1>Video InTake Form</h1>
+                          {/* <App /> */}
+                          <div></div>
                         </div>
                       </Col>
                     </Row>
@@ -518,13 +541,12 @@ class UserRequestForm extends React.Component {
             <AllMinRechargeVideo />
           </>
         )} */}
-        <div style={{ display: "flex", width: "100vw", height: "90vh" }}>
+        {/* <div style={{ display: "flex", width: "100vw", height: "90vh" }}>
           <AgoraUIKit rtcProps={this.rtcProps} callbacks={this.callbacks} />
-        </div>
-        <div style={{ display: "flex", width: "100vw", height: "90vh" }}>
-          {/* <AgoraUIKit rtcProps={this.rtcProps} callbacks={this.callbacks} /> */}
+        </div> */}
+        {/* <div style={{ display: "flex", width: "100vw", height: "90vh" }}>
           <LiveStreaming />
-        </div>
+        </div> */}
       </LayoutOne>
     );
   }

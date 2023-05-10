@@ -1,5 +1,6 @@
 import React from "react";
 import AgoraRTC from "agora-rtc-sdk-ng";
+import { AgoraRTCStats } from "agora-rtc-sdk-ng";
 
 function Agoravideocall() {
   let options = {
@@ -25,7 +26,9 @@ function Agoravideocall() {
   async function startBasicCall() {
     // Create an instance of the Agora Engine
     const agoraEngine = AgoraRTC.createClient({ mode: "rtc", codec: "vp8" });
-
+    const agoratimer = AgoraRTCStats;
+    // const data = Client.getSessionStats().Duration;
+    console.log("dfddf", agoratimer);
     // Listen for the "user-published" event to retrieve an AgoraRTCRemoteUser object.
     agoraEngine.on("user-published", async (user, mediaType) => {
       // Subscribe to the remote user when the SDK triggers the "user-published" event.
@@ -93,6 +96,7 @@ function Agoravideocall() {
         // Leave the channel
         await agoraEngine.leave();
         console.log("You left the channel");
+        // Client.getSessionStats();
         // Refresh the page for reuse
         window.location.reload();
       };
