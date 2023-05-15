@@ -2,13 +2,11 @@ import { Container, Row, Col, Button, Input } from "reactstrap";
 import LayoutOne from "../../../layouts/LayoutOne";
 import React from "react";
 import AgoraUIKit from "agora-react-uikit";
-import AgoraRTC from "agora-rtc-sdk-ng";
 import axiosConfig from "../../../axiosConfig";
 import swal from "sweetalert";
-import astrologinbg from "../../../assets/img/astrologin-bg.jpg";
 import "../../../../src/assets/scss/style.scss";
 // import Livenewpage from "./Livenewpage";
-import { LiveStreaming } from "./LiveStreaming";
+import { LiveStreaming } from "./LiveStreaming.js";
 
 class LiveVideonew extends React.Component {
   constructor(props) {
@@ -47,7 +45,7 @@ class LiveVideonew extends React.Component {
     channel: "anujesh",
     // Pass your temp token here.
     token:
-      "007eJxTYDgh+fefxobNlcqHuZiV5tUksPQsnbky8DLD45MxN08G9yxRYDBPMUwzME82N0uzTDExS0q1MEtKNjFLNLc0tLAwMTAyXn4pMqUhkJEh7PIBZkYGCATx2RkS80qzUoszGBgA59ghrA==",
+      "0067d1f07c76f9d46be86bc46a791884023IABZ7sN96RKmFTBkTuG/f1zAI3QZSNel+OjfEB1HYpztCElEne4AAAAAEABAuqeD7vxdZAEAAQAOOF1k",
     // Set the user ID.
     uid: 0,
     // Set the user role
@@ -83,7 +81,7 @@ class LiveVideonew extends React.Component {
       <div>
         <LayoutOne headerTop="visible">
           {/* live streaming by anujesh host*/}
-          <LiveStreaming />
+
           <div
             style={{
               display: "flex",
@@ -91,14 +89,13 @@ class LiveVideonew extends React.Component {
               height: "90vh",
             }}
           >
-            <LiveStreaming />
-
             <AgoraUIKit rtcProps={this.rtcProps} callbacks={this.callbacks} />
           </div>
-          {/* <div className="container">
-            <Livenewpage />
-          </div> */}
-          {this.state.changeView === true ? (
+          <div>
+            <LiveStreaming />
+          </div>
+
+          {/* {this.state.changeView === true ? (
             <>
               <section>
                 {this.state.setVideoCall === true ? (
@@ -114,7 +111,6 @@ class LiveVideonew extends React.Component {
                         rtcProps={this.rtcProps}
                         callbacks={this.callbacks}
                       />
-                      {/* <AgoraUIKit rtcProps={rtcProps} callbacks={callbacks} /> */}
                     </div>
                   </>
                 ) : null}
@@ -126,10 +122,6 @@ class LiveVideonew extends React.Component {
                 <div
                   className=""
                   style={{
-                    // backgroundColor: "#FFD59E",
-                    // width: "100%",
-                    // padding: "70px 0px",
-                    // backgroundSize: "cover",
                     float: "left",
                     width: "100%",
                     backgroundColor: "#272727",
@@ -320,17 +312,7 @@ class LiveVideonew extends React.Component {
                                 <option>Female</option>
                               </Input>
                             </Col>
-                            {/* 
-                      <Col md="4">
-                        <div class="form-group mtb-10">
-                          <label>Gender*</label>
-                          <Input
-                            type="select"
-                            value={this.state.data.gender}
-                            onChange={this.changeHandler1}>
-                          </Input>
-                        </div>
-                      </Col> */}
+
                             <Col md="4">
                               <div class="form-group mtb-10">
                                 <label>Marital Status*</label>
@@ -427,7 +409,7 @@ class LiveVideonew extends React.Component {
                 </Container>
               </section>
             </>
-          )}
+          )} */}
         </LayoutOne>
       </div>
     );

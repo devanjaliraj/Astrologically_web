@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import AgoraRTC from "agora-rtc-sdk-ng";
 
 export const LiveStreaming = () => {
   //  new component by me
+
   let options = {
     // Pass your App ID here.
     appId: "7d1f07c76f9d46be86bc46a791884023",
@@ -10,11 +11,11 @@ export const LiveStreaming = () => {
     channel: "anujesh",
     // Pass your temp token here.
     token:
-      "0067d1f07c76f9d46be86bc46a791884023IAB8XZD16tOryzZlXroWrQqHgEVRCc8a9ZiBubdNn/CNtUlEne4AAAAAEADE5kO9ez9bZAEAAQAAAAAA",
+      "0067d1f07c76f9d46be86bc46a791884023IABZ7sN96RKmFTBkTuG/f1zAI3QZSNel+OjfEB1HYpztCElEne4AAAAAEABAuqeD7vxdZAEAAQAOOF1k",
     // Set the user ID.
     uid: 0,
     // Set the user role
-    role: "",
+    role: "Audience",
   };
 
   const channelParameters = {
@@ -188,7 +189,7 @@ export const LiveStreaming = () => {
   return (
     <div>
       <h2 className="left-align mt-1">
-        Get started with interactive live streaming
+        {/* Get started with interactive live streaming */}
       </h2>
       <div className="row">
         <div>

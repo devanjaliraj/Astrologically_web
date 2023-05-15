@@ -8,35 +8,20 @@ import { Container, Row, Col, Card } from "reactstrap";
 
 import astro3 from "../../assets/img/team/astro3.jpg";
 import axiosConfig from "./../../axiosConfig";
+import { CloudLightning } from "react-feather";
 
-export default function AstroProfileVideo({ id }) {
+export default function AstroProfileVideo() {
   const Param = useParams();
 
   const [astroimage, setAstroImage] = useState([]);
-  const [astrovideo, setAstroVideo] = useState([]);
 
-  const handleastrodata = () => {
-    // console.log("object");
-    // axiosConfig
-    //   .get(``)
-    //   .then((res) => {
-    //     console.log(res);
-    //     setAstrodata(res);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
-  };
   const getallgallary = () => {
-    // console.log(Param.id);
     axiosConfig
       .get(`/admin/get_astroGallery/${Param.id}`)
+      // .get(`/admin/get_astroGallery/${Param.id}`)
       .then((res) => {
-        console.log("Gallaryimg", res.data.data);
-        console.log("Gallaryimg", res.data.data.images);
-        console.log("Gallaryvideo", res.data.data.videos);
-        // setAstroImage(res.data.data?.images);
-        // setAstroVideo(res.data.data?.videos);
+        console.log("Gallary", res.data.data);
+        setAstroImage(res.data.data);
       })
       .catch((err) => {
         console.log(err);
@@ -45,10 +30,9 @@ export default function AstroProfileVideo({ id }) {
 
   useEffect(() => {
     getallgallary();
-    handleastrodata();
   }, []);
 
-  var settings = {
+  const settings = {
     loop: true,
     slidesPerView: 4,
     grabCursor: true,
@@ -84,79 +68,56 @@ export default function AstroProfileVideo({ id }) {
       </button>
     ),
   };
-  //   componentDidMount(){
-  //     axiosConfig
-  //     .get(`/admin/video_list`)
-  //     .then((res) => {
-  //       this.setState{data:res?.data?.data};
-  //       console.log(res.data.data);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  //   }
+
   return (
     <>
       <Swiper {...settings}>
-        {astroimage?.length > 0 ? (
-          <>
-            {astroimage?.map((value) => {
-              return (
-                <Col key={value?._id} md="3" className="videoimg">
-                  <div key={value?._id} className="product-grid8">
-                    <div class="product-image8">
-                      <img width={500} src={value?.image[0]} alt="" />
+        {astroimage.map((value) => (
+          <Col key={value?._id} md="3" className="videoimg ">
+            <div key={value?._id} className="">
+              <div class="product-image8">
+                {value?.file?.includes("mp4") ? (
+                  <>
+                    <div style={{ width: "100%" }} className="videogallry">
+                      <video
+                        style={{
+                          width: "100%",
+                          background: "none",
+                          borderRadius: "8px",
+                        }}
+                        className="videosource"
+                        width="320"
+                        height="200"
+                        controls
+                      >
+                        <source src={value?.file} type="video/mp4" />
+                      </video>
                     </div>
-                  </div>
-                </Col>
-              );
-            })}
-          </>
-        ) : null}
-
-        {/* <Col md="3" className="videoimg">
-          <div className="product-grid8">
-            <div class="product-image8">
-              <img src={astro3} alt="" />
+                  </>
+                ) : (
+                  <>
+                    <div style={{ width: "100%" }} className="imagesize  mx-1">
+                      <img
+                        style={{
+                          paddingTop: "20px",
+                          width: "277px",
+                          height: "200px",
+                          background: "none",
+                          borderRadius: "8px",
+                        }}
+                        className="imagegallry"
+                        // width={320}
+                        // height={250}
+                        src={value?.file}
+                        alt="gallryimg"
+                      />
+                    </div>
+                  </>
+                )}
+              </div>
             </div>
-          </div>
-        </Col> */}
-        {/* <Col md="3" className="videoimg">
-        <div className="product-grid8">
-          <div class="product-image8">
-            
-            <img src={astro3} alt="" />
-            
-          </div>
-        </div>
-      </Col> */}
-        {/* <Col md="3" className="videoimg">
-        <div className="product-grid8">
-          <div class="product-image8">
-          
-            <img src={astro3} alt="" />
-           
-          </div>
-        </div>
-      </Col> */}
-        {/* <Col md="3" className="videoimg">
-        <div className="product-grid8">
-          <div class="product-image8">
-           
-            <img src={astro3} alt="" />
-           
-          </div>
-        </div>
-      </Col> */}
-        {/* <Col md="3" className="videoimg">
-        <div className="product-grid8">
-          <div class="product-image8">
-            
-            <img src={astro3} alt="" />
-          
-          </div>
-        </div>
-      </Col> */}
+          </Col>
+        ))}
       </Swiper>
     </>
   );

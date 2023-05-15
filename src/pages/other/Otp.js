@@ -67,7 +67,7 @@ export default class Verify_otp extends React.Component {
     //   };
 
     axios
-      .post("http://65.2.148.70:8000/user/verifyotp", this.state)
+      .post("http://65.2.175.154:8000/user/verifyotp", this.state)
 
       .then((res) => {
         console.log(res);

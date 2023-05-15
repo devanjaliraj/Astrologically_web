@@ -42,6 +42,7 @@ class AstrologerDetail extends React.Component {
     this.state = {
       allminrechargeList: [],
       data: {},
+      astroData: {},
       fullname: "",
       all_skills: "",
       language: "",
@@ -105,6 +106,7 @@ class AstrologerDetail extends React.Component {
         console.log("ddsdds", response.data?.data);
         localStorage.setItem("astroname", response?.data?.data?.fullname);
         localStorage.setItem("channelName", response?.data?.data?.channelName);
+        this.setState({ astroData: response.data.data });
         this.setState({
           fullname: response.data.data.fullname,
           all_skills: response.data.data.all_skills,
@@ -123,7 +125,6 @@ class AstrologerDetail extends React.Component {
           monday: response.data.data.monday,
           friday: response.data.data.friday,
           tuesday: response.data.data.tuesday,
-
           thursday: response.data.data.thursday,
           saturday: response.data.data.saturday,
           fullname: response.data.data.fullname,
@@ -136,53 +137,184 @@ class AstrologerDetail extends React.Component {
         console.log(error);
       });
   };
-
-  handleStartCall = () => {
+  handleStartChat = () => {
     let userId = JSON.parse(localStorage.getItem("user_id"));
     let { id } = this.props.match.params;
     console.log(userId, id);
+    // latest code
     if (userId !== "" && userId !== null) {
       const data = {
         userid: userId,
         astroid: id,
       };
-      axiosConfig
-        .post(`/user/addCallWallet`, data)
-        .then((response) => {
-          console.log("@@@callingmode", response.data);
-          if (response.data?.msg === "success") {
-            this.props.history.push("/UserRequestFormCall");
-          } else
-            swal(
-              "Recharge Now",
-              "You Donot have Enough balance to Make This Call",
-              {
-                buttons: {
-                  cancel: "Recharge Now",
-                  catch: { text: "Cancel ", value: "catch" },
-                },
-              }
-            ).then((value) => {
-              switch (value) {
-                case "catch":
-                  swal("Sure Want to cancel it");
-                  break;
-                default:
-                  this.props.history.push("/walletmoney");
-              }
-            });
-        })
-        .catch((error) => {
-          console.log(error);
-          // swal('Error!', 'Invalid!', 'error')
+      if (this.state.astroData.waiting_queue === 0) {
+        axiosConfig
+          .post(`/user/addCallWallet`, data)
+          .then((response) => {
+            console.log("@@@chat mode", response.data);
+
+            if (response.data?.msg === "success") {
+              this.props.history.push("/UserRequestForm");
+            } else
+              swal(
+                "Recharge Now",
+                "You Donot have Enough balance to Make This Call",
+                {
+                  buttons: {
+                    cancel: "Recharge Now",
+                    catch: { text: "Cancel ", value: "catch" },
+                  },
+                }
+              ).then((value) => {
+                switch (value) {
+                  case "catch":
+                    swal("Sure Want to cancel it");
+                    break;
+                  default:
+                    this.props.history.push("/walletmoney");
+                }
+              });
+          })
+          .catch((error) => {
+            console.log(error);
+            // swal('Error!', 'Invalid!', 'error')
+          });
+      } else {
+        swal(
+          `Astrologer is Busy for ${this.state.astroData.waiting_queue} Min`,
+          "Do You Want to Be in queue ",
+
+          {
+            buttons: {
+              cancel: "Be in queue",
+              catch: { text: "Cancel ", value: "catch" },
+            },
+          }
+        ).then((value) => {
+          switch (value) {
+            case "catch":
+              swal("Sure Want to cancel it");
+              break;
+            default:
+              // api for queue
+              this.props.history.push("/walletmoney");
+          }
         });
+      }
     } else {
       swal("Need to Login first");
       // this.setState({ modal: true });
     }
 
-    //
-    //
+    // previous code
+    // if (userId !== "" && userId !== null) {
+    //   const data = {
+    //     userid: userId,
+    //     astroid: id,
+    //   };
+    //   axiosConfig
+    //     .post(`/user/addCallWallet`, data)
+    //     .then((response) => {
+    //       console.log("@@@callingmode", response.data);
+    //       if (response.data?.msg === "success") {
+    //         this.props.history.push("/UserRequestForm");
+    //       } else
+    //         swal(
+    //           "Recharge Now",
+    //           "You Donot have Enough balance to Make This Call",
+    //           {
+    //             buttons: {
+    //               cancel: "Recharge Now",
+    //               catch: { text: "Cancel ", value: "catch" },
+    //             },
+    //           }
+    //         ).then((value) => {
+    //           switch (value) {
+    //             case "catch":
+    //               swal("Sure Want to cancel it");
+    //               break;
+    //             default:
+    //               this.props.history.push("/walletmoney");
+    //           }
+    //         });
+    //     })
+    //     .catch((error) => {
+    //       console.log(error);
+    //       // swal('Error!', 'Invalid!', 'error')
+    //     });
+    // } else {
+    //   swal("Need to Login first");
+    //   // this.setState({ modal: true });
+    // }
+  };
+
+  handleStartCall = () => {
+    let userId = JSON.parse(localStorage.getItem("user_id"));
+    let { id } = this.props.match.params;
+
+    if (userId !== "" && userId !== null) {
+      const data = {
+        userid: userId,
+        astroid: id,
+      };
+      if (this.state.astroData.waiting_queue === 0) {
+        axiosConfig
+          .post(`/user/addCallWallet`, data)
+          .then((response) => {
+            console.log("@@@callingmode", response.data);
+
+            if (response.data?.msg === "success") {
+              this.props.history.push("/UserRequestFormCall");
+            } else
+              swal(
+                "Recharge Now",
+                "You Donot have Enough balance to Make This Call",
+                {
+                  buttons: {
+                    cancel: "Recharge Now",
+                    catch: { text: "Cancel ", value: "catch" },
+                  },
+                }
+              ).then((value) => {
+                switch (value) {
+                  case "catch":
+                    swal("Sure Want to cancel it");
+                    break;
+                  default:
+                    this.props.history.push("/walletmoney");
+                }
+              });
+          })
+          .catch((error) => {
+            console.log(error);
+            // swal('Error!', 'Invalid!', 'error')
+          });
+      } else {
+        swal(
+          `Astrologer is Busy for ${this.state.astroData.waiting_queue} Min`,
+          "Do You Want to Be in queue ",
+
+          {
+            buttons: {
+              cancel: "Be in queue",
+              catch: { text: "Cancel ", value: "catch" },
+            },
+          }
+        ).then((value) => {
+          switch (value) {
+            case "catch":
+              swal("Sure Want to cancel it");
+              break;
+            default:
+              // api for queue
+              this.props.history.push("/walletmoney");
+          }
+        });
+      }
+    } else {
+      swal("Need to Login first");
+      // this.setState({ modal: true });
+    }
   };
 
   handleBalacecheck = () => {
@@ -195,46 +327,110 @@ class AstrologerDetail extends React.Component {
         userid: userId,
         astroid: id,
       };
+      if (this.state.astroData.waiting_queue === 0) {
+        axiosConfig
+          .post(`/user/addCallWallet`, data)
+          .then((response) => {
+            console.log("@@@Video_calling_mode", response.data);
 
-      const checkbal = { userid: userId, astroid: id };
-      axiosConfig
-        .post(`/user/addVideoCallWallet`, checkbal)
-        .then((res) => {
-          console.log("checkbal_videocall", res?.data.msg === "success");
-          if (res?.data.msg === "success") {
-            this.props.history.push("/UserRequestFormVideoCall");
-          } else {
-            swal(
-              "Recharge Now",
-              "You Donot have Enough balance to Make this Call",
-              {
-                buttons: {
-                  cancel: "Recharge Now",
-                  catch: {
-                    text: "Cancel ",
-                    value: "catch",
+            if (response.data?.msg === "success") {
+              this.props.history.push("/UserRequestFormVideoCall");
+            } else
+              swal(
+                "Recharge Now",
+                "You Donot have Enough balance to Make This Call",
+                {
+                  buttons: {
+                    cancel: "Recharge Now",
+                    catch: { text: "Cancel ", value: "catch" },
                   },
-                },
-              }
-            ).then((value) => {
-              switch (value) {
-                case "catch":
-                  swal("Sure Want to cancel it");
-                  break;
+                }
+              ).then((value) => {
+                switch (value) {
+                  case "catch":
+                    swal("Sure Want to cancel it");
+                    break;
+                  default:
+                    this.props.history.push("/walletmoney");
+                }
+              });
+          })
+          .catch((error) => {
+            console.log(error);
+            // swal('Error!', 'Invalid!', 'error')
+          });
+      } else {
+        swal(
+          `Astrologer is Busy for ${this.state.astroData.waiting_queue} Min`,
+          "Do You Want to Be in queue ",
 
-                default:
-                  this.props.history.push("/walletmoney");
-              }
-            });
+          {
+            buttons: {
+              cancel: "Be in queue",
+              catch: { text: "Cancel ", value: "catch" },
+            },
           }
-        })
-        .catch((err) => {
-          console.log(err);
+        ).then((value) => {
+          switch (value) {
+            case "catch":
+              swal("Sure Want to cancel it");
+              break;
+            default:
+              // api for queue
+              this.props.history.push("/walletmoney");
+          }
         });
+      }
     } else {
       swal("Need to Login first");
       // this.setState({ modal: true });
     }
+
+    // if (userId !== "" && userId !== null) {
+    //   const data = {
+    //     userid: userId,
+    //     astroid: id,
+    //   };
+
+    //   const checkbal = { userid: userId, astroid: id };
+    //   axiosConfig
+    //     .post(`/user/addVideoCallWallet`, checkbal)
+    //     .then((res) => {
+    //       console.log("checkbal_videocall", res?.data.msg === "success");
+    //       if (res?.data.msg === "success") {
+    //         this.props.history.push("/UserRequestFormVideoCall");
+    //       } else {
+    //         swal(
+    //           "Recharge Now",
+    //           "You Donot have Enough balance to Make this Call",
+    //           {
+    //             buttons: {
+    //               cancel: "Recharge Now",
+    //               catch: {
+    //                 text: "Cancel ",
+    //                 value: "catch",
+    //               },
+    //             },
+    //           }
+    //         ).then((value) => {
+    //           switch (value) {
+    //             case "catch":
+    //               swal("Sure Want to cancel it");
+    //               break;
+
+    //             default:
+    //               this.props.history.push("/walletmoney");
+    //           }
+    //         });
+    //       }
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //     });
+    // } else {
+    //   swal("Need to Login first");
+    //   // this.setState({ modal: true });
+    // }
   };
   // submitHandler = (e, astroid, mobile) => {
   //   e.preventDefault();
@@ -394,46 +590,34 @@ class AstrologerDetail extends React.Component {
 
                       <Row>
                         <Col md="3" className="mt-30">
-                          <Link to="/UserRequestForm">
-                            {/* <Link to="/AllMinRecharge"> */}
-                            {/* <Link to="/UserRequestForm"> */}
-                            <Button className="btn-as st" onClick={this.toggle}>
-                              <i
-                                className="fa fa-commenting"
-                                aria-hidden="true"
-                              ></i>{" "}
-                              Start Chat
-                              <small className="sm-text">
-                                {/* <i class="fa fa-inr" aria-hidden="true"></i>{" "} */}
-                                {/* {this.state.callCharge} */}
-                              </small>
-                            </Button>
-                          </Link>
-                        </Col>
-                        <Col md="3" className="mt-30">
-                          {/* <Button className="btn-as st" onClick={this.toggle}> */}
-                          {/* <Link to="/Call"> */}
-                          {/* <Link to="/UserRequestFormCall"> */}
+                          {/* <Link to=""> */}
+                          {/* <Link to="/AllMinRecharge"> */}
+                          {/* <Link to="/UserRequestForm"> */}
                           <Button
                             className="btn-as st"
-                            onClick={this.handleStartCall}
-                            // onClick={this.toggle}
-                            // onClick={(e) =>
-                            //   this.submitHandler(
-                            //     e,
-                            //     this.state.astroId,
-                            //     this.state.astroMobile
-                            //   )
-                            // }
+                            onClick={this.handleStartChat}
                           >
-                            <i className="fa fa-phone" aria-hidden="true"></i>
-                            Start Call
+                            <i
+                              className="fa fa-commenting"
+                              aria-hidden="true"
+                            ></i>{" "}
+                            Start Chat
                             <small className="sm-text">
                               {/* <i class="fa fa-inr" aria-hidden="true"></i>{" "} */}
                               {/* {this.state.callCharge} */}
                             </small>
                           </Button>
                           {/* </Link> */}
+                        </Col>
+                        <Col md="3" className="mt-30">
+                          <Button
+                            className="btn-as st"
+                            onClick={this.handleStartCall}
+                          >
+                            <i className="fa fa-phone" aria-hidden="true"></i>
+                            Start Call
+                            <small className="sm-text"></small>
+                          </Button>
                         </Col>
                         <Col
                           // onClick={() => this.handleVideocall}
@@ -478,10 +662,9 @@ class AstrologerDetail extends React.Component {
                     </Col>
                   </Row>
 
-                  <div>
-                    <AstroProfileVideo id={this.state.astro} />
+                  <div className="mt-2 pt-1">
+                    <AstroProfileVideo />
                   </div>
-                  {/* <div className="img_slider">shdsjkshaghjg</div> */}
                 </section>
                 <section className="mt-50 mb-30">
                   <div

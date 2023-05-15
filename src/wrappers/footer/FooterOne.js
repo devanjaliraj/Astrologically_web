@@ -35,7 +35,7 @@ const FooterOne = ({
       });
   };
   const getCategory = () => {
-    Axios.get(`http://65.2.148.70:8000/admin/getallCategory`)
+    Axios.get(`http://65.2.175.154:8000/admin/getallCategory`)
       .then((response) => {
         // console.log("5555555", response.data.data);
         setCategoryList(response.data.data);

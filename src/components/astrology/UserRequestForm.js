@@ -59,6 +59,9 @@ class UserRequestForm extends React.Component {
     e.preventDefault();
     let userId = JSON.parse(localStorage.getItem("user_id"));
     let astroId = localStorage.getItem("astro_id");
+    // let astroId = localStorage.getItem("videoCallAstro_id");
+
+    console.log(userId, astroId);
     let obj = {
       userid: userId,
       astroid: astroId,
@@ -79,11 +82,12 @@ class UserRequestForm extends React.Component {
       topic_of_cnsrn: this.state.topic_of_cnsrn,
       entertopic_of_cnsrn: this.state.entertopic_of_cnsrn,
     };
+
     axiosConfig
       .post(`/user/add_chat_intake`, obj)
       .then((response) => {
         console.log("aaaaaaaaaaaa", response.data.data);
-        swal("Success!", "Submitted SuccessFull!", "success");
+        swal("Success!", "Submitted SuccessFully!", "success");
         // window.location.reload("/allastrologerlist");
         // this.props.history.push("/allastrologerlist");
         // this.props.history.push("/allMinRecharge");
@@ -93,6 +97,66 @@ class UserRequestForm extends React.Component {
         swal("Error!", "You clicked the button!", "error");
         console.log(error);
       });
+
+    // new code
+
+    // this.setState({ modalone: true });
+    let mobileNo = localStorage.getItem("user_mobile_no");
+
+    // console.log("mobile", mobile);
+    console.log("mobileNo", mobileNo);
+
+    // let astrologerList = localStorage.getItem('astrologerList')
+    // viewone astro
+    // astroId
+    axiosConfig
+      .get(`/admin/getoneAstro/${astroId}`)
+      .then((res) => {
+        console.log(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    let object = {
+      userid: userId,
+      astroid: astroId,
+      // astrologerList: astrologerList,
+      // From: mobile, // astrologer no
+      To: mobileNo, // user mobile no
+    };
+    if (userId !== "" && userId !== null) {
+      const data = {
+        userid: userId,
+        astroid: astroId,
+      };
+      // this.setState({ callingmode: true });
+
+      axiosConfig
+        .post(`/user/addCallWallet`, data)
+        .then((response) => {
+          if (response.data.status === true) {
+            axiosConfig
+              .post(`/user/make_call`, object)
+              .then((response) => {
+                console.log("Calling", response.data);
+                // this.setState({ callingmode: false });
+              })
+              .catch((error) => {
+                console.log(error?.response?.data?.error);
+                if (error?.response?.data?.error) {
+                  swal("Try again after some Time ", "Internal server");
+                }
+              });
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          // swal('Error!', 'Invalid!', 'error')
+        });
+    } else {
+      swal("Need to Login first");
+      // this.setState({ modal: true });
+    }
   };
   render() {
     return (

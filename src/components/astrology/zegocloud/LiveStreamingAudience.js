@@ -1,48 +1,23 @@
 import { Container, Row, Col, Button, Input } from "reactstrap";
-import LayoutOne from "../../layouts/LayoutOne";
+import LayoutOne from "../../../layouts/LayoutOne";
 import React from "react";
 import AgoraUIKit from "agora-react-uikit";
-import { AgoraRTC, Client, getSessionStats } from "agora-rtc-sdk-ng";
-import { formatTime } from "./Timer";
-
-// import {
-//   AgoraVideoPlayer,
-//   createClient,
-//   createMicrophoneAndCameraTracks,
-// } from "agora-rtc-react";
-import axiosConfig from "../../axiosConfig";
+import axiosConfig from "../../../axiosConfig";
 import swal from "sweetalert";
-import astrologinbg from "../../assets/img/astrologin-bg.jpg";
-import "../../../src/assets/scss/style.scss";
-import AllMinRechargeVideo from "./AllMinRechargeVideo";
-import AlertPage from "./AlertPage";
-import { LiveStreaming } from "./zegocloud/LiveStreaming";
-import Timer from "./Timer";
-import ReactStopwatch from "react-stopwatch";
-import { CloudLightning } from "react-feather";
-import Timerclass from "./Timerclass";
+import "../../../../src/assets/scss/style.scss";
+// import Livenewpage from "./Livenewpage";
+import { LiveStreaming } from "./LiveStreaming.js";
 
-class UserRequestForm extends React.Component {
+class LiveStreamingAudience extends React.Component {
   constructor(props) {
     super(props);
-    this.countRef = React.createRef();
 
     this.state = {
-      videoCallList: "",
-    };
-    this.state = {
-      setTimer: 0,
-      setIsActive: false,
-      setIsPaused: false,
-      hours: 0,
-      minutes: 0,
-      seconds: 0,
       stream: null,
       changeView: false,
       userid: "",
       astroid: "",
       mobile: "",
-      userData: {},
       firstname: "",
       p_firstname: "",
       lastname: "",
@@ -60,199 +35,72 @@ class UserRequestForm extends React.Component {
       entertopic_of_cnsrn: "",
       data: [],
       setVideoCall: false,
-      // videoCallData: "",
-      toggle: true,
     };
   }
-
-  formatTime = (timer) => {
-    const getSeconds = `0${timer % 60}`.slice(-2);
-    const minutes = `${Math.floor(timer / 60)}`;
-    const getMinutes = `0${minutes % 60}`.slice(-2);
-    const getHours = `0${Math.floor(timer / 3600)}`.slice(-2);
-
-    return `${getHours} : ${getMinutes} : ${getSeconds}`;
-  };
-
-  handleStart = () => {
-    this.setState({ setIsActive: true });
-    this.setState({ setIsPaused: true });
-    this.countRef.current = setInterval(() => {
-      this.setState({ setTimer: this.state.setTimer + 1 });
-    }, 1000);
-  };
-  handlePause = () => {
-    clearInterval(this.countRef.current);
-    this.setState({ setIsPaused: false });
-  };
-
-  componentDidMount() {
-    const userid = JSON.parse(localStorage.getItem("user_id"));
-    const callingastro_id = localStorage.getItem("videoCallAstro_id");
-
-    // const checkbal = {
-    //   userid: userid,
-    //   astroid: callingastro_id,
-    // };
-    // axiosConfig
-    //   .post(`/user/addVideoCallWallet`, checkbal)
-    //   .then((res) => {
-    //     console.log("checkbal", res);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
-    const payload = {
-      userAccount: userid,
-      astroAccount: callingastro_id,
-    };
-    axiosConfig
-      .post(`/user/userVideoCall`, payload)
-      .then((res) => {
-        console.log("videocallapio", res);
-        // this.setState({
-        //   videoCallList: res?.data?.channelName,
-        // });
-        // this.setState({ videoCallData: res?.data?.channelName });
-        localStorage.setItem("usertoken_for_videocall", res?.data?.userAccount);
-        localStorage.setItem("userchannel_name", res?.data?.channelName);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
-    axiosConfig
-      .get(`/user/viewoneuser/${userid}`)
-      .then((response) => {
-        this.setState({ mobile: response.data.data.mobile });
-        this.setState({ userData: response.data.data });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
-
-  changeHandler = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
-  };
-
-  submitHandler = (e) => {
-    e.preventDefault();
-
-    let userId = JSON.parse(localStorage.getItem("user_id"));
-    let astroId = localStorage.getItem("astro_id");
-    let obj = {
-      userid: userId,
-      astroid: astroId,
-      mobile: parseInt(this.state.mobile),
-      firstname: this.state.firstname,
-      p_firstname: this.state.p_firstname,
-      lastname: this.state.lastname,
-      p_lastname: this.state.p_lastname,
-      dob: this.state.dob,
-      p_dob: this.state.p_dob,
-      birthPlace: this.state.birthPlace,
-      p_birthPlace: this.state.p_birthPlace,
-      date_of_time: this.state.date_of_time,
-      p_date_of_time: this.state.p_date_of_time,
-      gender: this.state.gender,
-      marital_status: this.state.marital_status,
-      occupation: this.state.occupation,
-      topic_of_cnsrn: this.state.topic_of_cnsrn,
-      entertopic_of_cnsrn: this.state.entertopic_of_cnsrn,
-    };
-    axiosConfig
-      .post(`/user/add_chat_intake`, obj)
-      .then((response) => {
-        console.log("videointakeform", response.data.data);
-        // swal("Success!", "Submitted SuccessFully!", "Success");
-        this.setState({ changeView: true });
-        // Timer Start here
-        this.setState({ setVideoCall: true });
-        this.handleStart();
-        let payload = {
-          userId: userId,
-          astroId: astroId,
-          status: true,
-        };
-        axiosConfig
-          .post(`/user/addCallDuration`, payload)
-          .then((res) => {
-            console.log("callduration", res.data.data);
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      })
-      .catch((error) => {
-        swal("Error!", "error");
-        console.log(error);
-      });
-  };
-
-  // handleagoratoken = () => {
-  //   console.log("object");
-  // };
 
   rtcProps = {
     // Pass your App ID here.
     appId: "7d1f07c76f9d46be86bc46a791884023",
     // Set the channel name.
-
-    channel: localStorage.getItem("userchannel_name"),
-    // channel: `${this.state.videoCallList}`,
+    channel: "anujesh",
     // Pass your temp token here.
-    token: localStorage.getItem("usertoken_for_videocall"),
-
+    token:
+      "0067d1f07c76f9d46be86bc46a791884023IABZ7sN96RKmFTBkTuG/f1zAI3QZSNel+OjfEB1HYpztCElEne4AAAAAEABAuqeD7vxdZAEAAQAOOF1k",
     // Set the user ID.
     uid: 0,
     // Set the user role
-    // role: "",
+
+    role: "Audience",
   };
 
   callbacks = {
-    EndCall: () => {
-      this.setState({ setVideoCall: false });
-      this.handlePause();
-      let userId = JSON.parse(localStorage.getItem("user_id"));
-      let astroId = localStorage.getItem("astro_id");
-      console.log(this.formatTime(this.state.setTimer));
-      let payload = {
-        userId: userId,
-        astroId: astroId,
-        status: false,
-        duration: this.formatTime(this.state.setTimer),
-      };
-      axiosConfig
-        .post(`/user/addCallDuration`, payload)
-        .then((res) => {
-          console.log("callduration", res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
+    EndCall: () => this.setState({ setVideoCall: false }),
+  };
+  componentDidMount() {
+    let userId = JSON.parse(localStorage.getItem("user_id"));
+    axiosConfig
+      .get(`/user/viewoneuser/${userId}`)
+      .then((response) => {
+        this.setState({ mobile: response.data.data.mobile });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+  changeHandler = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+  submitHandler = (e) => {
+    e.preventDefault();
+    this.setState({ setVideoCall: true });
+    this.setState({ changeView: true });
   };
 
   render() {
     return (
-      <LayoutOne headerTop="visible">
-        {/* {this.state.toggle === true ? ( */}
-        <>
-          {this.state.changeView === true ? (
+      <div>
+        {/* live streaming by anujesh host*/}
+
+        <div
+          style={{
+            display: "flex",
+            width: "100vw",
+            height: "90vh",
+          }}
+        >
+          <AgoraUIKit rtcProps={this.rtcProps} callbacks={this.callbacks} />
+        </div>
+
+        {/* {this.state.changeView === true ? (
             <>
               <section>
                 {this.state.setVideoCall === true ? (
                   <>
-                    <Row>
-                      <Col className="d-flex justify-content-center"></Col>
-                      <p>{this.formatTime(this.state.setTimer)}</p>
-                    </Row>
                     <div
                       style={{
                         display: "flex",
                         width: "100vw",
-                        height: "80vh",
+                        height: "90vh",
                       }}
                     >
                       <AgoraUIKit
@@ -261,12 +109,7 @@ class UserRequestForm extends React.Component {
                       />
                     </div>
                   </>
-                ) : (
-                  <>
-                    {" "}
-                    <AlertPage />
-                  </>
-                )}
+                ) : null}
               </section>
             </>
           ) : (
@@ -294,42 +137,6 @@ class UserRequestForm extends React.Component {
                       <Col md="12">
                         <div className="leftcont text-left">
                           <h1>Video InTake Form</h1>
-                          {/* <Timer /> */}
-                          {/* <Timerclass /> */}
-                          {/* <ReactStopwatch
-                            seconds={this.state.seconds}
-                            minutes={this.state.minutes}
-                            hours={this.state.hours}
-                            limit="00:00:60"
-                            onChange={({ hours, minutes, seconds }) => {
-                              // this.setState({
-                              //   duration: `${(hours, minutes, seconds)}`,
-                              // });
-
-                              this.setState({ hours: hours });
-                              this.setState({ minutes: minutes });
-                              this.setState({ seconds: seconds });
-                              console.log(hours, minutes, seconds);
-                            }}
-                            onCallback={() => {
-                              console.log("Finish");
-                            }}
-                            render={({
-                              formatted,
-                              hours,
-                              minutes,
-                              seconds,
-                            }) => {
-                              return (
-                                <div>
-                                  <p>Formatted: {formatted}</p>
-                                  <p>Hours: {hours}</p>
-                                  <p>Minutes: {minutes}</p>
-                                  <p>Seconds: {seconds}</p>
-                                </div>
-                              );
-                            }}
-                          /> */}
                         </div>
                       </Col>
                     </Row>
@@ -501,17 +308,7 @@ class UserRequestForm extends React.Component {
                                 <option>Female</option>
                               </Input>
                             </Col>
-                            {/* 
-                      <Col md="4">
-                        <div class="form-group mtb-10">
-                          <label>Gender*</label>
-                          <Input
-                            type="select"
-                            value={this.state.data.gender}
-                            onChange={this.changeHandler1}>
-                          </Input>
-                        </div>
-                      </Col> */}
+
                             <Col md="4">
                               <div class="form-group mtb-10">
                                 <label>Marital Status*</label>
@@ -597,8 +394,7 @@ class UserRequestForm extends React.Component {
                             </Col>
                             <Col md="12" className="mt-3">
                               <Button className="btn btn-warning">
-                                Start Video with{" "}
-                                {localStorage.getItem("astroname")}
+                                Start Video with Mukesh07
                               </Button>
                             </Col>
                           </Row>
@@ -609,14 +405,10 @@ class UserRequestForm extends React.Component {
                 </Container>
               </section>
             </>
-          )}
-        </>
-
-        {/* <div style={{ display: "flex", width: "100vw", height: "90vh" }}>
-          <AgoraUIKit rtcProps={this.rtcProps} callbacks={this.callbacks} />
-        </div> */}
-      </LayoutOne>
+          )} */}
+      </div>
     );
   }
 }
-export default UserRequestForm;
+
+export default LiveStreamingAudience;

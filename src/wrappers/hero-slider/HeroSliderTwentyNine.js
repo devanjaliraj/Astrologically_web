@@ -25,7 +25,7 @@ const HeroSliderTwentyNine = ({ props }) => {
   const [banner, setBanner] = useState([]);
   useEffect(() => {
     axios
-      .get("http://65.2.148.70:8000/admin/getbanner")
+      .get("http://65.2.175.154:8000/admin/getbanner")
       .then((response) => {
         console.log(response.data.data);
         setBanner(response.data.data);

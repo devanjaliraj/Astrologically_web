@@ -28,6 +28,7 @@ class UserRequestForm extends React.Component {
       topic_of_cnsrn: "",
       entertopic_of_cnsrn: "",
       data: [],
+      buttonText: "Start",
     };
   }
   componentDidMount() {
@@ -47,7 +48,9 @@ class UserRequestForm extends React.Component {
   submitHandler = (e) => {
     e.preventDefault();
     let userId = JSON.parse(localStorage.getItem("user_id"));
-    let astroId = localStorage.getItem("astro_id");
+    // let astroId = localStorage.getItem("astro_id");
+    let astroId = localStorage.getItem("videoCallAstro_id");
+
     let obj = {
       userid: userId,
       astroid: astroId,
@@ -68,14 +71,45 @@ class UserRequestForm extends React.Component {
       topic_of_cnsrn: this.state.topic_of_cnsrn,
       entertopic_of_cnsrn: this.state.entertopic_of_cnsrn,
     };
+    console.log(astroId);
+    axiosConfig
+      .get(`/admin/getoneAstro/${astroId}`)
+      .then((res) => {
+        console.log("@!@@@@@@@", res.data.data.mobile);
+        localStorage.setItem("Astro_calling_mobileNo", res.data.data.mobile);
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+
     axiosConfig
       .post(`/user/add_chat_intake`, obj)
       .then((response) => {
         console.log("aaaaaaaaaaaa", response.data.data);
-        swal("Success!", "Submitted SuccessFull!", "success");
+        let object = {
+          userid: userId,
+          astroid: astroId,
+          // astrologerList: astrologerList,
+          From: localStorage.getItem("Astro_calling_mobileNo"), //astrologer no
+          To: parseInt(this.state.mobile), //user mobile no
+        };
+        axiosConfig
+          .post(`/user/make_call`, object)
+          .then((response) => {
+            console.log("Calling", response.data);
+            this.setState({ buttonText: "Calling..." });
+            // this.setState({ callingmode: false });
+          })
+          .catch((error) => {
+            console.log(error?.response?.data?.error);
+            if (error?.response?.data?.error) {
+              swal("Try again after some Time ", "Internal server");
+            }
+          });
+        // swal("Success!", "Submitted SuccessFull!", "success");
         // window.location.reload("/allastrologerlist");
         // this.props.history.push("/allastrologerlist");
-        this.props.history.push("/allMinRechargeCall");
+        // this.props.history.push("/allMinRechargeCall");
       })
       .catch((error) => {
         swal("Error!", "You clicked the button!", "error");
@@ -377,7 +411,14 @@ class UserRequestForm extends React.Component {
                       </Col>
                       <Col md="12" className="mt-3">
                         <Button className="btn btn-warning">
-                          Start call with Mukesh07
+                          {this.state.buttonText === "Start" ? (
+                            <>
+                              Start call with{" "}
+                              {localStorage.getItem("astroname")}
+                            </>
+                          ) : (
+                            <>{this.state.buttonText}</>
+                          )}
                         </Button>
                       </Col>
                     </Row>

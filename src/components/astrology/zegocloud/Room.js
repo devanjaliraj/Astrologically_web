@@ -4,7 +4,7 @@ import * as React from "react";
 // import { generateToken, getRandomName, randomID } from "./util";
 export function generateToken(userid, roomid, fullname) {
   return fetch(
-    `http://65.2.148.70:8000/user/allchatwithuser/638dcc72ef0c127a0c5a0426`
+    `http://65.2.175.154:8000/user/allchatwithuser/638dcc72ef0c127a0c5a0426`
   ).then((res) => res.json());
 }
 

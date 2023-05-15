@@ -42,7 +42,6 @@ class WalletAddForm extends React.Component {
     let userId = JSON.parse(localStorage.getItem("user_id"));
     let obj = {
       userid: userId,
-
       amount: parseInt(this.state.amount),
     };
 

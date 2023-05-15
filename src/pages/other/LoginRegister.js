@@ -33,7 +33,7 @@ export default class LoginRegister extends Component {
     e.preventDefault();
     console.log(this.state);
     axios
-      .post(`http://65.2.148.70:8000/user/userVryfyotp`, {
+      .post(`http://65.2.175.154:8000/user/userVryfyotp`, {
         mobile: parseInt(this.state.mobile),
         otp: parseInt(this.state.otp),
       })
@@ -77,7 +77,7 @@ export default class LoginRegister extends Component {
       mobile: parseInt(this.state.mobile),
     };
     axios
-      .post(`http://65.2.148.70:8000/user/userlogin`, obj)
+      .post(`http://65.2.175.154:8000/user/userlogin`, obj)
       .then((response) => {
         console.log("@@@####", response.data);
         this.setState({ otpMsg: response.data.msg });
@@ -118,7 +118,7 @@ export default class LoginRegister extends Component {
     }
     // this.setState({ otp: false });
     axios
-      .post(`http://65.2.148.70:8000/user/usersignup`, data)
+      .post(`http://65.2.175.154:8000/user/usersignup`, data)
       .then((response) => {
         console.log(response.data.msg);
         localStorage.setItem("auth-token", response.data.token);

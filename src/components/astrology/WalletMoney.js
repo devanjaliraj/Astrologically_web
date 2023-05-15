@@ -10,6 +10,7 @@ import {
   Button,
 } from "reactstrap";
 import astrologinbg from "../../assets/img/astrologin-bg.jpg";
+import swal from "sweetalert";
 
 import LayoutOne from "../../layouts/LayoutOne";
 import "../../assets/scss/astroteam.scss";
@@ -20,11 +21,15 @@ class WalletMoney extends React.Component {
     super(props);
     this.state = {
       modal: false,
+      modalrecharge: false,
       planList: [],
       data: {},
+      userid: "",
+      rechargeamount: "",
     };
 
     this.toggle = this.toggle.bind(this);
+    this.togglerecharge = this.toggle.bind(this);
   }
 
   toggle() {
@@ -32,16 +37,27 @@ class WalletMoney extends React.Component {
       modal: !this.state.modal,
     });
   }
+  toggle() {
+    this.setState({
+      modalrecharge: !this.state.modalrecharge,
+    });
+  }
+  submitHandler = (e) => {
+    e.preventDefault();
+    localStorage.setItem("Rechargediscount", false);
+    this.props.history.push(
+      `/paymentdetail/${parseInt(this.state.rechargeamount)}`
+    );
+  };
   componentDidMount = () => {
     let user_id = JSON.parse(localStorage.getItem("user_id"));
 
-    console.log("first", user_id);
     axiosConfig
       .get(`/user/viewoneuser/${user_id}`)
       .then((response) => {
         console.log("sjdfjdfg", response.data.data);
         this.setState({
-          amount: response.data.data.amount,
+          amount: response.data.data?.amount,
         });
       })
       .catch((error) => {
@@ -60,6 +76,15 @@ class WalletMoney extends React.Component {
         console.log(error);
         console.log(error.response.data.data);
       });
+  };
+  changeHandler = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  handlerechare = (plan) => {
+    console.log(plan);
+    localStorage.setItem("Rechargediscount", true);
+    this.props.history.push(`/paymentdetail/${plan?._id}`);
   };
 
   render() {
@@ -103,10 +128,40 @@ class WalletMoney extends React.Component {
           </div>
         </section>
 
-        <section>
+        <Container>
+          <Row>
+            <Col lg="1"></Col>
+            <Col className="mt-3" lg="10">
+              <div className="wal-amt">
+                <h3>Add Custom Amount</h3>
+                <form onSubmit={this.submitHandler}>
+                  <Row>
+                    <Col md="10">
+                      <label> Enter Amount</label>
+                      <input
+                        type="number"
+                        placeholder="Enter Amount"
+                        name="rechargeamount"
+                        value={this.state.rechargeamount}
+                        onChange={this.changeHandler}
+                      />
+                    </Col>
+                    <Col md="2" className="mt-4">
+                      <Button className="btn btn-success">Submit</Button>
+                    </Col>
+                  </Row>
+                </form>
+              </div>
+            </Col>
+            <Col lg="1"></Col>
+          </Row>
+        </Container>
+
+        <div className="mt-3">
           <Container>
-            <Row>
-              <Col xl="3" lg="3" md="3" sm="6" xs="6">
+            <div className="rechargeplan">
+              <Row>
+                {/* <Col xl="3" lg="3" md="3" sm="6" xs="6">
                 <Link to="/walletaddform">
                   <div className="promoBox success-box info-ribbon">
                     <aside>
@@ -116,25 +171,40 @@ class WalletMoney extends React.Component {
                     <p></p>
                   </div>
                 </Link>
-              </Col>
-              {planList.length
-                ? planList.map((plan, index) => {
-                    return (
-                      <Col xl="3" lg="3" md="3" sm="6" xs="6" key={index}>
-                        <Link to="/paymentdetail">
+              </Col> */}
+                {planList.length
+                  ? planList.map((plan, index) => {
+                      return (
+                        <Col
+                          style={{ cursor: "pointer" }}
+                          onClick={() => this.handlerechare(plan)}
+                          xl="3"
+                          lg="3"
+                          md="3"
+                          sm="6"
+                          xs="6"
+                          key={index}
+                        >
                           <div className="promoBox success-box info-ribbon">
-                            <aside>
-                              <p>{plan.title}</p>
-                            </aside>
+                            {plan.title != "" || plan.title != 0 ? (
+                              <>
+                                <aside>
+                                  <p>{plan.title} % extra</p>
+                                </aside>
+                              </>
+                            ) : null}
+
                             <h4>INR {plan.amount}</h4>
                           </div>
-                        </Link>
-                      </Col>
-                    );
-                  })
-                : null}
+                          {/* <Link to="/paymentdetail"> */}
 
-              {/*    <Col xl="3" lg="3" md="3" sm="6" xs="6">
+                          {/* </Link> */}
+                        </Col>
+                      );
+                    })
+                  : null}
+
+                {/*    <Col xl="3" lg="3" md="3" sm="6" xs="6">
                                <Link to="paymentdetail">
                                       <div className="promoBox success-box info-ribbon">
                                         <aside>
@@ -145,7 +215,7 @@ class WalletMoney extends React.Component {
                                         </div>
                                </Link>
                          </Col> */}
-              {/* <Col xl="3" lg="3" md="3" sm="6" xs="6">
+                {/* <Col xl="3" lg="3" md="3" sm="6" xs="6">
                                <Link  to="paymentdetail">
                                       <div className="promoBox success-box info-ribbon">
                                         <aside>
@@ -223,7 +293,7 @@ class WalletMoney extends React.Component {
                                </Link>
                          </Col> */}
 
-              {/* <Col lg="12">
+                {/* <Col lg="12">
                              <div className="w-offer">
                                  <Button onClick={this.toggle} >
                                      <i class="fa fa-percent" aria-hidden="true"></i>
@@ -235,9 +305,10 @@ class WalletMoney extends React.Component {
                                  </Button>
                              </div>
                          </Col> */}
-            </Row>
+              </Row>
+            </div>
           </Container>
-        </section>
+        </div>
 
         {/* modal for recharge*/}
 

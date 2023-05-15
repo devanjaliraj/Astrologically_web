@@ -61,6 +61,9 @@ const BlogRightSidebar = lazy(() => import("./pages/blog/BlogRightSidebar"));
 const BlogDetailsStandard = lazy(() =>
   import("./pages/blog/BlogDetailsStandard")
 );
+const YourliveStreamone = lazy(() =>
+  import("./../src/components/astrology/YourliveStreamone")
+);
 
 // other pages
 const About = lazy(() => import("./pages/other/About"));
@@ -340,6 +343,10 @@ const App = (props) => {
                     path={process.env.PUBLIC_URL + "/homecategory"}
                     component={HomeCategory}
                   />
+                  <Route
+                    path={process.env.PUBLIC_URL + "/yourlivestreming"}
+                    component={YourliveStreamone}
+                  />
 
                   {/* astologo route  Close */}
 
@@ -484,7 +491,7 @@ const App = (props) => {
                     component={AstroRating}
                   />
                   <Route
-                    path={process.env.PUBLIC_URL + "/paymentdetail"}
+                    path={process.env.PUBLIC_URL + "/paymentdetail/:id"}
                     component={PaymentDetail}
                   />
 

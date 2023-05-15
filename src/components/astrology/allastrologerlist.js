@@ -1,13 +1,23 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Container, Row, Col, ModalHeader, ModalBody, Modal } from "reactstrap";
+import classnames from "classnames";
+import {
+  Container,
+  Row,
+  Col,
+  ModalHeader,
+  ModalBody,
+  Modal,
+  FormGroup,
+} from "reactstrap";
 // import textbottom from '../../assets/img/textbottom.png'
-import Tab from "react-bootstrap/Tab";
-import Nav from "react-bootstrap/Nav";
+// import Tab from "react-bootstrap/Tab";
+// import Nav from "react-bootstrap/Nav";
 import axios from "axios";
 import {
   NavItem,
   TabContent,
+  Nav,
   NavLink,
   TabPane,
   Card,
@@ -51,6 +61,7 @@ class AllAstrologerList extends React.Component {
       modal: false,
       modalone: false,
       price_high_to_low: [],
+      activeTab: 1,
     };
 
     this.toggle = this.toggle.bind(this);
@@ -67,7 +78,9 @@ class AllAstrologerList extends React.Component {
       modalone: !this.state.modalone,
     });
   }
-
+  togglefilter = (tab) => {
+    if (this.state.activeTab !== tab) this.setState({ activeTab: tab });
+  };
   changeHandler = (e) => {
     e.preventDefault();
     this.setState({ [e.target.name]: e.target.value });
@@ -94,7 +107,7 @@ class AllAstrologerList extends React.Component {
     }
     // this.setState({ otp: false });
     axios
-      .post(`http://65.2.148.70:8000/user/usersignup`, data)
+      .post(`http://65.2.175.154:8000/user/usersignup`, data)
       .then((response) => {
         console.log(response.data.msg);
         localStorage.setItem("auth-token", response.data.token);
@@ -116,7 +129,7 @@ class AllAstrologerList extends React.Component {
       mobile: parseInt(this.state.mobile),
     };
     axios
-      .post(`http://65.2.148.70:8000/user/userlogin`, obj)
+      .post(`http://65.2.175.154:8000/user/userlogin`, obj)
       .then((response) => {
         console.log("@@@####", response.data);
         this.setState({ otpMsg: response.data.msg });
@@ -142,7 +155,7 @@ class AllAstrologerList extends React.Component {
     e.preventDefault();
     console.log(this.state);
     axios
-      .post(`http://65.2.148.70:8000/user/userVryfyotp`, {
+      .post(`http://65.2.175.154:8000/user/userVryfyotp`, {
         mobile: parseInt(this.state.mobile),
         otp: parseInt(this.state.otp),
       })
@@ -433,58 +446,6 @@ class AllAstrologerList extends React.Component {
                         </Button>
                       </h3>
 
-                      <li>
-                        <span>
-                          <Form.Check
-                            type="radio"
-                            aria-label="radio 6"
-                            name="id"
-                            onChange={() =>
-                              this.filterMethod("rating_low_to_high")
-                            }
-                          />
-                        </span>
-                        Skills
-                      </li>
-                      <li>
-                        <span>
-                          <Form.Check
-                            type="radio"
-                            aria-label="radio 6"
-                            name="id"
-                            onChange={() =>
-                              this.filterMethod("rating_low_to_high")
-                            }
-                          />
-                        </span>
-                        Area of Specialisation
-                      </li>
-                      <li>
-                        <span>
-                          <Form.Check
-                            type="radio"
-                            aria-label="radio 6"
-                            name="id"
-                            onChange={() =>
-                              this.filterMethod("rating_low_to_high")
-                            }
-                          />
-                        </span>
-                        Language
-                      </li>
-                      <li>
-                        <span>
-                          <Form.Check
-                            type="radio"
-                            aria-label="radio 6"
-                            name="id"
-                            onChange={() =>
-                              this.filterMethod("rating_low_to_high")
-                            }
-                          />
-                        </span>
-                        Active/Non Active
-                      </li>
                       {/* <li>
                         <span>
                           <Form.Check type="radio" aria-label="radio 7" name="exp_low_to_high" onChange={() => this.filterMethod("exp_low_to_high")}/>
@@ -674,74 +635,251 @@ class AllAstrologerList extends React.Component {
           <div>
             {/* modal  */}
             <Modal
-              style={{ maxWidth: "700px" }}
+              style={{ maxWidth: "900px" }}
               size="lg"
               isOpen={this.state.modal}
               toggle={this.toggle}
-              // className={(this.props.className)}
+              // className={this.props.className}
             >
-              <ModalHeader toggle={this.toggle}>Filters Now</ModalHeader>
+              <ModalHeader toggle={this.toggle}>Filters</ModalHeader>
               <ModalBody>
-                <div className="login-register-area pt-50 pb-50">
+                <div className="">
                   <div className="container">
                     <div>
-                      <Nav vertical>
-                        <NavItem>
-                          <NavLink
-                            className="active"
-                            onClick={function noRefCheck() {}}
-                          >
-                            Tab1
-                          </NavLink>
-                        </NavItem>
-                        <NavItem>
-                          <NavLink
-                            className=""
-                            onClick={function noRefCheck() {}}
-                          >
-                            More Tabs
-                          </NavLink>
-                        </NavItem>
+                      <Nav tabs vertical>
+                        <Row>
+                          <Row>
+                            <Col
+                              className="tabcontentheadings"
+                              lg="3"
+                              md="3"
+                              sm="3"
+                            >
+                              <Row>
+                                <NavItem className="mb-1 mt-1">
+                                  <a
+                                    className={classnames({
+                                      active: this.state.activeTab === "1",
+                                    })}
+                                    onClick={() => {
+                                      this.togglefilter("1");
+                                    }}
+                                  >
+                                    <Button
+                                      style={{
+                                        background: `${
+                                          this.state.activeTab === "1"
+                                            ? "#e3ac2e"
+                                            : "none"
+                                        }`,
+                                      }}
+                                      className="filtericon"
+                                    >
+                                      <span
+                                        className="filtertext"
+                                        style={{ color: "black" }}
+                                      >
+                                        {" "}
+                                        Skills
+                                      </span>
+                                    </Button>
+                                  </a>
+                                </NavItem>
+                              </Row>
+                              <Row>
+                                <NavItem className="mb-1 mt-1">
+                                  <a
+                                    className={classnames({
+                                      active: this.state.activeTab === "2",
+                                    })}
+                                    onClick={() => {
+                                      this.togglefilter("2");
+                                    }}
+                                  >
+                                    <Button className="filtericon">
+                                      <span
+                                        className="filtertext"
+                                        style={{ color: "black" }}
+                                      >
+                                        {" "}
+                                        Specialisation
+                                      </span>
+                                    </Button>
+                                  </a>
+                                </NavItem>
+                              </Row>
+                              <Row>
+                                <NavItem className="mb-1 mt-1">
+                                  <a
+                                    className={classnames({
+                                      active: this.state.activeTab === "3",
+                                    })}
+                                    onClick={() => {
+                                      this.togglefilter("3");
+                                    }}
+                                  >
+                                    <Button className="filtericon">
+                                      <span
+                                        className="filtertext"
+                                        style={{ color: "black" }}
+                                      >
+                                        {" "}
+                                        Language
+                                      </span>
+                                    </Button>
+                                  </a>
+                                </NavItem>
+                              </Row>
+                              <Row>
+                                <NavItem className="mb-1 mt-1">
+                                  <a
+                                    className={classnames({
+                                      active: this.state.activeTab === "4",
+                                    })}
+                                    onClick={() => {
+                                      this.togglefilter("4");
+                                    }}
+                                  >
+                                    <Button className="filtericon">
+                                      <span
+                                        className="filtertext"
+                                        style={{ color: "black" }}
+                                      >
+                                        {" "}
+                                        Active/Non Active
+                                      </span>
+                                    </Button>
+                                  </a>
+                                </NavItem>
+                              </Row>
+                            </Col>
+                            <Col className="tabcontentheadings">
+                              <div className="tabcontentheading">
+                                <TabContent activeTab={this.state.activeTab}>
+                                  <TabPane className="tabidone" tabId="1">
+                                    <FormGroup check>
+                                      <Input name="radio1" type="radio" />{" "}
+                                      <Label check>Face Reading</Label>
+                                    </FormGroup>
+                                    <FormGroup check>
+                                      <Input name="radio1" type="radio" />{" "}
+                                      <Label check>Kp</Label>
+                                    </FormGroup>
+                                    <FormGroup check>
+                                      <Input name="radio1" type="radio" />{" "}
+                                      <Label check>Life Coach</Label>
+                                    </FormGroup>
+                                    <FormGroup check>
+                                      <Input name="radio1" type="radio" />{" "}
+                                      <Label check>Nadi</Label>
+                                    </FormGroup>
+                                    <FormGroup check>
+                                      <Input name="radio1" type="radio" />{" "}
+                                      <Label check>Numerology</Label>
+                                    </FormGroup>
+                                    <FormGroup check>
+                                      <Input name="radio1" type="radio" />{" "}
+                                      <Label check>Palmistry</Label>
+                                    </FormGroup>
+                                    <FormGroup check>
+                                      <Input name="radio1" type="radio" />{" "}
+                                      <Label check>Prashana</Label>
+                                    </FormGroup>
+                                    <FormGroup check>
+                                      <Input name="radio1" type="radio" />{" "}
+                                      <Label check>Psychic</Label>
+                                    </FormGroup>
+                                    <FormGroup check>
+                                      <Input name="radio1" type="radio" />{" "}
+                                      <Label check>Tarot</Label>
+                                    </FormGroup>
+                                    <FormGroup check>
+                                      <Input name="radio1" type="radio" />{" "}
+                                      <Label check>Vastu</Label>
+                                    </FormGroup>
+                                    <FormGroup check>
+                                      <Input name="radio1" type="radio" />{" "}
+                                      <Label check>Vedic</Label>
+                                    </FormGroup>
+                                    <FormGroup check>
+                                      <Input name="radio1" type="radio" />{" "}
+                                      <Label check>Vedic</Label>
+                                    </FormGroup>
+                                    <FormGroup check>
+                                      <Input name="radio1" type="radio" />{" "}
+                                      <Label check>Vedic</Label>
+                                    </FormGroup>
+                                    <FormGroup check>
+                                      <Input name="radio1" type="radio" />{" "}
+                                      <Label check>Vedic</Label>
+                                    </FormGroup>
+                                  </TabPane>
+                                  <TabPane className="tabidone" tabId="2">
+                                    <FormGroup check>
+                                      <Input name="radio1" type="radio" />{" "}
+                                      <Label check>Option 1</Label>
+                                    </FormGroup>
+                                  </TabPane>
+                                  <TabPane className="tabidone" tabId="3">
+                                    <FormGroup check>
+                                      <Input name="radio1" type="radio" />{" "}
+                                      <Label check>Bengali</Label>
+                                    </FormGroup>
+                                    <FormGroup check>
+                                      <Input name="radio1" type="radio" />{" "}
+                                      <Label check>English</Label>
+                                    </FormGroup>
+                                    <FormGroup check>
+                                      <Input name="radio1" type="radio" />{" "}
+                                      <Label check>Gujarati</Label>
+                                    </FormGroup>
+                                    <FormGroup check>
+                                      <Input name="radio1" type="radio" />{" "}
+                                      <Label check>Hindi</Label>
+                                    </FormGroup>
+                                    <FormGroup check>
+                                      <Input name="radio1" type="radio" />{" "}
+                                      <Label check>Kannada</Label>
+                                    </FormGroup>
+                                    <FormGroup check>
+                                      <Input name="radio1" type="radio" />{" "}
+                                      <Label check>Marathi</Label>
+                                    </FormGroup>
+                                    <FormGroup check>
+                                      <Input name="radio1" type="radio" />{" "}
+                                      <Label check>Punjabi</Label>
+                                    </FormGroup>
+                                    <FormGroup check>
+                                      <Input name="radio1" type="radio" />{" "}
+                                      <Label check>Tamil</Label>
+                                    </FormGroup>
+                                    <FormGroup check>
+                                      <Input name="radio1" type="radio" />{" "}
+                                      <Label check>Telugu</Label>
+                                    </FormGroup>
+                                  </TabPane>
+                                  <TabPane className="tabidone" tabId="4">
+                                    <FormGroup check>
+                                      <Input name="radio1" type="radio" />{" "}
+                                      <Label check>Active</Label>
+                                    </FormGroup>
+                                    <FormGroup check>
+                                      <Input name="radio1" type="radio" />{" "}
+                                      <Label check>Non-Active</Label>
+                                    </FormGroup>
+                                  </TabPane>
+                                </TabContent>
+                              </div>
+                            </Col>
+                          </Row>
+                        </Row>
                       </Nav>
-                      <TabContent activeTab="1">
-                        <TabPane tabId="1">
-                          <Row>
-                            <Col sm="12">
-                              <h4>Tab 1 Contents</h4>
-                            </Col>
-                          </Row>
-                        </TabPane>
-                        <TabPane tabId="2">
-                          <Row>
-                            <Col sm="6">
-                              <Card body>
-                                <CardTitle>Special Title Treatment</CardTitle>
-                                <CardText>
-                                  With supporting text below as a natural
-                                  lead-in to additional content.
-                                </CardText>
-                                <Button>Go somewhere</Button>
-                              </Card>
-                            </Col>
-                            <Col sm="6">
-                              <Card body>
-                                <CardTitle>Special Title Treatment</CardTitle>
-                                <CardText>
-                                  With supporting text below as a natural
-                                  lead-in to additional content.
-                                </CardText>
-                                <Button>Go somewhere</Button>
-                              </Card>
-                            </Col>
-                          </Row>
-                        </TabPane>
-                      </TabContent>
                     </div>
                   </div>
                 </div>
               </ModalBody>
             </Modal>
-            <Modal
+            {/* <Modal
               style={{ maxWidth: "700px" }}
               size="lg"
               isOpen={this.state.modalone}
@@ -750,7 +888,7 @@ class AllAstrologerList extends React.Component {
             >
               <ModalHeader toggle={this.toggleone}>Logindfsd</ModalHeader>
               <ModalBody>dsffsssfsd</ModalBody>
-            </Modal>
+            </Modal> */}
           </div>
         </section>
       </LayoutOne>

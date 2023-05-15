@@ -1672,3 +1672,14 @@ button.filtericon.btn.btn-secondary:hover {
   background: #e7ad30;
   color: black;
 }
+.tab-pane.tabidone.active {
+  overflow-y: scroll;
+  height: 280px;
+}
+.modal-dialog .modal-header .close {
+  border-radius: 7px;
+  cursor: pointer;
+  opacity: 1;
+  color: #fc6e00;
+  border-color: #fc6e00 !important;
+}
