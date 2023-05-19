@@ -13,6 +13,17 @@ import textbottom from "../../assets/img/textbottom.png";
 // import aboutimg from "../../assets/img/aboutimg.jpg";
 
 class AlertPage extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  videocallreview = () => {
+    // this.props.history.push("/astrorating");
+    console.log("object");
+
+    sessionStorage.setItem("typeofcall", "videocall");
+  };
+
   render() {
     return (
       <div className="col-lg-12 col-md-12 mb-30 container">
@@ -33,7 +44,12 @@ class AlertPage extends React.Component {
                           <button className="go-home">Go to Home</button>
                         </Link>
                         <Link to="/astrorating">
-                          <button className="go-home">Add Review</button>
+                          <button
+                            // onClick={() => this.videocallreview}
+                            className="go-home"
+                          >
+                            Add Review
+                          </button>
                         </Link>
                       </div>
                       {/* <div className="footer-like">

@@ -49,6 +49,7 @@ class BookPoojaForm extends React.Component {
       selectedCity: null,
       //   poojatype: "online",
       bookpoojadata: {},
+      timeslot: "",
     };
   }
 
@@ -123,6 +124,7 @@ class BookPoojaForm extends React.Component {
   };
 
   componentDidMount() {
+    console.log(this.props);
     const bookpooja = JSON.parse(localStorage.getItem("poojaviewone"));
     this.setState({ bookpoojadata: bookpooja });
     console.log(bookpooja.mode);
@@ -165,6 +167,8 @@ class BookPoojaForm extends React.Component {
       event_list: this.state.event_list,
       mobile: parseInt(this.state.mobile),
       email: this.state.email,
+      // dummy parameter is below need to be add in api
+      // timeslot:this.state.timeslot
     };
 
     axiosConfig
@@ -205,7 +209,6 @@ class BookPoojaForm extends React.Component {
               backgroundPosition: "center center",
               backgroundRepeat: " no-repeat",
               textAlign: "center",
-              timeslot: "",
             }}
           >
             <Container>
@@ -228,6 +231,8 @@ class BookPoojaForm extends React.Component {
             <Row>
               <Col lg="12 mt-12">
                 <div className="wal-amt">
+                  <p>product id-{this.props.Param}</p>
+                  <p> product ids-[{this.props.data}]</p>
                   <h3>Pooja Booking</h3>
                   <hr></hr>
                   <form onSubmit={this.submitHandler}>

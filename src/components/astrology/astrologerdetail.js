@@ -317,6 +317,16 @@ class AstrologerDetail extends React.Component {
     }
   };
 
+  livestreaming = () => {
+    //
+    this.props.history.push({
+      pathname: "/livestreaming",
+      // pathname: "/YourliveStreamming",
+
+      state: this.state.astroData,
+    });
+  };
+
   handleBalacecheck = () => {
     let userId = JSON.parse(localStorage.getItem("user_id"));
     let { id } = this.props.match.params;
@@ -644,19 +654,22 @@ class AstrologerDetail extends React.Component {
                           {/* </Link> */}
                         </Col>
                         <Col md="3" className="mt-30">
-                          <Link to="/livestreaming">
-                            <Button className="btn-as st" onClick={this.toggle}>
-                              <i
-                                class="fa fa-youtube-play"
-                                aria-hidden="true"
-                              ></i>
-                              Start Live
-                              <small className="sm-text">
-                                {/* <i class="fa fa-inr" aria-hidden="true"></i>{" "} */}
-                                {/* {this.state.callCharge} */}
-                              </small>
-                            </Button>
-                          </Link>
+                          {/* <Link to="/livestreaming"> */}
+                          <Button
+                            className="btn-as st"
+                            onClick={this.livestreaming}
+                          >
+                            <i
+                              class="fa fa-youtube-play"
+                              aria-hidden="true"
+                            ></i>
+                            Start Live
+                            <small className="sm-text">
+                              {/* <i class="fa fa-inr" aria-hidden="true"></i>{" "} */}
+                              {/* {this.state.callCharge} */}
+                            </small>
+                          </Button>
+                          {/* </Link> */}
                         </Col>
                       </Row>
                     </Col>

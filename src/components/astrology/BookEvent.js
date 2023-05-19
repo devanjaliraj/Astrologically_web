@@ -25,6 +25,9 @@ class BookEvent extends React.Component {
   constructor({ props }) {
     super(props);
     this.state = {
+      listofpooja: [],
+    };
+    this.state = {
       mode: "",
       event_list: "",
       mobile: "",
@@ -35,7 +38,6 @@ class BookEvent extends React.Component {
       state: "",
       country: "",
       address: "",
-      listofpooja: [],
     };
   }
 
@@ -64,7 +66,7 @@ class BookEvent extends React.Component {
       .get(`/admin/get_adminevent`)
       .then((res) => {
         console.log(res.data.data);
-        this.setState({ listofpooja: res?.data?.data });
+        this.setState({ listofpooja: res.data.data });
       })
       .catch((err) => console.log(err));
   }
@@ -159,7 +161,7 @@ class BookEvent extends React.Component {
                                     <img
                                       className="imagepooja"
                                       style={{ borderRadius: "10px" }}
-                                      src={value?.poojaimg[0]}
+                                      src={value?.poojaimg}
                                       alt="pooja image"
                                     />
                                     {/* </Link> */}
@@ -174,7 +176,8 @@ class BookEvent extends React.Component {
                                           }}
                                           //   className=" poojaname  justify-content-left"
                                         >
-                                          {value?.pooja_type?.pooja_name}
+                                          {value?.pooja_type}
+                                          {/* {value?.pooja_type?.pooja_name} */}
                                         </div>
                                       </Col>
                                       <Col lg="6" md="6" sm="6">

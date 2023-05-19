@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, Card, Col, FormGroup, Input, Label, Row } from "reactstrap";
 import AgoraUIKit from "agora-react-uikit";
+import { useLocation } from "react-router-dom";
 
 import axiosConfig from "../../axiosConfig";
 
@@ -8,16 +9,14 @@ import LayoutOne from "../../layouts/LayoutOne";
 
 // import VideoCalls from "./VideoCalls";
 
-function YourliveStreamone() {
+function YourliveStreamone({ props }) {
   const [videoCall, setVideoCall] = useState(false);
-  const [channelname, setchannel] = useState("");
-  const [channelNamecreated, setchannelName] = useState("");
-  const [Status, setStatus] = useState("");
+  const [token, settoken] = useState("");
+  const [channelName, setchannelName] = useState("");
   const [Token, setToken] = useState("");
   const [Addcall, setAddcall] = useState(false);
 
-  const [view, setview] = useState(false);
-  const [listofchannel, setlistofchannel] = useState();
+  const location = useLocation();
 
   const rtcProps = {
     // Pass your App ID here.
@@ -26,24 +25,19 @@ function YourliveStreamone() {
     // enableVideo: false,
     // dualStreamMode: 0,
 
-    // Set the channel name.
-    // channel: channelNamecreated,
-    channel: "anujesh",
+    channel: "data.channelName",
+    // channel: channelName,
     // Pass your temp token here.
     token:
       "007eJxTYEg1WKq8YNrZq7Hry+t1pN+/dWLIDZotUv3YuP3lGv0TjsIKDOYphmkG5snmZmmWKSZmSakWZknJJmaJ5paGFhYmBkbGfocSUxoCGRmC7M+xMjJAIIjPzpCYV5qVWpzBwAAAcZYfjg==",
-    // token: Token || localStorage.getItem("astrotokenforvideocall"),
+    // token: token,
 
-    // Set the user ID.
-    // uid: 0,
-    // Set the user role
     // role: "host",
     role: "audience",
   };
   const callbacks = {
     EndCall: () => {
       window.location.reload();
-      setVideoCall(false);
     },
   };
 
@@ -64,47 +58,63 @@ function YourliveStreamone() {
   //     });
   // };
 
-  const handlestatus = (e) => {
-    e.preventDefault();
-    const astroid = localStorage.getItem("astroId");
+  // const handlestatus = (e) => {
+  //   e.preventDefault();
+  //   const astroid = localStorage.getItem("astroId");
 
-    let payload = {
-      astroAccount: astroid,
-    };
-    if (Status === "Active") {
-      axiosConfig
-        .post(`/user/astroVideoCall`, payload)
-        .then((res) => {
-          console.log(res.data.astroAccount);
-          setToken(res.data.astroAccount);
-          localStorage.setItem("astrotokenforvideocall", res.data.astroAccount);
-          setAddcall(true);
+  //   let payload = {
+  //     astroAccount: astroid,
+  //   };
+  //   if (Status === "Active") {
+  //     axiosConfig
+  //       .post(`/user/astroVideoCall`, payload)
+  //       .then((res) => {
+  //         console.log(res.data.astroAccount);
+  //         setToken(res.data.astroAccount);
+  //         localStorage.setItem("astrotokenforvideocall", res.data.astroAccount);
+  //         setAddcall(true);
 
-          // setVideoCall(true);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-    if (Status === "Deactive") {
-      localStorage.removeItem("astrotokenforvideocall");
-      setAddcall(false);
-    }
-  };
+  //         // setVideoCall(true);
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   }
+  //   if (Status === "Deactive") {
+  //     localStorage.removeItem("astrotokenforvideocall");
+  //     setAddcall(false);
+  //   }
+  // };
   useEffect(() => {
+    console.log(location.state);
+    let userId = JSON.parse(localStorage.getItem("user_id"));
     const astroid = localStorage.getItem("astroId");
     console.log(astroid);
-
+    let livetkn = {
+      astroAccount: astroid,
+      userAccount: userId,
+    };
     axiosConfig
-      // .get(`/user/getoneChannl/644fae265f6b65e11a4bdbd7`)
-      .get(`user/channelList/${astroid}`)
+      .post(`/user/UerLiveStreamingToken`, livetkn)
       .then((res) => {
-        console.log(res.data?.data[0]?.channelName);
-        setchannelName(res.data?.data[0]?.channelName);
+        console.log(res);
+        // settoken(res?.data?.token);
+        // setchannelName(res?.data?.channelName);
+        // console.log(res.data?.token);
+        // console.log(res.data?.channelName);
       })
       .catch((err) => {
         console.log(err);
       });
+    // axiosConfig
+    //   .get(`user/channelList/${astroid}`)
+    //   .then((res) => {
+    //     console.log(res.data?.data[0]?.channelName);
+    //     setchannelName(res.data?.data[0]?.channelName);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
   }, []);
   return (
     <div>

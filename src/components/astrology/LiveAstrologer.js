@@ -4,21 +4,37 @@ import LayoutOne from "../../layouts/LayoutOne";
 import { Container, Row, Col } from "reactstrap";
 import LiveAstro from "../../assets/img/team/live-astro.jpg";
 import MatchSearch from "./MatchSearch";
-
+import axiosConfig from "../../axiosConfig";
 import astrologinbg from "../../assets/img/astrologin-bg.jpg";
 
 class LiveAstrologer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // data: {},
       liveastrilist: [],
     };
   }
+  componentDidMount() {
+    axiosConfig
+      .get(`/user/listLiveStreamAstro`)
+      .then((res) => {
+        console.log(res.data.data);
+        this.setState({ liveastrilist: res.data.data });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
-  handleastrolive = () => {
-    console.log("object");
+  handleastrolive = (data) => {
+    // this.props.history.push("/yourlivestreming");
+    this.props.history.push({
+      pathname: "/livestreaming",
+      // pathname: "/YourliveStreamming",
+      state: data,
+    });
   };
+
   render() {
     return (
       <LayoutOne headerTop="visible">
@@ -97,27 +113,44 @@ class LiveAstrologer extends React.Component {
               </Col>
             </Row>
             <Row>
-              <Col lg="3" md="3">
-                <div className="ast-list">
-                  <Link to={"/yourlivestreming"}>
-                    <div
-                      onClick={() => this.handleastrolive("data")}
-                      className="liveimg"
+              {this.state.liveastrilist.length > 0 ? (
+                <>
+                  {this.state.liveastrilist?.map((value) => (
+                    <Col
+                      key={value?._id}
+                      style={{ cursor: "pointer" }}
+                      lg="3"
+                      md="3"
                     >
-                      <img src={LiveAstro} alt="" width={100} />
-                    </div>
-                    <div className="livecont">
-                      <span>
-                        <div class="zoom-in-zoom-out">
-                          <span style={{ marginLeft: 20 }}>Live</span>
+                      <div className="ast-list">
+                        {/* <Link to={"/yourlivestreming"}> */}
+                        <div
+                          onClick={() => this.handleastrolive(value)}
+                          className="liveimg"
+                        >
+                          <img
+                            src={value?.astroAccount?.img[0]}
+                            alt=""
+                            width={100}
+                          />
+                          {/* <img src={LiveAstro} alt="" width={100} /> */}
                         </div>
-                        <h3>lorem</h3>
-                      </span>
-                    </div>
-                  </Link>
-                </div>
-              </Col>
-              <Col lg="3" md="3">
+                        <div className="livecont">
+                          <span>
+                            <div class="zoom-in-zoom-out">
+                              <span style={{ marginLeft: 20 }}>Live</span>
+                            </div>
+                            <h3>{value?.astroAccount?.fullname}</h3>
+                          </span>
+                        </div>
+                        {/* </Link> */}
+                      </div>
+                    </Col>
+                  ))}
+                </>
+              ) : null}
+
+              {/* <Col lg="3" md="3">
                 <div className="ast-list">
                   <Link to={"/"}>
                     <div className="liveimg">
@@ -235,7 +268,7 @@ class LiveAstrologer extends React.Component {
                     </div>
                   </Link>
                 </div>
-              </Col>
+              </Col> */}
             </Row>
             <Row className="mb-40 mt-30">
               <h3>Chat with Astrologers Live</h3>

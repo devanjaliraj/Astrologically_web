@@ -88,36 +88,51 @@ class ProductList extends React.Component {
                     {productList.length
                       ? productList.map((product, index) => {
                           return (
-                            <Col md="3" key={index}>
-                              <div className="po-box text-center">
+                            <>
+                              <Col md="3" key={index}>
+                                <div className="po-box text-center">
+                                  <Row>
+                                    <Col md="12">
+                                      <div className="po-1 text-center">
+                                        <img
+                                          src={product?.image[0]}
+                                          alt="pooja"
+                                          width="250px"
+                                          height="200px"
+                                        />
+                                      </div>
+                                    </Col>
+                                    <Col md="12">
+                                      <div className="po-1 text-center">
+                                        <h3>{product.title}</h3>
+                                        <p>
+                                          Puja Starting from @₹
+                                          {product?.price ? product?.price : 0}
+                                        </p>
+                                        <Link
+                                          to={"/poojadetail/" + product._id}
+                                          className="pto-l text-center"
+                                        >
+                                          Book Now
+                                        </Link>
+                                      </div>
+                                    </Col>
+                                  </Row>
+                                </div>
+                              </Col>
+                              <Col>
                                 <Row>
-                                  <Col md="12">
-                                    <div className="po-1 text-center">
-                                      <img
-                                        src={product?.image[0]}
-                                        alt="pooja"
-                                        width="50%"
-                                      />
-                                    </div>
-                                  </Col>
-                                  <Col md="12">
-                                    <div className="po-1 text-center">
-                                      <h3>{product.title}</h3>
-                                      <p>
-                                        Puja Starting from @₹
-                                        {product?.price ? product?.price : 0}
-                                      </p>
-                                      <Link
-                                        to={"/poojadetail/" + product._id}
-                                        className="pto-l text-center"
-                                      >
-                                        Book Now
-                                      </Link>
-                                    </div>
-                                  </Col>
+                                  <div className="container">
+                                    <h4>
+                                      <b>{product?.title}</b>
+                                    </h4>
+                                    <h5>{product?.productname}</h5>
+                                    <h6>{product?.desc}</h6>
+                                    <h5> Price:-{product?.price} /-</h5>
+                                  </div>
                                 </Row>
-                              </div>
-                            </Col>
+                              </Col>
+                            </>
                           );
                         })
                       : null}

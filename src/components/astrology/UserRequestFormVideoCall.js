@@ -2,14 +2,7 @@ import { Container, Row, Col, Button, Input } from "reactstrap";
 import LayoutOne from "../../layouts/LayoutOne";
 import React from "react";
 import AgoraUIKit from "agora-react-uikit";
-import { AgoraRTC, Client, getSessionStats } from "agora-rtc-sdk-ng";
-import { formatTime } from "./Timer";
 
-// import {
-//   AgoraVideoPlayer,
-//   createClient,
-//   createMicrophoneAndCameraTracks,
-// } from "agora-rtc-react";
 import axiosConfig from "../../axiosConfig";
 import swal from "sweetalert";
 import astrologinbg from "../../assets/img/astrologin-bg.jpg";
@@ -26,6 +19,7 @@ class UserRequestForm extends React.Component {
   constructor(props) {
     super(props);
     this.countRef = React.createRef();
+    this.apicall = React.createRef();
 
     this.state = {
       videoCallList: "",
@@ -74,34 +68,53 @@ class UserRequestForm extends React.Component {
     return `${getHours} : ${getMinutes} : ${getSeconds}`;
   };
 
+  handlestartinterval = () => {
+    this.apicall.current = setInterval(() => {
+      let userId = JSON.parse(localStorage.getItem("user_id"));
+      let astroId = localStorage.getItem("astro_id");
+      sessionStorage.setItem("typeofcall", "videocall");
+
+      let payload = {
+        userId: userId,
+        astroId: astroId,
+        status: true,
+        // duration: this.formatTime(this.state.setTimer),
+      };
+      axiosConfig
+        .post(`/user/addCallDuration`, payload)
+        .then((res) => {
+          console.log("callduration", res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }, 60000);
+  };
   handleStart = () => {
     this.setState({ setIsActive: true });
     this.setState({ setIsPaused: true });
     this.countRef.current = setInterval(() => {
       this.setState({ setTimer: this.state.setTimer + 1 });
     }, 1000);
+    this.handlestartinterval();
   };
+
   handlePause = () => {
     clearInterval(this.countRef.current);
+    clearInterval(this.apicall.current);
     this.setState({ setIsPaused: false });
   };
 
   componentDidMount() {
+    const userchannel_name = localStorage.getItem("userchannel_name");
+    this.setState({ userchannelname: userchannel_name });
+    const usertoken_for_videocall = localStorage.getItem(
+      "usertoken_for_videocall"
+    );
+    this.setState({ usertoken: userchannel_name });
     const userid = JSON.parse(localStorage.getItem("user_id"));
     const callingastro_id = localStorage.getItem("videoCallAstro_id");
 
-    // const checkbal = {
-    //   userid: userid,
-    //   astroid: callingastro_id,
-    // };
-    // axiosConfig
-    //   .post(`/user/addVideoCallWallet`, checkbal)
-    //   .then((res) => {
-    //     console.log("checkbal", res);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
     const payload = {
       userAccount: userid,
       astroAccount: callingastro_id,
@@ -124,6 +137,7 @@ class UserRequestForm extends React.Component {
     axiosConfig
       .get(`/user/viewoneuser/${userid}`)
       .then((response) => {
+        console.log("1154", response.data);
         this.setState({ mobile: response.data.data.mobile });
         this.setState({ userData: response.data.data });
       })
@@ -135,11 +149,19 @@ class UserRequestForm extends React.Component {
   changeHandler = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
-
+  // componentDidMount() {
+  //   setInterval(() => {
+  //     console.log(1);
+  //     /*
+  //         Run any function or setState here
+  //     */
+  //   }, 1000);
+  // }
   submitHandler = (e) => {
     e.preventDefault();
 
     let userId = JSON.parse(localStorage.getItem("user_id"));
+    console.log("userid", userId);
     let astroId = localStorage.getItem("astro_id");
     let obj = {
       userid: userId,
@@ -190,9 +212,9 @@ class UserRequestForm extends React.Component {
       });
   };
 
-  // handleagoratoken = () => {
-  //   console.log("object");
-  // };
+  // componentDidMount() {
+  //
+  // }
 
   rtcProps = {
     // Pass your App ID here.
@@ -214,23 +236,42 @@ class UserRequestForm extends React.Component {
     EndCall: () => {
       this.setState({ setVideoCall: false });
       this.handlePause();
+      // let userId = JSON.parse(localStorage.getItem("user_id"));
+      // let astroId = localStorage.getItem("astro_id");
+      // console.log(this.formatTime(this.state.setTimer));
+      sessionStorage.setItem("typeofcall", "videocall");
       let userId = JSON.parse(localStorage.getItem("user_id"));
       let astroId = localStorage.getItem("astro_id");
-      console.log(this.formatTime(this.state.setTimer));
+      sessionStorage.setItem("typeofcall", "videocall");
+
       let payload = {
         userId: userId,
         astroId: astroId,
         status: false,
-        duration: this.formatTime(this.state.setTimer),
       };
       axiosConfig
         .post(`/user/addCallDuration`, payload)
         .then((res) => {
-          console.log("callduration", res.data);
+          console.log("callduration per min", res.data);
         })
         .catch((err) => {
           console.log(err);
         });
+
+      // let payload = {
+      //   userId: userId,
+      //   astroId: astroId,
+      //   status: false,
+      //   duration: this.formatTime(this.state.setTimer),
+      // };
+      // axiosConfig
+      //   .post(`/user/addCallDuration`, payload)
+      //   .then((res) => {
+      //     console.log("callduration", res.data);
+      //   })
+      //   .catch((err) => {
+      //     console.log(err);
+      //   });
     },
   };
 

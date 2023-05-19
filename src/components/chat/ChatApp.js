@@ -45,6 +45,15 @@ class ChatApp extends React.Component {
     return obj;
   }
 
+  handleclosechat = () => {
+    console.log("sdsddfsdf");
+    // astrorating
+    this.props.history.push({
+      pathname: "/astrorating",
+    });
+    sessionStorage.setItem("typeofcall", "Chat");
+  };
+
   componentDidMount = () => {
     //this.startTimer()
     //alert(JSON.parse(localStorage.getItem('minute')))
@@ -231,11 +240,11 @@ class ChatApp extends React.Component {
                 </form>
               </div>
             </div>
-            <div className="chat-bottom">
+            <div onClick={this.handleclosechat} className="chat-bottom">
               {/* <button>Close Chat</button> */}
-              <Link to="/astrorating">
-                <button>Close Chat</button>
-              </Link>
+              {/* <Link to="/astrorating"> */}
+              <button className="btn btn-success">Close Chat</button>
+              {/* </Link> */}
             </div>
           </Container>
         </section>

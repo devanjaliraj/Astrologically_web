@@ -66,7 +66,7 @@ function Bookpoojadetail() {
         {poojaform === true ? (
           <>
             <div>
-              <BookPoojaForm props={Param.id} />
+              <BookPoojaForm data={cSelected} Param={Param.id} />
             </div>
           </>
         ) : (
@@ -141,11 +141,11 @@ function Bookpoojadetail() {
                 </div>
               </Row>
               <Row>
-                <h3 className="mt-2">
-                  <b>Want to buy Something?</b>
-                </h3>
                 {Pooja?.product?.length > 0 ? (
                   <>
+                    <h3 className="mt-2">
+                      <b>Want to buy Something?</b>
+                    </h3>
                     {Pooja?.product?.map((ele) => (
                       <Row key={ele?._id} className="maindivproduct mt-2 mb-4">
                         <Col lg="8" md="6" sm="6">
@@ -193,7 +193,7 @@ function Bookpoojadetail() {
                   </>
                 ) : null}
 
-                <p>Selected Product: {JSON.stringify(cSelected)}</p>
+                {/* <p>Selected Product: {JSON.stringify(cSelected)}</p> */}
               </Row>
 
               <div className="d-flex justify-content-center mt-1 mb-3">

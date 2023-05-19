@@ -344,7 +344,7 @@ const App = (props) => {
                     component={HomeCategory}
                   />
                   <Route
-                    path={process.env.PUBLIC_URL + "/yourlivestreming"}
+                    path={process.env.PUBLIC_URL + "YourliveStreamming"}
                     component={YourliveStreamone}
                   />
 
@@ -490,6 +490,11 @@ const App = (props) => {
                     path={process.env.PUBLIC_URL + "/astrorating"}
                     component={AstroRating}
                   />
+
+                  {/* <Route
+                    path={process.env.PUBLIC_URL + "/astrorating/:id"}
+                    component={AstroRating}
+                  /> */}
                   <Route
                     path={process.env.PUBLIC_URL + "/paymentdetail/:id"}
                     component={PaymentDetail}

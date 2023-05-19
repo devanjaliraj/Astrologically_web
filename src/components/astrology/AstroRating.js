@@ -5,9 +5,10 @@ import StarRatingComponent from "react-star-rating-component";
 import { Col, Container, Row } from "reactstrap";
 import LayoutOne from "../../layouts/LayoutOne";
 import axiosConfig from "../../axiosConfig";
+
 class AstroRating extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       rating: 1,
@@ -18,7 +19,7 @@ class AstroRating extends React.Component {
       astroid: "",
       userid: "",
       // question: "",
-      // rating: "",
+
       comment: "",
     };
   }
@@ -74,24 +75,32 @@ class AstroRating extends React.Component {
     );
     this.setState({ rating_empty_initial: nextValue });
   }
-  submitHandler = (e, astroid, userId) => {
+  submitHandler = (e) => {
     e.preventDefault();
-    let { id } = this.props.match.params;
-
+    const type = sessionStorage.getItem("typeofcall");
     let user_id = JSON.parse(localStorage.getItem("user_id"));
+    const astroid = localStorage.getItem("astroId");
+
+    let { id } = this.props.match.params;
+    console.log(id);
+    console.log(this.state.rating);
+    console.log(this.state.comment);
+    console.log(type);
+
+    console.log(astroid);
+    console.log(user_id);
     let obj = {
-      astroId: id,
       astroid: astroid,
       userid: user_id,
       // question: this.state.question,
       rating: this.state.rating,
       comment: this.state.comment,
-      type: this.state.type,
+      type: type,
     };
 
     axiosConfig
       .post(`/user/addChatReview`, obj)
-      // 65.2.175.154:8000/user/addChatReview
+
       .then((response) => {
         console.log("@@@@@", response.data.data);
         this.setState({
@@ -111,7 +120,6 @@ class AstroRating extends React.Component {
 
   handleChange = (e) => {
     this.setState({
-      // rating: e.target.value,
       comment: e.target.value,
     });
   };
@@ -168,7 +176,7 @@ class AstroRating extends React.Component {
                           <div style={{ fontSize: 26 }}>
                             <StarRatingComponent
                               name="app2"
-                              starCount={8}
+                              starCount={5}
                               value={this.state.rating}
                               onStarClick={this.onStarClick.bind(this)}
                             />
@@ -188,13 +196,7 @@ class AstroRating extends React.Component {
                           ></textarea>
                           <button
                             className="stb-btn"
-                            onClick={(e) =>
-                              this.submitHandler(
-                                e,
-                                this.state.astroId,
-                                this.state.userId
-                              )
-                            }
+                            onClick={(e) => this.submitHandler(e)}
                           >
                             Submit
                           </button>

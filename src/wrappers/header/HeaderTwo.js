@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, { useState, useEffect } from "react";
+import React, { , useEffect } from "react";
 import { connect } from "react-redux";
 import { setCurrency } from "../../redux/actions/currencyActions";
 import { multilanguage } from "redux-multilanguage";
