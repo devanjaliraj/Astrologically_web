@@ -8,6 +8,7 @@ import Tab from "react-bootstrap/Tab";
 // import Nav from "react-bootstrap/Nav";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
+import axiosConfig from "../../axiosConfig";
 
 // const Phone = ({ location }) => {
 //   const { pathname } = location;
@@ -66,8 +67,8 @@ export default class Verify_otp extends React.Component {
     //     status: this.state.status,
     //   };
 
-    axios
-      .post("http://65.2.175.154:8000/user/verifyotp", this.state)
+    axiosConfig
+      .post("/user/verifyotp", this.state)
 
       .then((res) => {
         console.log(res);

@@ -1,11 +1,12 @@
-import PropTypes from 'prop-types'
-import React, { useState, useEffect } from 'react'
-import { Link, useHistory, useParams } from 'react-router-dom'
-import { connect } from 'react-redux'
-import MenuCart from './sub-components/MenuCart'
-import { deleteFromCart } from '../../redux/actions/cartActions'
-import Axios from 'axios'
-import axiosConfig from '../../axiosConfig'
+import PropTypes from "prop-types";
+import React, { useState, useEffect } from "react";
+import { Link, useHistory, useParams } from "react-router-dom";
+import { connect } from "react-redux";
+import MenuCart from "./sub-components/MenuCart";
+import { deleteFromCart } from "../../redux/actions/cartActions";
+import Axios from "axios";
+import axiosConfig from "../../axiosConfig";
+// import FetchUserBalance from "./userbal";
 
 const IconGroup = ({
   currency,
@@ -16,90 +17,96 @@ const IconGroup = ({
   iconWhiteClass,
 }) => {
   const handleClick = (e) => {
-    e.currentTarget.nextSibling.classList.toggle('active')
-  }
-
+    e.currentTarget.nextSibling.classList.toggle("active");
+  };
   const handleLogout = (e) => {
-    window.localStorage.clear()
+    window.localStorage.clear();
     // window.location.reload()
-    window.location.replace('/')
+    window.location.replace("/");
     //  window.location.replace("http://soxypay.com/");
-  }
+  };
 
   const triggerMobileMenu = () => {
-    const offcanvasMobileMenu = document.querySelector('#offcanvas-mobile-menu')
-    offcanvasMobileMenu.classList.add('active')
-  }
+    const offcanvasMobileMenu = document.querySelector(
+      "#offcanvas-mobile-menu"
+    );
+    offcanvasMobileMenu.classList.add("active");
+  };
 
-  const [carts, setCarts] = useState([])
+  const [carts, setCarts] = useState([]);
   //const { id } = useParams();
   const fetchcarts = async (token) => {
     const { data } = await Axios.get(
       // `http://13.235.180.192/api/admin/cartbycustomer`,
       {
         headers: {
-          'auth-token': localStorage.getItem('auth-token'),
+          "auth-token": localStorage.getItem("auth-token"),
         },
-      },
-    )
-    const carts = data.data
-    setCarts(carts)
-    console.log(carts)
-  }
+      }
+    );
+    const carts = data.data;
+    setCarts(carts);
+    console.log(carts);
+  };
   useEffect(() => {
-    if (localStorage.getItem('auth-token')) {
-      fetchcarts()
+    // FetchUserBalance().then((res) => {
+    //   console.log(res);
+    // });
+    if (localStorage.getItem("auth-token")) {
+      fetchcarts();
     }
-  }, [])
-  const history = useHistory()
+    // fetchCustomer();
+  }, []);
 
-  const [wish, setWish] = useState([])
+  const history = useHistory();
+
+  const [wish, setWish] = useState([]);
   const fetchWish = async () => {
     const { data } = await Axios.get(
       // "http://13.235.180.192/api/admin/getallwishlist",
       {
         headers: {
-          'auth-token': localStorage.getItem('auth-token'),
+          "auth-token": localStorage.getItem("auth-token"),
         },
-      },
-    )
-    const wish = data.data
-    setWish(wish)
-    console.log(wish)
-  }
+      }
+    );
+    const wish = data.data;
+    setWish(wish);
+    console.log(wish);
+  };
   useEffect(() => {
-    if (localStorage.getItem('auth-token')) {
-      fetchWish()
+    if (localStorage.getItem("auth-token")) {
+      fetchWish();
     }
-  }, [])
+  }, []);
 
   // account
-  const [customer, setCustomer] = useState({})
-  const [token, setToken] = useState('')
+  const [customer, setCustomer] = useState({});
+  const [token, setToken] = useState("");
 
   const fetchCustomer = async () => {
-    let user_id = JSON.parse(localStorage.getItem('user_id'))
+    let user_id = JSON.parse(localStorage.getItem("user_id"));
 
-    console.log('first', user_id)
+    console.log("first", user_id);
     axiosConfig
       .get(`/user/viewoneuser/${user_id}`)
       .then((response) => {
-        console.log(response.data.data)
-        setCustomer(response.data.data)
+        console.log(response.data.data);
+        setCustomer(response.data.data);
       })
       .catch((error) => {
-        console.log(error)
-      })
-  }
+        console.log(error);
+      });
+  };
   useEffect(() => {
-    let data = localStorage.getItem('token')
-    setToken(data)
-    fetchCustomer()
-  }, [])
+    let data = localStorage.getItem("token");
+    setToken(data);
+    fetchCustomer();
+  }, []);
 
   return (
     <div
-      className={`header-right-wrap ${iconWhiteClass ? iconWhiteClass : ''}`}
+      className={`header-right-wrap ${iconWhiteClass ? iconWhiteClass : ""}`}
     >
       {/* <div className="same-style header-search d-none d-lg-block">
         <button className="search-active" onClick={(e) => handleClick(e)}>
@@ -138,15 +145,15 @@ const IconGroup = ({
         </button>
         <div className="account-dropdown">
           <ul>
-            {!localStorage.getItem('token') ? (
+            {!localStorage.getItem("token") ? (
               <>
                 <li>
-                  <Link to={process.env.PUBLIC_URL + '/login-register'}>
+                  <Link to={process.env.PUBLIC_URL + "/login-register"}>
                     Login
                   </Link>
                 </li>
                 <li>
-                  <Link to={process.env.PUBLIC_URL + '/login-register'}>
+                  <Link to={process.env.PUBLIC_URL + "/login-register"}>
                     Register
                   </Link>
                 </li>
@@ -156,7 +163,7 @@ const IconGroup = ({
                   </a>
                 </li>
                 <li>
-                  <Link to={process.env.PUBLIC_URL + '/astrologersignup'}>
+                  <Link to={process.env.PUBLIC_URL + "/astrologersignup"}>
                     Astrologer Register
                   </Link>
                 </li>
@@ -164,56 +171,60 @@ const IconGroup = ({
             ) : (
               <>
                 <li>
-                  <Link to={process.env.PUBLIC_URL + '/my-order'}>
+                  <Link to={process.env.PUBLIC_URL + "/my-order"}>
                     My Order
                   </Link>
                 </li>
                 <li>
-                  <Link to={process.env.PUBLIC_URL + '/notificationlist'}>
+                  <Link to={process.env.PUBLIC_URL + "/notificationlist"}>
                     Notification
                   </Link>
                 </li>
                 <li>
-                  <Link to={process.env.PUBLIC_URL + '/my-account'}>
+                  <Link to={process.env.PUBLIC_URL + "/my-account"}>
                     My Account
                   </Link>
                 </li>
                 <li>
-                  <Link to={process.env.PUBLIC_URL + '/wallettransaclist'}>
+                  <Link to={process.env.PUBLIC_URL + "/wallettransaclist"}>
                     Wallet Transaction
                   </Link>
                 </li>
                 <li>
-                  <Link to={process.env.PUBLIC_URL + '/walletmoney'}>
-                    Wallet Recharge <span className='ml-2'>₹ {customer?.amount}</span>
+                  <Link to={process.env.PUBLIC_URL + "/walletmoney"}>
+                    Wallet Recharge{" "}
+                    <span className="ml-2">₹ {customer?.amount}</span>
+                    {/* <span className="ml-2">
+                      ₹ <FetchUserBalance />
+                    </span> */}
                   </Link>
                 </li>
                 <li>
-                  <Link to={process.env.PUBLIC_URL + '/askQuestionList'}>
+                  <Link to={process.env.PUBLIC_URL + "/askQuestionList"}>
                     Ask Question
                   </Link>
                 </li>
                 <li>
-                  <Link to={process.env.PUBLIC_URL + '/userChatHistoryList'}>
+                  <Link to={process.env.PUBLIC_URL + "/userChatHistoryList"}>
                     User Chat History List
                   </Link>
                 </li>
                 <li>
-                  <Link to={process.env.PUBLIC_URL + '/customersupport'}>
+                  <Link to={process.env.PUBLIC_URL + "/customersupport"}>
                     Customer Support Chat
                   </Link>
                 </li>
 
                 <li>
                   <Link
-                    to={process.env.PUBLIC_URL + '/'}
+                    to={process.env.PUBLIC_URL + "/"}
                     // onClick={(e) =>{(
                     //   window.localStorage.clear()
 
                     //   //localStorage.removeItem("auth-token","userInfo")
                     // )}
                     onClick={(e) => handleLogout()}
-                  //}
+                    //}
                   >
                     Logout
                   </Link>
@@ -272,8 +283,8 @@ const IconGroup = ({
         </button>
       </div>
     </div>
-  )
-}
+  );
+};
 
 IconGroup.propTypes = {
   cartData: PropTypes.array,
@@ -282,23 +293,41 @@ IconGroup.propTypes = {
   iconWhiteClass: PropTypes.string,
   deleteFromCart: PropTypes.func,
   wishlistData: PropTypes.array,
-}
+};
 
+export const Fetchuserdetail = async () => {
+  let user_id = JSON.parse(localStorage.getItem("user_id"));
+
+  axiosConfig
+    .get(`/user/viewoneuser/${user_id}`)
+    .then((response) => {
+      console.log(response.data.data.amount);
+      const data = response.data.data.amouont;
+      return data;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
 const mapStateToProps = (state) => {
   return {
     currency: state.currencyData,
     cartData: state.cartData,
     wishlistData: state.wishlistData,
     compareData: state.compareData,
-  }
-}
+  };
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
     deleteFromCart: (item, addToast) => {
-      dispatch(deleteFromCart(item, addToast))
+      dispatch(deleteFromCart(item, addToast));
     },
-  }
-}
+  };
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(IconGroup)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+  Fetchuserdetail
+)(IconGroup);

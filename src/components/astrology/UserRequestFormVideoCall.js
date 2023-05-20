@@ -1,4 +1,4 @@
-import { Container, Row, Col, Button, Input } from "reactstrap";
+import { Container, Row, Col, Button, Input, Alert } from "reactstrap";
 import LayoutOne from "../../layouts/LayoutOne";
 import React from "react";
 import AgoraUIKit from "agora-react-uikit";
@@ -14,6 +14,7 @@ import Timer from "./Timer";
 import ReactStopwatch from "react-stopwatch";
 import { CloudLightning } from "react-feather";
 import Timerclass from "./Timerclass";
+import { Fetchuserdetail } from "../header/IconGroup";
 
 class UserRequestForm extends React.Component {
   constructor(props) {
@@ -71,7 +72,7 @@ class UserRequestForm extends React.Component {
   handlestartinterval = () => {
     this.apicall.current = setInterval(() => {
       let userId = JSON.parse(localStorage.getItem("user_id"));
-      let astroId = localStorage.getItem("astro_id");
+      let astroId = localStorage.getItem("videoCallAstro_id");
       sessionStorage.setItem("typeofcall", "videocall");
 
       let payload = {
@@ -84,12 +85,41 @@ class UserRequestForm extends React.Component {
         .post(`/user/addCallDuration`, payload)
         .then((res) => {
           console.log("callduration", res.data);
+          Fetchuserdetail();
         })
         .catch((err) => {
-          console.log(err);
+          console.log(err.response.data.message);
+          if (
+            err.response.data.message === "Insufficient balance for the call"
+          ) {
+            // this.props.history.push("/");
+            swal("You have Low Balance ");
+            this.setState({ setVideoCall: false });
+          }
+          // swal(
+          //   "Low Balance",
+          //   "Your Balance is getting low As per minimum charge of this Astrologer",
+          //   {
+          //     buttons: {
+          //       catch: { text: "Cancel ", value: "catch" },
+          //       recharge: { text: "Recharge NOW ", value: "Recharge" },
+          //     },
+          //   }
+          // ).then((value) => {
+          //   switch (value) {
+          //     case "catch":
+          //       this.props.history.push("/");
+          //       break;
+          //     case "Recharge":
+          //       swal("move to recharge ");
+          //       break;
+          //     default:
+          //   }
+          // });
         });
     }, 60000);
   };
+
   handleStart = () => {
     this.setState({ setIsActive: true });
     this.setState({ setIsPaused: true });
@@ -149,20 +179,13 @@ class UserRequestForm extends React.Component {
   changeHandler = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
-  // componentDidMount() {
-  //   setInterval(() => {
-  //     console.log(1);
-  //     /*
-  //         Run any function or setState here
-  //     */
-  //   }, 1000);
-  // }
+
   submitHandler = (e) => {
     e.preventDefault();
 
     let userId = JSON.parse(localStorage.getItem("user_id"));
     console.log("userid", userId);
-    let astroId = localStorage.getItem("astro_id");
+    let astroId = localStorage.getItem("videoCallAstro_id");
     let obj = {
       userid: userId,
       astroid: astroId,
@@ -189,7 +212,7 @@ class UserRequestForm extends React.Component {
         console.log("videointakeform", response.data.data);
         // swal("Success!", "Submitted SuccessFully!", "Success");
         this.setState({ changeView: true });
-        // Timer Start here
+
         this.setState({ setVideoCall: true });
         this.handleStart();
         let payload = {
@@ -197,14 +220,20 @@ class UserRequestForm extends React.Component {
           astroId: astroId,
           status: true,
         };
-        axiosConfig
-          .post(`/user/addCallDuration`, payload)
-          .then((res) => {
-            console.log("callduration", res.data.data);
-          })
-          .catch((err) => {
-            console.log(err);
-          });
+        // axiosConfig
+        //   .post(`/user/addCallDuration`, payload)
+        //   .then((res) => {
+        //     console.log("callduration", res.data);
+        //     this.setState({ changeView: true });
+        //     this.setState({ setVideoCall: true });
+        //   })
+        //   .catch((err) => {
+        //     console.log(err.response.data.message);
+        //     if (err.response.data.message) {
+        //       alert("Low balance recharge");
+        //       // this.setState({ setVideoCall: false });
+        //     }
+        //   });
       })
       .catch((error) => {
         swal("Error!", "error");
@@ -236,12 +265,10 @@ class UserRequestForm extends React.Component {
     EndCall: () => {
       this.setState({ setVideoCall: false });
       this.handlePause();
-      // let userId = JSON.parse(localStorage.getItem("user_id"));
-      // let astroId = localStorage.getItem("astro_id");
-      // console.log(this.formatTime(this.state.setTimer));
+
       sessionStorage.setItem("typeofcall", "videocall");
       let userId = JSON.parse(localStorage.getItem("user_id"));
-      let astroId = localStorage.getItem("astro_id");
+      let astroId = localStorage.getItem("videoCallAstro_id");
       sessionStorage.setItem("typeofcall", "videocall");
 
       let payload = {
@@ -255,23 +282,8 @@ class UserRequestForm extends React.Component {
           console.log("callduration per min", res.data);
         })
         .catch((err) => {
-          console.log(err);
+          console.log(err.response.data.message);
         });
-
-      // let payload = {
-      //   userId: userId,
-      //   astroId: astroId,
-      //   status: false,
-      //   duration: this.formatTime(this.state.setTimer),
-      // };
-      // axiosConfig
-      //   .post(`/user/addCallDuration`, payload)
-      //   .then((res) => {
-      //     console.log("callduration", res.data);
-      //   })
-      //   .catch((err) => {
-      //     console.log(err);
-      //   });
     },
   };
 

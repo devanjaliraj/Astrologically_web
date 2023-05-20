@@ -6,6 +6,7 @@ import axios from "axios";
 import LayoutOne from "../../layouts/LayoutOne";
 import { Label, Input, Form, Button } from "reactstrap";
 import swal from "sweetalert";
+import axiosConfig from "../../axiosConfig";
 export default class LoginRegister extends Component {
   constructor(props) {
     super(props);
@@ -18,6 +19,8 @@ export default class LoginRegister extends Component {
       city: "",
       userimg: "",
       selectedName: "",
+      password: "",
+      cnfrmpassword: "",
       selectedFile: null,
       otp: "",
       otpMsg: "",
@@ -76,8 +79,8 @@ export default class LoginRegister extends Component {
     let obj = {
       mobile: parseInt(this.state.mobile),
     };
-    axios
-      .post(`http://65.2.175.154:8000/user/userlogin`, obj)
+    axiosConfig
+      .post(`/user/userlogin`, obj)
       .then((response) => {
         console.log("@@@####", response.data);
         this.setState({ otpMsg: response.data.msg });
@@ -107,6 +110,8 @@ export default class LoginRegister extends Component {
     data.append("gender", this.state.gender);
     data.append("city", this.state.city);
     data.append("dob", this.state.dob);
+    data.append("password", this.state.password);
+    data.append("cnfmPassword", this.state.cnfrmpassword);
     if (this.state.selectedFile !== null) {
       data.append("userimg", this.state.selectedFile, this.state.selectedName);
     }
@@ -116,23 +121,30 @@ export default class LoginRegister extends Component {
     for (var key of data.keys()) {
       console.log(key);
     }
+
     // this.setState({ otp: false });
-    axios
-      .post(`http://65.2.175.154:8000/user/usersignup`, data)
-      .then((response) => {
-        console.log(response.data.msg);
-        localStorage.setItem("auth-token", response.data.token);
-        this.setState({
-          // token: response.data.token,
-          otpMsg: response.data.otp,
+    if (this.state.password === this.state.cnfrmpassword) {
+
+      axiosConfig
+        .post(`/user/usersignup`, data)
+        .then((response) => {
+          console.log(response.data.msg);
+          localStorage.setItem("auth-token", response.data.token);
+          this.setState({
+            // token: response.data.token,
+            otpMsg: response.data.otp,
+          });
+          swal("Success!", " Register Successful Done!", "success");
+          this.props.history.push("/");
+        })
+        .catch((error) => {
+          console.log(error.response.data.message === "already exists");
+          if (error.response.data.message === "already exists") {
+            swal("user Already register with same mobile and email");
+          }
+          // swal("Error!", "Something went wrong", "error");
         });
-        swal("Success!", " Register Successful Done!", "success");
-        this.props.history.push("/");
-      })
-      .catch((error) => {
-        console.log(error.response);
-        swal("Error!", "Something went wrong", "error");
-      });
+    } else swal("Password and Confirm password does not match");
   };
   render() {
     // console.log(this.state.otp);
@@ -257,6 +269,22 @@ export default class LoginRegister extends Component {
                                   required
                                   placeholder="Enter city"
                                   value={this.state.city}
+                                  onChange={this.changeHandler}
+                                />
+                                <Input
+                                  type="password"
+                                  name="password"
+                                  required
+                                  placeholder="Enter Password"
+                                  value={this.state.password}
+                                  onChange={this.changeHandler}
+                                />
+                                <Input
+                                  type="password"
+                                  name="cnfrmpassword"
+                                  required
+                                  placeholder="Enter Confirm Password"
+                                  value={this.state.cnfrmpassword}
                                   onChange={this.changeHandler}
                                 />
                                 <Input
