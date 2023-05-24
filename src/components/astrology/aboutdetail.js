@@ -17,6 +17,7 @@ import astrologinbg from "../../assets/img/astrologin-bg.jpg";
 import FunFactOne from "../../wrappers/fun-fact/FunFactOne";
 import asectionbg from "../../assets/img/asectionbg.jpg";
 import axiosConfig from "../../axiosConfig";
+import ReactHtmlParser from "react-html-parser";
 
 class AboutDetail extends React.Component {
   constructor(props) {
@@ -29,12 +30,12 @@ class AboutDetail extends React.Component {
 
   componentDidMount = () => {
     axiosConfig
-      .get("/admin/getAbout_us")
+      .get(`/admin/getAbout_us`)
       .then((response) => {
-        console.log(response.data.data);
-        if (response.data.status === true) {
-          this.setState({ aboutDetail: response.data.data });
-        }
+        // console.log(response.data.data);
+        // if (response.data.status === true) {
+        this.setState({ aboutDetail: response.data.data });
+        // }
       })
       .catch((error) => {
         console.log(error);
@@ -86,22 +87,48 @@ class AboutDetail extends React.Component {
             <Row>
               {aboutDetail.length
                 ? aboutDetail.map((abtdetail, index) => {
-                  return (
-                    <Col key={index} lg="6">
-                      <div className="abo-1">
-                        <h3>WHAT WE DO</h3>
-                        <p>{abtdetail?.aboutDetail}</p>
-                        <div className="bst-stro">
-                          <h2>Call Us </h2>
-                          <h3>
-                            <i class="fa fa-phone"></i>
-                            189 000 000 000
-                          </h3>
+                    return (
+                      <Col key={index} lg="6">
+                        <div className="abo-1">
+                          <h3>WHAT WE DO</h3>
+                          <p>{ReactHtmlParser(abtdetail?.desc)}</p>
+                          <div className="bst-stro">
+                            <h2>Call Us </h2>
+                            <h3>
+                              <i class="fa fa-phone"></i>
+                              189 000 000 000
+                            </h3>
+                          </div>
                         </div>
-                      </div>
-                    </Col>
-                  );
-                })
+                      </Col>
+                    );
+                  })
+                : null}
+              <Col lg="6">
+                <div className="abo-2">
+                  <img src={aboutone} alt="" className="about-img"></img>
+                </div>
+              </Col>
+            </Row>
+            <Row>
+              {aboutDetail.length
+                ? aboutDetail.map((abtdetail, index) => {
+                    return (
+                      <Col key={index} lg="6">
+                        <div className="abo-1">
+                          <h3>WHAT WE DO</h3>
+                          <p>{abtdetail?.aboutDetail}</p>
+                          <div className="bst-stro">
+                            <h2>Call Us </h2>
+                            <h3>
+                              <i class="fa fa-phone"></i>
+                              189 000 000 000
+                            </h3>
+                          </div>
+                        </div>
+                      </Col>
+                    );
+                  })
                 : null}
               <Col lg="6">
                 <div className="abo-2">

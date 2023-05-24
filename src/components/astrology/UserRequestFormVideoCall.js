@@ -57,6 +57,7 @@ class UserRequestForm extends React.Component {
       setVideoCall: false,
       // videoCallData: "",
       toggle: true,
+      userVideocalltoken: "",
     };
   }
 
@@ -157,6 +158,7 @@ class UserRequestForm extends React.Component {
         //   videoCallList: res?.data?.channelName,
         // });
         // this.setState({ videoCallData: res?.data?.channelName });
+        this.setState({ userVideocalltoken: res?.data?.userAccount });
         localStorage.setItem("usertoken_for_videocall", res?.data?.userAccount);
         localStorage.setItem("userchannel_name", res?.data?.channelName);
       })
@@ -253,10 +255,12 @@ class UserRequestForm extends React.Component {
     channel: localStorage.getItem("userchannel_name"),
     // channel: `${this.state.videoCallList}`,
     // Pass your temp token here.
-    token: localStorage.getItem("usertoken_for_videocall"),
+    token:
+      localStorage.getItem("usertoken_for_videocall") ||
+      this.state.userVideocalltoken,
 
     // Set the user ID.
-    uid: 0,
+    uid: 1,
     // Set the user role
     // role: "",
     // layout:"",

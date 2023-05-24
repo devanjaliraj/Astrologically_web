@@ -137,6 +137,9 @@ const UserChatHistoryList = lazy(() =>
 const UserRequestForm = lazy(() =>
   import("./components/astrology/UserRequestForm")
 );
+const directvideo = lazy(() =>
+  import("./components/astrology/DirectOpenVideo")
+);
 const UserRequestFormCall = lazy(() =>
   import("./components/astrology/UserRequestFormCall")
 );
@@ -718,6 +721,14 @@ const App = (props) => {
                   <Route
                     path={process.env.PUBLIC_URL + "/userrequestform"}
                     component={UserRequestForm}
+                  />
+                  <Route
+                    path={process.env.PUBLIC_URL + "/userrequestform"}
+                    component={UserRequestForm}
+                  />
+                  <Route
+                    path={process.env.PUBLIC_URL + "/directvideo"}
+                    component={directvideo}
                   />
                   <Route
                     path={process.env.PUBLIC_URL + "/userrequestformCall"}

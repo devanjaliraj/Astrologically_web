@@ -1,14 +1,57 @@
 import PropTypes from "prop-types";
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 // import MetaTags from "react-meta-tags";
 // import { BreadcrumbsItem } from "react-breadcrumbs-dynamic";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import LocationMap from "../../components/contact/LocationMap";
 import textbottom from "../../assets/img/textbottom.png";
+import axiosConfig from "../../axiosConfig";
+import ReactHtmlParser from "react-html-parser";
+import swal from "sweetalert";
 
 const Contact = ({ location }) => {
-  const { pathname } = location;
+  const [data, setdata] = useState({
+    Name: "",
+    email: "",
+    Subject: "",
+    Message: "",
+  });
+  const [Name, setName] = useState("");
+  const [Email, setEmail] = useState("");
+  const [Subject, setSubject] = useState("");
+  const [Message, setMessage] = useState("");
+
+  const handlechange = (e) => {
+    e.preventDefault();
+
+    const data = {
+      userid: JSON.parse(localStorage.getItem("user_id")).toString(),
+      name: Name.toString(),
+      email: Email.toString(),
+      subject: Subject.toString(),
+      msg: Message.toString(),
+    };
+    axiosConfig
+      .post(`/admin/add_contactus`, data)
+      .then((res) => {
+        console.log(res.data.message === "success");
+        if (res.data.message === "success") {
+          swal("Submitted Sucessfully");
+          setEmail("");
+          setName("");
+          setSubject("");
+          setMessage("");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        swal("Something went wrong", "Try again Later");
+      });
+  };
+
+  // const { pathname } = location;
+  // console.log(pathname);
 
   return (
     <Fragment>
@@ -24,10 +67,10 @@ const Contact = ({ location }) => {
         Contact
       </BreadcrumbsItem> */}
       <LayoutOne headerTop="visible">
-            <div className="headingtitle text-center pt-30">
-                  <h2>Contact Us</h2>
-                  <img src={textbottom} alt="" className="sb-img"/>
-            </div>
+        <div className="headingtitle text-center pt-30">
+          <h2>Contact Us</h2>
+          <img src={textbottom} alt="" className="sb-img" />
+        </div>
         {/* breadcrumb */}
         {/* <Breadcrumb /> */}
         <div className="contact-area pt-100 pb-100">
@@ -113,25 +156,48 @@ const Contact = ({ location }) => {
                   <form className="contact-form-style">
                     <div className="row">
                       <div className="col-lg-6">
-                        <input name="name" placeholder="Name*" type="text" />
+                        <input
+                          required
+                          name="name"
+                          value={Name}
+                          placeholder="Name*"
+                          onChange={(e) => setName(e.target.value)}
+                          type="text"
+                        />
                       </div>
                       <div className="col-lg-6">
-                        <input name="email" placeholder="Email*" type="email" />
+                        <input
+                          required
+                          name="email"
+                          value={Email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          placeholder="Email*"
+                          type="email"
+                        />
                       </div>
                       <div className="col-lg-12">
                         <input
-                          name="subject"
+                          name="Subject"
+                          value={Subject}
+                          onChange={(e) => setSubject(e.target.value)}
                           placeholder="Subject*"
                           type="text"
                         />
                       </div>
                       <div className="col-lg-12">
                         <textarea
-                          name="message"
+                          required
+                          name="Message"
+                          value={Message}
+                          onChange={(e) => setMessage(e.target.value)}
                           placeholder="Your Message*"
                           defaultValue={""}
                         />
-                        <button className="submit" type="submit">
+                        <button
+                          onClick={handlechange}
+                          className="submit"
+                          type="submit"
+                        >
                           SEND
                         </button>
                       </div>

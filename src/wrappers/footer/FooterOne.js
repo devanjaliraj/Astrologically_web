@@ -160,6 +160,13 @@ const FooterOne = ({
                               Today Panchang
                             </Link>
                           </li>
+                          <li className="">
+                            <Link
+                              to={process.env.PUBLIC_URL + "/heroscopestwo"}
+                            >
+                              Horoscope
+                            </Link>
+                          </li>
                         </ul>
                       </div>
                       {/* {categoryList?.map((cat) => (

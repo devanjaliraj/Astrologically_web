@@ -79,14 +79,14 @@ class OurService extends React.Component {
                       </Link>
                     </div>
                   </Col>{" "}
-                  <Col md="2">
+                  {/* <Col md="2">
                     <div className="serve-1">
                       <Link to="/lalkitab">
                         <h3>Lal kitab</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur</p>
                       </Link>
                     </div>
-                  </Col>
+                  </Col> */}
                   {/* <Col md="2">
                     <div className="serve-1">
                      <img src={pisces} alt="" width="80px" />
