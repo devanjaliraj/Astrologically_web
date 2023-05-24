@@ -1,13 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Container, Row, Col } from "reactstrap";
-// import aboutimg from "../../assets/img/aboutimg.jpg";
-// import aboutone from '../../assets/img/aboutone.png'
-// import abouttwo from '../../assets/img/abouttwo.png'
+
 import LayoutOne from "../../layouts/LayoutOne";
-// import pagetitle from '../../assets/img/pagetitle.jpg'
-// import FunFactOne from '../../wrappers/fun-fact/FunFactOne'
-// import poojaone from '../../assets/img/pooja/pooja-1.jpg'
+import ReactHtmlParser, {
+  processNodes,
+  convertNodeToElement,
+  htmlparser2,
+} from "react-html-parser";
+
 import AutoSearch from "./autosearch";
 import axiosConfig from "../../axiosConfig";
 import astrologinbg from "../../assets/img/astrologin-bg.jpg";
@@ -127,7 +128,7 @@ class ProductList extends React.Component {
                                       <b>{product?.title}</b>
                                     </h4>
                                     <h5>{product?.productname}</h5>
-                                    <h6>{product?.desc}</h6>
+                                    <h6>{ReactHtmlParser(product?.desc)}</h6>
                                     <h5> Price:-{product?.price} /-</h5>
                                   </div>
                                 </Row>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Col, Container, Input, Row } from "reactstrap";
+import { Card, Col, Container, Input, Row } from "reactstrap";
 import axios from "axios";
 import { Button, ButtonGroup } from "reactstrap";
 import "../../assets/scss/style.scss";
@@ -20,6 +20,9 @@ function Bookpoojadetail() {
   const [blogdescription, setBlogdescription] = useState([]);
   const [Pooja, setPooja] = useState({});
   const [cSelected, setCSelected] = useState([]);
+  const [TotalSum, setTotalSum] = useState("");
+
+  const [Totalprice, setTotalprice] = useState("");
   const [rSelected, setRSelected] = useState(null);
   const Param = useParams();
   const history = useHistory();
@@ -27,6 +30,7 @@ function Bookpoojadetail() {
 
   const onCheckboxBtnClick = (selected) => {
     const index = cSelected.indexOf(selected);
+
     if (index < 0) {
       cSelected.push(selected);
     } else {
@@ -35,7 +39,6 @@ function Bookpoojadetail() {
     setCSelected([...cSelected]);
   };
 
-  // console.log(Param);
   useEffect(() => {
     console.log(Param.id);
 
@@ -43,7 +46,7 @@ function Bookpoojadetail() {
     axiosConfig
       .get(`/admin/admin_getone_event/${Param.id}`)
       .then((res) => {
-        console.log(res.data.data);
+        // console.log(res.data.data);
         setPooja(res.data.data);
       })
       .catch((err) => {
@@ -51,13 +54,16 @@ function Bookpoojadetail() {
       });
     // setPooja(bookpooja);
   }, [Param]);
-
   const handlebookpooja = () => {
+    const poojaprice = Pooja?.pooja_price;
+    const productprice = cSelected?.map((value) => value?.price);
+    const totalSum = productprice.reduce((a, b) => a + b, 0) + poojaprice;
+
+    setTotalSum(totalSum);
     setpoojaform(true);
+
     const userid = localStorage.getItem("user_id");
     if (userid) {
-      // history.push("/BookPooojaForm");
-      // history.push("/BookPooojaForm");
     } else swal("User Not Found", "Login first");
   };
   return (
@@ -66,7 +72,11 @@ function Bookpoojadetail() {
         {poojaform === true ? (
           <>
             <div>
-              <BookPoojaForm data={cSelected} Param={Param.id} />
+              <BookPoojaForm
+                totalSum={TotalSum}
+                data={cSelected}
+                Param={Pooja}
+              />
             </div>
           </>
         ) : (
@@ -147,48 +157,53 @@ function Bookpoojadetail() {
                       <b>Want to buy Something?</b>
                     </h3>
                     {Pooja?.product?.map((ele) => (
-                      <Row key={ele?._id} className="maindivproduct mt-2 mb-4">
-                        <Col lg="8" md="6" sm="6">
-                          <Input
-                            onClick={() => onCheckboxBtnClick(ele?._id)}
-                            active={cSelected.includes(1)}
-                            type="checkbox"
-                          />
-                          <label>
-                            <span className="mx-2 productname">
-                              <b> {ele?.name}</b>
-                            </span>
-                          </label>
-                        </Col>
-                        <Col lg="4" md="6" sm="6">
-                          <div className="d-flex justify-content-end">
-                            <p className="priceofadd">
-                              {" "}
-                              <b>Price </b>:{" "}
-                              <i class="fa fa-inr" aria-hidden="true"></i>{" "}
-                              {ele?.price}
-                              Rs/-
-                            </p>
-                          </div>
-                        </Col>
-                        <div>
-                          <Row>
-                            <Col lg="10" md="8" sm="8">
-                              <p>{ele?.description}</p>
+                      <>
+                        <Card className="mainheadingcard mt-2 mb-2">
+                          <Row
+                            key={ele?._id}
+                            className="maindivproduct mt-2 mb-4"
+                          >
+                            <Col lg="8" md="6" sm="6">
+                              <Input
+                                onClick={() => onCheckboxBtnClick(ele)}
+                                active={cSelected.includes(1)}
+                                type="checkbox"
+                              />
+
+                              <label>
+                                <span className="mx-2 productname">
+                                  <b> {ele?.name}</b>
+                                </span>
+                              </label>
+                              <p className="priceofadd container">
+                                {" "}
+                                <b className="container">Price </b>:{" "}
+                                <i class="fa fa-inr" aria-hidden="true"></i>{" "}
+                                {ele?.price}
+                                Rs/-
+                              </p>
                             </Col>
-                            <Col lg="2" md="4" sm="4">
+                            {/* <Col lg="4" md="6" sm="6"></Col> */}
+                            <div className="container">
+                              <Row className="container mx-1">
+                                <Col lg="10" md="8" sm="8">
+                                  <p>{ele?.description}</p>
+                                </Col>
+                                {/* <Col lg="2" md="4" sm="4">
                               <img
                                 width="180px"
                                 style={{ BorderRadius: "12px" }}
                                 src={ele?.image}
                                 alt="image"
                               />
-                            </Col>
+                            </Col> */}
+                              </Row>
+                            </div>
+                            <br />
+                            {/* <hr /> */}
                           </Row>
-                        </div>
-                        <br />
-                        {/* <hr /> */}
-                      </Row>
+                        </Card>
+                      </>
                     ))}
                   </>
                 ) : null}
@@ -196,9 +211,9 @@ function Bookpoojadetail() {
                 {/* <p>Selected Product: {JSON.stringify(cSelected)}</p> */}
               </Row>
 
-              <div className="d-flex justify-content-center mt-1 mb-3">
+              <div className="d-flex justify-content-center mt-1 mb-3 container">
                 <Button onClick={handlebookpooja} color="success">
-                  CheckOut
+                  Go to Next
                 </Button>
               </div>
             </Container>

@@ -10,12 +10,16 @@ import axiosConfig from "../../axiosConfig";
 
 const IconGroup = ({
   currency,
+
   cartData,
   wishlistData,
   compareData,
   deleteFromCart,
   iconWhiteClass,
 }) => {
+  // const [balance, setbalance] = useState("");
+  const [carts, setCarts] = useState([]);
+
   const handleClick = (e) => {
     e.currentTarget.nextSibling.classList.toggle("active");
   };
@@ -33,7 +37,6 @@ const IconGroup = ({
     offcanvasMobileMenu.classList.add("active");
   };
 
-  const [carts, setCarts] = useState([]);
   //const { id } = useParams();
   const fetchcarts = async (token) => {
     const { data } = await Axios.get(
@@ -48,10 +51,20 @@ const IconGroup = ({
     setCarts(carts);
     console.log(carts);
   };
+  const [userBalance, setuserBalance] = useState("");
+
+  setInterval(() => {
+    const Balance = sessionStorage.getItem("userBalance");
+    setuserBalance(Balance);
+  }, 5000);
+  // setuserBalance(Balance);
+  const Balance = sessionStorage.getItem("userBalance");
+
   useEffect(() => {
-    // FetchUserBalance().then((res) => {
-    //   console.log(res);
-    // });
+    Fetchuserdetail();
+  }, [Balance]);
+
+  useEffect(() => {
     if (localStorage.getItem("auth-token")) {
       fetchcarts();
     }
@@ -193,7 +206,15 @@ const IconGroup = ({
                 <li>
                   <Link to={process.env.PUBLIC_URL + "/walletmoney"}>
                     Wallet Recharge{" "}
-                    <span className="ml-2">₹ {customer?.amount}</span>
+                    <span className="ml-2">
+                      ₹
+                      {userBalance ? (
+                        <>{userBalance}</>
+                      ) : (
+                        <>{customer?.amount}</>
+                      )}
+                    </span>
+                    {/* <span className="ml-2">₹{customer?.amount}</span> */}
                     {/* <span className="ml-2">
                       ₹ <FetchUserBalance />
                     </span> */}
@@ -297,13 +318,14 @@ IconGroup.propTypes = {
 
 export const Fetchuserdetail = async () => {
   let user_id = JSON.parse(localStorage.getItem("user_id"));
-
-  axiosConfig
+  await axiosConfig
     .get(`/user/viewoneuser/${user_id}`)
     .then((response) => {
+      sessionStorage.setItem("userBalance", response.data.data.amount);
       console.log(response.data.data.amount);
-      const data = response.data.data.amouont;
-      return data;
+      // getBal = response.data.data.amouont;
+
+      return response.data.data;
     })
     .catch((error) => {
       console.log(error);

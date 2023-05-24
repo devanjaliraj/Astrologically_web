@@ -166,7 +166,7 @@ class LalKitab extends Component {
       })
       .catch((error) => {
         swal("Error!", "You clicked the button!", "error");
-        console.log(error);
+        console.log(error.response);
       });
   };
   render() {

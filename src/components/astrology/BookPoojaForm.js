@@ -1,11 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Container, Row, Col, Button, Input } from "reactstrap";
+import { Container, Row, Col, Button, Input, Card } from "reactstrap";
 import LayoutOne from "../../layouts/LayoutOne";
 import "../../../src/assets/scss/style.scss";
 // import AutoSearch from './autosearch'
 import { BiTime } from "react-icons/bi";
 import Select from "react-select";
+// import useRazorpay from "react-razorpay";
 
 import { MdOutlineLocationOn } from "react-icons/md";
 import axiosConfig from "../../axiosConfig";
@@ -24,6 +25,10 @@ import {
   CarouselIndicators,
   CarouselCaption,
 } from "reactstrap";
+
+import { Razorpaydummy } from "./Razorpaydummy";
+
+// const Razorpay = useRazorpay();
 
 class BookPoojaForm extends React.Component {
   constructor({ props }) {
@@ -50,6 +55,8 @@ class BookPoojaForm extends React.Component {
       //   poojatype: "online",
       bookpoojadata: {},
       timeslot: "",
+      SelectedProduct: {},
+      Movetopayment: false,
     };
   }
 
@@ -125,6 +132,7 @@ class BookPoojaForm extends React.Component {
 
   componentDidMount() {
     console.log(this.props);
+    this.setState({ SelectedProduct: this.props });
     const bookpooja = JSON.parse(localStorage.getItem("poojaviewone"));
     this.setState({ bookpoojadata: bookpooja });
     console.log(bookpooja.mode);
@@ -141,7 +149,7 @@ class BookPoojaForm extends React.Component {
     axiosConfig
       .get(`/admin/get_adminevent`)
       .then((res) => {
-        console.log(res.data.data);
+        // console.log(res.data.data);
         this.setState({ listofpooja: res?.data?.data });
       })
       .catch((err) => console.log(err));
@@ -154,6 +162,7 @@ class BookPoojaForm extends React.Component {
 
     // let astroid = JSON.parse(localStorage.getItem('astroId'))
     let userid = localStorage.getItem("user_id");
+    this.setState({ Movetopayment: true });
 
     let obj = {
       // astroId: astroid,
@@ -178,7 +187,7 @@ class BookPoojaForm extends React.Component {
         //localStorage.setItem('shipping_id', response?.data?.data[0]?._id)
         swal("Success!", "Submitted SuccessFull!", "success");
         // window.location.reload("/astromallList");
-        this.props.history.push("/astromallList");
+        // this.props.history.push("/astromallList");
       })
 
       .catch((error) => {
@@ -188,6 +197,7 @@ class BookPoojaForm extends React.Component {
   };
 
   render() {
+    const SelectedProduct = this.state.SelectedProduct;
     const poojadata = this.state.bookpoojadata;
     return (
       // <LayoutOne headerTop="visible">
@@ -226,73 +236,173 @@ class BookPoojaForm extends React.Component {
           </div>
         </section>
         <section className="">
-          <Container>
-            <div className="multi-address"></div>
-            <Row>
-              <Col lg="12 mt-12">
-                <div className="wal-amt">
-                  <p>product id-{this.props.Param}</p>
-                  <p> product ids-[{this.props.data}]</p>
-                  <h3>Pooja Booking</h3>
-                  <hr></hr>
-                  <form onSubmit={this.submitHandler}>
-                    <Row>
-                      {this.state.poojatype === "online" ? (
-                        <>
-                          <Col md="3">
-                            <div class="form-group mtb-10">
-                              <label>Date*</label>
-                              <Input
-                                type="date"
-                                name="date"
-                                required
-                                placeholder="Enter Your landmark"
-                                value={this.state.date}
-                                onChange={this.changeHandler}
-                              />
-                            </div>
-                          </Col>
-                          <Col md="3">
-                            <div class="form-group mtb-10">
-                              <label>Slots*</label>
+          {this.state.Movetopayment ? (
+            <>
+              <div className="container">
+                <Row>
+                  <Col lg="12">
+                    <div className="order-bx">
+                      <h2 className="py-3">Total Amount</h2>
+                      <hr></hr>
 
-                              <select
-                                className="form-control"
-                                onChange={(e) =>
-                                  this.setState({
-                                    timeslot: e.target.value,
-                                  })
-                                }
-                              >
-                                <option>Select Time</option>
-                                {this.state.bookpoojadata?.time_slots?.map(
-                                  (ele, i) => (
-                                    <option key={i} value={ele}>
-                                      {ele}
-                                    </option>
-                                  )
-                                )}
-                              </select>
-                            </div>
-                          </Col>
-                        </>
-                      ) : (
-                        <>
-                          <Col md="3">
-                            <div class="form-group mtb-10">
-                              <label>Price </label>
-                              <Input
-                                disabled
-                                type="text"
-                                name="email"
-                                // required
-                                placeholder={poojadata.pooja_price}
-                                // value={this.state.email}
-                                // onChange={this.changeHandler}
-                              />
-                            </div>
-                          </Col>
-                          {/* <Col md="3">
+                      <ul>
+                        {SelectedProduct?.data?.map((value) => (
+                          <li key={value?._id}>
+                            {value?.name}
+
+                            <span>Rs {value?.price} </span>
+                          </li>
+                        ))}
+                        <li>
+                          {SelectedProduct?.Param?.pooja_type?.pooja_name}
+
+                          <span>
+                            Rs
+                            {SelectedProduct?.Param?.pooja_price}
+                          </span>
+                        </li>
+                        {/* <li>
+                    GST @18%
+                    <span>this.state.addtoCart.gst</span>
+                  </li> */}
+
+                        <li>
+                          <hr />
+                          Total Payable Amount
+                          <span>Rs {this.props?.totalSum}</span>
+                          <hr />
+                        </li>
+                      </ul>
+                    </div>
+                  </Col>
+                  <Row>
+                    <Col md="12" className="mt-3">
+                      <Razorpaydummy />
+                    </Col>
+                  </Row>
+                  {/* <Col lg="8" className="py-5">
+              <Row>
+                <Col md="4">
+                  <div className="rv-1 my-2">
+                    <Link>
+                      <img src="pay1" alt="" />
+                      <p>UPI</p>
+                    </Link>
+                  </div>
+                </Col>
+                <Col md="4">
+                  <div className="rv-1 my-2">
+                    <Link>
+                      <img src="pay3" alt="" />
+                      <p>Debit Card</p>
+                    </Link>
+                  </div>
+                </Col>
+                <Col md="4">
+                  <div className="rv-1 my-2">
+                    <Link>
+                      <img src="pay3" alt="" />
+                      <p>Credit Card</p>
+                    </Link>
+                  </div>
+                </Col>
+                <Col md="4">
+                  <div className="rv-1 my-2">
+                    <Link>
+                      <img src="pay4" alt="" />
+                      <p>Net Banking</p>
+                    </Link>
+                  </div>
+                </Col>
+                <Col md="4">
+                  <div className="rv-1 my-2">
+                    <Link>
+                      <img src="pay5" alt="" />
+                      <p>Other Wallet</p>
+                    </Link>
+                  </div>
+                </Col>
+                <Col md="4">
+                  <div className="rv-1 my-2">
+                    <Link>
+                      <img src="pay6" alt="" />
+                      <p>Other Wallet</p>
+                    </Link>
+                  </div>
+                </Col>
+              </Row>
+            </Col> */}
+                </Row>
+              </div>
+            </>
+          ) : (
+            <>
+              <Card className="cardmainproduct">
+                <Row className="container">
+                  <Col lg="12 mt-12">
+                    <div className="wal-amt">
+                      {/* <p>product id-[{this.props?.Param}]</p> */}
+                      {/* <p> product ids-[{this.props?.data}]</p> */}
+                      <h3>Pooja Booking</h3>
+                      <hr></hr>
+                      <form onSubmit={this.submitHandler}>
+                        <Row>
+                          {this.state.poojatype === "online" ? (
+                            <>
+                              <Col md="3">
+                                <div class="form-group mtb-10">
+                                  <label>Date*</label>
+                                  <Input
+                                    type="date"
+                                    name="date"
+                                    required
+                                    placeholder="Enter Your landmark"
+                                    value={this.state.date}
+                                    onChange={this.changeHandler}
+                                  />
+                                </div>
+                              </Col>
+                              <Col md="3">
+                                <div class="form-group mtb-10">
+                                  <label>Slots*</label>
+
+                                  <select
+                                    className="form-control"
+                                    onChange={(e) =>
+                                      this.setState({
+                                        timeslot: e.target.value,
+                                      })
+                                    }
+                                  >
+                                    <option>Select Time</option>
+                                    {this.state.bookpoojadata?.time_slots?.map(
+                                      (ele, i) => (
+                                        <option key={i} value={ele}>
+                                          {ele}
+                                        </option>
+                                      )
+                                    )}
+                                  </select>
+                                </div>
+                              </Col>
+                            </>
+                          ) : (
+                            <>
+                              <Col md="3">
+                                <div class="form-group mtb-10">
+                                  <label>Price </label>
+                                  <Input
+                                    disabled
+                                    type="text"
+                                    name="email"
+                                    // required
+                                    placeholder={poojadata.pooja_price}
+                                    // value={this.state.email}
+                                    // onChange={this.changeHandler}
+                                  />
+                                </div>
+                              </Col>
+                              {/* <Col md="3">
                             <div class="form-group mtb-10">
                               <label>price Offline*</label>
                               <Input
@@ -305,20 +415,20 @@ class BookPoojaForm extends React.Component {
                               />
                             </div>
                           </Col> */}
-                          <Col md="3">
-                            <div class="form-group mtb-10">
-                              <label>Date*</label>
-                              <Input
-                                type="date"
-                                name="date"
-                                required
-                                placeholder="Enter Your landmark"
-                                value={this.state.date}
-                                onChange={this.changeHandler}
-                              />
-                            </div>
-                          </Col>
-                          {/* <Col md="4">
+                              <Col md="3">
+                                <div class="form-group mtb-10">
+                                  <label>Date*</label>
+                                  <Input
+                                    type="date"
+                                    name="date"
+                                    required
+                                    placeholder="Enter Your landmark"
+                                    value={this.state.date}
+                                    onChange={this.changeHandler}
+                                  />
+                                </div>
+                              </Col>
+                              {/* <Col md="4">
                         <div class="form-group mtb-10">
                           <label>price Online</label>
                           <Input
@@ -334,123 +444,125 @@ class BookPoojaForm extends React.Component {
                         </div>
                       </Col> */}
 
-                          <Col md="3">
-                            <div class="form-group mtb-10">
-                              <label>Slots*</label>
+                              <Col md="3">
+                                <div class="form-group mtb-10">
+                                  <label>Slots*</label>
 
-                              <select
-                                className="form-control"
-                                onChange={(e) =>
-                                  this.setState({
-                                    timeslot: e.target.value,
-                                  })
-                                }
-                              >
-                                <option>Select Time</option>
-                                {this.state.bookpoojadata?.time_slots?.map(
-                                  (ele, i) => (
-                                    <option key={i} value={ele}>
-                                      {ele}
-                                    </option>
-                                  )
-                                )}
-                              </select>
-                            </div>
-                          </Col>
-                          <Col md="3">
-                            <label>Country</label>
-                            <Select
-                              options={Country.getAllCountries()}
-                              getOptionLabel={(options) => {
-                                return options["name"];
-                              }}
-                              getOptionValue={(options) => {
-                                return options["name"];
-                              }}
-                              value={this.state.selectedCountry}
-                              onChange={(item) => {
-                                this.changeCountry(item);
-                              }}
-                            />
-                          </Col>
+                                  <select
+                                    className="form-control"
+                                    onChange={(e) =>
+                                      this.setState({
+                                        timeslot: e.target.value,
+                                      })
+                                    }
+                                  >
+                                    <option>Select Time</option>
+                                    {this.state.bookpoojadata?.time_slots?.map(
+                                      (ele, i) => (
+                                        <option key={i} value={ele}>
+                                          {ele}
+                                        </option>
+                                      )
+                                    )}
+                                  </select>
+                                </div>
+                              </Col>
+                              <Col md="3">
+                                <label>Country</label>
+                                <Select
+                                  options={Country.getAllCountries()}
+                                  getOptionLabel={(options) => {
+                                    return options["name"];
+                                  }}
+                                  getOptionValue={(options) => {
+                                    return options["name"];
+                                  }}
+                                  value={this.state.selectedCountry}
+                                  onChange={(item) => {
+                                    this.changeCountry(item);
+                                  }}
+                                />
+                              </Col>
 
-                          <Col md="3">
-                            <label>State</label>
-                            <Select
-                              options={State?.getStatesOfCountry(
-                                this.state.selectedCountry?.isoCode
-                              )}
-                              getOptionLabel={(options) => {
-                                return options["name"];
-                              }}
-                              getOptionValue={(options) => {
-                                return options["name"];
-                              }}
-                              value={this.state.selectedState}
-                              onChange={(item) => {
-                                this.setState({ selectedState: item });
-                              }}
-                            />
-                          </Col>
+                              <Col md="3">
+                                <label>State</label>
+                                <Select
+                                  options={State?.getStatesOfCountry(
+                                    this.state.selectedCountry?.isoCode
+                                  )}
+                                  getOptionLabel={(options) => {
+                                    return options["name"];
+                                  }}
+                                  getOptionValue={(options) => {
+                                    return options["name"];
+                                  }}
+                                  value={this.state.selectedState}
+                                  onChange={(item) => {
+                                    this.setState({ selectedState: item });
+                                  }}
+                                />
+                              </Col>
 
-                          <Col md="3">
-                            <label>City</label>
-                            <Select
-                              options={City.getCitiesOfState(
-                                this.state.selectedState?.countryCode,
-                                this.state.selectedState?.isoCode
-                              )}
-                              getOptionLabel={(options) => {
-                                return options["name"];
-                              }}
-                              getOptionValue={(options) => {
-                                return options["name"];
-                              }}
-                              value={this.state.submitPlaceHandler}
-                              onChange={(item) => {
-                                this.changeCity(item);
-                              }}
-                            />
-                          </Col>
+                              <Col md="3">
+                                <label>City</label>
+                                <Select
+                                  options={City.getCitiesOfState(
+                                    this.state.selectedState?.countryCode,
+                                    this.state.selectedState?.isoCode
+                                  )}
+                                  getOptionLabel={(options) => {
+                                    return options["name"];
+                                  }}
+                                  getOptionValue={(options) => {
+                                    return options["name"];
+                                  }}
+                                  value={this.state.submitPlaceHandler}
+                                  onChange={(item) => {
+                                    this.changeCity(item);
+                                  }}
+                                />
+                              </Col>
 
-                          <Col md="6">
-                            <div class="form-group mtb-10">
-                              <label>Event Detail</label>
-                              <Input
-                                type="textarea"
-                                name="flat_no"
-                                required
-                                placeholder="Enter Your Number"
-                                value={this.state.flat_no}
-                                onChange={this.changeHandler}
-                              />
-                            </div>
-                          </Col>
-                          <Col md="6">
-                            <div class="form-group mtb-10">
-                              <label>Address*</label>
-                              <Input
-                                type="textarea"
-                                name="address"
-                                // required
-                                placeholder="Enter Your Number"
-                                value={this.state.address}
-                                onChange={this.changeHandler}
-                              />
-                            </div>
-                          </Col>
-                        </>
-                      )}
+                              <Col md="6">
+                                <div class="form-group mtb-10">
+                                  <label>Event Detail</label>
+                                  <Input
+                                    type="textarea"
+                                    name="flat_no"
+                                    required
+                                    placeholder="Enter Your Number"
+                                    value={this.state.flat_no}
+                                    onChange={this.changeHandler}
+                                  />
+                                </div>
+                              </Col>
+                              <Col md="6">
+                                <div class="form-group mtb-10">
+                                  <label>Address*</label>
+                                  <Input
+                                    type="textarea"
+                                    name="address"
+                                    // required
+                                    placeholder="Enter Your Number"
+                                    value={this.state.address}
+                                    onChange={this.changeHandler}
+                                  />
+                                </div>
+                              </Col>
+                            </>
+                          )}
 
-                      <Col md="12" className="mt-3">
-                        <Button className="btn btn-primary">Submit</Button>
-                      </Col>
-                    </Row>
-                  </form>
-                </div>
-              </Col>
-            </Row>
-          </Container>
+                          <Col md="12" className="mt-3">
+                            <Button className="btn btn-primary">Submit</Button>
+                          </Col>
+                        </Row>
+                      </form>
+                    </div>
+                  </Col>
+                </Row>
+              </Card>
+            </>
+          )}
         </section>
       </>
     );

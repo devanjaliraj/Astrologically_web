@@ -5,6 +5,7 @@ import StarRatingComponent from "react-star-rating-component";
 import { Col, Container, Row } from "reactstrap";
 import LayoutOne from "../../layouts/LayoutOne";
 import axiosConfig from "../../axiosConfig";
+import swal from "sweetalert";
 
 class AstroRating extends React.Component {
   constructor(props) {
@@ -108,8 +109,8 @@ class AstroRating extends React.Component {
           rating: "",
         });
         // this.getQuestionList(id)
-        // swal("Success!", "Submitted SuccessFull!", "success");
-        //window.location.reload('/askQuestion')
+        swal("Success!", "Submitted SuccessFull!", "success");
+        window.location.reload("/");
       })
 
       .catch((error) => {

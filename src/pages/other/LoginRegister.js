@@ -124,7 +124,6 @@ export default class LoginRegister extends Component {
 
     // this.setState({ otp: false });
     if (this.state.password === this.state.cnfrmpassword) {
-
       axiosConfig
         .post(`/user/usersignup`, data)
         .then((response) => {

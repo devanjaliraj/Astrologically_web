@@ -7,7 +7,7 @@ export const FetchUserBalance = async () => {
     .get(`/user/viewoneuser/${user_id}`)
     .then((response) => {
       console.log(response.data.data.amount);
-      const data = response.data.data.amouont;
+      const data = response.data.data.amount;
       return data;
     })
     .catch((error) => {
@@ -15,9 +15,3 @@ export const FetchUserBalance = async () => {
     });
 };
 export default FetchUserBalance;
-
-// export default connect(
-//     mapStateToProps,
-//     mapDispatchToProps,
-//     Fetchuserdetail
-//   )(IconGroup);

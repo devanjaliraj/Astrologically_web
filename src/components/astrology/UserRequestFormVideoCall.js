@@ -259,6 +259,7 @@ class UserRequestForm extends React.Component {
     uid: 0,
     // Set the user role
     // role: "",
+    // layout:"",
   };
 
   callbacks = {

@@ -168,19 +168,24 @@ class BookEvent extends React.Component {
                                   </div>
                                   <div className="product-content">
                                     <Row className="priceandname">
-                                      <Col lg="6" md="6" sm="6">
+                                      <Col lg="8" md="8" sm="8">
                                         <div
                                           style={{
-                                            fontSize: "15px",
-                                            fontWeight: "500",
+                                            fontSize: "12px",
+                                            fontWeight: "300",
                                           }}
                                           //   className=" poojaname  justify-content-left"
                                         >
-                                          {value?.pooja_type}
+                                          <b>
+                                            {value?.pooja_type?.pooja_name?.slice(
+                                              0,
+                                              13
+                                            )}
+                                          </b>
                                           {/* {value?.pooja_type?.pooja_name} */}
                                         </div>
                                       </Col>
-                                      <Col lg="6" md="6" sm="6">
+                                      <Col lg="4" md="4" sm="4">
                                         <div
                                           style={{ fontSize: "15px" }}
                                           className=" poojanames  justify-content-end"
@@ -207,7 +212,7 @@ class BookEvent extends React.Component {
                                       </Col>
                                       <Col lg="6" md="6" sm="6">
                                         <div
-                                          style={{ fontSize: "12px" }}
+                                          style={{ fontSize: "10px" }}
                                           className=" poojanames  justify-content-end"
                                         >
                                           <span style={{ color: "green" }}>
