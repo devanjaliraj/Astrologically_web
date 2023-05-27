@@ -150,12 +150,12 @@ class BasicPanchang extends React.Component {
       lon: this.state.longitude,
       tzone: this.state.timezone,
     };
-    console.log("shgdjhg", payload);
+    console.log("payload", payload);
     axiosConfig
       .post(`/user/basicPanchang`, payload)
       .then((response) => {
         this.setState({ data1: true });
-        console.log("data1", response.data.data);
+        console.log("basicpanchang", response.data.data);
         this.setState({
           data: response.data.data,
         });

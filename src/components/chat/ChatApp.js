@@ -45,15 +45,6 @@ class ChatApp extends React.Component {
     return obj;
   }
 
-  handleclosechat = () => {
-    console.log("sdsddfsdf");
-    // astrorating
-    this.props.history.push({
-      pathname: "/astrorating",
-    });
-    sessionStorage.setItem("typeofcall", "Chat");
-  };
-
   componentDidMount = () => {
     //this.startTimer()
     //alert(JSON.parse(localStorage.getItem('minute')))
@@ -67,6 +58,7 @@ class ChatApp extends React.Component {
     //timeLeftVar = this.secondsToTime(this.state.seconds);
     // this.setState({ time: timeLeftVar });
     let user_id = JSON.parse(localStorage.getItem("user_id"));
+    console.log("user_id1452", user_id);
     // let { id } = this.props.match.params;
     axiosConfig
       .get(`/user/getroomid/${user_id}`)
@@ -111,11 +103,11 @@ class ChatApp extends React.Component {
     // Check if we're at zero.
     if (seconds === 0) {
       clearInterval(this.timer);
-      window.location.replace("/#/astrorating");
+      // window.location.replace("/#/astrorating");
     }
   }
   getChatRoomId = async (user) => {
-    console.log("sdjghjks", user);
+    console.log("userdata", user);
     this.setState({ astroId: user?.astroid?._id, roomId: user?.roomid });
     await axiosConfig
       .get(`/user/allchatwithuser/${user?.roomid}`)
@@ -132,9 +124,11 @@ class ChatApp extends React.Component {
   submitHandler = async (e, astroid, userId) => {
     e.preventDefault();
     // let { id } = this.props.match.params;
+    const astroId = localStorage.getItem("astroId");
+
     let userid = JSON.parse(localStorage.getItem("user_id"));
     let obj = {
-      astroid: this.state.astroId,
+      astroid: astroId,
       msg: this.state.msg,
     };
 
@@ -146,10 +140,10 @@ class ChatApp extends React.Component {
           this.setState({ msg: "" });
           axiosConfig
             .get(`/user/allchatwithuser/${this.state.roomId}`)
-            .then((response1) => {
-              console.log(response1?.data?.data);
-              if (response1.data.status === true) {
-                this.setState({ roomChatData: response1?.data.data });
+            .then((respons) => {
+              console.log(respons?.data?.data);
+              if (respons.data.status === true) {
+                this.setState({ roomChatData: respons?.data.data });
               }
             })
             .catch((error) => {
@@ -240,11 +234,10 @@ class ChatApp extends React.Component {
                 </form>
               </div>
             </div>
-            <div onClick={this.handleclosechat} className="chat-bottom">
-              {/* <button>Close Chat</button> */}
-              {/* <Link to="/astrorating"> */}
-              <button className="btn btn-success">Close Chat</button>
-              {/* </Link> */}
+            <div className="chat-bottom">
+              <Link to="/astrorating">
+                <button>Close Chat</button>
+              </Link>
             </div>
           </Container>
         </section>

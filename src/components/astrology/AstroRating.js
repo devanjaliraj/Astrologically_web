@@ -83,10 +83,6 @@ class AstroRating extends React.Component {
     const astroid = localStorage.getItem("astroId");
 
     let { id } = this.props.match.params;
-    console.log(id);
-    console.log(this.state.rating);
-    console.log(this.state.comment);
-    console.log(type);
 
     console.log(astroid);
     console.log(user_id);
@@ -101,7 +97,6 @@ class AstroRating extends React.Component {
 
     axiosConfig
       .post(`/user/addChatReview`, obj)
-
       .then((response) => {
         console.log("@@@@@", response.data.data);
         this.setState({
@@ -109,8 +104,8 @@ class AstroRating extends React.Component {
           rating: "",
         });
         // this.getQuestionList(id)
-        swal("Success!", "Submitted SuccessFull!", "success");
         window.location.reload("/");
+        swal("Success!", "Submitted SuccessFull!", "success");
       })
 
       .catch((error) => {

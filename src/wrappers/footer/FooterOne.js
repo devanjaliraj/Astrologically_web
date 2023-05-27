@@ -127,13 +127,37 @@ const FooterOne = ({
                   <li>
                     {/* <Link>Horoscopes</Link> */}
                     <ul className="submenu">
-                      <li className="">
-                        <Link to={process.env.PUBLIC_URL + "/heroscopesall"}>
+                      <ul className="submenu">
+                        <li className="">
+                          <Link to={process.env.PUBLIC_URL + "/heroscopestwo"}>
+                            Daily
+                          </Link>
+                        </li>
+                        <li className="">
+                          <Link to={process.env.PUBLIC_URL + "/heroscopestwo1"}>
+                            Weekly
+                          </Link>
+                        </li>
+                        <li className="">
+                          <Link to={process.env.PUBLIC_URL + "/heroscopestwo2"}>
+                            Monthly
+                          </Link>
+                        </li>
+                        {/* {categoryList?.map((cat) => (
+                <li className="" key={cat._id}>
+                  <Link to={process.env.PUBLIC_URL + "/heroscopestwo"}>
+                    {cat?.title}
+                  </Link>
+                </li>
+              ))} */}
+                      </ul>
+                      {/* <li className="">
+                        <Link to={process.env.PUBLIC_URL + "/heroscopesday"}>
                           Daily
                         </Link>
                       </li>
                       <li className="">
-                        <Link to={process.env.PUBLIC_URL + "/heroscopesall"}>
+                        <Link to={process.env.PUBLIC_URL + "/heroscopestwo1"}>
                           Weekly
                         </Link>
                       </li>
@@ -141,18 +165,18 @@ const FooterOne = ({
                         <Link to={process.env.PUBLIC_URL + "/heroscopesall"}>
                           Monthly
                         </Link>
-                      </li>
+                      </li> */}
 
                       <div className="footer-title">
                         <h3 className="mt-4">Panchang</h3>
                         <ul className="submenu">
-                          <li className="">
+                          {/* <li className="">
                             <Link
                               to={process.env.PUBLIC_URL + "/basicPanchang"}
                             >
                               Basic Panchang
                             </Link>
-                          </li>
+                          </li> */}
                           <li className="">
                             <Link
                               to={process.env.PUBLIC_URL + "/todayPanchang"}
@@ -236,7 +260,31 @@ const FooterOne = ({
                   <li>
                     {/* <h3>Dosh</h3> */}
                     <ul className="submenu">
-                      <li className="">
+                      <ul className="submenu">
+                        <li className="">
+                          <Link to={process.env.PUBLIC_URL + "/manglikdosh"}>
+                            Manglik Dosh
+                          </Link>
+                        </li>
+                        <li className="">
+                          <Link to={process.env.PUBLIC_URL + "/pitraDosh"}>
+                            Pitra Dosh
+                          </Link>
+                        </li>
+                        <li className="">
+                          <Link to={process.env.PUBLIC_URL + "/kalsharpDosh"}>
+                            Kalsharp Dosh
+                          </Link>
+                        </li>
+                        {/* {categoryList?.map((cat) => (
+                <li className="" key={cat._id}>
+                  <Link to={process.env.PUBLIC_URL + "/heroscopestwo"}>
+                    {cat?.title}
+                  </Link>
+                </li>
+              ))} */}
+                      </ul>
+                      {/* <li className="">
                         <Link to={process.env.PUBLIC_URL + "/ManglikDosh"}>
                           Manglik Dosh
                         </Link>
@@ -250,7 +298,7 @@ const FooterOne = ({
                         <Link to={process.env.PUBLIC_URL + "/kalsharpDosh"}>
                           Kalsharvp Dosh
                         </Link>
-                      </li>
+                      </li> */}
                       {/* {categoryList?.map((cat) => (
                         <li className="" key={cat._id}>
                           <Link to={process.env.PUBLIC_URL + "/heroscopesall"}>

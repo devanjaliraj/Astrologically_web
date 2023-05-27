@@ -21,8 +21,18 @@ import astrologinbg from "../../assets/img/astrologin-bg.jpg";
 // import pagetitle from "../../assets/img/pagetitle.jpg";
 import axiosConfig from "../../axiosConfig";
 import PrettyRating from "pretty-rating-react";
-import { faStarHalfAlt } from "@fortawesome/free-solid-svg-icons";
-import { faStar as farStar } from "@fortawesome/free-regular-svg-icons";
+import {
+  faHeart,
+  faStar,
+  faHeartBroken,
+  faStarHalfAlt,
+} from "@fortawesome/free-solid-svg-icons";
+import {
+  faHeart as farHeart,
+  faStar as farStar,
+} from "@fortawesome/free-regular-svg-icons";
+// import { faStarHalfAlt } from "@fortawesome/free-solid-svg-icons";
+// import { faStar as farStar } from "@fortawesome/free-regular-svg-icons";
 // import axios from "axios";
 import { Modal, ModalHeader, ModalBody } from "reactstrap";
 import AstroProfileVideo from "./AstroProfileVideo";
@@ -32,6 +42,14 @@ const colors = {
   star: ["#d9ad26", "#d9ad26", "#434b4d"],
   // heart: ['#9b111e', '#a83f39'],
 };
+const icons = {
+  star: {
+    complete: faStar,
+    half: faStarHalfAlt,
+    empty: farStar,
+  },
+};
+
 // const colors = {
 //   star: ["#d9ad26", "#d9ad26", "#434b4d"],
 // };
@@ -65,6 +83,7 @@ class AstrologerDetail extends React.Component {
       astroId: "",
       astro: "",
       avg_rating: [false],
+      GtRating: [],
     };
 
     this.state = {
@@ -85,7 +104,15 @@ class AstrologerDetail extends React.Component {
   };
 
   componentDidMount = () => {
-    let { id } = this.props.match.params;
+    const { id } = this.props.match.params;
+    localStorage.setItem("astroId", id);
+    axiosConfig
+      .get(`/user/allRevieAstro/${id}`)
+      .then((res) => {
+        console.log(res.data.data);
+        this.setState({ GtRating: res.data.data });
+      })
+      .catch((err) => console.log(err));
     localStorage.setItem("videoCallAstro_id", id);
     axiosConfig
       .get("/user/all_min_recharge")
@@ -129,7 +156,6 @@ class AstrologerDetail extends React.Component {
           saturday: response.data.data.saturday,
           fullname: response.data.data.fullname,
           language: response.data.data.language,
-
           wednesday: response.data.data.wednesday,
         });
       })
@@ -137,10 +163,42 @@ class AstrologerDetail extends React.Component {
         console.log(error);
       });
   };
+
+  // handleIntakeform = () => {
+  //   const payload = {
+  //     userid: "63a1baa3ae6e54f1e2a002cc",
+  //     astroid: "6352904e3755959407f948a6",
+  //     gender: "Female",
+  //     mobile: "5767547323",
+  //     firstname: "Seeta",
+  //     p_firstname: "Ram",
+  //     lastname: "ji",
+  //     p_lastname: "ji",
+  //     dob: "10/05/2023",
+  //     p_dob: "10/05/2023",
+  //     date_of_time: "12",
+  //     p_date_of_time: "12",
+  //     birthPlace: "Ayodhya",
+  //     p_birthPlace: "Ayodhya",
+  //     marital_status: "Unmarried",
+  //     occupation: "Student",
+  //     topic_of_cnsrn: "Career and Business",
+  //     entertopic_of_cnsrn: "dgrdg hjg",
+  //     file: "",
+  //   };
+  //   axiosConfig
+  //     .post(`/user/add_chat_intake`, payload)
+  //     .then((res) => {
+  //       console.log(res);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
   handleStartChat = () => {
     let userId = JSON.parse(localStorage.getItem("user_id"));
-    let { id } = this.props.match.params;
-    console.log(userId, id);
+    // const { id } = this.props.match.params;
+    const id = localStorage.getItem("astroId");
     // latest code
     if (userId !== "" && userId !== null) {
       const data = {
@@ -338,6 +396,32 @@ class AstrologerDetail extends React.Component {
         astroid: id,
       };
       if (this.state.astroData.waiting_queue === 0) {
+        const userid = JSON.parse(localStorage.getItem("user_id"));
+        const callingastro_id = localStorage.getItem("videoCallAstro_id");
+
+        const payload = {
+          userAccount: userid,
+          astroAccount: callingastro_id,
+        };
+        axiosConfig
+          .post(`/user/userVideoCall`, payload)
+          .then((res) => {
+            console.log("videocallapio", res);
+            // this.setState({
+            //   videoCallList: res?.data?.channelName,
+            // });
+            // this.setState({ videoCallData: res?.data?.channelName });
+            // this.setState({ userVideocalltoken: res?.data?.userAccount });
+            localStorage.setItem(
+              "usertoken_for_videocall",
+              res?.data?.userAccount
+            );
+            localStorage.setItem("userchannel_name", res?.data?.channelName);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+
         axiosConfig
           .post(`/user/addCallWallet`, data)
           .then((response) => {
@@ -475,13 +559,6 @@ class AstrologerDetail extends React.Component {
 
   render() {
     // const { allminrechargeList } = this.state;
-    const icons = {
-      star: {
-        complete: farStar,
-        half: faStarHalfAlt,
-        empty: farStar,
-      },
-    };
 
     return (
       <LayoutOne headerTop="visible">
@@ -542,9 +619,10 @@ class AstrologerDetail extends React.Component {
 
                         <div className="review-rating">
                           <PrettyRating
+                            disabled
                             value={this.state.avg_rating}
                             icons={icons.star}
-                            setColors={["#d9ad26", "#d9ad26", "#434b4d"]}
+                            colors={colors.star}
                             // colors={["#d9ad26", "#d9ad26", "#434b4d"]}
                           />
                           {/* {this.state.avg_rating && this.state.avg_rating > 0 ? ( */}
@@ -706,9 +784,9 @@ class AstrologerDetail extends React.Component {
                     className="product-anotherinfo-wrapper mt-5"
                     style={{ border: "1px solid#ccc", padding: "20px 10px" }}
                   >
-                    <h3>
+                    {/* <h3>
                       RATINGS <i class="fa fa-star"></i>
-                    </h3>
+                    </h3> */}
                     <div className="row">
                       <div className="col-lg-6">
                         <div className="row">
@@ -724,7 +802,7 @@ class AstrologerDetail extends React.Component {
                                   ></h1> */}
                             <p></p>
                           </div>
-                          <div className="col-md-6">
+                          {/* <div className="col-md-6">
                             <LinearProgress
                               className="m-1 mb-3 "
                               style={{ color: "#14958f" }}
@@ -755,64 +833,72 @@ class AstrologerDetail extends React.Component {
                               variant="determinate"
                               value={10}
                             />
-                          </div>
+                          </div> */}
                         </div>
-                        <hr />
+
                         <div className="review-wrapper">
-                          <div className="single-review">
-                            {" "}
-                            <div className="review-img">
-                              <img
-                                src={
-                                  process.env.PUBLIC_URL +
-                                  "/assets/img/testimonial/1.jpg"
-                                }
-                                alt=""
-                              />
-                            </div>
-                            <div className="review-content">
-                              <div className="review-top-wrap">
-                                <div className="review-left">
-                                  <div className="review-name">
-                                    <h4
-                                      style={{
-                                        textTransform: "capitalize",
-                                        margin: 5,
-                                      }}
-                                    >
-                                      lorem ipsum
-                                    </h4>
+                          {this.state.GtRating !== " " ? (
+                            <>
+                              {this.state.GtRating?.map((value) => (
+                                <div key={value?._id} className="single-review">
+                                  {" "}
+                                  <div className="review-img">
+                                    <img
+                                      width="100px"
+                                      height="80px"
+                                      style={{ borderRadius: "8px" }}
+                                      src={value?.userid?.userimg[0]}
+                                      // src={
+                                      //   process.env.PUBLIC_URL +
+                                      //   "/assets/img/testimonial/1.jpg"
+                                      // }
+                                      alt=""
+                                    />
                                   </div>
-                                  <div className="review-rating">
-                                    <i className="fa fa-star" />
-                                    <i className="fa fa-star" />
-                                    <i className="fa fa-star" />
-                                    <i className="fa fa-star" />
-                                    <i className="fa fa-star" />
-                                    {/* <Rating
+                                  <div className="review-content">
+                                    <div className="review-top-wrap">
+                                      <div className="review-left">
+                                        <div className="review-name">
+                                          <h4
+                                            style={{
+                                              textTransform: "capitalize",
+                                              margin: 5,
+                                            }}
+                                          >
+                                            {value?.userid?.fullname}
+                                          </h4>
+                                        </div>
+                                        <div className="review-rating">
+                                          <PrettyRating
+                                            disabled
+                                            value={value?.rating}
+                                            icons={icons.star}
+                                            colors={colors.star}
+                                            // colors={["#d9ad26", "#d9ad26", "#434b4d"]}
+                                          />
+                                          {/* <Rating
                                     name="disabled"
                                     style={{ opacity: 1 }}
                                     disabled
                                   /> */}
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div className="review-bottom">
+                                      <p
+                                        style={{
+                                          display: "inline",
+                                          textTransform: "capitalize",
+                                        }}
+                                      >
+                                        {value?.comment}
+                                      </p>
+                                    </div>
                                   </div>
                                 </div>
-                              </div>
-                              <div className="review-bottom">
-                                <p
-                                  style={{
-                                    display: "inline",
-                                    textTransform: "capitalize",
-                                  }}
-                                >
-                                  Vestibulum ante ipsum primis aucibus orci
-                                  luctustrices posuere cubilia Curae Suspendisse
-                                  viverra ed viverra. Mauris ullarper euismod
-                                  vehicula. Phasellus quam nisi, congue id
-                                  nulla.
-                                </p>
-                              </div>
-                            </div>
-                          </div>
+                              ))}
+                            </>
+                          ) : null}
                         </div>
                       </div>
                       {/* {/ avai /} */}

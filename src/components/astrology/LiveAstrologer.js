@@ -131,6 +131,7 @@ class LiveAstrologer extends React.Component {
                           <img
                             src={value?.astroAccount?.img[0]}
                             alt=""
+                            height={220}
                             width={100}
                           />
                           {/* <img src={LiveAstro} alt="" width={100} /> */}

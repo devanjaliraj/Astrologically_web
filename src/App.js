@@ -199,6 +199,7 @@ const PoojaDetail = lazy(() => import("./components/astrology/poojadetail"));
 const HeroscopesAll = lazy(() =>
   import("./components/astrology/heroscopesall")
 );
+const Heroscopesday = lazy(() => import("./components/astrology/Dailyhors"));
 const HeroscopesTwo = lazy(() =>
   import("./components/astrology/heroscopestwo")
 );
@@ -663,6 +664,10 @@ const App = (props) => {
                   <Route
                     path={process.env.PUBLIC_URL + "/heroscopesall"}
                     component={HeroscopesAll}
+                  />
+                  <Route
+                    path={process.env.PUBLIC_URL + "/heroscopesday"}
+                    component={Heroscopesday}
                   />
 
                   <Route

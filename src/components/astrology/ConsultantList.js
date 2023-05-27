@@ -87,14 +87,14 @@ class ConsultantList extends React.Component {
                         </h4>
                         <ul>
                           <li>
-                            Rating :<span>(1458)</span>
-                            <p className="mb-3">
+                            Rating :<span>{list?.astroid.avg_rating} star</span>
+                            {/* <p className="mb-3">
                               <i class="fa fa-star" aria-hidden="true"></i>
                               <i class="fa fa-star" aria-hidden="true"></i>
                               <i class="fa fa-star" aria-hidden="true"></i>
                               <i class="fa fa-star" aria-hidden="true"></i>
                               <i class="fa fa-star" aria-hidden="true"></i>
-                            </p>
+                            </p> */}
                           </li>
                           <li>
                             {" "}

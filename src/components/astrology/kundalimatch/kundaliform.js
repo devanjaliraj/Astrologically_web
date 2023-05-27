@@ -11,6 +11,7 @@ import swal from "sweetalert";
 import Axios from "axios";
 import Select from "react-select";
 import { Country, State, City } from "country-state-city";
+
 class KundaliForm extends React.Component {
   constructor(props) {
     super(props);
@@ -20,17 +21,15 @@ class KundaliForm extends React.Component {
       m_year: "",
       m_hour: "",
       m_min: "",
-      m_lat: "",
-      m_lon: "",
-      m_tzone: "",
+      Name1: "",
+      Name2: "",
       f_day: "",
       f_month: "",
       f_year: "",
       f_hour: "",
       f_min: "",
-      f_lat: "",
-      f_lon: "",
-      f_tzone: "",
+      timezone: "",
+      timezonef: "",
       matchmakingreport: {},
       data: {},
       place: "",
@@ -39,10 +38,14 @@ class KundaliForm extends React.Component {
       city: [],
       country: [],
       selectedCountry: null,
+      selectedCountry1: null,
       selectedState: null,
+      selectedState1: null,
       selectedCity: null,
+      selectedCity1: null,
     };
   }
+
   handleInputChanged(event) {
     this.setState({
       searchQuery: event.target.value,
@@ -83,61 +86,101 @@ class KundaliForm extends React.Component {
   };
   componentDidMount() {
     let { id } = this.props.match.params;
-    this.setState({ m_day: id });
     let obj = {
       m_day: id,
     };
-    axiosConfig
-      .post(`/user/match_making_report`, obj)
-      .then((response) => {
-        console.log("matchmakingreport", response.data.data.ashtakoota);
-        this.setState({ matchmakingreport: response.data.data });
-      })
+    // axiosConfig
+    //   .post(`/user/match_making_report`, obj)
+    //   .then((response) => {
+    //     console.log("matchmakingreport", response.data.data.ashtakoota);
+    //     this.setState({ matchmakingreport: response.data.data });
+    //   })
 
-      .catch((error) => {
-        // swal("Error!", "You clicked the button!", "error");
-        console.log(error);
-      });
+    //   .catch((error) => {
+    //     // swal("Error!", "You clicked the button!", "error");
+    //     console.log(error);
+    //   });
   }
   changeHandler = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
-  submitHandler = (e) => {
-    e.preventDefault();
+
+  handleshowmatch = () => {
     let obj = {
       m_day: this.state.m_day,
       m_month: this.state.m_month,
       m_year: this.state.m_year,
       m_hour: this.state.m_hour,
       m_min: this.state.m_min,
-      m_lat: this.state.m_lat,
-      m_lon: this.state.m_lon,
-      m_tzone: this.state.m_tzone,
+      m_lat: this.state.selectedCity?.latitude,
+      m_lon: this.state.selectedCity?.longitude,
+      m_tzone: this.state.timezone,
       f_day: this.state.f_day,
       f_month: this.state.f_month,
       f_year: this.state.f_year,
       f_hour: this.state.f_hour,
       f_min: this.state.f_min,
-      f_lat: this.state.f_lat,
-      f_lon: this.state.f_lon,
-      f_tzone: this.state.f_tzone,
+      f_lat: this.state.selectedCity1?.latitude,
+      f_lon: this.state.selectedCity1?.longitude,
+      f_tzone: this.state.timezonef,
     };
     console.log(obj);
     axiosConfig
       .post(`/user/match_making_report`, obj)
       .then((response) => {
-        console.log("matchmakingreport", response.data.data.ashtakoota);
-        // this.setState({ matchmakingreport: response.data.data });
-        console.log("matchmakingreport", response.data);
-        swal("Success!", "Submitted SuccessFull!", "success");
-        //window.location.reload('/askQuestion')
-        this.props.history.push("/kundalimatchlist");
-      })
+        console.log("matchmakingreport", response.data.data);
 
+        console.log("matchmakingreport", response.data.data);
+        swal("Success!", "Submitted SuccessFull!", "success");
+        // this.props.history.push("/kundalimatchlist");
+        this.props.history.push({
+          pathname: "/kundalimatchlist",
+          state: {
+            data: response.data.data,
+            male: this.state.Name1,
+            female: this.state.Name2,
+          },
+        });
+      })
       .catch((error) => {
         swal("Error!", "You clicked the button!", "error");
         console.log(error);
       });
+  };
+
+  submitHandler = (e) => {
+    e.preventDefault();
+    // for male
+    // if (this.state.selectedCity) {
+    //   axiosConfig
+    //     .post(`/user/time_zone`, {
+    //       country_code: this.state.selectedCity?.countryCode,
+    //     })
+    //     .then((response) => {
+    //       this.setState({ timezone: response?.data?.data?.timezone });
+    //     })
+    //     .catch((error) => {
+    //       console.log(error);
+    //     });
+    // } else swal("Select location");
+
+    // for female
+    // if (this.state.selectedCity1) {
+    //   axiosConfig
+    //   .post(`/user/time_zone`, {
+    //     country_code: this.state.selectedCity1?.countryCode,
+    //   })
+    //   .then((response) => {
+    //     this.setState({ timezonef: response?.data?.data?.timezone });
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+    // } else swal("select location ");
+
+    if (this.state.selectedCity && this.state.selectedCity1) {
+      this.handleshowmatch();
+    } else swal("Fill All Details");
   };
   // handleChange = (e) => {
   // this.setState({
@@ -218,7 +261,7 @@ class KundaliForm extends React.Component {
                 <div className="match-bx">
                   <form onSubmit={this.submitHandler}>
                     <Row>
-                      <Col md="8">
+                      <Col md="12">
                         <h3>Fill Up Partner's Detail</h3>
                         <Row>
                           <Col md="6">
@@ -228,8 +271,10 @@ class KundaliForm extends React.Component {
                                   <label>Name</label>
                                   <input
                                     type="text"
-                                    name=""
+                                    name="Name1"
                                     placeholder="Name"
+                                    value={this.state.Name1}
+                                    onChange={this.changeHandler}
                                   />
                                 </Col>
                                 <Col md="6">
@@ -547,7 +592,7 @@ class KundaliForm extends React.Component {
                                 </Col>
 
                                 <Col md="6">
-                                  <label>state</label>
+                                  <label>City</label>
                                   <Select
                                     options={City.getCitiesOfState(
                                       this.state.selectedState?.countryCode,
@@ -563,10 +608,23 @@ class KundaliForm extends React.Component {
                                     onChange={(item) => {
                                       //setSelectedCity(item);
                                       this.setState({ selectedCity: item });
+                                      axiosConfig
+                                        .post(`/user/time_zone`, {
+                                          country_code: item?.countryCode,
+                                        })
+                                        .then((response) => {
+                                          this.setState({
+                                            timezone:
+                                              response?.data?.data?.timezone,
+                                          });
+                                        })
+                                        .catch((error) => {
+                                          console.log(error);
+                                        });
                                     }}
                                   />
                                 </Col>
-
+                                {/* 
                                 <Col md="12">
                                   <label>Birth Place Latitude</label>
                                   <Input
@@ -577,8 +635,8 @@ class KundaliForm extends React.Component {
                                     value={this.state.m_lat}
                                     onChange={this.changeHandler}
                                   />
-                                </Col>
-                                <Col md="12">
+                                </Col> */}
+                                {/* <Col md="12">
                                   <label>Birth Place Longitude</label>
                                   <input
                                     name="m_lon"
@@ -587,8 +645,8 @@ class KundaliForm extends React.Component {
                                     value={this.state.m_lon}
                                     onChange={this.changeHandler}
                                   />
-                                </Col>
-                                <Col md="12">
+                                </Col> */}
+                                {/* <Col md="12">
                                   <label>Birth Place Time Zone</label>
                                   <input
                                     // type="time"
@@ -598,7 +656,7 @@ class KundaliForm extends React.Component {
                                     value={this.state.m_tzone}
                                     onChange={this.changeHandler}
                                   />
-                                </Col>
+                                </Col> */}
                               </Row>
                             </div>
                           </Col>
@@ -609,7 +667,9 @@ class KundaliForm extends React.Component {
                                   <label>Name</label>
                                   <input
                                     type="text"
-                                    name=""
+                                    name="Name2"
+                                    value={this.state.Name2}
+                                    onChange={this.changeHandler}
                                     placeholder="Name"
                                   />
                                 </Col>
@@ -971,10 +1031,10 @@ class KundaliForm extends React.Component {
                                     getOptionValue={(options) => {
                                       return options["name"];
                                     }}
-                                    value={this.state.selectedCountry}
+                                    value={this.state.selectedCountry1}
                                     onChange={(item) => {
                                       //setSelectedCountry(item);
-                                      this.setState({ selectedCountry: item });
+                                      this.setState({ selectedCountry1: item });
                                     }}
                                   />
                                 </Col>
@@ -990,10 +1050,10 @@ class KundaliForm extends React.Component {
                                     getOptionValue={(options) => {
                                       return options["name"];
                                     }}
-                                    value={this.state.selectedState}
+                                    value={this.state.selectedState1}
                                     onChange={(item) => {
                                       //setSelectedState(item);
-                                      this.setState({ selectedState: item });
+                                      this.setState({ selectedState1: item });
                                     }}
                                   />
                                 </Col>
@@ -1010,14 +1070,27 @@ class KundaliForm extends React.Component {
                                     getOptionValue={(options) => {
                                       return options["name"];
                                     }}
-                                    value={this.state.selectedCity}
+                                    value={this.state.selectedCity1}
                                     onChange={(item) => {
                                       //setSelectedCity(item);
-                                      this.setState({ selectedCity: item });
+                                      this.setState({ selectedCity1: item });
+                                      axiosConfig
+                                        .post(`/user/time_zone`, {
+                                          country_code: item?.countryCode,
+                                        })
+                                        .then((response) => {
+                                          this.setState({
+                                            timezonef:
+                                              response?.data?.data?.timezone,
+                                          });
+                                        })
+                                        .catch((error) => {
+                                          console.log(error);
+                                        });
                                     }}
                                   />
                                 </Col>{" "}
-                                <Col md="12">
+                                {/* <Col md="12">
                                   <label>Birth Place Latitude</label>
                                   <input
                                     name="f_lat"
@@ -1026,8 +1099,8 @@ class KundaliForm extends React.Component {
                                     value={this.state.f_lat}
                                     onChange={this.changeHandler}
                                   />
-                                </Col>
-                                <Col md="12">
+                                </Col> */}
+                                {/* <Col md="12">
                                   <label>Birth Place Longitude</label>
                                   <input
                                     name="f_lon"
@@ -1036,8 +1109,8 @@ class KundaliForm extends React.Component {
                                     value={this.state.f_lon}
                                     onChange={this.changeHandler}
                                   />
-                                </Col>
-                                <Col md="12">
+                                </Col> */}
+                                {/* <Col md="12">
                                   <label>Birth Place Time Zone</label>
                                   <input
                                     // type="time"
@@ -1047,20 +1120,23 @@ class KundaliForm extends React.Component {
                                     value={this.state.f_tzone}
                                     onChange={this.changeHandler}
                                   />
-                                </Col>
+                                </Col> */}
                               </Row>
                             </div>
                           </Col>
 
                           {/* <Link to="/kundalimatchlist"> */}
 
-                          {/* <Button className="mt-25 btn btn-secondary">
-                                                            Match Horoscope
-                                                        </Button> */}
+                          {/* <Button
+                            onClick={this.handlehor}
+                            className="mt-25 btn btn-secondary"
+                          >
+                            Match Horoscope
+                          </Button> */}
                           {/* </Link> */}
                         </Row>
                       </Col>
-                      <Col md="4">
+                      {/* <Col md="3">
                         <h3>Saved Matches</h3>
                         <div className="form-m">
                           <Row>
@@ -1111,9 +1187,13 @@ class KundaliForm extends React.Component {
                             </Col>
                           </Row>
                         </div>
-                      </Col>
+                      </Col> */}
                     </Row>
-                    <Button className="btn btn-warning">Match Horoscope</Button>
+                    <div className="mt-2">
+                      <Button className="btn btn-warning mt-2">
+                        Match Horoscope
+                      </Button>
+                    </div>
 
                     <Row> </Row>
                   </form>

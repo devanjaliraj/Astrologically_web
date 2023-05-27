@@ -1,15 +1,9 @@
 import React from "react";
-import {
-  Container,
-  Row,
-  Col,
-  Input,
-  Button
-} from "reactstrap";
+import { Container, Row, Col, Input, Button } from "reactstrap";
 import LayoutOne from "../../layouts/LayoutOne";
 import axiosConfig from "../../axiosConfig";
 import swal from "sweetalert";
-import astrologinbg from "../../assets/img/astrologin-bg.jpg"
+import astrologinbg from "../../assets/img/astrologin-bg.jpg";
 
 class HoroscopeDetail1 extends React.Component {
   constructor(props) {
@@ -26,7 +20,7 @@ class HoroscopeDetail1 extends React.Component {
   };
   componentDidMount() {
     let { id } = this.props.match.params;
-    this.setState({ zodiacName: id })
+    this.setState({ zodiacName: id });
     let payload = { zodiacName: id };
     axiosConfig
       .post(`/user/weeklyHoroscope`, payload)
@@ -99,12 +93,14 @@ class HoroscopeDetail1 extends React.Component {
                 <Col lg="4">
                   <div className="scope-st">
                     <h3>SELECT OTHER SIGN</h3>
-                    <Input className="form-control"
+                    <Input
+                      className="form-control"
                       type="select"
                       name="zodiacName"
                       placeholder="Enter rashi"
                       value={this.state.zodiacName}
-                      onChange={this.changeHandler}>
+                      onChange={this.changeHandler}
+                    >
                       <option value="select">---Select---</option>
                       <option value="aries">Aries</option>
                       <option value="taurus">Taurus</option>

@@ -19,9 +19,9 @@ const Youtubevideonew = ({ data, sliderClass, sliderdemoClass }) => {
     >
       <iframe
         // style={{ position: "relative !important" }}
-        key={bestAstrology?._id}
+        // key={bestAstrology?._id}
         className="vdl-l swiper-slide"
-        sliderdemoClass={sliderdemoClass}
+        // sliderdemoClass={sliderdemoClass}
         src={`https://www.youtube.com/embed/${bestAstrology?.youtube_link}`}
       ></iframe>
     </div>

@@ -53,7 +53,10 @@ class SectionPooja extends React.Component {
                                   <h3 className="title">
                                     <Link>{product.productname} </Link>
                                   </h3>
-                                  <Link className="all-deals">
+                                  <Link
+                                    to={"/astromallList"}
+                                    className="all-deals"
+                                  >
                                     View More
                                     <i class="fa fa-angle-right icon"></i>
                                   </Link>

@@ -399,7 +399,7 @@ class ManglikDosh extends React.Component {
                   </p>
                   <div className="match-bx">
                     <Row>
-                      <Col md="8">
+                      <Col md="12">
                         <h3> MANGLIK DOSH</h3>
                         <Form onSubmit={this.submitHandler}>
                           <div className="form-m">
@@ -784,12 +784,12 @@ class ManglikDosh extends React.Component {
                           </div>
                         </Form>
                       </Col>
-                      <Col md="4">
+                      {/* <Col md="4">
                         <h3>Saved Manglik Dosh Matches</h3>
                         <div className="form-m">
                           <Row>
                             <Col>
-                              {/* <MatchSearch /> */}
+                           
                               <h4 className="mt-3">Recent Views</h4>
                               <hr></hr>
                               <div className="mtkun-box">
@@ -835,7 +835,7 @@ class ManglikDosh extends React.Component {
                             </Col>
                           </Row>
                         </div>
-                      </Col>
+                      </Col> */}
                     </Row>
                   </div>
                 </Card>

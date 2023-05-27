@@ -12,12 +12,7 @@ import textbottom from "../../assets/img/textbottom.png";
 import axiosConfig from "../../axiosConfig";
 import Youtubevideonew from "./Youtubevideonew";
 
-const SliderYouTubeVideo = ({
-  data,
-  sliderClass,
-  slideryoutubevideoClass,
-  sliderdemoClass,
-}) => {
+const SliderYouTubeVideo = ({ data, sliderdemoClass }) => {
   const [userId, setUserId] = useState("");
   const [bestAstrology, setBestAstrology] = useState(data);
   const [youtubelist, setyoutubelist] = useState([]);

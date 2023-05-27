@@ -22,6 +22,7 @@ class ChatAppList extends React.Component {
     axiosConfig
       .get(`/user/getroomid/${userId}`)
       .then((response) => {
+        console.log(response);
         if (response.data.status === true) {
           this.setState({
             userChatList: response.data?.data,

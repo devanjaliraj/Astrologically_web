@@ -23,9 +23,9 @@ class Dailyhors extends React.Component {
     this.setState({ zodiacName: id });
     let payload = { zodiacName: id };
     axiosConfig
-      .post(`/user/monthlyHoroscope`, payload)
+      .post(`/user/weeklyHoroscope`, payload)
       .then((response) => {
-        console.log("monthly", response.data.data);
+        console.log("dailyHoroscope", response.data.data);
         this.setState({ dailyHoroscope: response.data.data });
       })
       .catch((error) => {
@@ -37,9 +37,9 @@ class Dailyhors extends React.Component {
     e.preventDefault();
     let payload = { zodiacName: this.state.zodiacName };
     axiosConfig
-      .post(`/user/monthlyHoroscope`, payload)
+      .post(`/user/dailyhoroscope`, payload)
       .then((response) => {
-        console.log("monthlyhosrscope", response.data.data);
+        console.log("dailyHoroscope", response.data.data);
         this.setState({ dailyHoroscope: response.data.data });
         // console.log("dailyHoroscope1", response.data.data);
         // swal("Success!", "Submitted SuccessFull!", "success");
@@ -79,7 +79,7 @@ class Dailyhors extends React.Component {
               <Row>
                 <Col md="12">
                   <div className="leftcont text-left">
-                    <h1>Monthly Horoscope</h1>
+                    <h1>Daily Horoscope</h1>
                   </div>
                 </Col>
               </Row>
@@ -89,7 +89,7 @@ class Dailyhors extends React.Component {
         <section className="ptb-0">
           <Container>
             <form onSubmit={this.submitHandler}>
-              <Row className="mt-1 mb-3">
+              <Row className="mt-b mb-4">
                 <Col lg="4">
                   <div className="scope-st">
                     <h3>SELECT SIGN</h3>
@@ -122,15 +122,26 @@ class Dailyhors extends React.Component {
                   {dailyHoroscope.status == false ? null : (
                     <>
                       <div className="scope-1">
-                        <h3>Rashi Name :- {dailyHoroscope?.sun_sign}</h3>
+                        <h3>Rashi Name:-:{dailyHoroscope?.sun_sign}</h3>
+                        <h3>Date:{dailyHoroscope?.prediction_date}</h3>
 
-                        {dailyHoroscope?.prediction?.map((value, i) => (
-                          <>
-                            <p>
-                              {i + 1} - <b>{value}</b>
-                            </p>
-                          </>
-                        ))}
+                        <h3>Emoptions</h3>
+                        <p>{dailyHoroscope?.prediction?.emotions}</p>
+
+                        <h3>Health</h3>
+                        <p>{dailyHoroscope?.prediction?.health}</p>
+
+                        <h3>Luck</h3>
+                        <p>{dailyHoroscope?.prediction?.luck}</p>
+
+                        <h3>Personnel life</h3>
+                        <p>{dailyHoroscope?.prediction?.personal_life}</p>
+
+                        <h3>Professional</h3>
+                        <p>{dailyHoroscope?.prediction?.profession}</p>
+
+                        <h3>Travel</h3>
+                        <p>{dailyHoroscope?.prediction?.travel}</p>
                       </div>
                     </>
                   )}

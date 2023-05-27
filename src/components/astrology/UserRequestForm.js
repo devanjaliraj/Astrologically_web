@@ -58,7 +58,8 @@ class UserRequestForm extends React.Component {
   submitHandler = (e) => {
     e.preventDefault();
     let userId = JSON.parse(localStorage.getItem("user_id"));
-    let astroId = localStorage.getItem("astro_id");
+    let astroId = localStorage.getItem("astroId");
+    console.log(astroId);
     // let astroId = localStorage.getItem("videoCallAstro_id");
 
     console.log(userId, astroId);
@@ -144,7 +145,7 @@ class UserRequestForm extends React.Component {
               .catch((error) => {
                 console.log(error?.response?.data?.error);
                 if (error?.response?.data?.error) {
-                  swal("Try again after some Time ", "Internal server");
+                  // swal("Try again after some Time ", "Internal server");
                 }
               });
           }

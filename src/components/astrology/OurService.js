@@ -119,7 +119,7 @@ class OurService extends React.Component {
                   </Col>
                   <Col md="2">
                     <div className="serve-1">
-                      <Link to="/#/">
+                      <Link to="/allastrologerlist">
                         <h3>Call Astrologer</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur</p>
                       </Link>
@@ -127,7 +127,7 @@ class OurService extends React.Component {
                   </Col>
                   <Col md="2">
                     <div className="serve-1">
-                      <Link to="/#/">
+                      <Link to="/allastrologerlist">
                         <h3>Video Call Astrologer</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur</p>
                       </Link>

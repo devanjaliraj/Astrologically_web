@@ -81,10 +81,10 @@ class AllAstrologerList extends React.Component {
   togglefilter = (tab) => {
     if (this.state.activeTab !== tab) this.setState({ activeTab: tab });
   };
-  changeHandler = (e) => {
-    e.preventDefault();
-    this.setState({ [e.target.name]: e.target.value });
-  };
+  // changeHandler = (e) => {
+  //   e.preventDefault();
+  //   this.setState({ [e.target.name]: e.target.value });
+  // };
 
   submitHandler = (e) => {
     e.preventDefault();
@@ -123,77 +123,78 @@ class AllAstrologerList extends React.Component {
         swal("Error!", "Something went wrong", "error");
       });
   };
-  loginHandler = (e) => {
-    e.preventDefault();
-    let obj = {
-      mobile: parseInt(this.state.mobile),
-    };
-    axios
-      .post(`http://65.2.175.154:8000/user/userlogin`, obj)
-      .then((response) => {
-        console.log("@@@####", response.data);
-        this.setState({ otpMsg: response.data.msg });
-        if (response.data.msg === "otp Send Successfully") {
-          swal("otp Send Successfully");
-          // this.props.history.push('/')
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-        console.log(error.response);
-        swal("Error!", "User doesn't Exist", "error");
-      });
-  };
+
+  // loginHandler = (e) => {
+  //   e.preventDefault();
+  //   let obj = {
+  //     mobile: parseInt(this.state.mobile),
+  //   };
+  //   axios
+  //     .post(`http://65.2.175.154:8000/user/userlogin`, obj)
+  //     .then((response) => {
+  //       console.log("@@@####", response.data);
+  //       this.setState({ otpMsg: response.data.msg });
+  //       if (response.data.msg === "otp Send Successfully") {
+  //         swal("otp Send Successfully");
+  //         // this.props.history.push('/')
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //       console.log(error.response);
+  //       swal("Error!", "User doesn't Exist", "error");
+  //     });
+  // };
 
   //Image Submit Handler
-  onChangeHandler = (event) => {
-    this.setState({ selectedFile: event.target.files[0] });
-    this.setState({ selectedName: event.target.files[0].name });
-    console.log(event.target.files[0]);
-  };
-  otpHandler = (e) => {
-    e.preventDefault();
-    console.log(this.state);
-    axios
-      .post(`http://65.2.175.154:8000/user/userVryfyotp`, {
-        mobile: parseInt(this.state.mobile),
-        otp: parseInt(this.state.otp),
-      })
-      .then((response) => {
-        console.log("@@@####", response.data);
-        // let id = response.data.user;
-        if (response.data.status === true) {
-          this.setState({ otpMsg: response.data.msg });
-          localStorage.setItem(
-            "userData",
-            JSON.stringify(response?.data?.data)
-          );
-          localStorage.setItem("token", JSON.stringify(response?.data?.token));
-          localStorage.setItem(
-            "user_id",
-            JSON.stringify(response?.data?.data?._id)
-          );
-          localStorage.setItem(
-            "user_mobile_no",
-            JSON.stringify(response?.data?.data?.mobile)
-          );
-          if (response.data.msg === "otp verified") {
-            swal("otp verified");
-            // window.location.replace('/')
-            this.props.history.push("/");
-          }
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-        //this.setState({ errormsg: error });
-      });
-  };
+  // onChangeHandler = (event) => {
+  //   this.setState({ selectedFile: event.target.files[0] });
+  //   this.setState({ selectedName: event.target.files[0].name });
+  //   console.log(event.target.files[0]);
+  // };
+  // otpHandler = (e) => {
+  //   e.preventDefault();
+  //   console.log(this.state);
+  //   axios
+  //     .post(`http://65.2.175.154:8000/user/userVryfyotp`, {
+  //       mobile: parseInt(this.state.mobile),
+  //       otp: parseInt(this.state.otp),
+  //     })
+  //     .then((response) => {
+  //       console.log("@@@####", response.data);
+  //       // let id = response.data.user;
+  //       if (response.data.status === true) {
+  //         this.setState({ otpMsg: response.data.msg });
+  //         localStorage.setItem(
+  //           "userData",
+  //           JSON.stringify(response?.data?.data)
+  //         );
+  //         localStorage.setItem("token", JSON.stringify(response?.data?.token));
+  //         localStorage.setItem(
+  //           "user_id",
+  //           JSON.stringify(response?.data?.data?._id)
+  //         );
+  //         localStorage.setItem(
+  //           "user_mobile_no",
+  //           JSON.stringify(response?.data?.data?.mobile)
+  //         );
+  //         if (response.data.msg === "otp verified") {
+  //           swal("otp verified");
+  //           // window.location.replace('/')
+  //           this.props.history.push("/");
+  //         }
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //       //this.setState({ errormsg: error });
+  //     });
+  // };
 
-  handlechange = (e) => {
-    e.preventDefault();
-    this.setState({ [e.target.name]: e.target.value });
-  };
+  // handlechange = (e) => {
+  //   e.preventDefault();
+  //   this.setState({ [e.target.name]: e.target.value });
+  // };
 
   componentDidMount = () => {
     axiosConfig

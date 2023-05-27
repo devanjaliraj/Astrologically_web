@@ -9,12 +9,12 @@ const TeamMemberOneSingle = ({ data, spaceBottomClass }) => {
         className={`team-wrapper ${spaceBottomClass ? spaceBottomClass : ""}`}
       >
         <div className="team-img">
-           <img
+          <img
             src={process.env.PUBLIC_URL + data.image}
             alt=""
             className="img-fluid"
-          /> 
-           <div className="team-action">
+          />
+          <div className="team-action">
             <a
               className="facebook"
               href={data.fbLink}
@@ -39,23 +39,23 @@ const TeamMemberOneSingle = ({ data, spaceBottomClass }) => {
             >
               <i className="fa fa-instagram" />
             </a>
-          </div> 
+          </div>
         </div>
-         <div className="team-content text-center">
+        <div className="team-content text-center">
           <h4>{data.name}</h4>
           {/* <span>{data.position} </span> */}
-        </div> 
+        </div>
         <hr></hr>
         <div className="statusbox">
-            <div className="statusonline">
-                <span>Online</span>
-            </div>
+          <div className="statusonline">
+            <span>Online</span>
+          </div>
 
-            <div className="statusonline2">
-                <Link to="/astrologerdetail">
-                <span>Click to Call</span>
-                </Link>
-            </div>
+          <div className="statusonline2">
+            <Link to="/astrologerdetail">
+              <span>Click to Call</span>
+            </Link>
+          </div>
         </div>
       </div>
     </div>
@@ -64,7 +64,7 @@ const TeamMemberOneSingle = ({ data, spaceBottomClass }) => {
 
 TeamMemberOneSingle.propTypes = {
   data: PropTypes.object,
-  spaceBottomClass: PropTypes.string
+  spaceBottomClass: PropTypes.string,
 };
 
 export default TeamMemberOneSingle;

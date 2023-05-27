@@ -1,69 +1,72 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { Container, Row, Col, Button } from 'reactstrap'
-import LayoutOne from '../../layouts/LayoutOne'
+import React from "react";
+import { Link } from "react-router-dom";
+import { Container, Row, Col, Button } from "reactstrap";
+import LayoutOne from "../../layouts/LayoutOne";
 // import AutoSearch from './autosearch'
-import axiosConfig from '../../axiosConfig'
-import swal from 'sweetalert'
+import axiosConfig from "../../axiosConfig";
+import swal from "sweetalert";
 import astrologinbg from "../../assets/img/astrologin-bg.jpg";
 class AddressForm extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
-      name: '',
-      mobile: '',
-      email: '',
-      userid: '',
-      alt_mobile: '',
-      flat_no: '',
-      locality: '',
-      city: '',
-      state: '',
-      country: '',
-      pincode: '',
-      landmark: '',
+      name: "",
+      mobile: "",
+      email: "",
+      userid: "",
+      alt_mobile: "",
+      flat_no: "",
+      locality: "",
+      city: "",
+      state: "",
+      country: "",
+      pincode: "",
+      landmark: "",
       data: [],
       viewoneAddressData: [],
-    }
+    };
   }
   componentDidMount() {
-
-
-    let userId = JSON.parse(localStorage.getItem('user_id'))
-
+    let { id } = this.props.match.params;
+    console.log(id);
+    let userId = JSON.parse(localStorage.getItem("user_id"));
+    console.log(userId);
     axiosConfig
       .get(`/user/viewone_address/${userId}`)
       .then((response) => {
-        //localStorage.setItem('shipping_id', response?.data?.data[0]?._id)
-        console.log('viewone_address', response.data.data)
+        localStorage.setItem("shipping_id", response?.data?.data[0]?._id);
+        console.log("viewone_address", response.data.data);
         this.setState({
           viewoneAddressData: response.data.data,
-        })
+        });
       })
       .catch((error) => {
-        console.log(error)
-      })
+        console.log(error);
+      });
   }
-  changeHandler1 = (e) => {
-    this.setState({ status: e.target.value })
-  }
+  // changeHandler1 = (e) => {
+  //   this.setState({ status: e.target.value });
+  // };
 
   changeHandler = (e) => {
-    this.setState({ [e.target.name]: e.target.value })
-  }
+    this.setState({ [e.target.name]: e.target.value });
+  };
   submitHandler = (e) => {
-    e.preventDefault()
+    e.preventDefault();
+
     // let { id } = this.props.match.params
     // console.log(id)
-    let userId = JSON.parse(localStorage.getItem('user_id'))
-
-    let astroid = JSON.parse(localStorage.getItem('astroId'))
-    let userid = localStorage.getItem('user_id')
-    let shippingaddress = JSON.parse(localStorage.getItem('shipping_address'))
-    let productid = JSON.parse(localStorage.getItem('productid'))
+    let userId = JSON.stringify(localStorage.getItem("user_id"));
+    let astroid = JSON.parse(localStorage.getItem("astroId"));
+    console.log(astroid);
+    console.log(userId);
+    // let userid = localStorage.getItem("user_id");
+    let shippingaddress = JSON.parse(localStorage.getItem("shipping_address"));
+    let productid = localStorage.getItem("productid");
+    console.log(productid);
     let obj = {
       astroId: astroid,
-      userId: userid,
+      userId: userId,
       productId: productid,
       shipping_address: shippingaddress,
       userid: userId,
@@ -78,55 +81,53 @@ class AddressForm extends React.Component {
       name: this.state.name,
       mobile: parseInt(this.state.mobile),
       email: this.state.email,
-
-    }
+    };
 
     axiosConfig
       .post(`/user/add_shipping_address`, obj)
       .then((response) => {
-        console.log('@@@@@', response.data.data)
-        //localStorage.setItem('shipping_id', response?.data?.data[0]?._id)
-        swal('Success!', 'Submitted SuccessFull!', 'success')
-        window.location.reload('/addressForm')
+        console.log("@@@@@", response.data.data);
+        localStorage.setItem("shipping_id", response?.data?.data[0]?._id);
+        swal("Success!", "Submitted SuccessFull!", "success");
+        window.location.reload("/addressForm");
       })
 
       .catch((error) => {
-        swal('Error!', 'You clicked the button!', 'error')
-        console.log(error)
-      })
+        swal("Error!", "You clicked the button!", "error");
+        console.log(error.response.data);
+      });
 
     axiosConfig
       .post(`/user/addtoCart`, obj)
       .then((response) => {
-        console.log('@@@@@', response.data.data.data)
-        swal('Success!', 'Submitted SuccessFull!', 'success')
-        window.location.reload('/addressForm')
+        console.log("@@@@@", response.data.data.data);
+        swal("Success!", "Submitted SuccessFull!", "success");
+        window.location.reload("/addressForm");
       })
 
       .catch((error) => {
-        swal('Error!', 'You clicked the button!', 'error')
-        console.log(error)
-      })
-  }
-
+        swal("Error!", "You clicked the button!", "error");
+        console.log(error);
+      });
+  };
 
   addressDelete = (id) => {
     axiosConfig
-      .get('/user/dlt_address/' + id)
+      .get("/user/dlt_address/" + id)
       .then((response) => {
-        console.log('@@@@@', response.data.data)
-        swal('Success!', 'Address SuccessFull! Deleted', 'success')
-        window.location.reload(true)
+        console.log("@@@@@", response.data.data);
+        swal("Success!", "Address SuccessFull! Deleted", "success");
+        window.location.reload(true);
       })
 
       .catch((error) => {
-        swal('Error!', 'You clicked the button!', 'error')
-        console.log(error)
-      })
-  }
+        swal("Error!", "You clicked the button!", "error");
+        console.log(error);
+      });
+  };
 
   render() {
-    const { viewoneAddressData } = this.state
+    const { viewoneAddressData } = this.state;
     return (
       <LayoutOne headerTop="visible">
         <section className="pt-0 pb-0">
@@ -172,84 +173,82 @@ class AddressForm extends React.Component {
               <Row>
                 {viewoneAddressData.length
                   ? viewoneAddressData.map((address) => {
-                    return (
-                      <Col lg="6" className="mb-20">
-                        <div className="wal-amt">
-                          <h3>
-                            Continue with your saved address
-                            <span>
-                              <Link
-                                to={'/addressformedit/' + address?._id}
-                                className=""
-                              >
-                                <i className="pe-7s-note ad-edit" />
-                              </Link>
-                              <Link
-                                onClick={() =>
-                                  this.addressDelete(address?._id)
-                                }
-                                className=" "
-                              >
-                                <i className="pe-7s-trash ad-del" />
-                              </Link>
-                            </span>
-                          </h3>
-                          <hr></hr>
-                          <div className="user-pro py-0">
-                            <ul>
-                              <li>
-                                Name : <span>{address?.name}</span>
-                              </li>
-                              <li>
-                                Mobile : <span>{address?.mobile}</span>
-                              </li>
-                              <li>
-                                Email : <span>{address?.email}</span>
-                              </li>
-                              <li>
-                                Address :
-                                <span>
-                                  {address?.flat_no +
-                                    ',' +
-                                    address?.locality +
-                                    ',' +
-                                    address?.city +
-                                    '(' +
-                                    address.pincode +
-                                    ')'}
-                                </span>
-                              </li>
-                              <li>
-                                City : <span>{address?.city}</span>
-                              </li>
-                              <li>
-                                State : <span>{address?.state}</span>
-                              </li>
+                      return (
+                        <Col key={address?._id} lg="6" className="mb-20">
+                          <div className="wal-amt">
+                            <h3>
+                              Continue with your saved address
+                              <span>
+                                <Link
+                                  to={"/addressformedit/" + address?._id}
+                                  className=""
+                                >
+                                  <i className="pe-7s-note ad-edit" />
+                                </Link>
+                                <Link
+                                  onClick={() =>
+                                    this.addressDelete(address?._id)
+                                  }
+                                  className=" "
+                                >
+                                  <i className="pe-7s-trash ad-del" />
+                                </Link>
+                              </span>
+                            </h3>
+                            <hr></hr>
+                            <div className="user-pro py-0">
+                              <ul>
+                                <li>
+                                  Name : <span>{address?.name}</span>
+                                </li>
+                                <li>
+                                  Mobile : <span>{address?.mobile}</span>
+                                </li>
+                                <li>
+                                  Email : <span>{address?.email}</span>
+                                </li>
+                                <li>
+                                  Address :
+                                  <span>
+                                    {address?.flat_no +
+                                      "," +
+                                      address?.locality +
+                                      "," +
+                                      address?.city +
+                                      "(" +
+                                      address.pincode +
+                                      ")"}
+                                  </span>
+                                </li>
+                                <li>
+                                  City : <span>{address?.city}</span>
+                                </li>
+                                <li>
+                                  State : <span>{address?.state}</span>
+                                </li>
 
-                              <li>
-                                Locality : <span>{address?.locality}</span>
-                              </li>
-                              <li>
-                                Pin Code :{' '}
-                                <span>
-                                  {address?.pincode ? address?.pincode : 'NA'}
-                                </span>
-                              </li>
-                            </ul>
+                                <li>
+                                  Locality : <span>{address?.locality}</span>
+                                </li>
+                                <li>
+                                  Pin Code :{" "}
+                                  <span>
+                                    {address?.pincode ? address?.pincode : "NA"}
+                                  </span>
+                                </li>
+                              </ul>
+                            </div>
+                            <div className="py-3 text-center">
+                              <Link to={"/cartlist/" + address?._id}>
+                                <Button className="btn btn-warning">
+                                  Deliver To This Address{" "}
+                                </Button>
+                              </Link>
+                            </div>
                           </div>
-                          <div className="py-3 text-center">
-                            <Link to={'/cartlist/' + address?._id}>
-                              {/* <Link to={'/cartlist/' + this.props.match.params.id}> */}
-
-                              <Button className="btn btn-warning">
-                                Deliver To This Address{' '}
-                              </Button>
-                            </Link>
-                          </div>
-                        </div>
-                      </Col>
-                    )
-                  })
+                        </Col>
+                      );
+                    })
                   : null}
               </Row>
             </div>
@@ -416,7 +415,7 @@ class AddressForm extends React.Component {
           </Container>
         </section>
       </LayoutOne>
-    )
+    );
   }
 }
-export default AddressForm
+export default AddressForm;

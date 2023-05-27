@@ -140,6 +140,8 @@ class TodayPanchang extends React.Component {
   };
   submitHandler = (e) => {
     e.preventDefault();
+    console.log(this.state.latitude);
+    console.log(this.state.longitude);
     let payload = {
       // day: this.state.day,
       // month: this.state.month,

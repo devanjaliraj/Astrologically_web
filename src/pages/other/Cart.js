@@ -135,12 +135,13 @@ const Cart = ({
   useEffect(() => {
     console.log("useEffect");
     Axios.get(
-      // "http://13.235.180.192/api/user/getonecustomer", 
+      // "http://13.235.180.192/api/user/getonecustomer",
       {
-      headers: {
-        "auth-token": localStorage.getItem("auth-token"),
-      },
-    })
+        headers: {
+          "auth-token": localStorage.getItem("auth-token"),
+        },
+      }
+    )
       .then((response) => {
         console.log(response.data.data);
         setUser(response.data.data);
@@ -148,9 +149,10 @@ const Cart = ({
       .catch((error) => {
         console.log(error.response);
       });
-    Axios.get(
+    Axios
+      .get
       // `http://13.235.180.192/api/admin/rapay/${cartTotalPrice}`
-      )
+      ()
       .then((response) => {
         console.log(response.data);
         setOrderId(response.data?.order.id);
@@ -186,7 +188,6 @@ const Cart = ({
             payment_type,
             status: "Pending",
             shipping_address: useraddress._id,
-
             payment_id: res.payment_id,
           };
           console.log(res);
