@@ -66,7 +66,6 @@ class KundaliForm extends React.Component {
     e.preventDefault();
 
     let payload = {
-      // data: this.state.data
       place: this.state.place,
     };
     console.log("shgdjhg", payload);

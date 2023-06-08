@@ -14,7 +14,7 @@ import "../../assets/scss/astroteam.scss";
 import noteimg from "../../assets/img/note.png";
 import axiosConfig from "../../axiosConfig";
 import swal from "sweetalert";
-import astrologinbg from "../../assets/img/astrologin-bg.jpg"
+import astrologinbg from "../../assets/img/astrologin-bg.jpg";
 
 class NotificationList extends React.Component {
   constructor() {
@@ -25,8 +25,10 @@ class NotificationList extends React.Component {
   }
 
   componentDidMount = () => {
+    let userId = JSON.parse(localStorage.getItem("user_id"));
+
     axiosConfig
-      .get("/admin/get_notification")
+      .get(`/admin/get_notification/${userId}`)
       .then((response) => {
         console.log(response.data);
         if (response.data.status === true) {
@@ -98,34 +100,34 @@ class NotificationList extends React.Component {
                   <Row>
                     {notification.length
                       ? notification.map((notif, index) => {
-                        return (
-                          <Col lg="12" key={index}>
-                            <div className="noteify-list">
-                              <div className="noteifybx">
-                                <img src={noteimg} alt="" width="50px" />
+                          return (
+                            <Col lg="12" key={index}>
+                              <div className="noteify-list">
+                                <div className="noteifybx">
+                                  <img src={noteimg} alt="" width="50px" />
+                                </div>
+                                <div className="noteifybxx">
+                                  <h2>{notif.title}</h2>
+                                  <p>{notif.desc}</p>
+                                  <span className="notify-sp">
+                                    <button
+                                      onClick={() =>
+                                        this.notificationDelete(notif._id)(
+                                          window.location.reload()
+                                        )
+                                      }
+                                    >
+                                      <i
+                                        class="fa fa-times"
+                                        aria-hidden="true"
+                                      ></i>
+                                    </button>
+                                  </span>
+                                </div>
                               </div>
-                              <div className="noteifybxx">
-                                <h2>{notif.title}</h2>
-                                <p>{notif.desc}</p>
-                                <span className="notify-sp">
-                                  <button
-                                    onClick={() =>
-                                      this.notificationDelete(notif._id)(
-                                        window.location.reload()
-                                      )
-                                    }
-                                  >
-                                    <i
-                                      class="fa fa-times"
-                                      aria-hidden="true"
-                                    ></i>
-                                  </button>
-                                </span>
-                              </div>
-                            </div>
-                          </Col>
-                        );
-                      })
+                            </Col>
+                          );
+                        })
                       : null}
                   </Row>
                 </div>

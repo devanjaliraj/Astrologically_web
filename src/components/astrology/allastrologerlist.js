@@ -106,8 +106,8 @@ class AllAstrologerList extends React.Component {
       console.log(key);
     }
     // this.setState({ otp: false });
-    axios
-      .post(`http://65.2.175.154:8000/user/usersignup`, data)
+    axiosConfig
+      .post(`/user/usersignup`, data)
       .then((response) => {
         console.log(response.data.msg);
         localStorage.setItem("auth-token", response.data.token);
@@ -195,6 +195,22 @@ class AllAstrologerList extends React.Component {
   //   e.preventDefault();
   //   this.setState({ [e.target.name]: e.target.value });
   // };
+  handlestartInterval = () => {
+    setInterval(() => {
+      axiosConfig
+        .get("/admin/allAstro")
+        .then((response) => {
+          console.log(response.data);
+          if (response.data.status === true) {
+            this.setState({ astrologerList: response.data.data });
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          console.log(error.response);
+        });
+    }, 60000);
+  };
 
   componentDidMount = () => {
     axiosConfig
@@ -203,6 +219,7 @@ class AllAstrologerList extends React.Component {
         console.log(response.data);
         if (response.data.status === true) {
           this.setState({ astrologerList: response.data.data });
+          this.handlestartInterval();
         }
       })
       .catch((error) => {

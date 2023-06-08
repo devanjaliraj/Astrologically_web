@@ -27,6 +27,7 @@ import {
 } from "reactstrap";
 
 import { Razorpaydummy } from "./Razorpaydummy";
+import DemoChat from "./DemoChat";
 
 // const Razorpay = useRazorpay();
 
@@ -277,7 +278,8 @@ class BookPoojaForm extends React.Component {
                   </Col>
                   <Row>
                     <Col md="12" className="mt-3">
-                      <Razorpaydummy />
+                      {/* <Razorpaydummy /> */}
+                      <DemoChat />
                     </Col>
                   </Row>
                   {/* <Col lg="8" className="py-5">

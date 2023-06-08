@@ -9,7 +9,7 @@ import {
   Form,
   Button,
 } from "reactstrap";
-import astrologinbg from "../../assets/img/astrologin-bg.jpg"
+import astrologinbg from "../../assets/img/astrologin-bg.jpg";
 
 import LayoutOne from "../../layouts/LayoutOne";
 import "../../assets/scss/astroteam.scss";
@@ -110,29 +110,29 @@ class UserChatHistoryList extends React.Component {
                     </thead>
                     {userChatList.length
                       ? userChatList.map((user, index) => {
-                        return (
-                          <tbody>
-                            <tr>
-                              <th >{user?.conversationId}</th>
-                              <td>{user?.astroid?.fullname}</td>
+                          return (
+                            <tbody>
+                              <tr>
+                                <th>{user?.conversationId}</th>
+                                <td>{user?.astroid?.fullname}</td>
 
-                              <td>{user?.type}</td>
-                              <td>{user?.astroid?.callCharge}/Min.</td>
-                              <td>{user?.recharge_planId.minute}Min.</td>
-                              <td>{user?.userid?.amount}Rs.</td>
-                              <td>{user?.deductedAmt}Rs.</td>
-                              <td>{user?.createdAt}</td>
-                              <td>
-                                <Link className="Tansdel">
-                                  <i
-                                    class="fa fa-trash-o"
-                                    aria-hidden="true"
-                                  ></i>
-                                </Link>
-                              </td>
-                            </tr>
+                                <td>{user?.type}</td>
+                                <td>{user?.astroid?.callCharge}/Min.</td>
+                                {/* <td>{user?.recharge_planId?.minute}Min.</td> */}
+                                <td>{user?.userid?.amount}Rs.</td>
+                                <td>{user?.deductedAmt}Rs.</td>
+                                <td>{user?.createdAt}</td>
+                                <td>
+                                  <Link className="Tansdel">
+                                    <i
+                                      class="fa fa-trash-o"
+                                      aria-hidden="true"
+                                    ></i>
+                                  </Link>
+                                </td>
+                              </tr>
 
-                            {/* <tr>
+                              {/* <tr>
                                 <th scope="row">2</th>
                                 <td>Chat With Monish For 2 Minutes</td>
                                 <td>doc</td>
@@ -192,9 +192,9 @@ class UserChatHistoryList extends React.Component {
                                   </Link>
                                 </td>
                               </tr> */}
-                          </tbody>
-                        );
-                      })
+                            </tbody>
+                          );
+                        })
                       : null}
                   </Table>
                 </div>

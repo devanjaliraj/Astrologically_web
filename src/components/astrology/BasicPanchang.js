@@ -68,7 +68,7 @@ class BasicPanchang extends React.Component {
     this.setState({ selectedCountry: item });
 
     axiosConfig
-      .post(`http://13.234.48.35:8000/user/time_zone`, {
+      .post(`/user/time_zone`, {
         country_code: item?.timezones[0].zoneName,
       })
       .then((response) => {
@@ -86,7 +86,7 @@ class BasicPanchang extends React.Component {
     });
 
     axiosConfig
-      .post(`http://13.234.48.35:8000/user/geo_detail`, {
+      .post(`/user/geo_detail`, {
         place: item?.name,
       })
       .then((response) => {
@@ -200,7 +200,7 @@ class BasicPanchang extends React.Component {
                 <Row>
                   <Col md="12">
                     <div className="leftcont text-left">
-                      <h1>Panchang</h1>
+                      <h1>Basic Panchang</h1>
                       <h3>Get instant & accurate, Panchang</h3>
                     </div>
                   </Col>

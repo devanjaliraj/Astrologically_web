@@ -27,12 +27,13 @@ class ProductList extends React.Component {
     console.log(id);
     axiosConfig
       .get(`/user/productbycategory/${id}`)
+      // .get(`/user/productbycategory/64799dad576f08ea7789d670`)
       .then((response) => {
-        console.log("productbycategory", response.data);
+        console.log("productbycategory", response.data.data);
+        this.setState({
+          productList: response.data.data,
+        });
         if (response.data.status === true) {
-          this.setState({
-            productList: response.data.data,
-          });
         }
       })
       .catch((error) => {
@@ -96,7 +97,7 @@ class ProductList extends React.Component {
                                     <Col md="12">
                                       <div className="po-1 text-center">
                                         <img
-                                          src={product?.image[0]}
+                                          src={product?.product?.image}
                                           alt="pooja"
                                           width="250px"
                                           height="200px"
@@ -104,14 +105,20 @@ class ProductList extends React.Component {
                                       </div>
                                     </Col>
                                     <Col md="12">
-                                      <div className="po-1 text-center">
-                                        <h3>{product.title}</h3>
+                                      <div className="po-1 mt-1 mb-1 text-center">
+                                        <h3>{product.product?.title}</h3>
                                         <p>
-                                          Puja Starting from @₹
-                                          {product?.price ? product?.price : 0}
+                                          Puja Price
+                                          {product?.price
+                                            ? product?.product?.price
+                                            : 0}{" "}
+                                          Rs/-
                                         </p>
                                         <Link
-                                          to={"/poojadetail/" + product._id}
+                                          to={
+                                            "/poojadetail/" +
+                                            product?.product?._id
+                                          }
                                           className="pto-l text-center"
                                         >
                                           Book Now
@@ -121,7 +128,7 @@ class ProductList extends React.Component {
                                   </Row>
                                 </div>
                               </Col>
-                              <Col>
+                              {/* <Col>
                                 <Row>
                                   <div className="container">
                                     <h4>
@@ -129,10 +136,10 @@ class ProductList extends React.Component {
                                     </h4>
                                     <h5>{product?.productname}</h5>
                                     <h6>{ReactHtmlParser(product?.desc)}</h6>
-                                    <h5> Price:-{product?.price} /-</h5>
+                                    <h5> Price:-{product?.product?.price} /-</h5>
                                   </div>
                                 </Row>
-                              </Col>
+                              </Col> */}
                             </>
                           );
                         })

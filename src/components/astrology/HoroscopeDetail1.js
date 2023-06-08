@@ -42,7 +42,7 @@ class HoroscopeDetail1 extends React.Component {
         console.log("dailyHoroscope", response.data);
         this.setState({ dailyHoroscope: response.data.data });
         console.log("dailyHoroscope1", response.data);
-        swal("Success!", "Submitted SuccessFull!", "success");
+        // swal("Success!", "Submitted SuccessFull!", "success");
       })
       .catch((error) => {
         swal("Error!", "You clicked the button!", "error");

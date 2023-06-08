@@ -5,7 +5,7 @@ import LayoutOne from "../../layouts/LayoutOne";
 // import AutoSearch from './autosearch'
 import axiosConfig from "../../axiosConfig";
 import swal from "sweetalert";
-import Form from 'react-bootstrap/Form';
+import Form from "react-bootstrap/Form";
 
 class CustomerSupportForm extends React.Component {
   constructor(props) {
@@ -14,7 +14,6 @@ class CustomerSupportForm extends React.Component {
       desc: "",
       subject: "",
       userid: "",
-
     };
   }
   changeHandler = (e) => {
@@ -24,10 +23,11 @@ class CustomerSupportForm extends React.Component {
     e.preventDefault();
     let { id } = this.props.match.params;
 
-    let user_id = JSON.parse(localStorage.getItem("user_id"));
+    var user_id = JSON.parse(localStorage.getItem("user_id"));
+    console.log(this.state.subject);
+    console.log(this.state.desc);
+    console.log(user_id);
     let obj = {
-
-
       userid: user_id,
       subject: this.state.subject,
       desc: this.state.desc,
@@ -35,16 +35,16 @@ class CustomerSupportForm extends React.Component {
 
     axiosConfig
       .post(`/user/addTicket`, obj)
-
       .then((response) => {
         console.log("@@@@@", response.data.data);
         this.setState({
           subject: "",
-          desc: ""
+          desc: "",
         });
         // this.getQuestionList(id)
-        swal("Success!", "Submitted SuccessFull!", "success");
-        //window.location.reload('/askQuestion')
+        // to="/customersupport"
+        window.location.reload("/customersupport");
+        swal("Success!", "Submitted SuccessFully!", "Success");
       })
 
       .catch((error) => {
@@ -99,10 +99,12 @@ class CustomerSupportForm extends React.Component {
                         <Col md="12">
                           <div class="form-group mtb-10">
                             <label>Select </label>
-                            <Form.Select aria-label="Default select example"
+                            <Form.Select
+                              aria-label="Default select example"
                               name="subject"
                               value={this.state.subject}
-                              onChange={this.changeHandler}>
+                              onChange={this.changeHandler}
+                            >
                               <option>--Select --</option>
                               <option value="1">Previous Order</option>
                               <option value="2">Transaction Related</option>
@@ -120,25 +122,25 @@ class CustomerSupportForm extends React.Component {
                           </div>
                         </Col>
 
-
                         <Col md="12">
                           <div class="form-group mtb-10">
                             <label>Description*</label>
-                            <textarea className="form-control" placeholder="support ticket description..."
-
-
+                            <textarea
+                              className="form-control"
+                              placeholder="support ticket description..."
                               name="desc"
                               value={this.state.desc}
                               onChange={this.changeHandler}
                             ></textarea>
-
                           </div>
                         </Col>
                         <Col md="12" className="mt-3">
-                          {/* <Button className="btn btn-warning">
+                          <Button type="submit" className="btn btn-warning">
                             Submit
-                        </Button> */}
-                          <Link to="/customersupport" className="btn btn-warning" >Submit</Link>
+                          </Button>
+                          {/* <Link type="submit" className="btn btn-warning">
+                            Submit
+                          </Link> */}
                         </Col>
                       </Row>
                     </form>

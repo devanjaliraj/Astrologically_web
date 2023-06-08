@@ -10,7 +10,7 @@ import {
   Form,
   Button,
 } from "reactstrap";
-import astrologinbg from "../../assets/img/astrologin-bg.jpg"
+import astrologinbg from "../../assets/img/astrologin-bg.jpg";
 
 import Pj from "../../assets/img/Pj.jpg";
 import "../../assets/scss/astropooja.css";
@@ -29,18 +29,18 @@ class PoojaDetail extends React.Component {
   }
   componentDidMount() {
     let { id } = this.props.match.params;
-    localStorage.setItem("product_id", id);
+    console.log(id);
     axiosConfig
       .get(`/admin/viewoneProduct/${id}`)
       .then((response) => {
-        console.log(response.data.data);
+        console.log(response.data.data?._id);
         this.setState({
           data: response.data.data,
           image: response.data.data.image[0],
         });
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error.response);
       });
   }
 
@@ -99,11 +99,11 @@ class PoojaDetail extends React.Component {
                       </h3>
                       <p>{ReactHtmlParser(this.state.data.desc)}</p>
                       <h4 className="price">
-                        Starting From: <span>${this.state.data.price}</span>
+                        Starting From: <span>₹ {this.state.data.price}</span>
                       </h4>
 
                       <div class="action">
-                        <Link to={"/consultantlist/" + this.state.data._id}>
+                        <Link to={"/consultantlist/" + this.state.data?._id}>
                           <button
                             className="add-to-cart btn btn-default"
                             type="button"

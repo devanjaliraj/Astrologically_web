@@ -5,7 +5,7 @@ import LayoutOne from "../../layouts/LayoutOne";
 // import AutoSearch from './autosearch'
 import axiosConfig from "../../axiosConfig";
 import swal from "sweetalert";
-import astrologinbg from "../../assets/img/astrologin-bg.jpg"
+import astrologinbg from "../../assets/img/astrologin-bg.jpg";
 class CustomerSupport extends React.Component {
   constructor(props) {
     super(props);
@@ -23,7 +23,7 @@ class CustomerSupport extends React.Component {
     axiosConfig
       .get(`/user/TicketbyUser/${userId}`)
       .then((response) => {
-        console.log("userChatList", response.data.data);
+        console.log("ticketlist", response.data.data);
         if (response.data.status === true) {
           this.setState({
             TicketbyUser: response.data.data,
@@ -66,9 +66,7 @@ class CustomerSupport extends React.Component {
               <Row>
                 <Col md="12">
                   <div className="leftcont text-left">
-                    <h1>
-                      Customer Support
-                    </h1>
+                    <h1>Customer Support</h1>
                   </div>
                 </Col>
               </Row>
@@ -79,12 +77,10 @@ class CustomerSupport extends React.Component {
           <Container>
             <Row>
               <Col lg="2">
-                <div className="supp-1">
+                <div className="supp-1 mt-2 mb-2">
                   <Link to="/customersupportform">
                     <i className="pe-7s-plus"></i>
-                    <p>
-                      Create Ticket
-                    </p>
+                    <p>Create Ticket</p>
                   </Link>
                 </div>
               </Col>
@@ -94,25 +90,35 @@ class CustomerSupport extends React.Component {
                     {/* <Col lg="4"> */}
                     {TicketbyUser.length
                       ? TicketbyUser.map((Ticket, index) => {
-                        return (
-                          <div className="supp-2">
-                            <h4>{Ticket?.subject} ?</h4>
-                            <ul>
-                              <li>Date/Time: <span>{Ticket?.createdAt}</span></li>
-                              {/* <li>Time: <span>4:00pm</span></li> */}
-                              <li>Ticket No: <span>{Ticket?.ticketNo}</span></li>
-                              <li>Status: <span>{Ticket?.status}</span></li>
-                            </ul>
-                            <div className="supp-3">
-                              <Link to='/customersupportview'
-                              //   {'/customersupportview/' +
-                              //   Ticket?.astroId.astroid._id
-                              // }
-                              >View More</Link>
+                          return (
+                            <div className="supp-2">
+                              <h4>{Ticket?.subject} ?</h4>
+                              <ul>
+                                <li>
+                                  Date/Time: <span>{Ticket?.createdAt}</span>
+                                </li>
+                                {/* <li>Time: <span>4:00pm</span></li> */}
+                                <li>
+                                  Ticket No: <span>{Ticket?.ticketNo}</span>
+                                </li>
+                                <li>
+                                  Status: <span>{Ticket?.status}</span>
+                                </li>
+                                <li>Desc:-{Ticket?.desc}</li>
+                              </ul>
+                              <div className="supp-3">
+                                <Link
+                                  to={`/customersupportview/${Ticket?._id}`}
+                                  //   {'/customersupportview/' +
+                                  //   Ticket?.astroId.astroid._id
+                                  // }
+                                >
+                                  View More
+                                </Link>
+                              </div>
                             </div>
-                          </div>
-                        );
-                      })
+                          );
+                        })
                       : null}
                     {/* </Col> */}
                     {/* <Col lg="4">
@@ -194,8 +200,6 @@ class CustomerSupport extends React.Component {
                       </div>
                     </Col> */}
                   </Row>
-
-
                 </div>
               </Col>
             </Row>

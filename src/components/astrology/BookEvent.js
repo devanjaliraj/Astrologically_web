@@ -160,7 +160,10 @@ class BookEvent extends React.Component {
                                     {/* <Link to="/poojadetail"> */}
                                     <img
                                       className="imagepooja"
-                                      style={{ borderRadius: "10px" }}
+                                      style={{
+                                        borderRadius: "10px",
+                                        width: "100%",
+                                      }}
                                       src={value?.poojaimg}
                                       alt="pooja image"
                                     />
@@ -216,8 +219,14 @@ class BookEvent extends React.Component {
                                           className=" poojanames  justify-content-end"
                                         >
                                           <span style={{ color: "green" }}>
-                                            {" "}
-                                            {value?.mode}
+                                            {/* {value?.mode} */}
+                                            {value?.mode ? (
+                                              <>
+                                                <b>{value?.mode}</b>
+                                              </>
+                                            ) : (
+                                              "offline"
+                                            )}
                                           </span>
                                         </div>
                                       </Col>

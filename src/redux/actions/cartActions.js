@@ -2,8 +2,15 @@ export const ADD_TO_CART = "ADD_TO_CART";
 export const DECREASE_QUANTITY = "DECREASE_QUANTITY";
 export const DELETE_FROM_CART = "DELETE_FROM_CART";
 export const DELETE_ALL_FROM_CART = "DELETE_ALL_FROM_CART";
+export const USER_VIEW_BALANCE = "USER_VIEW_BALANCE";
 
 //add to cart
+export const UserBalance = (balance) => {
+  return {
+    type: USER_VIEW_BALANCE,
+    payload: balance,
+  };
+};
 export const addToCart = (
   item,
   addToast,

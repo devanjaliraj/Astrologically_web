@@ -51,7 +51,6 @@ class WalletMoney extends React.Component {
   };
   componentDidMount = () => {
     let user_id = JSON.parse(localStorage.getItem("user_id"));
-
     axiosConfig
       .get(`/user/viewoneuser/${user_id}`)
       .then((response) => {
@@ -147,7 +146,9 @@ class WalletMoney extends React.Component {
                       />
                     </Col>
                     <Col md="2" className="mt-4">
-                      <Button className="btn btn-success">Submit</Button>
+                      <Button type="submit" className="btn btn-success">
+                        Submit
+                      </Button>
                     </Col>
                   </Row>
                 </form>

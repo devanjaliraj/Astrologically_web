@@ -5,12 +5,13 @@ import LayoutOne from "../../layouts/LayoutOne";
 // import AutoSearch from './autosearch'
 import axiosConfig from "../../axiosConfig";
 import swal from "sweetalert";
-import Form from 'react-bootstrap/Form';
-import astrologinbg from "../../assets/img/astrologin-bg.jpg"
+import Form from "react-bootstrap/Form";
+import astrologinbg from "../../assets/img/astrologin-bg.jpg";
 class CustomerSupportView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      data: {},
       desc: "",
       subject: "",
       createdAt: "",
@@ -20,12 +21,14 @@ class CustomerSupportView extends React.Component {
   }
   componentDidMount() {
     let { id } = this.props.match.params;
+    console.log(id);
 
     // console.log('jdhgkfjgkjd', astroId)
     axiosConfig
       .get(`/user/getoneTicket/${id}`)
       .then((response) => {
-        console.log(response.data);
+        console.log(response.data.data);
+        this.setState({ data: response.data.data });
         this.setState({
           fullname: response.data.data.fullname,
           desc: response.data.data.desc,
@@ -42,6 +45,7 @@ class CustomerSupportView extends React.Component {
 
     // this.getQuestionList(id)
     let user_id = localStorage.getItem("user_id");
+    console.log(user_id);
     axiosConfig
       .get(`/user/list_ask_qus/${id}/${JSON.parse(user_id)}`)
       .then((response) => {
@@ -83,9 +87,7 @@ class CustomerSupportView extends React.Component {
               <Row>
                 <Col md="12">
                   <div className="leftcont text-left">
-                    <h1>
-                      View  Customer Support
-                    </h1>
+                    <h1>View Customer Support</h1>
                   </div>
                 </Col>
               </Row>
@@ -96,33 +98,42 @@ class CustomerSupportView extends React.Component {
         <section className="">
           <Container>
             <Row>
-
               <Col lg="12">
                 <div className="support-box">
                   <Row>
                     <Col lg="12">
                       <div className="supp-2">
-                        <h4>lorem ipsum ?</h4>
+                        <h4>{this.state.data?.subject}</h4>
                         <ul>
-                          <li>Date/Time: <span>{this.state.createdAt}</span></li>
+                          <li>
+                            Date/Time: <span>{this.state.data?.createdAt}</span>
+                          </li>
                           {/* <li>Time: <span>4:00pm</span></li> */}
-                          <li>Ticket No: <span>56565656</span></li>
-                          <li>Status: <span></span></li>
-                          <li>Description: <span>{this.state.desc}</span></li>
+                          <li>
+                            Ticket No: <span>{this.state.data?.ticketNo}</span>
+                          </li>
+                          <li>
+                            Status: <span>{this.state.data?.status}</span>
+                          </li>
+                          <li>
+                            Description: <span>{this.state.data?.desc}</span>
+                          </li>
                         </ul>
-                        <div className="supp-4">
+                        {/* <div className="supp-4">
                           <h3>Write Your Commets</h3>
                           <form>
                             <Col md="12">
                               <div class="form-group mtb-10">
                                 <label>Description*</label>
-                                <textarea className="form-control stp" placeholder="support ticket description...">
-                                </textarea>
+                                <textarea
+                                  className="form-control stp"
+                                  placeholder="support ticket description..."
+                                ></textarea>
                               </div>
                             </Col>
                             <Button className="btn btn-primary">Submit</Button>
                           </form>
-                        </div>
+                        </div> */}
                       </div>
                     </Col>
                   </Row>

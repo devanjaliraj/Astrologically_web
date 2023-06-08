@@ -170,13 +170,13 @@ const FooterOne = ({
                       <div className="footer-title">
                         <h3 className="mt-4">Panchang</h3>
                         <ul className="submenu">
-                          {/* <li className="">
+                          <li className="">
                             <Link
                               to={process.env.PUBLIC_URL + "/basicPanchang"}
                             >
                               Basic Panchang
                             </Link>
-                          </li> */}
+                          </li>
                           <li className="">
                             <Link
                               to={process.env.PUBLIC_URL + "/todayPanchang"}

@@ -719,7 +719,7 @@ const App = (props) => {
                     component={CustomerSupportForm}
                   />
                   <Route
-                    path={process.env.PUBLIC_URL + "/customersupportview"}
+                    path={process.env.PUBLIC_URL + "/customersupportview/:id"}
                     component={CustomerSupportView}
                   />
 

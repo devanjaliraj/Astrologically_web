@@ -31,14 +31,14 @@ class SectionPooja extends React.Component {
                     {this.state.productList.length
                       ? productList.map((product, index) => {
                           return (
-                            <Col md="3">
+                            <Col md="3" className="mt-1 mb-1">
                               <div className="product-grid8">
                                 <div class="product-image8">
                                   <Link to="/poojadetail">
                                     <img
                                       style={{ borderRadius: "8px" }}
-                                      width={250}
-                                      height={250}
+                                      width="100%"
+                                      height="200px"
                                       src={product.image}
                                       alt=""
                                       className="Ptd-img"

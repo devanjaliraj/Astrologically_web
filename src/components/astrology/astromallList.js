@@ -18,7 +18,7 @@ class AstromallList extends React.Component {
     axiosConfig
       .get("/admin/getproductcalegory")
       .then((response) => {
-        console.log(response.data);
+        console.log(response.data.data);
         if (response.data.status === true) {
           this.setState({ procategory: response.data.data });
         }
@@ -76,40 +76,37 @@ class AstromallList extends React.Component {
                   <Row>
                     {procategory.length
                       ? procategory.map((procat, index) => {
-                        return (
-                          <Col key={index} md="4">
-                            <div className="po-box">
-                              <Link to={"/productlist/" + procat._id}>
-                                <Row>
-                                  <Col md="4">
-                                    <div className="po-1">
-                                      <img
-
-                                        src={procat.img}
-                                        alt=""
-                                        width="100%"
-                                      />
-                                    </div>
-                                  </Col>
-                                  <Col md="8">
-                                    <div className="po-1">
-                                      <h3>{procat.name}</h3>
-                                      <p>{ReactHtmlParser(procat.desc)}</p>
-                                    </div>
-                                  </Col>
-                                </Row>
-                              </Link>
-                            </div>
-                          </Col>
-                        );
-                      })
+                          return (
+                            <Col key={index} md="4">
+                              <div className="po-box">
+                                <Link to={"/productlist/" + procat._id}>
+                                  <Row>
+                                    <Col md="4">
+                                      <div className="po-1">
+                                        <img
+                                          src={procat.img}
+                                          alt=""
+                                          width="100%"
+                                        />
+                                      </div>
+                                    </Col>
+                                    <Col md="8">
+                                      <div className="po-1">
+                                        <h3>{procat.name}</h3>
+                                        <p>{ReactHtmlParser(procat.desc)}</p>
+                                      </div>
+                                    </Col>
+                                  </Row>
+                                </Link>
+                              </div>
+                            </Col>
+                          );
+                        })
                       : null}
                   </Row>
                 </div>
               </Col>
-              <Col lg="6">
-
-              </Col>
+              <Col lg="6"></Col>
             </Row>
           </Container>
         </section>

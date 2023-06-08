@@ -15,6 +15,7 @@ import astrologinbg from "../../assets/img/astrologin-bg.jpg";
 import swal from "sweetalert";
 import axiosConfig from "../../axiosConfig";
 import ReactHtmlParser from "react-html-parser";
+import DemoChat from "../../components/astrology/DemoChat";
 
 class CartList extends React.Component {
   constructor(props) {
@@ -24,161 +25,48 @@ class CartList extends React.Component {
       userId: "",
       productid: "",
       shipping_address: "",
+      address: "",
       gstotal: "",
       total_amt: "",
       data: {},
       addtoCart: [],
-      dataCart: [],
+      dataCart: {},
       shippingId: "",
       gst: "",
       cartdata: {},
+      price: "",
     };
   }
   componentDidMount() {
     let { id } = this.props.match.params;
-    let productId = localStorage.getItem("product_id");
-    let astroId = localStorage.getItem("astro_id");
-    let userId = localStorage.getItem("user_id");
-    let shippingId = localStorage.getItem("shipping_id");
-    // let { shippingId } = this.props.match.params
-    axiosConfig
-      .get(`/user/product_consltnt_list/` + productId)
-      .then((response) => {
-        console.log("consultantlist", response.data?.data);
-        this.setState({
-          data: response.data.data,
-
-          price: response.data?.price,
-        });
-      })
-      .catch((error) => {
-        console.log(error.response.data);
-      });
-
-    // let { id } = this.props.match.params
-    console.log("sghedgjghjk", id);
+    localStorage.setItem("shipping_id", id);
 
     axiosConfig
       .get(`/user/getoneCart/${id}`)
-      // .get(`/user/getoneCart/${productId}`)
       .then((response) => {
-        console.log(response.data.data);
+        console.log("getonecart", response.data.data);
         this.setState({
           dataCart: response.data.data,
-          fullname: response.data.data.fullname,
-          // image: response.data.data.image[0],
-          // gst: response.data.data.gst,
         });
       })
       .catch((error) => {
         console.log(error.response);
       });
-    localStorage.setItem("shipping_id", id);
-
-    axiosConfig
-      .get(`/user/getone_address/${shippingId}`)
-      .then((response) => {
-        //console.log('@@@@new', response?.data?.data[0]?.userid?._id)
-        // localStorage.setItem(
-        //   'shipping_id',
-        //   response?.data?.data[0]?.userid?._id,
-        // )
-        // alert(response?.data?.data[0]?.userid?._id);
-        this.setState({
-          shippingId: response?.data?.data[0]?.userid?._id,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
-    // let { productId } = this.props.match.params;
-
-    //shippingId = this.state.shippingId //localStorage.getItem('shipping_id')
-    console.log(productId);
-    axiosConfig
-      .get(`/admin/viewoneProduct/` + productId)
-      .then((response) => {
-        //console.log(response.data.data)
-        this.setState({
-          productname: response.data.data.productname,
-          desc: response.data.data.desc,
-          image: response.data.data.image[0],
-          gst: response.data.data.gst,
-          price: response.data?.data?.price,
-        });
-      })
-      .catch((error) => {
-        console.log(error.response.data.data);
-      });
-
-    // new work
-
-    let obj = {
-      astroId: astroId,
-      userId: userId,
-      productId: productId,
-      shippingId: shippingId,
-      // orderId: this.state.orderId,
-      price: this.state.price,
-    };
-
-    axiosConfig
-      .post(`/user/addtoCart`, obj)
-      .then((response) => {
-        console.log("addtoCart", response.data.data);
-        this.setState({
-          addtoCart: response.data.data,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
   }
   submitHandler = (e) => {
     e.preventDefault();
-    // let { id } = this.props.match.params
-    // console.log(id)
-    let astroid = JSON.parse(localStorage.getItem("astro_id"));
-    let userid = JSON.parse(localStorage.getItem("user_id"));
-    let shippingid = JSON.parse(localStorage.getItem("shipping_id"));
-    let productId = localStorage.getItem("product_id");
-    let obj = {
-      astroId: astroid,
-      userId: userid,
-      productId: productId,
-      shippingId: shippingid,
-      //   mobile: parseInt(this.state.mobile),
-      //   email: this.state.email,
-      // gstotal: this.state.gstotal,
-      // total_amt: this.state.total_amt,
-      // fullname: this.state.fullname,
-      // gst: this.state.gst,
-    };
-
-    axiosConfig
-      .post(`/user/addtoCart`, obj)
-      .then((response) => {
-        console.log("@@@@@", response.data.data.data);
-        swal("Success!", "Submitted SuccessFull!", "success");
-        window.location.reload("/addressForm");
-      })
-
-      .catch((error) => {
-        swal("Error!", "You clicked the button!", "error");
-        console.log(error);
-      });
   };
+
   render() {
-    const { data } = this.state;
+    const { data, address } = this.state;
 
     return (
       <LayoutOne headerTop="visible">
-        <section className="pt-0 pb-0">
+        <section className="pt-0 pb-0 ">
           <div
             className=""
             style={{
-              // backgroundColor: '#FFD59E',
+              backgroundColor: "#FFD59E",
               // width: '100%',
               // padding: '70px 0px',
               // backgroundSize: 'cover',
@@ -209,48 +97,74 @@ class CartList extends React.Component {
         </section>
 
         <section>
-          <Container>
-            <Row>
+          <Container className="constaiermain">
+            <Row className="mt-10">
               <Col lg="12">
                 <div className="order-view">
                   <h4>ORDER REVIEW</h4>
-                  <Table striped className="">
-                    <thead>
+                  <Table striped className="tableheading">
+                    <thead className="tableheadingsub">
                       <tr>
                         {/* <th># S. No.</th> */}
-                        <th>PRODUCT</th>
-                        {/* <th>Product Name</th> */}
-                        <th>ASTROLOGER</th>
-                        <th>ADDRESS</th>
-                        <th>AMOUNT</th>
+                        <th className="justify-content-center">PRODUCT</th>
+
+                        <th className="d-flex justify-content-center">
+                          <span>ADDRESS</span>
+                        </th>
+                        <th className="justify-content-center">AMOUNT</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
                         {/* <th scope="row">1</th> */}
-                        <td>
-                          {" "}
-                          <img src={this.state?.image} alt="" width="40%" />
+                        <td width="50%">
+                          <img
+                            className="mt-1 mx-1"
+                            src={
+                              this.state.dataCart?.productid?.product?.image[0]
+                            }
+                            alt=""
+                            width="40%"
+                          />
                           <br />
                           {/* <span>{this.state.price}</span> */}
                           <br />
-                          <span>{this.state.productname}</span>
+                          <span>
+                            {this.state.dataCart?.productid?.price} Rs/-
+                          </span>
                           <br />
-                          <span>{ReactHtmlParser(this.state.desc)}</span>
+                          <span>
+                            {ReactHtmlParser(
+                              this.state.dataCart?.productid?.product?.desc
+                            )}
+                          </span>
                         </td>
-                        <td>{data.price}</td>
-                        {/* <td>Rajverdhan Shastriji</td>
-                        <td>indore</td> */}
-                        <td>
-                          {" "}
-                          <p></p>
+                        <td width="30%">
+                          {this.state.dataCart?.shipping_address?.flat_no},
+                          {this.state.dataCart?.shipping_address?.name}{" "}
+                          {this.state.dataCart?.shipping_address?.landmark}{" "}
+                          {this.state.dataCart?.shipping_address?.country}{" "}
+                          {this.state.dataCart?.shipping_address?.state}{" "}
+                          {this.state.dataCart?.shipping_address?.city}{" "}
+                          {this.state.dataCart?.shipping_address?.pincode}
+                          <p>
+                            {" "}
+                            mobile No:-
+                            {this.state.dataCart?.shipping_address?.mobile}
+                          </p>
                         </td>
-                        <td>
-                          <Link className="Tansdel">
+
+                        <td width="10%">
+                          <p className="mx-2" width="10%">
+                            <span>
+                              {this.state.dataCart?.productid?.price} Rs/-
+                            </span>
+                          </p>
+                          {/* <Link className="Tansdel">
                             {" "}
                             {this.state.addtoCart.total_amt -
                               this.state.addtoCart.gst}
-                          </Link>
+                          </Link> */}
                         </td>
                       </tr>
                     </tbody>
@@ -259,31 +173,22 @@ class CartList extends React.Component {
               </Col>
               <Col lg="4">
                 <div className="order-bx">
-                  <h3 className="py-3">Total Amount</h3>
+                  <h3 className="py-2">Total Amount</h3>
                   <hr></hr>
                   <ul>
                     <li>
-                      Order Subtotal
-                      <span>
-                        {" "}
-                        {this.state.addtoCart.total_amt -
-                          this.state.addtoCart.gst}
-                      </span>
+                      Order Amount
+                      <span> {this.state.dataCart?.productid?.price} Rs</span>
                     </li>
-                    <li>
-                      Payable Amount
-                      <span>
-                        {this.state.addtoCart.total_amt -
-                          this.state.addtoCart.gst}
-                      </span>
-                    </li>
+
                     <li>
                       GST @18%
-                      <span>{this.state.addtoCart.gst}</span>
+                      <span>{this.state.dataCart?.gst} Rs</span>
                     </li>
+                    <hr />
                     <li>
                       Total Payable Amount
-                      <span>{this.state.addtoCart.total_amt}</span>
+                      <span>{this.state.dataCart?.total_amt} Rs</span>
                     </li>
                   </ul>
                 </div>
@@ -340,6 +245,9 @@ class CartList extends React.Component {
                   </Col>
                 </Row>
               </Col>
+            </Row>
+            <Row>
+              <DemoChat />
             </Row>
           </Container>
         </section>

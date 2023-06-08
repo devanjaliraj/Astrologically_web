@@ -1,15 +1,15 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { Container, Row, Col, Button } from 'reactstrap'
-import astrologinbg from '../../assets/img/astrologin-bg.jpg'
+import React from "react";
+import { Link } from "react-router-dom";
+import { Container, Row, Col, Button } from "reactstrap";
+import astrologinbg from "../../assets/img/astrologin-bg.jpg";
 // import astro3 from '../../assets/img/team/astro3.jpg'
-import '../../assets/scss/astroteam.scss'
-import LayoutOne from '../../layouts/LayoutOne'
-import axiosConfig from '../../axiosConfig'
+import "../../assets/scss/astroteam.scss";
+import LayoutOne from "../../layouts/LayoutOne";
+import axiosConfig from "../../axiosConfig";
 
 class AskQuestionList extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
       // data: {},
@@ -18,26 +18,26 @@ class AskQuestionList extends React.Component {
       //   To: '',
       //   astroid: '',
       //   userid: '',
-    }
+    };
   }
   componentDidMount = () => {
     // let { id } = this.props.match.params
-    let userId = JSON.parse(localStorage.getItem('user_id'))
+    let userId = JSON.parse(localStorage.getItem("user_id"));
 
     axiosConfig
       .get(`/user/completed_order/${userId}`)
       .then((response) => {
-        console.log(response.data)
+        console.log(response.data);
         if (response.data.status === true) {
-          this.setState({ askAstroList: response.data?.data })
-          console.log(response.data?.data)
+          this.setState({ askAstroList: response.data?.data });
+          console.log(response.data?.data);
         }
       })
       .catch((error) => {
-        console.log(error)
-        console.log(error.response)
-      })
-  }
+        console.log(error);
+        console.log(error.response);
+      });
+  };
 
   //   submitHandler = (e, astroid, mobile) => {
   //     e.preventDefault()
@@ -70,7 +70,7 @@ class AskQuestionList extends React.Component {
   //   }
 
   render() {
-    const { askAstroList } = this.state
+    const { askAstroList } = this.state;
 
     return (
       <LayoutOne headerTop="visible">
@@ -78,7 +78,7 @@ class AskQuestionList extends React.Component {
           <div
             className=""
             style={{
-              // backgroundColor: '#FFD59E',
+              // backgroundColor: '#ffcc01',
               // width: '100%',
               // padding: '70px 0px',
               // backgroundSize: 'cover',
@@ -117,72 +117,59 @@ class AskQuestionList extends React.Component {
             <Row>
               {askAstroList.length
                 ? askAstroList.map((askAstro, index) => {
-                  return (
-                    <Col md="3" key={index}>
-                      <div className="image-flip">
-                        <div className="mainflip flip-0">
-                          <div className="frontside">
-                            <Link
-                              to={
-                                '/askquestion/' +
-                                askAstro?.astroid._id
-                              }
-                              className=""
-                            >
-                              <div className="card">
-                                <div className="card-body text-center">
-                                  <p>
-                                    <img
-                                      src={askAstro?.astroid.img}
-                                      alt=""
-                                    />
-                                  </p>
-                                  <h4 className="card-title">
-                                    {askAstro?.astroid.fullname}
-                                  </h4>
-                                  <ul className="mb-3">
-                                    <li>
-                                      Specility:{' '}
-                                      <span>
-                                        {askAstro?.astroid.all_skills}
-                                      </span>
-                                    </li>
-                                    <li>
-                                      Language:{' '}
-                                      <span>
-                                        {askAstro?.astroid.language}
-                                      </span>
-                                    </li>
-                                    <li>
-                                      Experience:{' '}
-                                      <span>
-                                        {
-                                          askAstro?.astroid.exp_in_years
-                                        }
-                                      </span>
-                                    </li>
-                                    <li>
-                                      Call Rate:{' '}
-                                      <span>
-                                        {askAstro?.astroid.callCharge}
-                                        /
-                                        {
-                                          askAstro?.astroid
-                                            .conrubute_hrs
-                                        }
-                                      </span>
-                                    </li>
-                                  </ul>
-                                  <Link
-                                    className="btn btn-primary btn-sm st-d"
-                                    to={
-                                      '/askquestion/' +
-                                      askAstro?.astroid._id
-                                    }
-                                  >
-                                    Ask Question
-                                  </Link>
-                                  {/* 
+                    return (
+                      <Col md="3" key={index}>
+                        <div className="image-flip">
+                          <div className="mainflip flip-0">
+                            <div className="frontside">
+                              <Link
+                                to={"/askquestion/" + askAstro?.astroid._id}
+                                className=""
+                              >
+                                <div className="card">
+                                  <div className="card-body text-center">
+                                    <p>
+                                      <img src={askAstro?.astroid.img} alt="" />
+                                    </p>
+                                    <h4 className="card-title">
+                                      {askAstro?.astroid.fullname}
+                                    </h4>
+                                    <ul className="mb-3">
+                                      <li>
+                                        Specility:{" "}
+                                        <span>
+                                          {askAstro?.astroid.all_skills}
+                                        </span>
+                                      </li>
+                                      <li>
+                                        Language:{" "}
+                                        <span>
+                                          {askAstro?.astroid.language}
+                                        </span>
+                                      </li>
+                                      <li>
+                                        Experience:{" "}
+                                        <span>
+                                          {askAstro?.astroid.exp_in_years}
+                                        </span>
+                                      </li>
+                                      <li>
+                                        Call Rate:{" "}
+                                        <span>
+                                          {askAstro?.astroid.callCharge}/
+                                          {askAstro?.astroid.conrubute_hrs}
+                                        </span>
+                                      </li>
+                                    </ul>
+                                    <Link
+                                      className="btn btn-primary btn-sm st-d"
+                                      to={
+                                        "/askquestion/" + askAstro?.astroid._id
+                                      }
+                                    >
+                                      Ask Question
+                                    </Link>
+                                    {/* 
                                     <Link className="btn btn-primary btn-sm st-d">
                                       Online
                                     </Link>
@@ -190,7 +177,7 @@ class AskQuestionList extends React.Component {
                                       className="btn btn-primary btn-sm"
                                       to={'/allastrologerlist/' + askAstro._id}
                                     > */}
-                                  {/* <span
+                                    {/* <span
                                         className="sr-btn"
                                         onClick={this.onCallSubmit}
                                       >
@@ -200,55 +187,29 @@ class AskQuestionList extends React.Component {
                                         Call
                                       </span> */}
 
-                                  {/* {localStorage.getItem('auth-token') ? ( */}
-                                  {/* <span
-                                        className="sr-btn"
-                                        onClick={(e) =>
-                                          this.submitHandler(
-                                            e,
-                                            askAstro?._id,
-                                            askAstro?.mobile,
-                                          )
-                                        }
-                                      >
-                                        <i class="fa fa-phone"></i> Call
-                                      </span> */}
-                                  {/* ) : (
-                                        <span
-                                          className="sr-btn"
-                                          onClick={(e) =>
-                                            (window.location.href =
-                                              '/#/login-register')
-                                          }
-                                        >
-                                          <i class="fa fa-phone"></i> Call
-                                        </span>
-                                      )} */}
-
-                                  {/* <small>
+                                    {/* <small>
                                             / 20{' '}
                                             <i class="fa fa-inr" aria-hidden="true">
                                               {astrologer?.conrubute_hrs}
                                             </i>{' '}
                                             per Hour
                                           </small> */}
-                                  {/* </Link> */}
+                                  </div>
                                 </div>
-                              </div>
-                            </Link>
+                              </Link>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </Col>
-                  )
-                })
+                      </Col>
+                    );
+                  })
                 : null}
             </Row>
           </Container>
         </section>
       </LayoutOne>
-    )
+    );
   }
 }
 
-export default AskQuestionList
+export default AskQuestionList;

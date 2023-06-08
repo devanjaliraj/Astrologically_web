@@ -655,7 +655,7 @@ class KalsharpDosh extends React.Component {
                                 />
                               </Col>
 
-                              <Col md="4">
+                              {/* <Col md="4">
                                 <label>Birth Place Latitude</label>
                                 <Input
                                   className="form-control"
@@ -690,7 +690,7 @@ class KalsharpDosh extends React.Component {
                                   value={this.state.timezone}
                                   onChange={this.changeHandler}
                                 />
-                              </Col>
+                              </Col> */}
                             </Row>
                             <Button className="btn btn-primary">submit</Button>
                           </div>

@@ -259,10 +259,8 @@ class AstrologerDetail extends React.Component {
           }
         });
       }
-    } else {
-      swal("Need to Login first");
-      // this.setState({ modal: true });
-    }
+    } else swal("User Does Not Exist");
+    // this.setState({ modal: true });
 
     // previous code
     // if (userId !== "" && userId !== null) {
@@ -784,56 +782,10 @@ class AstrologerDetail extends React.Component {
                     className="product-anotherinfo-wrapper mt-5"
                     style={{ border: "1px solid#ccc", padding: "20px 10px" }}
                   >
-                    {/* <h3>
-                      RATINGS <i class="fa fa-star"></i>
-                    </h3> */}
                     <div className="row">
                       <div className="col-lg-6">
                         <div className="row">
-                          <div className="col-md-4">
-                            {/* <h1
-                                    style={{
-                                      fontSize: 96,
-                                      marginTop: 39,
-                                      marginRight: 15,
-                                      marginBottom: 20,
-                                      marginLeft: 0,
-                                    }}
-                                  ></h1> */}
-                            <p></p>
-                          </div>
-                          {/* <div className="col-md-6">
-                            <LinearProgress
-                              className="m-1 mb-3 "
-                              style={{ color: "#14958f" }}
-                              variant="determinate"
-                              value={70}
-                            />
-                            <LinearProgress
-                              className="m-1 mb-3 "
-                              style={{ color: "#ff" }}
-                              variant="determinate"
-                              value={30}
-                            />
-                            <LinearProgress
-                              className="m-1 mb-3 "
-                              style={{ color: "#14958f" }}
-                              variant="determinate"
-                              value={30}
-                            />
-                            <LinearProgress
-                              className="m-1 mb-3 "
-                              style={{ color: "#14958f" }}
-                              variant="determinate"
-                              value={30}
-                            />
-                            <LinearProgress
-                              className="m-1 mb-3 "
-                              style={{ color: "#14958f" }}
-                              variant="determinate"
-                              value={10}
-                            />
-                          </div> */}
+                          <div className="col-md-4"></div>
                         </div>
 
                         <div className="review-wrapper">
@@ -848,10 +800,6 @@ class AstrologerDetail extends React.Component {
                                       height="80px"
                                       style={{ borderRadius: "8px" }}
                                       src={value?.userid?.userimg[0]}
-                                      // src={
-                                      //   process.env.PUBLIC_URL +
-                                      //   "/assets/img/testimonial/1.jpg"
-                                      // }
                                       alt=""
                                     />
                                   </div>
@@ -874,13 +822,7 @@ class AstrologerDetail extends React.Component {
                                             value={value?.rating}
                                             icons={icons.star}
                                             colors={colors.star}
-                                            // colors={["#d9ad26", "#d9ad26", "#434b4d"]}
                                           />
-                                          {/* <Rating
-                                    name="disabled"
-                                    style={{ opacity: 1 }}
-                                    disabled
-                                  /> */}
                                         </div>
                                       </div>
                                     </div>

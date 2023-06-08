@@ -6,7 +6,6 @@ import MenuCart from "./sub-components/MenuCart";
 import { deleteFromCart } from "../../redux/actions/cartActions";
 import Axios from "axios";
 import axiosConfig from "../../axiosConfig";
-// import FetchUserBalance from "./userbal";
 
 const IconGroup = ({
   currency,
@@ -56,7 +55,7 @@ const IconGroup = ({
   setInterval(() => {
     const Balance = sessionStorage.getItem("userBalance");
     setuserBalance(Balance);
-  }, 5000);
+  }, 1000);
   // setuserBalance(Balance);
   const Balance = sessionStorage.getItem("userBalance");
 
@@ -75,14 +74,11 @@ const IconGroup = ({
 
   const [wish, setWish] = useState([]);
   const fetchWish = async () => {
-    const { data } = await Axios.get(
-      // "http://13.235.180.192/api/admin/getallwishlist",
-      {
-        headers: {
-          "auth-token": localStorage.getItem("auth-token"),
-        },
-      }
-    );
+    const { data } = await Axios.get({
+      headers: {
+        "auth-token": localStorage.getItem("auth-token"),
+      },
+    });
     const wish = data.data;
     setWish(wish);
     console.log(wish);

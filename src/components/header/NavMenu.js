@@ -96,6 +96,11 @@ const NavMenu = ({ strings, menuWhiteClass, sidebarMenu }) => {
                   Monthly
                 </Link>
               </li>
+              <li className="">
+                <Link to={process.env.PUBLIC_URL + "/heroscopestwo2"}>
+                  Yearly
+                </Link>
+              </li>
               {/* {categoryList?.map((cat) => (
                 <li className="" key={cat._id}>
                   <Link to={process.env.PUBLIC_URL + "/heroscopestwo"}>

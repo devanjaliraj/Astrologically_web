@@ -12,9 +12,14 @@ class ConsultantList extends React.Component {
     };
   }
 
+  handleAddConsultant = (Productid, consultantid) => {
+    localStorage.setItem("astroproduct_id", Productid);
+    sessionStorage.setItem("AstroMall_consultant_id", consultantid);
+    this.props.history.push(`/addressform/${consultantid}`);
+  };
+
   componentDidMount() {
     let { id } = this.props.match.params;
-    console.log(id);
     axiosConfig
       .get(`/user/product_consltnt_list/${id}`)
       .then((response) => {
@@ -112,14 +117,28 @@ class ConsultantList extends React.Component {
                             <span>{list?.astroid?.exp_in_years}</span>
                           </li>
                         </ul>
-                        <div className="my-2">
+                        <div
+                          onClick={() =>
+                            this.handleAddConsultant(
+                              list?._id,
+                              list?.astroid?._id
+                            )
+                          }
+                          className="my-2"
+                        >
                           <Link
+                            // to={'/addressform/' + list?.astroid?._id}
+                            className="btn btn-primary btn-sm"
+                          >
+                            Select
+                          </Link>
+                          {/* <Link
                             // to={'/addressform/' + list?.astroid?._id}
                             to={"/addressform/" + list?._id}
                             className="btn btn-primary btn-sm"
                           >
                             Select
-                          </Link>
+                          </Link> */}
                         </div>
                       </div>
                     </div>

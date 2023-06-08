@@ -282,7 +282,7 @@ class UserRequestForm extends React.Component {
                       </Col>
                       <Col md="4">
                         <div class="form-group mtb-10">
-                          <label> patner Date of Birth*</label>
+                          <label> Partner Date of Birth*</label>
                           <input
                             type="date"
                             name="p_dob"
@@ -295,7 +295,7 @@ class UserRequestForm extends React.Component {
 
                       <Col md="4">
                         <div class="form-group mtb-10">
-                          <label>Date of Time*</label>
+                          <label>Time of Birth*</label>
                           <input
                             type="time"
                             name="date_of_time"
@@ -308,7 +308,7 @@ class UserRequestForm extends React.Component {
                       </Col>
                       <Col md="4">
                         <div class="form-group mtb-10">
-                          <label> patner Date of Time*</label>
+                          <label> Patner Time of birth*</label>
                           <input
                             type="time"
                             name="p_date_of_time"
@@ -347,6 +347,18 @@ class UserRequestForm extends React.Component {
                           onChange={(item) => {
                             //setSelectedCountry(item);
                             this.setState({ selectedCountry: item });
+                            axiosConfig
+                              .post(`/user/time_zone`, {
+                                country_code: item?.timezones[0].zoneName,
+                              })
+                              .then((response) => {
+                                // this.setState({
+                                //   timezone: response?.data?.data?.timezone,
+                                // });
+                              })
+                              .catch((error) => {
+                                console.log(error);
+                              });
                           }}
                         />
                       </Col>
@@ -393,7 +405,7 @@ class UserRequestForm extends React.Component {
                       </Col>
                       <Col md="4">
                         <div class="form-group mtb-10">
-                          <label> patner Birth Place</label>
+                          <label> Partner Birth Place</label>
                           <input
                             type="text"
                             name="p_birthPlace"

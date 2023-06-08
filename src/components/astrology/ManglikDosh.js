@@ -684,8 +684,8 @@ class ManglikDosh extends React.Component {
                               <Col md="3">
                                 <label>Country</label>
                                 <Select
-                                  styles={customStyles}
-                                  className="cus-slt"
+                                  // styles={customStyles}
+                                  className="cus-slt form-control"
                                   options={Country.getAllCountries()}
                                   getOptionLabel={(options) => {
                                     return options["name"];
@@ -703,8 +703,8 @@ class ManglikDosh extends React.Component {
                               <Col md="3">
                                 <label>State</label>
                                 <Select
-                                  className="cus-slt"
-                                  styles={customStyles}
+                                  className="cus-slt form-control"
+                                  // styles={customStyles}
                                   options={State?.getStatesOfCountry(
                                     this.state.selectedCountry?.isoCode
                                   )}
@@ -724,7 +724,8 @@ class ManglikDosh extends React.Component {
                               <Col md="3">
                                 <label>City</label>
                                 <Select
-                                  styles={customStyles}
+                                  className="form-control"
+                                  // styles={customStyles}
                                   options={City.getCitiesOfState(
                                     this.state.selectedState?.countryCode,
                                     this.state.selectedState?.isoCode

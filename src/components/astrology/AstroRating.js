@@ -104,7 +104,9 @@ class AstroRating extends React.Component {
           rating: "",
         });
         // this.getQuestionList(id)
-        window.location.reload("/");
+        this.props.history.push("/");
+
+        // window.location.reload("/");
         swal("Success!", "Submitted SuccessFull!", "success");
       })
 

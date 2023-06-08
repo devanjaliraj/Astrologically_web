@@ -640,7 +640,7 @@ class PitraDosh extends React.Component {
                               <Col md="4">
                                 <label>Country</label>
                                 <Select
-                                  styles={customStyles}
+                                  // styles={customStyles}
                                   options={Country.getAllCountries()}
                                   getOptionLabel={(options) => {
                                     return options["name"];
@@ -659,7 +659,7 @@ class PitraDosh extends React.Component {
                               <Col md="4">
                                 <label>State</label>
                                 <Select
-                                  styles={customStyles}
+                                  // styles={customStyles}
                                   options={State?.getStatesOfCountry(
                                     this.state.selectedCountry?.isoCode
                                   )}
@@ -680,7 +680,7 @@ class PitraDosh extends React.Component {
                               <Col md="4">
                                 <label>City</label>
                                 <Select
-                                  styles={customStyles}
+                                  // styles={customStyles}
                                   options={City.getCitiesOfState(
                                     this.state.selectedState?.countryCode,
                                     this.state.selectedState?.isoCode
@@ -701,7 +701,7 @@ class PitraDosh extends React.Component {
                                 />
                               </Col>
 
-                              <Col md="4">
+                              {/* <Col md="4">
                                 <label>Birth Place Latitude</label>
                                 <Input
                                   className="form-control"
@@ -740,9 +740,11 @@ class PitraDosh extends React.Component {
                                   value={this.state.timezone}
                                   onChange={this.changeHandler}
                                 />
-                              </Col>
+                              </Col> */}
                             </Row>
-                            <Button className="btn btn-primary">submit</Button>
+                            <Button className="btn btn-primary mt-1 mb-2">
+                              submit
+                            </Button>
                           </div>
                         </Form>
                       </Col>

@@ -1,15 +1,9 @@
 import React from "react";
-import {
-  Container,
-  Row,
-  Col,
-  Input,
-  Button
-} from "reactstrap";
+import { Container, Row, Col, Input, Button } from "reactstrap";
 import LayoutOne from "../../layouts/LayoutOne";
 import axiosConfig from "../../axiosConfig";
 import swal from "sweetalert";
-import astrologinbg from "../../assets/img/astrologin-bg.jpg"
+import astrologinbg from "../../assets/img/astrologin-bg.jpg";
 
 class HoroscopeDetail extends React.Component {
   constructor(props) {
@@ -26,9 +20,9 @@ class HoroscopeDetail extends React.Component {
   };
   componentDidMount() {
     let { id } = this.props.match.params;
-    this.setState({ zodiacName: id })
+    this.setState({ zodiacName: id });
     let payload = {
-      zodiacName: id
+      zodiacName: id,
     };
     axiosConfig
       .post(`/user/dailyhoroscope`, payload)
@@ -52,7 +46,7 @@ class HoroscopeDetail extends React.Component {
         console.log("dailyHoroscope", response.data.data.prediction);
         this.setState({ dailyHoroscope: response.data.data });
         console.log("dailyHoroscope1", response.data);
-        swal("Success!", "Submitted SuccessFull!", "success");
+        // swal("Success!", "Submitted SuccessFull!", "success");
       })
 
       .catch((error) => {
@@ -106,12 +100,14 @@ class HoroscopeDetail extends React.Component {
                 <Col lg="4">
                   <div className="scope-st">
                     <h3>SELECT OTHER SIGN</h3>
-                    <Input className="form-control"
+                    <Input
+                      className="form-control"
                       type="select"
                       name="zodiacName"
                       placeholder="Enter rashi"
                       value={this.state.zodiacName}
-                      onChange={this.changeHandler}>
+                      onChange={this.changeHandler}
+                    >
                       <option value="select">---Select---</option>
                       <option value="aries">Aries</option>
                       <option value="taurus">Taurus</option>
