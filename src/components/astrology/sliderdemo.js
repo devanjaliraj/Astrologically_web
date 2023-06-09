@@ -47,19 +47,15 @@ const SliderDemo = ({ data, sliderClass, sliderdemoClass }) => {
                       </span>
                     </li>
                   </ul>
-                  <Link className="btn btn-primary btn-sm st-d">
+                  {/* <Link className="btn btn-primary btn-sm st-d">
                     {data?.status}
-                  </Link>
-                  <Link className="btn btn-primary btn-sm">
+                  </Link> */}
+                  {/* <Link className="btn btn-primary btn-sm">
                     <i class="fa fa-phone"></i> Call Now
                     <small>
-                      {/* / 20{" "}
-                                      <i class="fa fa-inr" aria-hidden="true">
-                                        {data.conrubute_hrs}
-                                      </i>{" "}
-                                      per Hour */}
+                      
                     </small>
-                  </Link>
+                  </Link> */}
                 </div>
               </div>
             </Link>
